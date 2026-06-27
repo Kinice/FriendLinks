@@ -198,6 +198,9 @@ export function init3d(graphData: GraphData) {
       isDarkRef.value ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.12)",
     )
     .linkWidth(0.2)
+    .linkDirectionalParticles(1)
+    .linkDirectionalParticleWidth(0.5)
+    .linkDirectionalParticleSpeed(0.005)
     .backgroundColor(isDarkRef.value ? "#0f1115" : "#ffffff")
     .enableNodeDrag(true)
     .enableNavigationControls(true)
@@ -237,8 +240,11 @@ export function init3d(graphData: GraphData) {
   });
 
   Graph.onNodeHover((n: any) => {
+    const newHoveredId = n ? n.id : null;
+    if (lastHoveredId === newHoveredId) return; // 同一个节点，不重复处理
+    
     lastHoveredId = hoveredId;
-    hoveredId = n ? n.id : null;
+    hoveredId = newHoveredId;
 
     if (n) {
       // 显示 tooltip
