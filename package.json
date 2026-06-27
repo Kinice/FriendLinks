@@ -1,7 +1,7 @@
 {
   "name": "friendlinks",
   "type": "module",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "scripts": {
     "remove-favicons": "node ./scripts/remove-favicons.mjs",
     "check-access": "bun ./scripts/check-access.ts",
