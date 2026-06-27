@@ -1,4 +1,4 @@
-// Utility helpers for graph rendering (palette, sizing, color helpers)
+// 调色板与颜色工具（从 graph/utils.ts 移植）
 
 export const PALETTE = [
   "#E69F00",
@@ -16,7 +16,7 @@ export const PALETTE = [
 ];
 
 /**
- * Convert a string into an index within PALETTE using a stable hash.
+ * 将字符串哈希为 PALETTE 索引
  */
 export function hashToIndex(s: string) {
   let h = 2166136261 >>> 0;
@@ -28,40 +28,29 @@ export function hashToIndex(s: string) {
 }
 
 /**
- * Map node degree to a visual node size.
- * d: node degree
- * maxDegree: maximum degree in the graph (used to normalize)
+ * 节点度数 → 3D 节点尺寸
  */
 export function degreeToSize(d: number, maxDegree: number) {
-  const MIN = 6;
-  const MAX = 22;
+  const MIN = 1;
+  const MAX = 6;
   if (!d || d <= 1) return MIN;
   const norm = Math.sqrt(d) / Math.sqrt(Math.max(1, maxDegree));
-  return Math.round(MIN + Math.min(1, norm) * (MAX - MIN));
+  return MIN + Math.min(1, norm) * (MAX - MIN);
 }
 
-/**
- * Convert hex color string to RGB tuple.
- * Accepts formats like '#rrggbb' (no alpha support needed here).
- */
 export function hexToRgb(hex: string): [number, number, number] {
   const h = hex.replace("#", "");
   const bigint = parseInt(h, 16);
   return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
 }
 
-/**
- * Convert RGB components to hex string '#rrggbb'
- */
 export function rgbToHex(r: number, g: number, b: number) {
   const hr = (1 << 24) + (r << 16) + (g << 8) + b;
   return "#" + hr.toString(16).slice(1);
 }
 
 /**
- * Adjust a hex color by adding a percentage of white.
- * percent: positive to make lighter, negative to make darker (range roughly -100..100)
- * Implementation uses additive approach capped to [0,255].
+ * 按百分比调亮/调暗 hex 颜色
  */
 export function adjustHex(hex: string, percent: number) {
   const [r, g, b] = hexToRgb(hex);
@@ -70,12 +59,4 @@ export function adjustHex(hex: string, percent: number) {
   const ng = Math.max(0, Math.min(255, g + amt));
   const nb = Math.max(0, Math.min(255, b + amt));
   return rgbToHex(nr, ng, nb);
-}
-
-/**
- * Convert a hex color string '#rrggbb' to an rgba() string with provided alpha (0..1).
- */
-export function hexToRgba(hex: string, alpha: number) {
-  const [r, g, b] = hexToRgb(hex);
-  return `rgba(${r},${g},${b},${alpha})`;
 }

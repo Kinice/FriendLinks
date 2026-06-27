@@ -221,8 +221,10 @@ export async function mainCLI(): Promise<void> {
       `Starting BFS with ${discovered.size} seeds, depth=${depth}, dryRun=${dryRun}`
     );
 
+  // ponytail: deque via index pointer, O(1) pop vs O(n) shift. Upgrade to actual Deque if 10k+ items.
   const queue: Array<{ url: string; depth: number }> = [];
   for (const seed of seeds) queue.push({ url: seed, depth: 0 });
+  let qHead = 0;
 
   const browser = await chromium.launch();
 
@@ -273,13 +275,12 @@ export async function mainCLI(): Promise<void> {
   }
 
   try {
-    while (queue.length > 0) {
-      const { url, depth: curDepth } = queue.shift()!;
+    while (qHead < queue.length) {
+      const { url, depth: curDepth } = queue[qHead++];
       if (global)
         console.log(
-          `Queue pop: ${url} (depth=${curDepth}, remaining=${queue.length})`
+          `Queue pop: ${url} (depth=${curDepth}, remaining=${queue.length - qHead})`
         );
-      if (curDepth > depth) continue;
       const baseHostFull = hostnameFromUrl(url);
       const baseHost = baseHostFull;
       if (!baseHost) continue;
@@ -410,7 +411,7 @@ export async function mainCLI(): Promise<void> {
           continue;
         }
 
-        if (!discovered.has(anchorHost) && !visited.has(anchorHost)) {
+        if (!discovered.has(anchorHost) && !visited.has(anchorHost) && curDepth < depth) {
           discovered.set(anchorHost, anchor.href);
           queue.push({ url: anchor.href, depth: curDepth + 1 });
           if (global)

@@ -1,4 +1,4 @@
-import { initFromUrl } from "./graph/index";
+import { init3dFromUrl } from "./graph3d/index";
 
 type SearchResult = { id: string; name: string; url?: string };
 
@@ -20,7 +20,7 @@ declare global {
 }
 
 (async () => {
-  const controller = await initFromUrl("/graph.json");
+  const controller = await init3dFromUrl("/graph.json");
 
   const input = document.getElementById(
     "graph-search"

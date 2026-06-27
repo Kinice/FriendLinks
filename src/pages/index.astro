@@ -3,10 +3,8 @@ import "../css/base.css";
 import "../css/topbar.css";
 import "../css/buttons.css";
 import "../css/modal.css";
-export const prerender = true;
-const clientScript = import.meta.env.DEV
-  ? "/src/scripts/index-client.ts"
-  : "/scripts/index-client.js";
+	export const prerender = true;
+	const clientScript = "/scripts/index-client.js";
 ---
 
 <html lang="zh-CN">
