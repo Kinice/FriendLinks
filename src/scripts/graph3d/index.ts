@@ -69,24 +69,21 @@ function getNodeMaterial(
   baseColor: string,
   state: NodeVisualState,
   isDark: boolean
-): THREE.MeshStandardMaterial {
+): THREE.MeshBasicMaterial {
   const cacheKey = `${baseColor}-${state.scale}-${state.emissiveIntensity}-${state.opacity}-${isDark}`;
   if (materialCache.has(cacheKey)) {
     return materialCache.get(cacheKey)!;
   }
 
-  const emissiveColor = state.emissiveIntensity > 0
+  // 发光效果：直接调亮颜色（MeshBasicMaterial 不支持 emissive）
+  const displayColor = state.emissiveIntensity > 0
     ? getEmissiveColor(baseColor, state.emissiveIntensity)
-    : "#000000";
+    : baseColor;
 
-  const material = new THREE.MeshStandardMaterial({
-    color: baseColor,
-    emissive: emissiveColor,
-    emissiveIntensity: state.emissiveIntensity,
+  const material = new THREE.MeshBasicMaterial({
+    color: displayColor,
     transparent: state.opacity < 1,
     opacity: state.opacity,
-    roughness: 0.4,
-    metalness: 0.1,
   });
 
   materialCache.set(cacheKey, material);
