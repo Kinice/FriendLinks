@@ -183,8 +183,8 @@ export function init3d(graphData: GraphData) {
       const baseSize = baseSizeMap.get(id) || 1;
       const size = baseSize * state.scale;
 
-      const geometry = new THREE.IcosahedronGeometry(size, 1);
-      const material = new THREE.MeshBasicMaterial({
+      const geometry = new THREE.SphereGeometry(size, 16, 16);
+      const material = new THREE.MeshLambertMaterial({
         color: state.emissiveIntensity > 0
           ? getEmissiveColor(baseColor, state.emissiveIntensity)
           : baseColor,
