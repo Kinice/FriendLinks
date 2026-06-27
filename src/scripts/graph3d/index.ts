@@ -175,11 +175,18 @@ export function init3d(graphData: GraphData) {
     .backgroundColor(isDarkRef.value ? "#0f1115" : "#ffffff")
     .enableNodeDrag(true)
     .enableNavigationControls(true)
-    .warmupTicks(200)
-    .cooldownTicks(0)
-    .cooldownTime(10000)
-    .d3AlphaDecay(0.03)
+    .warmupTicks(600)        // 预热 ticks，让布局充分展开
+    .cooldownTicks(200)
+    .cooldownTime(30000)
+    .d3AlphaDecay(0.015)     // 更慢的衰减，节点有更多时间展开
     .d3VelocityDecay(0.3);
+
+  // 等渲染开始后自动适配视角
+  setTimeout(() => {
+    try {
+      Graph.zoomToFit(600, 80);
+    } catch {}
+  }, 2000);
 
   // 自适应容器尺寸变化
   const ro = new ResizeObserver((entries) => {
