@@ -31,8 +31,8 @@ export function hashToIndex(s: string) {
  * 节点度数 → 3D 节点尺寸
  */
 export function degreeToSize(d: number, maxDegree: number) {
-  const MIN = 1;
-  const MAX = 6;
+  const MIN = 2;
+  const MAX = 10;
   if (!d || d <= 1) return MIN;
   const norm = Math.sqrt(d) / Math.sqrt(Math.max(1, maxDegree));
   return MIN + Math.min(1, norm) * (MAX - MIN);
