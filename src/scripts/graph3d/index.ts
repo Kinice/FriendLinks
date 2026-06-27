@@ -126,6 +126,17 @@ export function init3d(graphData: GraphData) {
   // ── 6. Tooltip ──────────────────────────────────────────────────
   const tooltip = createTooltip();
 
+  // 构建邻居映射（用于连线高亮）
+  const neighborMap = new Map<string, Set<string>>();
+  for (const l of links) {
+    const src = typeof l.source === 'object' ? l.source.id : l.source;
+    const tgt = typeof l.target === 'object' ? l.target.id : l.target;
+    if (!neighborMap.has(src)) neighborMap.set(src, new Set());
+    if (!neighborMap.has(tgt)) neighborMap.set(tgt, new Set());
+    neighborMap.get(src)!.add(tgt);
+    neighborMap.get(tgt)!.add(src);
+  }
+
   // ── 7. 创建 3D 图 ────────────────────────────────────────────────
   const Graph = ForceGraph3D()(container, {
     controlType: "orbit",
@@ -150,10 +161,30 @@ export function init3d(graphData: GraphData) {
       const deg = degreeMap[n.id] || 0;
       return degreeToSize(deg, maxDegree);
     })
-    .linkColor(() =>
-      isDarkRef.value ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.12)",
-    )
-    .linkWidth(0.2)
+    .linkColor((l: any) => {
+      const src = typeof l.source === 'object' ? l.source.id : l.source;
+      const tgt = typeof l.target === 'object' ? l.target.id : l.target;
+      const isConnectedToFocus = focusedId && (src === focusedId || tgt === focusedId);
+      const isConnectedToHover = hoveredId && (src === hoveredId || tgt === hoveredId);
+      const isConnectedToHighlight = highlightedSet.size > 0 && (highlightedSet.has(src) || highlightedSet.has(tgt));
+      
+      if (isConnectedToFocus) {
+        return isDarkRef.value ? "rgba(255,200,100,0.8)" : "rgba(255,150,50,0.8)";
+      }
+      if (isConnectedToHover) {
+        return isDarkRef.value ? "rgba(255,255,255,0.5)" : "rgba(100,100,100,0.5)";
+      }
+      if (isConnectedToHighlight) {
+        return isDarkRef.value ? "rgba(255,255,255,0.3)" : "rgba(150,150,150,0.3)";
+      }
+      return isDarkRef.value ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)";
+    })
+    .linkWidth((l: any) => {
+      const src = typeof l.source === 'object' ? l.source.id : l.source;
+      const tgt = typeof l.target === 'object' ? l.target.id : l.target;
+      const isConnectedToFocus = focusedId && (src === focusedId || tgt === focusedId);
+      return isConnectedToFocus ? 0.8 : 0.2;
+    })
     .linkDirectionalParticles(1)
     .linkDirectionalParticleWidth(0.5)
     .linkDirectionalParticleSpeed(0.005)
