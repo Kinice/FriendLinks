@@ -159,7 +159,10 @@ export function init3d(graphData: GraphData) {
     })
     .nodeVal((n: any) => {
       const deg = degreeMap[n.id] || 0;
-      return degreeToSize(deg, maxDegree);
+      const baseSize = degreeToSize(deg, maxDegree);
+      // 聚焦节点：放大 1.5 倍
+      if (focusedId === n.id) return baseSize * 1.5;
+      return baseSize;
     })
     .linkColor((l: any) => {
       const src = typeof l.source === 'object' ? l.source.id : l.source;
@@ -169,7 +172,7 @@ export function init3d(graphData: GraphData) {
       const isConnectedToHighlight = highlightedSet.size > 0 && (highlightedSet.has(src) || highlightedSet.has(tgt));
       
       if (isConnectedToFocus) {
-        return isDarkRef.value ? "rgba(255,200,100,0.8)" : "rgba(255,150,50,0.8)";
+        return isDarkRef.value ? "rgba(255,220,80,0.95)" : "rgba(255,180,30,0.95)";
       }
       if (isConnectedToHover) {
         return isDarkRef.value ? "rgba(255,255,255,0.5)" : "rgba(100,100,100,0.5)";
@@ -183,7 +186,7 @@ export function init3d(graphData: GraphData) {
       const src = typeof l.source === 'object' ? l.source.id : l.source;
       const tgt = typeof l.target === 'object' ? l.target.id : l.target;
       const isConnectedToFocus = focusedId && (src === focusedId || tgt === focusedId);
-      return isConnectedToFocus ? 1.2 : 0.4;
+      return isConnectedToFocus ? 2.5 : 0.4;
     })
     .linkDirectionalParticles(1)
     .linkDirectionalParticleWidth(0.5)
