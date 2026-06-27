@@ -5,7 +5,6 @@
 
 import ForceGraph3D from "3d-force-graph";
 import Fuse from "fuse.js";
-import * as THREE from "three";
 import { PALETTE, hashToIndex, degreeToSize, adjustHex } from "./utils";
 import type { GraphData } from "../../../types/graph";
 
@@ -61,21 +60,6 @@ function getBaseColor(node: any): string {
 
 function themedColor(base: string, isDark: boolean): string {
   return isDark ? adjustHex(base, 20) : base;
-}
-
-// 创建发光圈纹理
-function createGlowTexture(color: string): THREE.CanvasTexture {
-  const canvas = document.createElement("canvas");
-  canvas.width = 64;
-  canvas.height = 64;
-  const ctx = canvas.getContext("2d")!;
-  const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-  gradient.addColorStop(0, color + "00"); // 中心透明
-  gradient.addColorStop(0.4, color + "40"); // 中间半透明
-  gradient.addColorStop(1, color + "00"); // 边缘透明
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, 64, 64);
-  return new THREE.CanvasTexture(canvas);
 }
 
 // ─── 3D 初始化 ──────────────────────────────────────────────────────────
@@ -150,67 +134,21 @@ export function init3d(graphData: GraphData) {
     .width(container.clientWidth)
     .height(container.clientHeight)
     .nodeLabel(null) // 关闭内置标签，使用自定义 tooltip
-    .nodeThreeObject((n: any) => {
+    .nodeColor((n: any) => {
       const id = n.id;
-      const baseColor = themedColor(getBaseColor(n), isDarkRef.value);
-      const isHighlighted = focusedId === id || hoveredId === id || (highlightedSet.size > 0 && highlightedSet.has(id));
-      const highlightLevel = focusedId === id ? 3 : hoveredId === id ? 2 : highlightedSet.has(id) ? 1 : 0;
-      
-      const group = new THREE.Group();
-      
-      // 主体球体
-      const size = degreeToSize(degreeMap[id] || 0, maxDegree);
-      const geometry = new THREE.SphereGeometry(size, 8, 8);
-      const material = new THREE.MeshLambertMaterial({
-        color: isHighlighted ? adjustHex(baseColor, highlightLevel * 20) : baseColor,
-        transparent: true,
-        opacity: 1.0,
-      });
-      const mesh = new THREE.Mesh(geometry, material);
-      group.add(mesh);
-      
-      // 发光圈（仅高亮节点显示）- 多层涟漪效果
-      if (isHighlighted) {
-        const baseOpacity = 0.4 + highlightLevel * 0.15;
-        
-        // 内层光圈（3倍）
-        const glowTexture1 = createGlowTexture(baseColor);
-        const glowMaterial1 = new THREE.SpriteMaterial({
-          map: glowTexture1,
-          transparent: true,
-          opacity: baseOpacity,
-          blending: THREE.AdditiveBlending,
-        });
-        const glowSprite1 = new THREE.Sprite(glowMaterial1);
-        glowSprite1.scale.set(size * 6, size * 6, 1);
-        group.add(glowSprite1);
-        
-        // 中层光圈（6倍）
-        const glowTexture2 = createGlowTexture(baseColor);
-        const glowMaterial2 = new THREE.SpriteMaterial({
-          map: glowTexture2,
-          transparent: true,
-          opacity: baseOpacity * 0.6,
-          blending: THREE.AdditiveBlending,
-        });
-        const glowSprite2 = new THREE.Sprite(glowMaterial2);
-        glowSprite2.scale.set(size * 12, size * 12, 1);
-        group.add(glowSprite2);
-        
-        // 外层光圈（10倍）- 宇宙级涟漪
-        const glowTexture3 = createGlowTexture(baseColor);
-        const glowMaterial3 = new THREE.SpriteMaterial({
-          map: glowTexture3,
-          transparent: true,
-          opacity: baseOpacity * 0.3,
-          blending: THREE.AdditiveBlending,
-        });
-        const glowSprite3 = new THREE.Sprite(glowMaterial3);
-        glowSprite3.scale.set(size * 20, size * 20, 1);
-        group.add(glowSprite3);
-      }
-      
-      return group;
+      const base = getBaseColor(n);
+      // 聚焦节点：最强高亮
+      if (focusedId === id) return adjustHex(base, 60);
+      // 悬停节点：中等高亮
+      if (hoveredId === id) return adjustHex(base, 40);
+      // 高亮组内节点：轻微高亮
+      if (highlightedSet.size > 0 && highlightedSet.has(id)) return adjustHex(base, 20);
+      // 高亮组外节点：保持原色（不变灰）
+      return themedColor(base, isDarkRef.value);
+    })
+    .nodeVal((n: any) => {
+      const deg = degreeMap[n.id] || 0;
+      return degreeToSize(deg, maxDegree);
     })
     .linkColor(() =>
       isDarkRef.value ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.12)",
