@@ -54,8 +54,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 #main {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   touch-action: none; /* 让画布接管触摸拖拽，避免浏览器滚动 */
   -webkit-user-select: none;
   -ms-user-select: none;

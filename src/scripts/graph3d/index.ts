@@ -157,6 +157,8 @@ export function init3d(graphData: GraphData) {
     controlType: "orbit",
   })
     .graphData({ nodes, links })
+    .width(container.clientWidth)
+    .height(container.clientHeight)
     .nodeLabel(null) // 关闭内置标签，使用自定义 tooltip
     .nodeColor(currentColorAccessor)
     .nodeVal((n: any) => {
@@ -178,6 +180,15 @@ export function init3d(graphData: GraphData) {
     .cooldownTime(10000)
     .d3AlphaDecay(0.03)
     .d3VelocityDecay(0.3);
+
+  // 自适应容器尺寸变化
+  const ro = new ResizeObserver((entries) => {
+    for (const entry of entries) {
+      const { width, height } = entry.contentRect;
+      Graph.width(width).height(height);
+    }
+  });
+  ro.observe(container);
 
   // ── 8. 鼠标位置追踪（用于 tooltip） ─────────────────────────────
   let mouseX = 0;

@@ -215,8 +215,5 @@ html[data-theme="light"] {
     border-radius: 6px;
   }
 
-  /* Ensure main canvas starts below the topbar area on small screens */
-  #main {
-    margin-top: 56px;
-  }
+	  /* #main is fixed full-screen; topbar floats above it */
 }
