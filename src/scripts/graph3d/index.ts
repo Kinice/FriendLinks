@@ -248,7 +248,10 @@ export function init3d(graphData: GraphData) {
   }
   animateRipples();
 
-  // ── 8. 鼠标位置追踪（用于 tooltip） ─────────────────────────────
+  // 阻止右键默认菜单，用于右键聚焦节点
+  container.addEventListener("contextmenu", (e: MouseEvent) => {
+    e.preventDefault();
+  });
   let mouseX = 0;
   let mouseY = 0;
   container.addEventListener("mousemove", (e: MouseEvent) => {
@@ -257,7 +260,14 @@ export function init3d(graphData: GraphData) {
   });
 
   // ── 9. 交互事件 ──────────────────────────────────────────────────
-  Graph.onNodeClick((n: any) => {
+  Graph.onNodeClick((n: any, e: MouseEvent) => {
+    // 右键点击：聚焦该节点
+    if (e.button === 2) {
+      e.preventDefault();
+      focusNodeById(n.id);
+      return;
+    }
+    // 左键点击：打开链接
     if (n.url) window.open(n.url, "_blank");
   });
 
