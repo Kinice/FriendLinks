@@ -5,8 +5,8 @@ site:
   friends:
     - name: 花火学园
       url: https://www.sayhanabi.net/
-    # - name: 资源统筹局
-    #   url: https://gkdworld.com/
+    - name: 资源统筹局
+      url: https://gkdworld.com/
     - name: 贫困的蚊子
       url: https://mozz.ie/
     - name: 极客兔兔
@@ -15,8 +15,6 @@ site:
       url: https://www.wikimoe.com/
     - name: 7gugu's blog
       url: https://www.7gugu.com/
-    - name: 云游君
-      url: https://www.yunyoujun.cn/
     - name: Kingfish404
       url: https://blog.kingfish404.cn/
     - name: FKUN
@@ -37,13 +35,21 @@ site:
       url: https://note.redcha.cn/
     - name: Lanke's blog
       url: https://blog.blueke.top/
-    - name: 时光流·言
+    - name: 寒士杰克
       url: https://www.hansjack.com/
     - name: Pinpe 的云端
       url: https://pinpe.top/
     - name: Chise Hachiroku
-      url: https://chise.hachiroku.com/
+      url: https://chise.hachiroku.com/zh/
     - name: 映屿
-      url: https://www.glowisle.me/
-    # - name: 东东
-    #   url: https://nihaha.com/
+      url: https://blog.verdant.ee/
+    - name: Restent's Notebook
+      url: https://blog.gxres.net/
+    - name: RavelloH's Blog
+      url: https://ravelloh.com
+    - name: 初然忆
+      url: https://www.imcry.vip
+    - name: 姓王者
+      url: https://xingwangzhe.fun/
+    - name: EXYONE@BLOG:~$
+      url: https://exyon.ee
