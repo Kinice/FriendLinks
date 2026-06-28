@@ -155,44 +155,29 @@ export function init3d(graphData: GraphData) {
     }
   }
 
-  // 默认颜色（暗/亮模式下透明底色）
-  const defaultLinkColor = isDarkRef.value
-    ? [0.08, 0.08, 0.08]
-    : [0, 0, 0];
-  const defaultLinkAlpha = isDarkRef.value ? 0.12 : 0.08;
-
-  for (let i = 0; i < links.length; i++) {
-    const idx = i * 6;
-    for (let j = 0; j < 6; j++) {
-      linkColArr[idx + j] = defaultLinkColor[j % 3];
-    }
-  }
-
   const linkGeom = new THREE.BufferGeometry();
   linkGeom.setAttribute("position", new THREE.BufferAttribute(linkPosArr, 3));
   linkGeom.setAttribute("color", new THREE.BufferAttribute(linkColArr, 3));
 
   const linkMat = new THREE.LineBasicMaterial({
     vertexColors: true,
-    transparent: true,
-    opacity: defaultLinkAlpha,
-    linewidth: 1,
+    transparent: false,
   });
 
   const linkSegments = new THREE.LineSegments(linkGeom, linkMat);
   let linkObjCreated = false;
 
-  // 7b ─ 颜色刷新函数（替代 Graph.refresh / linkColor）
+  // 7b ─ 颜色刷新函数 ──────────────────────────────────────────
+  // 未激活线 = 背景色（融入背景不可见）
+  // 激活线   = 高亮色（明显可见）
   function refreshLinkColors() {
     const dark = isDarkRef.value;
-    const pos = linkGeom.attributes.position.array;
     const col = linkGeom.attributes.color.array;
+    const bg = dark ? [0.06, 0.07, 0.08] : [1.0, 1.0, 1.0];
 
     for (let i = 0; i < links.length; i++) {
-      const srcId = links[i].source;
-      const tgtId = links[i].target;
-      const srcStr = typeof srcId === "object" ? srcId.id : srcId;
-      const tgtStr = typeof tgtId === "object" ? tgtId.id : tgtId;
+      const srcStr = typeof links[i].source === "object" ? links[i].source.id : links[i].source;
+      const tgtStr = typeof links[i].target === "object" ? links[i].target.id : links[i].target;
 
       const isConnectedToFocus = focusedId && (srcStr === focusedId || tgtStr === focusedId);
       const isConnectedToHover = hoveredId && (srcStr === hoveredId || tgtStr === hoveredId);
@@ -200,20 +185,16 @@ export function init3d(graphData: GraphData) {
         highlightedSet.size > 0 &&
         (highlightedSet.has(srcStr) || highlightedSet.has(tgtStr));
 
-      let r: number, g: number, b: number, a: number;
+      let r: number, g: number, b: number;
       if (isConnectedToFocus) {
-        // 金色高亮
-        r = dark ? 1.0 : 1.0; g = dark ? 0.86 : 0.71; b = dark ? 0.31 : 0.12;
-        a = dark ? 0.95 : 0.95;
+        r = 1.0; g = dark ? 0.86 : 0.71; b = dark ? 0.31 : 0.12;
       } else if (isConnectedToHover) {
-        r = dark ? 1.0 : 0.39; g = dark ? 1.0 : 0.39; b = dark ? 1.0 : 0.39;
-        a = dark ? 0.5 : 0.5;
+        r = 0.8; g = 0.8; b = 0.8;
       } else if (isConnectedToHighlight) {
-        r = dark ? 1.0 : 0.59; g = dark ? 1.0 : 0.59; b = dark ? 1.0 : 0.59;
-        a = dark ? 0.3 : 0.3;
+        r = 0.7; g = 0.7; b = 0.7;
       } else {
-        if (dark) { r = 1.0; g = 1.0; b = 1.0; a = 0.08; }
-        else { r = 0; g = 0; b = 0; a = 0.08; }
+        // 融入背景 = 不可见
+        r = bg[0]; g = bg[1]; b = bg[2];
       }
 
       const idx = i * 6;
@@ -223,21 +204,6 @@ export function init3d(graphData: GraphData) {
     }
 
     linkGeom.attributes.color.needsUpdate = true;
-    // 透明度统一用 material.opacity，取所有连线的最大透明度
-    let maxAlpha = 0.08;
-    for (let i = 0; i < links.length; i++) {
-      const srcId = links[i].source;
-      const tgtId = links[i].target;
-      const srcStr = typeof srcId === "object" ? srcId.id : srcId;
-      const tgtStr = typeof tgtId === "object" ? tgtId.id : tgtId;
-      if ((focusedId && (srcStr === focusedId || tgtStr === focusedId)) ||
-          (hoveredId && (srcStr === hoveredId || tgtStr === hoveredId)) ||
-          (highlightedSet.size > 0 && (highlightedSet.has(srcStr) || highlightedSet.has(tgtStr)))) {
-        maxAlpha = 0.95;
-        break;
-      }
-    }
-    linkMat.opacity = maxAlpha;
   }
 
   // 初始颜色
@@ -466,36 +432,8 @@ export function init3d(graphData: GraphData) {
       if (highlightedSet.size > 0 && highlightedSet.has(id)) return n._cHighlight;
       return n._cDefault;
     });
-    // 刷新连线颜色（直接更新顶点颜色）
-    const isDark = isDarkRef.value;
-    const col = linkGeom.attributes.color.array;
-    for (let i = 0; i < links.length; i++) {
-      const srcStr = typeof links[i].source === "object" ? links[i].source.id : links[i].source;
-      const tgtStr = typeof links[i].target === "object" ? links[i].target.id : links[i].target;
-      const isConnectedToFocus = focusedId && (srcStr === focusedId || tgtStr === focusedId);
-      const isConnectedToHover = hoveredId && (srcStr === hoveredId || tgtStr === hoveredId);
-      const isConnectedToHighlight =
-        highlightedSet.size > 0 && (highlightedSet.has(srcStr) || highlightedSet.has(tgtStr));
-
-      let r: number, g: number, b: number, a: number;
-      if (isConnectedToFocus) {
-        r = dark ? 1.0 : 1.0; g = dark ? 0.86 : 0.71; b = dark ? 0.31 : 0.12;
-        a = 0.95;
-      } else if (isConnectedToHover) {
-        r = dark ? 1.0 : 0.39; g = dark ? 1.0 : 0.39; b = dark ? 1.0 : 0.39;
-        a = 0.5;
-      } else if (isConnectedToHighlight) {
-        r = dark ? 1.0 : 0.59; g = dark ? 1.0 : 0.59; b = dark ? 1.0 : 0.59;
-        a = 0.3;
-      } else {
-        if (dark) { r = 1.0; g = 1.0; b = 1.0; a = 0.08; }
-        else { r = 0; g = 0; b = 0; a = 0.08; }
-      }
-      const idx = i * 6;
-      for (let j = 0; j < 6; j++) col[idx + j] = [r, g, b][j % 3];
-    }
-    linkGeom.attributes.color.needsUpdate = true;
-
+    // 刷新连线颜色
+    refreshLinkColors();
     // 更新 tooltip 样式
     tooltip.el.style.background = dark ? "rgba(0,0,0,0.75)" : "rgba(255,255,255,0.95)";
     tooltip.el.style.color = dark ? "#fff" : "#111";
