@@ -2,6 +2,7 @@ site:
   name: VnYzm的博客
   description: 分享技术心得和摸鱼感想
   url: https://vnyzm.top/
+  links: /friends
   friends:
     - name: PYQ Blog
       url: https://peng-yq.github.io/

@@ -2,6 +2,7 @@ site:
   name: 纸鹿本鹿（纸鹿摸鱼处）
   description: 纸鹿本鹿的个人博客，记录随笔与技术内容，使用 Clarity 主题构建。
   url: https://blog.zhilu.site/
+  links: /link
   friends:
     - name: 墨韵云阁
       url: https://luoyuanxiang.top/

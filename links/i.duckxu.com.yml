@@ -1,6 +1,7 @@
 site:
   name: DuckXu's Notebook
   url: https://i.duckxu.com
+  links: /links.html
   description: 学生，记录生活思考。
   friends:
     - name: 极客死亡计划

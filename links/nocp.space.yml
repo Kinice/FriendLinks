@@ -2,6 +2,7 @@ site:
   name: "Norcleeh's Site"
   description: 由一条咸鱼搭建的网站
   url: https://nocp.space
+  links: /links
   friends:
     - name: SerinaNya
       url: https://serinanya.cn

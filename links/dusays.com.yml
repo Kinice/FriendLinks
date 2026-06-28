@@ -2,6 +2,7 @@ site:
   name: 杜老师说
   description: 高级网络工程师，网站技术运营总监，系统运维、架构设计以及优化专家
   url: https://dusays.com/
+  links: /friends
   friends:
     - name: 辛未羊的网络日志
       url: https://panqiincs.me

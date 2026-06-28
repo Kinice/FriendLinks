@@ -2,6 +2,7 @@ site:
   name: 语景小站
   description: 没有比脚更长的路，没有比人更高的山。
   url: https://rainview.net
+  links: /links
   friends:
     - name: LeonXieの小窝
       url: https://www.leonxie.cn

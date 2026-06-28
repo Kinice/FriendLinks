@@ -2,6 +2,7 @@ site:
   name: W-Can1425 Trample
   description: Twinkle 微光涌动
   url: https://can1425.flowecho.org/
+  links: /links
   friends:
     - name: FlowEcho Develop Team
       url: https://flowecho.org/wave/

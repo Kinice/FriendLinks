@@ -2,6 +2,7 @@ site:
   name: Cirry's Blog
   description: Cirry的博客
   url: https://cirry.cn/
+  links: /friends
   friends:
     - name: 技术胖
       url: https://jspang.com/

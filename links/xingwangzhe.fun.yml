@@ -2,6 +2,7 @@ site:
   name: 姓王者的博客
   description: 探索、学习、进步、创造无限可能！
   url: https://xingwangzhe.fun
+  links: /links
   friends:
     - name: Lily Ellenvia
       url: https://blog.lilynet.work

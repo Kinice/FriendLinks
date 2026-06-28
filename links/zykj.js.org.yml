@@ -2,6 +2,7 @@ site:
   name: ZYKJ's Blog
   description: 做一个普普通通的人.
   url: https://zykj.js.org/
+  links: /link
   friends:
     - name: 王稻草's Blog
       url: https://daixiahu.top

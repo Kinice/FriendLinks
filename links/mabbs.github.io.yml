@@ -2,6 +2,7 @@ site:
   name: Mayx的博客
   description: Mayx's Home Page
   url: https://mabbs.github.io/
+  links: /links
   friends:
     - name: 花火学园
       url: https://www.sayhanabi.net/

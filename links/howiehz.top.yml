@@ -2,6 +2,7 @@ site:
   name: 皓子的小站
   description: 互联网是一片海洋，网站犹如一座座孤岛漂浮在其上，唯有超链接将它们联系起来。 而此处恰好就是一座小岛，欢迎访问皓子的小站。
   url: https://howiehz.top
+  links: /links
   friends:
     - name: xingwangzhe
       url: https://xingwangzhe.fun

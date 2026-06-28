@@ -2,6 +2,7 @@ site:
   name: 韩情脉脉
   description: 任何记录都是为了让以后有迹可循
   url: https://hxy.cc
+  links: /links.html
   friends:
     - name: 时光绘梦集
       url: http://www.tosry.cn/

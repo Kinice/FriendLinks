@@ -2,6 +2,7 @@ site:
   name: 寒士杰克
   description: 喜欢捣鼓，不断进步！
   url: https://www.hansjack.com/
+  links: /links
   friends:
     - name: Norcleeh's Site
       url: https://nocp.space/

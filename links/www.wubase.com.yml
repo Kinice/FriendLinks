@@ -2,6 +2,7 @@ site:
   name: 网联基地
   description: 云服务器评测，分享国内外VPS、网站服务器等资讯
   url: https://www.wubase.com
+  links: /links
   friends:
     - name: 易网盟
       url: https://yiwangmeng.cn/action-hexo/

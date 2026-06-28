@@ -2,6 +2,7 @@ site:
   name: 云端的解构者
   description: 云端的解构者
   url: https://www.zheep.top
+  links: /links
   friends:
     - name: 张洪Heo
       url: https://blog.zhheo.com/

@@ -2,6 +2,7 @@ site:
   name: 时歌的博客
   description: 理解以真实为本，但真实本身并不会自动呈现
   url: https://www.lapis.cafe
+  links: /friends
   friends:
     - name: 朽丘秋雨
       url: https://koxiuqiu.cn/

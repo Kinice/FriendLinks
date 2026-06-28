@@ -2,6 +2,7 @@ site:
   name: 小TiD笔记
   description: 技术无止境，随心随所记
   url: https://www.tidnotes.top
+  links: /link
   friends:
     - name: 杜老师说
       url: https://dusays.com

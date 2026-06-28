@@ -2,6 +2,7 @@ site:
   name: Pinpe 的云端
   description: 一个属于自己的云朵
   url: https://pinpe.top
+  links: /links
   friends:
     - name: 幽默的小刘吖
       url: https://blog.lzch.top

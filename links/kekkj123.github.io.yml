@@ -1,6 +1,7 @@
 site:
   name: kekkj123.github.io
   url: https://kekkj123.github.io/
+  links: /links
   description: KEKKJ 的个人博客，分享各种技术教程和生活碎碎念。
   friends:
     - name: 泠泫凝的异次元空间 先空着2333

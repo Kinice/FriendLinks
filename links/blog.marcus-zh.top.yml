@@ -2,6 +2,7 @@ site:
   name: Marcus的小站
   description: 人间值得，未来可期
   url: https://blog.marcus-zh.top/
+  links: /friends
   friends:
     - name: 安知鱼
       url: https://blog.anheyu.com/
