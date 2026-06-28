@@ -50,6 +50,18 @@ function createTooltip(): TooltipApi {
   };
 }
 
+// ─── Color state ─────────────────────────────────────────────────────────
+
+type ThemeRef = { value: boolean }; // true = dark
+
+function getBaseColor(node: any): string {
+  return (node as any).palColor || PALETTE[hashToIndex(node.id)] || "#888";
+}
+
+function themedColor(base: string, isDark: boolean): string {
+  return isDark ? adjustHex(base, 20) : base;
+}
+
 // ─── 3D 初始化 ──────────────────────────────────────────────────────────
 
 export function init3d(graphData: GraphData) {
@@ -71,33 +83,25 @@ export function init3d(graphData: GraphData) {
   const degValues = Object.values(degreeMap);
   const maxDegree = degValues.length ? Math.max(...degValues) : 1;
 
-  // ── 2. 主题检测（提前定义，供预计算颜色使用）────────────────────
+  // ── 2. 预处理节点 ────────────────────────────────────────────────
+  const rawNodes = graphData.nodes || [];
+  const nodes = rawNodes.map((n: any) => ({
+    ...n,
+    palColor: PALETTE[hashToIndex(n.id)],
+  }));
+
+  const links = rawLinks.map((l: any) => ({
+    source: l.source ?? l[0],
+    target: l.target ?? l[1],
+  }));
+
+  // ── 3. 主题检测 ──────────────────────────────────────────────────
   const prefersDark = (): boolean => {
     if (document.documentElement.dataset.theme === "dark") return true;
     if (document.documentElement.dataset.theme === "light") return false;
     return window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
   };
   const isDarkRef: ThemeRef = { value: prefersDark() };
-
-  // ── 3. 预处理节点 & 预计算颜色 ─────────────────────────────────
-  const rawNodes = graphData.nodes || [];
-  const isDark = isDarkRef.value;
-  const nodes = rawNodes.map((n: any) => {
-    const base = PALETTE[hashToIndex(n.id)];
-    return Object.assign({}, n, {
-      palColor: base,
-      // 预计算所有颜色变体，避免 hover/focus 时重复计算 adjustHex
-      _cDefault: isDark ? adjustHex(base, 20) : base,
-      _cHover: adjustHex(base, 40),
-      _cFocus: adjustHex(base, 60),
-      _cHighlight: adjustHex(base, 20),
-    });
-  });
-
-  const links = rawLinks.map((l: any) => ({
-    source: l.source ?? l[0],
-    target: l.target ?? l[1],
-  }));
 
   // ── 4. 搜索索引 ──────────────────────────────────────────────────
   const fuse = new Fuse(nodes, {
@@ -143,15 +147,15 @@ export function init3d(graphData: GraphData) {
     .nodeLabel(null) // 关闭内置标签，使用自定义 tooltip
     .nodeColor((n: any) => {
       const id = n.id;
+      const base = getBaseColor(n);
       // 聚焦节点：最强高亮
-      if (focusedId === id) return n._cFocus;
+      if (focusedId === id) return adjustHex(base, 60);
       // 悬停节点：中等高亮
-      if (hoveredId === id) return n._cHover;
+      if (hoveredId === id) return adjustHex(base, 40);
       // 高亮组内节点：轻微高亮
-      if (highlightedSet.size > 0) {
-        return highlightedSet.has(id) ? n._cHighlight : isDarkRef.value ? "#2a2a2a" : "#e0e0e0";
-      }
-      return n._cDefault;
+      if (highlightedSet.size > 0 && highlightedSet.has(id)) return adjustHex(base, 20);
+      // 高亮组外节点：保持原色（不变灰）
+      return themedColor(base, isDarkRef.value);
     })
     .nodeVal((n: any) => {
       const deg = degreeMap[n.id] || 0;
@@ -165,7 +169,8 @@ export function init3d(graphData: GraphData) {
       const tgt = typeof l.target === "object" ? l.target.id : l.target;
       const isConnectedToFocus = focusedId && (src === focusedId || tgt === focusedId);
       const isConnectedToHover = hoveredId && (src === hoveredId || tgt === hoveredId);
-      const isConnectedToHighlight = highlightedSet.size > 0 && (highlightedSet.has(src) || highlightedSet.has(tgt));
+      const isConnectedToHighlight =
+        highlightedSet.size > 0 && (highlightedSet.has(src) || highlightedSet.has(tgt));
 
       if (isConnectedToFocus) {
         return isDarkRef.value ? "rgba(255,220,80,0.95)" : "rgba(255,180,30,0.95)";
@@ -191,11 +196,11 @@ export function init3d(graphData: GraphData) {
     .enableNodeDrag(true)
     .enableNavigationControls(true)
     .nodeOpacity(1.0)
-    .warmupTicks(0) // 位置已在构建时精确算好，客户端不额外跑
-    .cooldownTicks(0)
-    .cooldownTime(0)
-    .d3AlphaDecay(0.99) // 仿真立即冻结
-    .d3VelocityDecay(0.99);
+    .warmupTicks(0) // 位置已在构建时算好，客户端直接从那儿开始
+    .cooldownTicks(200)
+    .cooldownTime(20000)
+    .d3AlphaDecay(0.02)
+    .d3VelocityDecay(0.3);
 
   // 渲染后自动适配视角
   requestAnimationFrame(() => {
@@ -213,46 +218,44 @@ export function init3d(graphData: GraphData) {
   });
   ro.observe(container);
 
-  // 涟漪波动动画（性能优化：缓存 sprite 引用，预计算 Math.sin）
+  // 涟漪波动动画
   let animationTime = 0;
-  let spriteCache: Array<{ baseOpacity: number; sprites: any[] }> = [];
-  let spritesBuilt = false;
-
-  function buildSpriteCache() {
-    spriteCache = [];
-    const currentData = Graph.graphData() as any;
-    if (!currentData.nodes) return;
-    for (const node of currentData.nodes) {
-      if (node.__threeObj && node.__threeObj.children.length > 1) {
-        spriteCache.push({
-          baseOpacity: 0.4 + 0.15,
-          sprites: node.__threeObj.children.slice(1),
-        });
-      }
-    }
-    spritesBuilt = true;
-  }
-
   function animateRipples() {
     animationTime += 0.02;
-
-    // 首次渲染后构建 sprite 缓存
-    if (!spritesBuilt) {
-      buildSpriteCache();
+    const currentData = Graph.graphData() as any;
+    if (currentData.nodes) {
+      for (const node of currentData.nodes) {
+        if (node.__threeObj && node.__threeObj.children.length > 1) {
+          const sprites = node.__threeObj.children.slice(1);
+          // 内层波动
+          if (sprites[0]) {
+            const scale1 = 6 + Math.sin(animationTime * 2) * 0.5;
+            sprites[0].scale.set(scale1, scale1, 1);
+            sprites[0].material.opacity =
+              (0.4 + (focusedId === node.id ? 0.45 : hoveredId === node.id ? 0.3 : 0.15)) *
+              (0.8 + Math.sin(animationTime * 3) * 0.2);
+          }
+          // 中层波动
+          if (sprites[1]) {
+            const scale2 = 12 + Math.sin(animationTime * 1.5 + 1) * 1;
+            sprites[1].scale.set(scale2, scale2, 1);
+            sprites[1].material.opacity =
+              (0.4 + (focusedId === node.id ? 0.45 : hoveredId === node.id ? 0.3 : 0.15)) *
+              0.6 *
+              (0.8 + Math.sin(animationTime * 2 + 1) * 0.2);
+          }
+          // 外层波动
+          if (sprites[2]) {
+            const scale3 = 20 + Math.sin(animationTime + 2) * 2;
+            sprites[2].scale.set(scale3, scale3, 1);
+            sprites[2].material.opacity =
+              (0.4 + (focusedId === node.id ? 0.45 : hoveredId === node.id ? 0.3 : 0.15)) *
+              0.3 *
+              (0.8 + Math.sin(animationTime * 1.5 + 2) * 0.2);
+          }
+        }
+      }
     }
-
-    // 预计算公共三角函数值（每个节点共享）
-    const sinA2 = Math.sin(animationTime * 2);
-    const sinA15p1 = Math.sin(animationTime * 1.5 + 1);
-    const sinAp2 = Math.sin(animationTime + 2);
-
-    for (let i = 0; i < spriteCache.length; i++) {
-      const { sprites } = spriteCache[i];
-      if (sprites[0]) sprites[0].scale.setScalar(6 + sinA2 * 0.5);
-      if (sprites[1]) sprites[1].scale.setScalar(12 + sinA15p1);
-      if (sprites[2]) sprites[2].scale.setScalar(20 + sinAp2 * 2);
-    }
-
     requestAnimationFrame(animateRipples);
   }
   animateRipples();
@@ -350,9 +353,6 @@ export function init3d(graphData: GraphData) {
     // 更新 tooltip 样式
     tooltip.el.style.background = dark ? "rgba(0,0,0,0.75)" : "rgba(255,255,255,0.95)";
     tooltip.el.style.color = dark ? "#fff" : "#111";
-    // 重新计算默认颜色（主题相关）
-    const gd = Graph.graphData() as any;
-    if (gd.nodes) for (const n of gd.nodes) n._cDefault = dark ? adjustHex(n.palColor, 20) : n.palColor;
     // 刷新节点颜色
     refreshColors();
   }
@@ -442,7 +442,9 @@ export function init3d(graphData: GraphData) {
         const nodeUrl = (n.url || "").toString().toLowerCase();
         let nodeHost = nodeUrl;
         try {
-          nodeHost = new URL(nodeUrl.startsWith("http") ? nodeUrl : `https://${nodeUrl}`).hostname.toLowerCase();
+          nodeHost = new URL(
+            nodeUrl.startsWith("http") ? nodeUrl : `https://${nodeUrl}`,
+          ).hostname.toLowerCase();
         } catch {}
         return nodeHost === targetHost || nodeUrl.includes(targetHost);
       }) ?? [];
@@ -480,34 +482,11 @@ export function init3d(graphData: GraphData) {
   return api;
 }
 
-// ─── 紧凑格式展开 ─────────────────────────────────────────────────────────
-
-function expandCompact(c: any): GraphData {
-  const { nid, nnm, nur, nfa, nde, nx, ny, nz, ls, lt } = c;
-  const nodes = nid.map((_id: string, i: number) => ({
-    id: nid[i],
-    name: nnm[i],
-    url: nur[i],
-    favicon: nfa[i],
-    desc: nde[i],
-    x: nx[i],
-    y: ny[i],
-    z: nz[i],
-  }));
-  const links = ls.map((s: number, i: number) => ({
-    source: nid[s],
-    target: nid[lt[i]],
-  }));
-  return { nodes, links, categories: c.c || [] };
-}
-
 // ─── 从 URL 加载 ─────────────────────────────────────────────────────────
 
 export async function init3dFromUrl(url: string) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`获取图数据失败: ${res.status}`);
-  const raw = await res.json();
-  // 自动检测：紧凑格式（有 nid 字段）vs 传统格式
-  const data = raw.nid ? expandCompact(raw) : (raw as GraphData);
+  const data = (await res.json()) as GraphData;
   return init3d(data);
 }
