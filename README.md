@@ -1,6 +1,6 @@
 # 博客友链网 — 3D 球状网络图
 
-[![Deploy with EdgeOne Pages](https://cdn.jsdelivr.net/npm/edgeone-pages-deploy-button@1.0.1/dist/edgeone.svg)](https://cloud.tencent.com/document/product/1552/127397)
+[![使用 EdgeOne Makers 部署](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://console.cloud.tencent.com/edgeone/makers/new?repository-url=https%3A%2F%2Fgithub.com%2Fxingwangzhe%2FFriendLinks)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/xingwangzhe/FriendLinks)
 
 **法律合规说明：** 网站所有者和投稿者必须确保其发布内容及网站运营遵守中华人民共和国以及适用情况下的美利坚合众国法律法规（包括但不限于版权、隐私、网络安全与信息内容方面的法律）。
