@@ -211,40 +211,35 @@ export function init3d(graphData: GraphData) {
   });
   ro.observe(container);
 
-  // 涟漪波动动画
+  // 涟漪波动动画（仅保留 1 层，多余 2 层首次运行时隐藏）
   let animationTime = 0;
+  let ripplesInited = false;
   function animateRipples() {
     animationTime += 0.02;
     const currentData = Graph.graphData() as any;
     if (currentData.nodes) {
+      // 首次运行：隐藏多余的涟漪层（children[2]、children[3]）
+      if (!ripplesInited) {
+        for (const node of currentData.nodes) {
+          if (node.__threeObj) {
+            for (let i = 2; i < node.__threeObj.children.length; i++) {
+              node.__threeObj.children[i].visible = false;
+            }
+          }
+        }
+        ripplesInited = true;
+      }
+      const sinA2 = Math.sin(animationTime * 2);
+      const sinA3 = Math.sin(animationTime * 3);
       for (const node of currentData.nodes) {
         if (node.__threeObj && node.__threeObj.children.length > 1) {
-          const sprites = node.__threeObj.children.slice(1);
-          // 内层波动
-          if (sprites[0]) {
-            const scale1 = 6 + Math.sin(animationTime * 2) * 0.5;
-            sprites[0].scale.set(scale1, scale1, 1);
-            sprites[0].material.opacity =
+          const sprite = node.__threeObj.children[1]; // 第一层涟漪
+          if (sprite) {
+            const s = 6 + sinA2 * 0.5;
+            sprite.scale.setScalar(s);
+            sprite.material.opacity =
               (0.4 + (focusedId === node.id ? 0.45 : hoveredId === node.id ? 0.3 : 0.15)) *
-              (0.8 + Math.sin(animationTime * 3) * 0.2);
-          }
-          // 中层波动
-          if (sprites[1]) {
-            const scale2 = 12 + Math.sin(animationTime * 1.5 + 1) * 1;
-            sprites[1].scale.set(scale2, scale2, 1);
-            sprites[1].material.opacity =
-              (0.4 + (focusedId === node.id ? 0.45 : hoveredId === node.id ? 0.3 : 0.15)) *
-              0.6 *
-              (0.8 + Math.sin(animationTime * 2 + 1) * 0.2);
-          }
-          // 外层波动
-          if (sprites[2]) {
-            const scale3 = 20 + Math.sin(animationTime + 2) * 2;
-            sprites[2].scale.set(scale3, scale3, 1);
-            sprites[2].material.opacity =
-              (0.4 + (focusedId === node.id ? 0.45 : hoveredId === node.id ? 0.3 : 0.15)) *
-              0.3 *
-              (0.8 + Math.sin(animationTime * 1.5 + 2) * 0.2);
+              (0.8 + sinA3 * 0.2);
           }
         }
       }
