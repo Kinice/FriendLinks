@@ -140,9 +140,9 @@ export async function GET() {
   const simNodes = nodes.map((n) => ({ ...n }));
 
   const simulation = forceSimulation(simNodes as any, 3)
-    .force("link", forceLink(simLinks as any).id((d: any) => d.id).distance(30))
-    .force("charge", forceManyBody().strength(-60))
-    .force("center", forceCenter(0, 0, 0))
+    .force("link", forceLink(simLinks as any).id((d: any) => d.id).distance(80))
+    .force("charge", forceManyBody().strength(-200))
+    .force("center", forceCenter(0, 0, 0).strength(0.3))
     .velocityDecay(0.3)
     .alphaDecay(0.02);
 
