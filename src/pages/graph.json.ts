@@ -145,7 +145,7 @@ export async function GET() {
     target: typeof l.target === "string" ? l.target : (l as any).target,
   }));
 
-  // 运行 3D 力导仿真
+  // 运行 3D 力导仿真（充分收敛，避免客户端再跑）
   const simulation = forceSimulation(simNodes as any)
     .force(
       "link",
@@ -155,29 +155,58 @@ export async function GET() {
     )
     .force("charge", forceManyBody().strength(-60))
     .force("center", forceCenter(0, 0, 0))
-    .alphaDecay(0.02)
-    .velocityDecay(0.3);
+    .alphaDecay(0.005)
+    .velocityDecay(0.4);
 
-  // 跑足够多的 ticks 让布局收敛
-  for (let i = 0; i < 300; i++) {
+  // 跑足够多的 ticks 让布局完全收敛
+  for (let i = 0; i < 2000; i++) {
     simulation.tick();
   }
   simulation.stop();
 
-  // 提取计算后的位置
-  const positionedNodes = simNodes.map((n: any) => ({
-    id: n.id,
-    name: n.name,
-    url: n.url,
-    favicon: n.favicon,
-    desc: n.desc,
-    x: n.x,
-    y: n.y,
-    z: n.z,
-  }));
+  // 提取计算后的位置 → 列式紧凑格式（减少 JSON 体积 ~50%）
+  const nid: string[] = [];
+  const nnm: string[] = [];
+  const nur: string[] = [];
+  const nfa: string[] = [];
+  const nde: string[] = [];
+  const nx: number[] = [];
+  const ny: number[] = [];
+  const nz: number[] = [];
 
-  const graph = { nodes: positionedNodes, links: linksArr, categories };
-  return new Response(JSON.stringify(graph, null, 2), {
+  for (const n of simNodes) {
+    nid.push(n.id);
+    nnm.push(n.name);
+    nur.push(n.url);
+    nfa.push(n.favicon);
+    nde.push(n.desc ?? "");
+    nx.push(n.x);
+    ny.push(n.y);
+    nz.push(n.z);
+  }
+
+  // 连接用索引而非字符串 ID
+  const idIndex = new Map<string, number>();
+  nid.forEach((id, i) => idIndex.set(id, i));
+
+  const ls: number[] = [];
+  const lt: number[] = [];
+  for (const l of linksArr) {
+    const si = idIndex.get(l.source);
+    const ti = idIndex.get(l.target);
+    if (si != null && ti != null) {
+      ls.push(si);
+      lt.push(ti);
+    }
+  }
+
+  const compact = {
+    nid, nnm, nur, nfa, nde, nx, ny, nz,
+    ls, lt,
+    c: categories,
+  };
+
+  return new Response(JSON.stringify(compact), {
     headers: { "Content-Type": "application/json" },
   });
 }
