@@ -1,6 +1,7 @@
 site:
   name: Hoshitori's Blog
   url: https://blog.ctree.site/
+  links: /friends
   description: 傷さえも光ってる
   friends:
     - name: howiehz.top

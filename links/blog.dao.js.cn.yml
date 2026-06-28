@@ -2,6 +2,7 @@ site:
   name: 懋和道人
   description: 李懋和，俗名李栋梁。书法、国画爱好者，互联网安全与前端建设者。
   url: https://blog.dao.js.cn/
+  links: /link
   friends:
     - name: 米集网站分类
       url: https://www.m-ji.com/

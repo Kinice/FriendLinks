@@ -9,6 +9,7 @@ site:
   name: 我的博客
   description: 分享编程和技术相关的文章
   url: https://example.com
+  links: /links          # 可选，友链页面路由，如 /links /link /friends /friend 等
   friends:
     - name: 编程小站
       url: https://codehub.example.com
@@ -35,6 +36,7 @@ site:
   name: 我的博客
   description: 分享编程和技术相关的文章
   url: https://example.com
+  links: /links          # 可选，友链页面路由，如 /links /link /friends /friend 等
   friends:
     - name: 编程小站
       url: https://codehub.example.com

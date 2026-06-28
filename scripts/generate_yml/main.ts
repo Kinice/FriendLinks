@@ -238,6 +238,7 @@ export async function mainCLI(): Promise<void> {
 
       let targetAnchors = null as any;
       let pageMeta: { title?: string; description?: string } | undefined;
+      let foundRoute: string | undefined;
 
       for (const c of FRIEND_PAGE_CANDIDATES) {
         const attempt = new URL(c, url).href;
@@ -246,6 +247,7 @@ export async function mainCLI(): Promise<void> {
         if (found && found.anchors && found.anchors.length > 0) {
           targetAnchors = found.anchors;
           pageMeta = found.meta;
+          foundRoute = c;
           break;
         }
       }
@@ -255,6 +257,8 @@ export async function mainCLI(): Promise<void> {
         if (found && found.anchors && found.anchors.length > 0) {
           targetAnchors = found.anchors;
           pageMeta = found.meta;
+          // 如果就是从首页找到的，route 留空
+          foundRoute = undefined;
         }
       }
 
@@ -288,11 +292,15 @@ export async function mainCLI(): Promise<void> {
         const siteName = sanitizeLabel(siteNameRaw) || baseHost;
         const siteDescRaw = pageMeta?.description ?? siteNameRaw;
         const siteDesc = sanitizeLabel(siteDescRaw) || siteName;
+        const linksEntry = foundRoute
+          ? { links: foundRoute }
+          : { links: "/links" }; // fallback default
         const yamlObj = {
           site: {
             name: siteName,
             url,
             description: siteDesc,
+            ...linksEntry,
             friends: friendsList,
           },
         };

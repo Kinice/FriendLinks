@@ -4,6 +4,8 @@ export type SeedEntry = {
     name?: string;
     url: string;
     description?: string;
+    /** 友链页面路由，如 /links /link /friends /friend 等，不含末尾斜杠 */
+    links?: string;
     friends?: { name: string; url: string }[];
   };
 };

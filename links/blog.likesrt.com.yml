@@ -2,6 +2,7 @@ site:
   name: 云深处
   description: 只在此山中，云深不知处
   url: https://blog.likesrt.com
+  links: /links
   friends:
     - name: 盘酱的小屋
       url: https://pjnoeru.top

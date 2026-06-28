@@ -1,6 +1,7 @@
 site:
   name: blog.0xchang.top
   url: https://blog.0xchang.top
+  links: /friend-links
   description: 友链申请名称：0xchang's
     blog简介：网络安全爱好者链接：https://blog.0xchang.top图标：https://blog.0xchang.top/favicon.ico
   friends:
