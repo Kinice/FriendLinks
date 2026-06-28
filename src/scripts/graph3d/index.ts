@@ -5,6 +5,7 @@
 
 import ForceGraph3D from "3d-force-graph";
 import Fuse from "fuse.js";
+import * as THREE from "three";
 import { PALETTE, hashToIndex, degreeToSize, adjustHex } from "./utils";
 import type { GraphData } from "../../../types/graph";
 
@@ -75,7 +76,7 @@ export function init3d(graphData: GraphData) {
   const degValues = Object.values(degreeMap);
   const maxDegree = degValues.length ? Math.max(...degValues) : 1;
 
-  // ── 2. 主题检测（提前定义） ─────────────────────────────────────
+  // ── 2. 主题检测 ────────────────────────────────────────────────
   const prefersDark = (): boolean => {
     if (document.documentElement.dataset.theme === "dark") return true;
     if (document.documentElement.dataset.theme === "light") return false;
@@ -83,7 +84,7 @@ export function init3d(graphData: GraphData) {
   };
   const isDarkRef: ThemeRef = { value: prefersDark() };
 
-  // ── 3. 预处理节点 & 预计算颜色 ─────────────────────────────────
+  // ── 3. 预处理节点 & 预计算颜色 ────────────────────────────────
   const rawNodes = graphData.nodes || [];
   const isDark = isDarkRef.value;
   const nodes = rawNodes.map((n: any) => {
@@ -115,17 +116,12 @@ export function init3d(graphData: GraphData) {
   let focusedId: string | null = null;
   let highlightedSet = new Set<string>();
 
-  // 记录上次聚焦节点以便恢复颜色
   let _lastFocusedId: string | null = null;
-
-  function refreshColors() {
-    Graph.refresh();
-  }
 
   // ── 6. Tooltip ──────────────────────────────────────────────────
   const tooltip = createTooltip();
 
-  // 构建邻居映射（用于连线高亮）
+  // 构建邻居映射
   const neighborMap = new Map<string, Set<string>>();
   for (const l of links) {
     const src = typeof l.source === "object" ? l.source.id : l.source;
@@ -137,13 +133,124 @@ export function init3d(graphData: GraphData) {
   }
 
   // ── 7. 创建 3D 图 ────────────────────────────────────────────────
+
+  // 7a ─ 构建合并的 LineSegments ──────────────────────────────────
+  const linkPosArr = new Float32Array(links.length * 2 * 3);
+  const linkColArr = new Float32Array(links.length * 2 * 3);
+
+  // 用预计算坐标填充初始位置
+  for (let i = 0; i < links.length; i++) {
+    const srcId = links[i].source;
+    const tgtId = links[i].target;
+    const srcNode = nodes.find((n: any) => n.id === srcId);
+    const tgtNode = nodes.find((n: any) => n.id === tgtId);
+    if (srcNode && tgtNode) {
+      const idx = i * 6;
+      linkPosArr[idx]     = srcNode.x || 0;
+      linkPosArr[idx + 1] = srcNode.y || 0;
+      linkPosArr[idx + 2] = srcNode.z || 0;
+      linkPosArr[idx + 3] = tgtNode.x || 0;
+      linkPosArr[idx + 4] = tgtNode.y || 0;
+      linkPosArr[idx + 5] = tgtNode.z || 0;
+    }
+  }
+
+  // 默认颜色（暗/亮模式下透明底色）
+  const defaultLinkColor = isDarkRef.value
+    ? [0.08, 0.08, 0.08]
+    : [0, 0, 0];
+  const defaultLinkAlpha = isDarkRef.value ? 0.12 : 0.08;
+
+  for (let i = 0; i < links.length; i++) {
+    const idx = i * 6;
+    for (let j = 0; j < 6; j++) {
+      linkColArr[idx + j] = defaultLinkColor[j % 3];
+    }
+  }
+
+  const linkGeom = new THREE.BufferGeometry();
+  linkGeom.setAttribute("position", new THREE.BufferAttribute(linkPosArr, 3));
+  linkGeom.setAttribute("color", new THREE.BufferAttribute(linkColArr, 3));
+
+  const linkMat = new THREE.LineBasicMaterial({
+    vertexColors: true,
+    transparent: true,
+    opacity: defaultLinkAlpha,
+    linewidth: 1,
+  });
+
+  const linkSegments = new THREE.LineSegments(linkGeom, linkMat);
+  let linkObjCreated = false;
+
+  // 7b ─ 颜色刷新函数（替代 Graph.refresh / linkColor）
+  function refreshLinkColors() {
+    const dark = isDarkRef.value;
+    const pos = linkGeom.attributes.position.array;
+    const col = linkGeom.attributes.color.array;
+
+    for (let i = 0; i < links.length; i++) {
+      const srcId = links[i].source;
+      const tgtId = links[i].target;
+      const srcStr = typeof srcId === "object" ? srcId.id : srcId;
+      const tgtStr = typeof tgtId === "object" ? tgtId.id : tgtId;
+
+      const isConnectedToFocus = focusedId && (srcStr === focusedId || tgtStr === focusedId);
+      const isConnectedToHover = hoveredId && (srcStr === hoveredId || tgtStr === hoveredId);
+      const isConnectedToHighlight =
+        highlightedSet.size > 0 &&
+        (highlightedSet.has(srcStr) || highlightedSet.has(tgtStr));
+
+      let r: number, g: number, b: number, a: number;
+      if (isConnectedToFocus) {
+        // 金色高亮
+        r = dark ? 1.0 : 1.0; g = dark ? 0.86 : 0.71; b = dark ? 0.31 : 0.12;
+        a = dark ? 0.95 : 0.95;
+      } else if (isConnectedToHover) {
+        r = dark ? 1.0 : 0.39; g = dark ? 1.0 : 0.39; b = dark ? 1.0 : 0.39;
+        a = dark ? 0.5 : 0.5;
+      } else if (isConnectedToHighlight) {
+        r = dark ? 1.0 : 0.59; g = dark ? 1.0 : 0.59; b = dark ? 1.0 : 0.59;
+        a = dark ? 0.3 : 0.3;
+      } else {
+        if (dark) { r = 1.0; g = 1.0; b = 1.0; a = 0.08; }
+        else { r = 0; g = 0; b = 0; a = 0.08; }
+      }
+
+      const idx = i * 6;
+      for (let j = 0; j < 6; j++) {
+        col[idx + j] = [r, g, b][j % 3];
+      }
+    }
+
+    linkGeom.attributes.color.needsUpdate = true;
+    // 透明度统一用 material.opacity，取所有连线的最大透明度
+    let maxAlpha = 0.08;
+    for (let i = 0; i < links.length; i++) {
+      const srcId = links[i].source;
+      const tgtId = links[i].target;
+      const srcStr = typeof srcId === "object" ? srcId.id : srcId;
+      const tgtStr = typeof tgtId === "object" ? tgtId.id : tgtId;
+      if ((focusedId && (srcStr === focusedId || tgtStr === focusedId)) ||
+          (hoveredId && (srcStr === hoveredId || tgtStr === hoveredId)) ||
+          (highlightedSet.size > 0 && (highlightedSet.has(srcStr) || highlightedSet.has(tgtStr)))) {
+        maxAlpha = 0.95;
+        break;
+      }
+    }
+    linkMat.opacity = maxAlpha;
+  }
+
+  // 初始颜色
+  refreshLinkColors();
+
+  // 7c ─ 创建 Graph ─────────────────────────────────────────────
   const Graph = ForceGraph3D()(container, {
     controlType: "orbit",
   })
     .graphData({ nodes, links })
     .width(container.clientWidth)
     .height(container.clientHeight)
-    .nodeLabel(null) // 关闭内置标签，使用自定义 tooltip
+    .nodeLabel(null)
     .nodeColor((n: any) => {
       const id = n.id;
       if (focusedId === id) return n._cFocus;
@@ -153,38 +260,17 @@ export function init3d(graphData: GraphData) {
     .nodeVal((n: any) => {
       const deg = degreeMap[n.id] || 0;
       const baseSize = degreeToSize(deg, maxDegree);
-      // 聚焦节点：放大 1.5 倍
       if (focusedId === n.id) return baseSize * 1.5;
       return baseSize;
     })
-    .linkColor((l: any) => {
-      const src = typeof l.source === "object" ? l.source.id : l.source;
-      const tgt = typeof l.target === "object" ? l.target.id : l.target;
-      const isConnectedToFocus = focusedId && (src === focusedId || tgt === focusedId);
-      const isConnectedToHover = hoveredId && (src === hoveredId || tgt === hoveredId);
-      const isConnectedToHighlight =
-        highlightedSet.size > 0 && (highlightedSet.has(src) || highlightedSet.has(tgt));
-
-      if (isConnectedToFocus) {
-        return isDarkRef.value ? "rgba(255,220,80,0.95)" : "rgba(255,180,30,0.95)";
+    .linkThreeObject(() => {
+      if (!linkObjCreated) {
+        linkObjCreated = true;
+        return linkSegments;
       }
-      if (isConnectedToHover) {
-        return isDarkRef.value ? "rgba(255,255,255,0.5)" : "rgba(100,100,100,0.5)";
-      }
-      if (isConnectedToHighlight) {
-        return isDarkRef.value ? "rgba(255,255,255,0.3)" : "rgba(150,150,150,0.3)";
-      }
-      return isDarkRef.value ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)";
+      return new THREE.Object3D();
     })
-    .linkWidth((l: any) => {
-      const src = typeof l.source === "object" ? l.source.id : l.source;
-      const tgt = typeof l.target === "object" ? l.target.id : l.target;
-      const isConnectedToFocus = focusedId && (src === focusedId || tgt === focusedId);
-      return isConnectedToFocus ? 2.5 : 0.4;
-    })
-    .linkDirectionalParticles(1)
-    .linkDirectionalParticleWidth(0.5)
-    .linkDirectionalParticleSpeed(0.005)
+    .linkPositionUpdate(() => false)
     .backgroundColor(isDarkRef.value ? "#0f1115" : "#ffffff")
     .enableNodeDrag(true)
     .enableNavigationControls(true)
@@ -213,14 +299,13 @@ export function init3d(graphData: GraphData) {
   });
   ro.observe(container);
 
-  // 涟漪波动动画（仅保留 1 层，多余 2 层首次运行时隐藏）
+  // 涟漪波动动画（仅保留 1 层）
   let animationTime = 0;
   let ripplesInited = false;
   function animateRipples() {
     animationTime += 0.02;
     const currentData = Graph.graphData() as any;
     if (currentData.nodes) {
-      // 首次运行：隐藏多余的涟漪层（children[2]、children[3]）
       if (!ripplesInited) {
         for (const node of currentData.nodes) {
           if (node.__threeObj) {
@@ -235,7 +320,7 @@ export function init3d(graphData: GraphData) {
       const sinA3 = Math.sin(animationTime * 3);
       for (const node of currentData.nodes) {
         if (node.__threeObj && node.__threeObj.children.length > 1) {
-          const sprite = node.__threeObj.children[1]; // 第一层涟漪
+          const sprite = node.__threeObj.children[1];
           if (sprite) {
             const s = 6 + sinA2 * 0.5;
             sprite.scale.setScalar(s);
@@ -250,7 +335,7 @@ export function init3d(graphData: GraphData) {
   }
   animateRipples();
 
-  // 阻止右键默认菜单，用于右键聚焦节点
+  // 阻止右键默认菜单
   container.addEventListener("contextmenu", (e: MouseEvent) => {
     e.preventDefault();
   });
@@ -263,7 +348,6 @@ export function init3d(graphData: GraphData) {
 
   // ── 9. 交互事件 ──────────────────────────────────────────────────
 
-  /** 追加来源参数，指向当前友链图谱页面 */
   function withRef(url: string): string {
     try {
       const u = new URL(url);
@@ -283,7 +367,6 @@ export function init3d(graphData: GraphData) {
     focusNodeById(n.id);
   });
 
-  /** 直接修改节点 Three.js 材质颜色（不触发全局刷新） */
   function setNodeColor(node: any, color: string) {
     if (!node || !node.__threeObj) return;
     const mesh = node.__threeObj.children[0];
@@ -300,16 +383,16 @@ export function init3d(graphData: GraphData) {
     hoveredId = newHoveredId;
     lastHoveredId = newHoveredId;
 
-    // 找到前一个节点和当前节点的数据
     const gd = Graph.graphData() as any;
     const prevNode = gd.nodes?.find((nd: any) => nd.id === prevId);
     const currNode = n;
 
-    // 直接改材质颜色，只影响这 1~2 个节点
     if (prevNode) setNodeColor(prevNode, prevNode._cDefault);
     if (currNode) setNodeColor(currNode, currNode._cHover);
 
-    // 显示/隐藏 tooltip
+    // 更新连线颜色
+    refreshLinkColors();
+
     if (n) {
       const content = document.createElement("div");
       content.className = "graph-tooltip-content";
@@ -341,7 +424,6 @@ export function init3d(graphData: GraphData) {
     } else {
       tooltip.hide();
     }
-    // 不再调用 refreshColors()——不触发全局刷新
   });
 
   // ── 10. 主题切换 ─────────────────────────────────────────────────
@@ -370,20 +452,54 @@ export function init3d(graphData: GraphData) {
   function applyTheme() {
     const dark = isDarkRef.value;
     Graph.backgroundColor(dark ? "#0f1115" : "#ffffff");
-    Graph.linkColor(() => (dark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.12)"));
-    // 更新 tooltip 样式
-    tooltip.el.style.background = dark ? "rgba(0,0,0,0.75)" : "rgba(255,255,255,0.95)";
-    tooltip.el.style.color = dark ? "#fff" : "#111";
-    // 重新计算所有节点的默认颜色
+    // 更新所有节点的默认颜色
     const gd = Graph.graphData() as any;
     if (gd.nodes) {
       for (const nd of gd.nodes) {
         nd._cDefault = dark ? adjustHex(nd.palColor, 20) : nd.palColor;
       }
     }
-    // 刷新全局颜色（主题切换影响所有节点）
-    refreshColors();
-    // 恢复 hover 状态（如果存在）
+    // 刷新节点颜色
+    Graph.nodeColor((n: any) => {
+      const id = n.id;
+      if (focusedId === id) return n._cFocus;
+      if (highlightedSet.size > 0 && highlightedSet.has(id)) return n._cHighlight;
+      return n._cDefault;
+    });
+    // 刷新连线颜色（直接更新顶点颜色）
+    const isDark = isDarkRef.value;
+    const col = linkGeom.attributes.color.array;
+    for (let i = 0; i < links.length; i++) {
+      const srcStr = typeof links[i].source === "object" ? links[i].source.id : links[i].source;
+      const tgtStr = typeof links[i].target === "object" ? links[i].target.id : links[i].target;
+      const isConnectedToFocus = focusedId && (srcStr === focusedId || tgtStr === focusedId);
+      const isConnectedToHover = hoveredId && (srcStr === hoveredId || tgtStr === hoveredId);
+      const isConnectedToHighlight =
+        highlightedSet.size > 0 && (highlightedSet.has(srcStr) || highlightedSet.has(tgtStr));
+
+      let r: number, g: number, b: number, a: number;
+      if (isConnectedToFocus) {
+        r = dark ? 1.0 : 1.0; g = dark ? 0.86 : 0.71; b = dark ? 0.31 : 0.12;
+        a = 0.95;
+      } else if (isConnectedToHover) {
+        r = dark ? 1.0 : 0.39; g = dark ? 1.0 : 0.39; b = dark ? 1.0 : 0.39;
+        a = 0.5;
+      } else if (isConnectedToHighlight) {
+        r = dark ? 1.0 : 0.59; g = dark ? 1.0 : 0.59; b = dark ? 1.0 : 0.59;
+        a = 0.3;
+      } else {
+        if (dark) { r = 1.0; g = 1.0; b = 1.0; a = 0.08; }
+        else { r = 0; g = 0; b = 0; a = 0.08; }
+      }
+      const idx = i * 6;
+      for (let j = 0; j < 6; j++) col[idx + j] = [r, g, b][j % 3];
+    }
+    linkGeom.attributes.color.needsUpdate = true;
+
+    // 更新 tooltip 样式
+    tooltip.el.style.background = dark ? "rgba(0,0,0,0.75)" : "rgba(255,255,255,0.95)";
+    tooltip.el.style.color = dark ? "#fff" : "#111";
+
     if (hoveredId && gd.nodes) {
       const hovered = gd.nodes.find((nd: any) => nd.id === hoveredId);
       if (hovered) setNodeColor(hovered, hovered._cHover);
@@ -403,18 +519,21 @@ export function init3d(graphData: GraphData) {
   }
 
   function focusNodeById(id: string) {
-    // 恢复上次聚焦节点的颜色
     _lastFocusedId = focusedId;
     focusedId = id;
-    refreshColors();
+    // 刷新节点颜色
+    Graph.nodeColor((n: any) => {
+      if (focusedId === n.id) return n._cFocus;
+      if (highlightedSet.size > 0 && highlightedSet.has(n.id)) return n._cHighlight;
+      return n._cDefault;
+    });
+    refreshLinkColors();
 
-    // 获取节点在 3D 空间中的位置
     const currentData = Graph.graphData() as any;
     const node = currentData.nodes?.find((n: any) => n.id === id);
     if (!node || node.x == null) return;
 
     const padding = Math.max(100, degreeMap[id] ? degreeMap[id] * 5 : 100);
-    // 从上方和侧面看向目标节点
     Graph.cameraPosition(
       {
         x: node.x + padding,
@@ -430,7 +549,6 @@ export function init3d(graphData: GraphData) {
     highlightedSet.clear();
     for (const id of ids) {
       highlightedSet.add(id);
-      // 添加邻居节点
       for (const l of links) {
         const src = typeof l.source === "object" ? l.source.id : l.source;
         const tgt = typeof l.target === "object" ? l.target.id : l.target;
@@ -438,15 +556,22 @@ export function init3d(graphData: GraphData) {
         if (tgt === id && src) highlightedSet.add(String(src));
       }
     }
-    refreshColors();
+    Graph.nodeColor((n: any) => {
+      if (focusedId === n.id) return n._cFocus;
+      if (highlightedSet.size > 0 && highlightedSet.has(n.id)) return n._cHighlight;
+      return n._cDefault;
+    });
+    refreshLinkColors();
   }
 
   function clearHighlights() {
     highlightedSet.clear();
     focusedId = null;
-    _lastFocusedId = null;
-    refreshColors();
-    // 恢复 hover 状态
+    refreshLinkColors();
+    Graph.nodeColor((n: any) => {
+      if (highlightedSet.size > 0 && highlightedSet.has(n.id)) return n._cHighlight;
+      return n._cDefault;
+    });
     if (hoveredId) {
       const gd = Graph.graphData() as any;
       const h = gd.nodes?.find((nd: any) => nd.id === hoveredId);
@@ -461,7 +586,8 @@ export function init3d(graphData: GraphData) {
     hoveredId = null;
     lastHoveredId = null;
     tooltip.hide();
-    refreshColors();
+    refreshLinkColors();
+    Graph.nodeColor((n: any) => n._cDefault);
   }
 
   function focusByDomain(urlOrHost: string) {
@@ -489,9 +615,7 @@ export function init3d(graphData: GraphData) {
       }) ?? [];
 
     if (matched.length > 0) {
-      // 高亮所有匹配节点
       highlightNodesAndNeighbors(matched.map((n: any) => n.id));
-      // 聚焦第一个
       focusNodeById(matched[0].id);
     }
   }
@@ -511,7 +635,6 @@ export function init3d(graphData: GraphData) {
     _graph: Graph,
   };
 
-  // 暴露到全局用于调试
   try {
     (window as any).__graphApi = (window as any).__graphApi || {};
     Object.assign((window as any).__graphApi, api);
