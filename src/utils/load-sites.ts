@@ -17,9 +17,7 @@ function isValidUrl(u: unknown): u is string {
   }
 }
 
-function isFriend(
-  obj: unknown,
-): obj is { name: string; url: string; favicon?: string } {
+function isFriend(obj: unknown): obj is { name: string; url: string; favicon?: string } {
   if (!obj || typeof obj !== "object") return false;
   const o = obj as any;
   if (!isString(o.name)) return false;
@@ -48,10 +46,7 @@ async function listYamlFiles(dir: string): Promise<string[]> {
     const full = path.join(dir, e.name);
     if (e.isDirectory()) {
       files.push(...(await listYamlFiles(full)));
-    } else if (
-      e.isFile() &&
-      (e.name.endsWith(".yml") || e.name.endsWith(".yaml"))
-    ) {
+    } else if (e.isFile() && (e.name.endsWith(".yml") || e.name.endsWith(".yaml"))) {
       files.push(full);
     }
   }
@@ -77,16 +72,12 @@ async function parseAndValidate(file: string): Promise<Site | null> {
           console.error(" - site.name: 需要非空字符串");
         if (!isString(o.description) || o.description.trim() === "")
           console.error(" - site.description: 需要非空字符串");
-        if (!isValidUrl(o.url))
-          console.error(" - site.url: 需要合法 http/https URL");
-        if (!Array.isArray(o.friends))
-          console.error(" - site.friends: 需要数组");
+        if (!isValidUrl(o.url)) console.error(" - site.url: 需要合法 http/https URL");
+        if (!Array.isArray(o.friends)) console.error(" - site.friends: 需要数组");
         else {
           o.friends.forEach((f: any, idx: number) => {
             if (!isFriend(f))
-              console.error(
-                ` - site.friends[${idx}]: 需要 { name: string; url: url }`,
-              );
+              console.error(` - site.friends[${idx}]: 需要 { name: string; url: url }`);
           });
         }
       }

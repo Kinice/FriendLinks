@@ -3,101 +3,101 @@ site:
   description: 青序成栈·向简而生
   url: https://qxzhan.cn/
   friends:
-     - name: 清羽飞扬
-       url: https://blog.liushen.fun/
-     - name: 梦爱吃鱼
-       url: https://blog.bsgun.cn/
-     - name: 朽丘秋雨
-       url: https://blog.koxiuqiu.cn/
-     - name: FrWalker
-       url: https://blog.frwalker.top/
-     - name: 陆小启Kairo
-       url: https://blog.zonox.top/
-     - name: 葱苓小筑
-       url: https://blog.ciraos.top/
-     - name: Imz
-       url: https://blog.imz.me/
+    - name: 清羽飞扬
+      url: https://blog.liushen.fun/
+    - name: 梦爱吃鱼
+      url: https://blog.bsgun.cn/
+    - name: 朽丘秋雨
+      url: https://blog.koxiuqiu.cn/
+    - name: FrWalker
+      url: https://blog.frwalker.top/
+    - name: 陆小启Kairo
+      url: https://blog.zonox.top/
+    - name: 葱苓小筑
+      url: https://blog.ciraos.top/
+    - name: Imz
+      url: https://blog.imz.me/
     #  - name: 唐志远
     #    url: https://fe32.top/
-     - name: Mo的记事簿
-       url: https://blog.xiowo.net/
+    - name: Mo的记事簿
+      url: https://blog.xiowo.net/
     #  - name: 云坠
     #    url: https://blog.ynuzhui.cn/
-     - name: 壹人小站
-       url: https://www.xscnet.cn/
-     - name: 𝙛𝙞𝙨𝙝𝙘𝙥𝙮
-       url: https://blog.fis.ink/
-     - name: AcoFork
-       url: https://blog.2b2x.cn/
-     - name: 张洪Heo
-       url: https://blog.zhheo.com/
-     - name: 夜轻Blog
-       url: https://blog.yeqing.net/
-     - name: ❖星港◎Star☆
-       url: https://blog.starsharbor.com/
-     - name: Xuan's blog
-       url: https://blog.ybyq.wang/
-     - name: 秘柯絮语
-       url: https://www.mioc.cn/
-     - name: 百里博客
-       url: https://blog.my0811.cn/
-     - name: AirTouch
-       url: https://xsl.im/
-     - name: 叶泯希
-       url: https://blog.418121.xyz/
-     - name: 小亮的部落阁
-       url: https://blog.752132.xyz/
-     - name: 韩小韩博客
-       url: https://www.vvhan.com/
-     - name: 东方月初
-       url: https://blog.biuxin.com/
-     - name: 胜天半子
-       url: https://blog.291055.xyz/
-     - name: Eilo
-       url: https://www.eilo.uk/
-     - name: 新锐博客
-       url: https://www.xrbk.cn/
-     - name: 星辰の笔记
-       url: https://blog.strarry.top/
-     - name: 天海博客
-       url: https://www.woolyun.com
-     - name: AYaka
-       url: https://blog.ayaka0.top/
-     - name: Noah
-       url: https://blog.noah0932.top/
-     - name: 纸鹿摸鱼处
-       url: https://blog.zhilu.site/
-     - name: 策柯
-       url: https://blog.xomoe.cn/
-     - name: 青桔气球
-       url: https://blog.qjqq.cn/
-     - name: 别碰我的镜头盖
-       url: https://blog.bornforthis.cn/
-     - name: 易航
-       url: https://blog.yihang.info/
-     - name: 小米里的大麦
-       url: https://www.minbit.top/
-     - name: Evilrabbit
-       url: https://blog.yujiay.wang/
-     - name: 柒渊阁
-       url: https://www.myxz.top/
-     - name: lololowe
-       url: https://blog.lololowe.com/
-     - name: 静观小窗
-       url: https://www.vindo.cn/
-     - name: bbb-lsy07
-       url: https://blog.6uu.us/
-     - name: 周润发
-       url: https://blog.zrf.me/
-     - name: 拥抱日出的小屋
-       url: https://blog.ybrc.top/
-     - name: THW
-       url: https://thw.lol/
-     - name: 凌尘
-       url: https://b.icxk.cn/
-     - name: snows_l
-       url: http://snows-l.site/
-     - name: 梨尽兴
-       url: https://blog.ljx.icu/
-     - name: JustPureH2O
-       url: https://justpureh2o.cn/
+    - name: 壹人小站
+      url: https://www.xscnet.cn/
+    - name: 𝙛𝙞𝙨𝙝𝙘𝙥𝙮
+      url: https://blog.fis.ink/
+    - name: AcoFork
+      url: https://blog.2b2x.cn/
+    - name: 张洪Heo
+      url: https://blog.zhheo.com/
+    - name: 夜轻Blog
+      url: https://blog.yeqing.net/
+    - name: ❖星港◎Star☆
+      url: https://blog.starsharbor.com/
+    - name: Xuan's blog
+      url: https://blog.ybyq.wang/
+    - name: 秘柯絮语
+      url: https://www.mioc.cn/
+    - name: 百里博客
+      url: https://blog.my0811.cn/
+    - name: AirTouch
+      url: https://xsl.im/
+    - name: 叶泯希
+      url: https://blog.418121.xyz/
+    - name: 小亮的部落阁
+      url: https://blog.752132.xyz/
+    - name: 韩小韩博客
+      url: https://www.vvhan.com/
+    - name: 东方月初
+      url: https://blog.biuxin.com/
+    - name: 胜天半子
+      url: https://blog.291055.xyz/
+    - name: Eilo
+      url: https://www.eilo.uk/
+    - name: 新锐博客
+      url: https://www.xrbk.cn/
+    - name: 星辰の笔记
+      url: https://blog.strarry.top/
+    - name: 天海博客
+      url: https://www.woolyun.com
+    - name: AYaka
+      url: https://blog.ayaka0.top/
+    - name: Noah
+      url: https://blog.noah0932.top/
+    - name: 纸鹿摸鱼处
+      url: https://blog.zhilu.site/
+    - name: 策柯
+      url: https://blog.xomoe.cn/
+    - name: 青桔气球
+      url: https://blog.qjqq.cn/
+    - name: 别碰我的镜头盖
+      url: https://blog.bornforthis.cn/
+    - name: 易航
+      url: https://blog.yihang.info/
+    - name: 小米里的大麦
+      url: https://www.minbit.top/
+    - name: Evilrabbit
+      url: https://blog.yujiay.wang/
+    - name: 柒渊阁
+      url: https://www.myxz.top/
+    - name: lololowe
+      url: https://blog.lololowe.com/
+    - name: 静观小窗
+      url: https://www.vindo.cn/
+    - name: bbb-lsy07
+      url: https://blog.6uu.us/
+    - name: 周润发
+      url: https://blog.zrf.me/
+    - name: 拥抱日出的小屋
+      url: https://blog.ybrc.top/
+    - name: THW
+      url: https://thw.lol/
+    - name: 凌尘
+      url: https://b.icxk.cn/
+    - name: snows_l
+      url: http://snows-l.site/
+    - name: 梨尽兴
+      url: https://blog.ljx.icu/
+    - name: JustPureH2O
+      url: https://justpureh2o.cn/

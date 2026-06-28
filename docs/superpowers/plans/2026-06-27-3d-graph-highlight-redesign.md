@@ -12,9 +12,9 @@
 
 ## 文件结构
 
-| 文件 | 职责 |
-|------|------|
-| `src/scripts/graph3d/utils.ts` | 颜色工具函数（添加 emissive 颜色生成） |
+| 文件                           | 职责                                        |
+| ------------------------------ | ------------------------------------------- |
+| `src/scripts/graph3d/utils.ts` | 颜色工具函数（添加 emissive 颜色生成）      |
 | `src/scripts/graph3d/index.ts` | 3D 图渲染主逻辑（自定义节点材质、动态更新） |
 
 ---
@@ -22,6 +22,7 @@
 ## Task 1: 添加 emissive 颜色生成工具函数
 
 **Files:**
+
 - Modify: `src/scripts/graph3d/utils.ts`
 
 - [ ] **Step 1: 添加 `getEmissiveColor` 函数**
@@ -57,6 +58,7 @@ git commit -m "feat(utils): add getEmissiveColor for 3D node glow effect"
 ## Task 2: 重构节点材质系统
 
 **Files:**
+
 - Modify: `src/scripts/graph3d/index.ts`
 
 - [ ] **Step 1: 导入新增工具函数和 Three.js**
@@ -78,9 +80,9 @@ import type { GraphData } from "../../../types/graph";
 ```typescript
 // 节点视觉状态
 type NodeVisualState = {
-  scale: number;        // 尺寸放大倍数
-  emissiveIntensity: number;  // 发光强度
-  opacity: number;       // 透明度
+  scale: number; // 尺寸放大倍数
+  emissiveIntensity: number; // 发光强度
+  opacity: number; // 透明度
 };
 
 // 材质缓存，避免重复创建
@@ -89,16 +91,15 @@ const materialCache = new Map<string, THREE.MeshStandardMaterial>();
 function getNodeMaterial(
   baseColor: string,
   state: NodeVisualState,
-  isDark: boolean
+  isDark: boolean,
 ): THREE.MeshStandardMaterial {
   const cacheKey = `${baseColor}-${state.scale}-${state.emissiveIntensity}-${state.opacity}-${isDark}`;
   if (materialCache.has(cacheKey)) {
     return materialCache.get(cacheKey)!;
   }
 
-  const emissiveColor = state.emissiveIntensity > 0
-    ? getEmissiveColor(baseColor, state.emissiveIntensity)
-    : "#000000";
+  const emissiveColor =
+    state.emissiveIntensity > 0 ? getEmissiveColor(baseColor, state.emissiveIntensity) : "#000000";
 
   const material = new THREE.MeshStandardMaterial({
     color: baseColor,
@@ -119,7 +120,7 @@ function getNodeVisualState(
   nodeId: string,
   hoveredId: string | null,
   focusedId: string | null,
-  highlightedSet: Set<string>
+  highlightedSet: Set<string>,
 ): NodeVisualState {
   // 聚焦节点：最强发光 + 最大尺寸
   if (focusedId === nodeId) {
@@ -177,7 +178,7 @@ Graph.nodeThreeObject((n: any) => {
 
   const mesh = new THREE.Mesh(geometry, material);
   return mesh;
-})
+});
 ```
 
 注意：使用 `nodeThreeObject` 后，需要移除 `.nodeColor()` 和 `.nodeVal()` 的调用，因为自定义对象会覆盖它们。
@@ -211,6 +212,7 @@ git commit -m "feat(graph3d): replace grayscale highlight with glow + scale effe
 ## Task 3: 验证构建和运行
 
 **Files:**
+
 - None (verification only)
 
 - [ ] **Step 1: 运行类型检查**
@@ -236,6 +238,7 @@ npm run dev
 ```
 
 手动验证：
+
 1. 打开页面，3D 图正常显示
 2. 搜索一个节点，高亮节点应该发光并放大
 3. 非高亮节点应该保持原色但变淡（不是灰色）
@@ -253,15 +256,15 @@ git commit -m "feat: glow + scale highlight for 3D friend link graph"
 
 ## Spec 覆盖检查
 
-| 需求 | 实现任务 |
-|------|---------|
-| 发光效果（emissive） | Task 2, Step 3 |
-| 尺寸放大 | Task 2, Step 3 |
-| 非高亮节点透明度 | Task 2, Step 2 (`getNodeVisualState`) |
-| 多级发光强度 | Task 2, Step 2 |
-| 多级尺寸放大 | Task 2, Step 2 |
-| 材质缓存优化 | Task 2, Step 2 (`getNodeMaterial`) |
-| 保持现有 API | Task 2 (只修改内部渲染逻辑) |
+| 需求                 | 实现任务                              |
+| -------------------- | ------------------------------------- |
+| 发光效果（emissive） | Task 2, Step 3                        |
+| 尺寸放大             | Task 2, Step 3                        |
+| 非高亮节点透明度     | Task 2, Step 2 (`getNodeVisualState`) |
+| 多级发光强度         | Task 2, Step 2                        |
+| 多级尺寸放大         | Task 2, Step 2                        |
+| 材质缓存优化         | Task 2, Step 2 (`getNodeMaterial`)    |
+| 保持现有 API         | Task 2 (只修改内部渲染逻辑)           |
 
 ---
 

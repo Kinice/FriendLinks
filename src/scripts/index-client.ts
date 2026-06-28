@@ -22,13 +22,9 @@ declare global {
 (async () => {
   const controller = await init3dFromUrl("/graph.json");
 
-  const input = document.getElementById(
-    "graph-search"
-  ) as HTMLInputElement | null;
+  const input = document.getElementById("graph-search") as HTMLInputElement | null;
   const results = document.getElementById("graph-search-results");
-  const clearBtn = document.getElementById(
-    "graph-search-clear"
-  ) as HTMLButtonElement | null;
+  const clearBtn = document.getElementById("graph-search-clear") as HTMLButtonElement | null;
   // Remove only `local` param from URL without causing a reload
   function clearLocalQueryParam() {
     try {
@@ -47,10 +43,7 @@ declare global {
             // Fallback: clear highlights and try to clear focused node highlight
             if (controller && (controller as any).clearAllHighlights) {
               (controller as any).clearAllHighlights();
-            } else if (
-              window.__graphApi &&
-              window.__graphApi.clearAllHighlights
-            ) {
+            } else if (window.__graphApi && window.__graphApi.clearAllHighlights) {
               window.__graphApi.clearAllHighlights();
             }
             if (controller && (controller as any).clearHighlights) {
@@ -89,9 +82,7 @@ declare global {
       el.className = "item";
       el.innerHTML = `<div style="font-weight:600">${
         it.name
-      }</div><div style="font-size:12px;color:var(--muted,#666)">${
-        it.url ?? ""
-      }</div>`;
+      }</div><div style="font-size:12px;color:var(--muted,#666)">${it.url ?? ""}</div>`;
       el.onclick = () => {
         try {
           try {
@@ -107,10 +98,7 @@ declare global {
           } catch {}
           if (controller && (controller as any).highlightNodesAndNeighbors) {
             (controller as any).highlightNodesAndNeighbors([it.id]);
-          } else if (
-            window.__graphApi &&
-            window.__graphApi.highlightNodesAndNeighbors
-          ) {
+          } else if (window.__graphApi && window.__graphApi.highlightNodesAndNeighbors) {
             window.__graphApi.highlightNodesAndNeighbors([it.id]);
           }
 
@@ -158,8 +146,8 @@ declare global {
           controller && (controller as any).find
             ? (controller as any).find(v)
             : window.__graphApi && window.__graphApi.find
-            ? window.__graphApi.find(v)
-            : [];
+              ? window.__graphApi.find(v)
+              : [];
         render((list || []).slice(0, 12));
       } catch (err) {
         console.error(err);
@@ -171,12 +159,8 @@ declare global {
   if (clearBtn && input) {
     // initial state
     try {
-      clearBtn.style.display =
-        input.value && input.value.trim() ? "flex" : "none";
-      clearBtn.setAttribute(
-        "aria-hidden",
-        clearBtn.style.display === "none" ? "true" : "false"
-      );
+      clearBtn.style.display = input.value && input.value.trim() ? "flex" : "none";
+      clearBtn.setAttribute("aria-hidden", clearBtn.style.display === "none" ? "true" : "false");
     } catch {}
     clearBtn.addEventListener("click", () => {
       try {
@@ -216,13 +200,9 @@ declare global {
             if (controller && (controller as any).focusByDomain) {
               (controller as any).focusByDomain(local);
             }
-          } else if (
-            window.__graphApi &&
-            window.__graphApi.highlightNodesByDomain
-          ) {
+          } else if (window.__graphApi && window.__graphApi.highlightNodesByDomain) {
             window.__graphApi.highlightNodesByDomain(local);
-            if (window.__graphApi.focusByDomain)
-              window.__graphApi.focusByDomain(local);
+            if (window.__graphApi.focusByDomain) window.__graphApi.focusByDomain(local);
           } else if (controller && (controller as any).focusByDomain) {
             (controller as any).focusByDomain(local);
           } else if (window.__graphApi && window.__graphApi.focusByDomain) {

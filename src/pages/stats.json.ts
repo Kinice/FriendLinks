@@ -89,8 +89,7 @@ export async function GET() {
     }
   }
 
-  stats.connections.total =
-    stats.connections.coreToCore.total + stats.connections.coreToFriend;
+  stats.connections.total = stats.connections.coreToCore.total + stats.connections.coreToFriend;
   stats.overview.totalConnections = stats.connections.total;
   stats.overview.totalNodes = validSites.length + externalHosts.size;
 

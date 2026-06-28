@@ -73,7 +73,7 @@ export function init3d(graphData: GraphData) {
 
   // ── 1. 计算度数 ──────────────────────────────────────────────────
   const degreeMap: Record<string, number> = {};
-  const rawLinks = (graphData as any).links || graphData.links || [];
+  const rawLinks = graphData.links || [];
   for (const l of rawLinks) {
     const s = l.source ?? l[0];
     const t = l.target ?? l[1];
@@ -117,7 +117,7 @@ export function init3d(graphData: GraphData) {
   let highlightedSet = new Set<string>();
 
   // 记录上次聚焦节点以便恢复颜色
-  let lastFocusedId: string | null = null;
+  let _lastFocusedId: string | null = null;
 
   function refreshColors() {
     Graph.refresh();
@@ -129,8 +129,8 @@ export function init3d(graphData: GraphData) {
   // 构建邻居映射（用于连线高亮）
   const neighborMap = new Map<string, Set<string>>();
   for (const l of links) {
-    const src = typeof l.source === 'object' ? l.source.id : l.source;
-    const tgt = typeof l.target === 'object' ? l.target.id : l.target;
+    const src = typeof l.source === "object" ? l.source.id : l.source;
+    const tgt = typeof l.target === "object" ? l.target.id : l.target;
     if (!neighborMap.has(src)) neighborMap.set(src, new Set());
     if (!neighborMap.has(tgt)) neighborMap.set(tgt, new Set());
     neighborMap.get(src)!.add(tgt);
@@ -165,12 +165,13 @@ export function init3d(graphData: GraphData) {
       return baseSize;
     })
     .linkColor((l: any) => {
-      const src = typeof l.source === 'object' ? l.source.id : l.source;
-      const tgt = typeof l.target === 'object' ? l.target.id : l.target;
+      const src = typeof l.source === "object" ? l.source.id : l.source;
+      const tgt = typeof l.target === "object" ? l.target.id : l.target;
       const isConnectedToFocus = focusedId && (src === focusedId || tgt === focusedId);
       const isConnectedToHover = hoveredId && (src === hoveredId || tgt === hoveredId);
-      const isConnectedToHighlight = highlightedSet.size > 0 && (highlightedSet.has(src) || highlightedSet.has(tgt));
-      
+      const isConnectedToHighlight =
+        highlightedSet.size > 0 && (highlightedSet.has(src) || highlightedSet.has(tgt));
+
       if (isConnectedToFocus) {
         return isDarkRef.value ? "rgba(255,220,80,0.95)" : "rgba(255,180,30,0.95)";
       }
@@ -183,8 +184,8 @@ export function init3d(graphData: GraphData) {
       return isDarkRef.value ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)";
     })
     .linkWidth((l: any) => {
-      const src = typeof l.source === 'object' ? l.source.id : l.source;
-      const tgt = typeof l.target === 'object' ? l.target.id : l.target;
+      const src = typeof l.source === "object" ? l.source.id : l.source;
+      const tgt = typeof l.target === "object" ? l.target.id : l.target;
       const isConnectedToFocus = focusedId && (src === focusedId || tgt === focusedId);
       return isConnectedToFocus ? 2.5 : 0.4;
     })
@@ -195,7 +196,7 @@ export function init3d(graphData: GraphData) {
     .enableNodeDrag(true)
     .enableNavigationControls(true)
     .nodeOpacity(1.0)
-    .warmupTicks(0)          // 位置已在构建时算好，客户端直接从那儿开始
+    .warmupTicks(0) // 位置已在构建时算好，客户端直接从那儿开始
     .cooldownTicks(200)
     .cooldownTime(20000)
     .d3AlphaDecay(0.02)
@@ -230,19 +231,27 @@ export function init3d(graphData: GraphData) {
           if (sprites[0]) {
             const scale1 = 6 + Math.sin(animationTime * 2) * 0.5;
             sprites[0].scale.set(scale1, scale1, 1);
-            sprites[0].material.opacity = (0.4 + (focusedId === node.id ? 0.45 : hoveredId === node.id ? 0.3 : 0.15)) * (0.8 + Math.sin(animationTime * 3) * 0.2);
+            sprites[0].material.opacity =
+              (0.4 + (focusedId === node.id ? 0.45 : hoveredId === node.id ? 0.3 : 0.15)) *
+              (0.8 + Math.sin(animationTime * 3) * 0.2);
           }
           // 中层波动
           if (sprites[1]) {
             const scale2 = 12 + Math.sin(animationTime * 1.5 + 1) * 1;
             sprites[1].scale.set(scale2, scale2, 1);
-            sprites[1].material.opacity = (0.4 + (focusedId === node.id ? 0.45 : hoveredId === node.id ? 0.3 : 0.15)) * 0.6 * (0.8 + Math.sin(animationTime * 2 + 1) * 0.2);
+            sprites[1].material.opacity =
+              (0.4 + (focusedId === node.id ? 0.45 : hoveredId === node.id ? 0.3 : 0.15)) *
+              0.6 *
+              (0.8 + Math.sin(animationTime * 2 + 1) * 0.2);
           }
           // 外层波动
           if (sprites[2]) {
             const scale3 = 20 + Math.sin(animationTime + 2) * 2;
             sprites[2].scale.set(scale3, scale3, 1);
-            sprites[2].material.opacity = (0.4 + (focusedId === node.id ? 0.45 : hoveredId === node.id ? 0.3 : 0.15)) * 0.3 * (0.8 + Math.sin(animationTime * 1.5 + 2) * 0.2);
+            sprites[2].material.opacity =
+              (0.4 + (focusedId === node.id ? 0.45 : hoveredId === node.id ? 0.3 : 0.15)) *
+              0.3 *
+              (0.8 + Math.sin(animationTime * 1.5 + 2) * 0.2);
           }
         }
       }
@@ -274,7 +283,7 @@ export function init3d(graphData: GraphData) {
   Graph.onNodeHover((n: any) => {
     const newHoveredId = n ? n.id : null;
     if (lastHoveredId === newHoveredId) return; // 同一个节点，不重复处理
-    
+
     lastHoveredId = hoveredId;
     hoveredId = newHoveredId;
 
@@ -332,9 +341,7 @@ export function init3d(graphData: GraphData) {
   const themeBtn = document.getElementById("theme-toggle");
   const themeHandler = () => {
     isDarkRef.value = !isDarkRef.value;
-    document.documentElement.dataset.theme = isDarkRef.value
-      ? "dark"
-      : "light";
+    document.documentElement.dataset.theme = isDarkRef.value ? "dark" : "light";
     applyTheme();
   };
   if (themeBtn) themeBtn.addEventListener("click", themeHandler);
@@ -342,13 +349,9 @@ export function init3d(graphData: GraphData) {
   function applyTheme() {
     const dark = isDarkRef.value;
     Graph.backgroundColor(dark ? "#0f1115" : "#ffffff");
-    Graph.linkColor(() =>
-      dark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.12)",
-    );
+    Graph.linkColor(() => (dark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.12)"));
     // 更新 tooltip 样式
-    tooltip.el.style.background = dark
-      ? "rgba(0,0,0,0.75)"
-      : "rgba(255,255,255,0.95)";
+    tooltip.el.style.background = dark ? "rgba(0,0,0,0.75)" : "rgba(255,255,255,0.95)";
     tooltip.el.style.color = dark ? "#fff" : "#111";
     // 刷新节点颜色
     refreshColors();
@@ -368,7 +371,7 @@ export function init3d(graphData: GraphData) {
 
   function focusNodeById(id: string) {
     // 恢复上次聚焦节点的颜色
-    lastFocusedId = focusedId;
+    _lastFocusedId = focusedId;
     focusedId = id;
     refreshColors();
 
@@ -408,14 +411,14 @@ export function init3d(graphData: GraphData) {
   function clearHighlights() {
     highlightedSet.clear();
     focusedId = null;
-    lastFocusedId = null;
+    _lastFocusedId = null;
     refreshColors();
   }
 
   function clearLocalEffects() {
     highlightedSet.clear();
     focusedId = null;
-    lastFocusedId = null;
+    _lastFocusedId = null;
     hoveredId = null;
     lastHoveredId = null;
     tooltip.hide();
@@ -427,9 +430,7 @@ export function init3d(graphData: GraphData) {
     const input = urlOrHost.trim().toLowerCase();
     let targetHost = input;
     try {
-      const url = new URL(
-        input.startsWith("http") ? input : `https://${input}`,
-      );
+      const url = new URL(input.startsWith("http") ? input : `https://${input}`);
       targetHost = url.hostname.toLowerCase();
     } catch {
       targetHost = input;

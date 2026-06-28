@@ -147,7 +147,12 @@ export async function GET() {
 
   // 运行 3D 力导仿真
   const simulation = forceSimulation(simNodes as any)
-    .force("link", forceLink(simLinks as any).id((d: any) => d.id).distance(40))
+    .force(
+      "link",
+      forceLink(simLinks as any)
+        .id((d: any) => d.id)
+        .distance(40),
+    )
     .force("charge", forceManyBody().strength(-60))
     .force("center", forceCenter(0, 0, 0))
     .alphaDecay(0.02)

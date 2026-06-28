@@ -17,31 +17,34 @@
 
 ### 高亮状态定义
 
-| 状态 | 新行为 |
-|------|--------|
-| 默认 | 主题色，正常尺寸 |
-| 悬停 | 轻微发光（emissiveIntensity: 0.5）+ 尺寸放大 1.3x |
+| 状态         | 新行为                                            |
+| ------------ | ------------------------------------------------- |
+| 默认         | 主题色，正常尺寸                                  |
+| 悬停         | 轻微发光（emissiveIntensity: 0.5）+ 尺寸放大 1.3x |
 | 高亮组内节点 | 中等发光（emissiveIntensity: 0.8）+ 尺寸放大 1.5x |
-| 聚焦节点 | 强发光（emissiveIntensity: 1.2）+ 尺寸放大 2.0x |
-| 高亮组外节点 | 保持原色但透明度降至 40% |
+| 聚焦节点     | 强发光（emissiveIntensity: 1.2）+ 尺寸放大 2.0x   |
+| 高亮组外节点 | 保持原色但透明度降至 40%                          |
 
 ### 技术方案
 
 使用 Three.js `MeshStandardMaterial` 的 `emissive` 属性实现自发光效果，通过 `3d-force-graph` 的 `nodeThreeObject` 自定义节点材质。
 
 **发光强度分级：**
+
 - 默认：emissiveIntensity = 0
 - 悬停：emissiveIntensity = 0.5
 - 高亮组：emissiveIntensity = 0.8
 - 聚焦：emissiveIntensity = 1.2
 
 **尺寸动态调整：**
+
 - 默认：`degreeToSize(deg, maxDegree)`
 - 悬停：`defaultSize * 1.3`
 - 高亮组内：`defaultSize * 1.5`
 - 聚焦节点：`defaultSize * 2.0`
 
 **非高亮节点处理：**
+
 - 不再变灰，而是保持原色但降低透明度
 - `transparent: true`, `opacity: 0.4`
 

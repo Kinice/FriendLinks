@@ -128,12 +128,7 @@ export const IGNORED_HOSTS = new Set([
   "halo.run",
 ]);
 
-export const AGGREGATORS = new Set([
-  "joyb.cc",
-  "blogscn.fun",
-  "mp.weixin.qq.com",
-  "sspai.com",
-]);
+export const AGGREGATORS = new Set(["joyb.cc", "blogscn.fun", "mp.weixin.qq.com", "sspai.com"]);
 
 export const FRIEND_PAGE_CANDIDATES = [
   "/links",
@@ -163,12 +158,4 @@ export const FRIEND_PAGE_CANDIDATES = [
 export const RESOURCE_EXT_REGEX =
   /\.(png|jpg|jpeg|gif|svg|pdf|zip|rar|7z|iso|dmg|rar|mp4|webm|mp3|ogg)$/i;
 
-export const NON_BLOG_TEXT_INDICATORS = [
-  "下载",
-  "镜像",
-  "工具",
-  "cdn",
-  "样式",
-  "assets",
-  "静态",
-];
+export const NON_BLOG_TEXT_INDICATORS = ["下载", "镜像", "工具", "cdn", "样式", "assets", "静态"];

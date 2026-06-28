@@ -6,12 +6,7 @@ import { chromium } from "playwright";
 import type { Browser } from "playwright";
 
 import type { SeedEntry } from "./types";
-import {
-  hostnameFromUrl,
-  sanitizeLabel,
-  hostMatchesSet,
-  extractFriendName,
-} from "./utils";
+import { hostnameFromUrl, sanitizeLabel, hostMatchesSet, extractFriendName } from "./utils";
 import { findFriendPageAnchors } from "./finder";
 import { createAsyncWriter } from "./writer";
 import { IGNORED_HOSTS, AGGREGATORS, FRIEND_PAGE_CANDIDATES } from "./types";
@@ -19,29 +14,19 @@ import { IGNORED_HOSTS, AGGREGATORS, FRIEND_PAGE_CANDIDATES } from "./types";
 export async function mainCLI(): Promise<void> {
   const args = process.argv.slice(2);
   const depthArgIndex = args.findIndex((a) => a.startsWith("--depth="));
-  const depth =
-    depthArgIndex >= 0 ? Number(args[depthArgIndex].split("=")[1]) || 2 : 2;
+  const depth = depthArgIndex >= 0 ? Number(args[depthArgIndex].split("=")[1]) || 2 : 2;
   const dryRun = args.includes("--dry-run") || args.includes("-d");
   const verbose = args.includes("--verbose") || args.includes("-v");
-  const visitedFileArgIndex = args.findIndex((a) =>
-    a.startsWith("--visited-file=")
-  );
+  const visitedFileArgIndex = args.findIndex((a) => a.startsWith("--visited-file="));
   const resume = args.includes("--resume") || args.includes("--continue");
   const asyncWrite = args.includes("--async-write");
-  const writeConcurrencyArgIndex = args.findIndex((a) =>
-    a.startsWith("--write-concurrency=")
-  );
+  const writeConcurrencyArgIndex = args.findIndex((a) => a.startsWith("--write-concurrency="));
   const writeConcurrency =
-    writeConcurrencyArgIndex >= 0
-      ? Number(args[writeConcurrencyArgIndex].split("=")[1]) || 4
-      : 4;
+    writeConcurrencyArgIndex >= 0 ? Number(args[writeConcurrencyArgIndex].split("=")[1]) || 4 : 4;
 
   const linksDir = path.resolve(process.cwd(), "links");
   const outDir = linksDir;
-  const { enqueueWrite, flushWrites, queuedWrites } = createAsyncWriter(
-    verbose,
-    writeConcurrency
-  );
+  const { enqueueWrite, flushWrites, queuedWrites } = createAsyncWriter(verbose, writeConcurrency);
 
   const files = await fs.readdir(linksDir).catch(() => [] as string[]);
   if (global) console.log(`Found ${files.length} files in ${linksDir}`);
@@ -60,11 +45,7 @@ export async function mainCLI(): Promise<void> {
           const hFull = hostnameFromUrl(friend.url);
           const h = hFull;
           if (!h) continue;
-          if (
-            hostMatchesSet(h, IGNORED_HOSTS) ||
-            hostMatchesSet(h, AGGREGATORS)
-          )
-            continue;
+          if (hostMatchesSet(h, IGNORED_HOSTS) || hostMatchesSet(h, AGGREGATORS)) continue;
           if (seedHosts.has(h)) continue;
           const filename = path.join(outDir, `${h}.yml`);
           const fileExists = await fs
@@ -98,14 +79,11 @@ export async function mainCLI(): Promise<void> {
   // Load visited hosts from visited.json (if present) and exclude them from initial seeds
   const visitedFromFile = new Set<string>();
   try {
-    const prev = await fs
-      .readFile(path.join(outDir, "visited.json"), "utf8")
-      .catch(() => "");
+    const prev = await fs.readFile(path.join(outDir, "visited.json"), "utf8").catch(() => "");
     if (prev) {
       const arr: string[] = JSON.parse(prev || "[]");
       for (const h of arr) visitedFromFile.add(h);
-      if (global)
-        console.log(`Loaded ${arr.length} visited hosts from visited.json`);
+      if (global) console.log(`Loaded ${arr.length} visited hosts from visited.json`);
     }
   } catch (err) {
     if (global) console.warn(`Failed to read visited.json`, err);
@@ -120,16 +98,11 @@ export async function mainCLI(): Promise<void> {
       if (visitedFromFile.has(h)) seeds.splice(i, 1);
     }
     if (global)
-      console.log(
-        `Filtered seeds ${before} -> ${seeds.length} after removing visited hosts`
-      );
+      console.log(`Filtered seeds ${before} -> ${seeds.length} after removing visited hosts`);
   }
   if (global) {
-    console.log(
-      `Discovered ${seeds.length} seed URLs (unique hosts: ${seedHosts.size})`
-    );
-    if (seeds.length > 0)
-      console.log(`  Sample seeds: ${seeds.slice(0, 10).join(", ")}`);
+    console.log(`Discovered ${seeds.length} seed URLs (unique hosts: ${seedHosts.size})`);
+    if (seeds.length > 0) console.log(`  Sample seeds: ${seeds.slice(0, 10).join(", ")}`);
   }
 
   const discovered = new Map<string, string | null>();
@@ -139,16 +112,11 @@ export async function mainCLI(): Promise<void> {
   try {
     // `visitedFromFile` may be undefined in older versions, guard access
     // @ts-ignore
-    if (
-      typeof visitedFromFile !== "undefined" &&
-      visitedFromFile instanceof Set
-    ) {
+    if (typeof visitedFromFile !== "undefined" && visitedFromFile instanceof Set) {
       // @ts-ignore
       for (const h of visitedFromFile) visited.add(h);
       if (global)
-        console.log(
-          `Initialized visited set with ${visited.size} hosts from visited.json`
-        );
+        console.log(`Initialized visited set with ${visited.size} hosts from visited.json`);
     }
   } catch (e) {
     if (global) console.warn("Failed to merge visitedFromFile into visited", e);
@@ -158,14 +126,10 @@ export async function mainCLI(): Promise<void> {
     try {
       const content = await fs.readFile(filePath, "utf8");
       const arr: string[] = JSON.parse(content || "[]");
-      if (verbose)
-        console.log(`Loaded ${arr.length} visited hosts from ${filePath}`);
+      if (verbose) console.log(`Loaded ${arr.length} visited hosts from ${filePath}`);
       return new Set(arr);
     } catch {
-      if (verbose)
-        console.log(
-          `No visited-file at ${filePath} or failed to parse; starting fresh`
-        );
+      if (verbose) console.log(`No visited-file at ${filePath} or failed to parse; starting fresh`);
       return new Set<string>();
     }
   }
@@ -190,15 +154,13 @@ export async function mainCLI(): Promise<void> {
       const tmp = `${filePath}.tmp`;
       await fs.writeFile(tmp, JSON.stringify(arr, null, 2), "utf8");
       await fs.rename(tmp, filePath);
-      if (verbose)
-        console.log(`Saved ${arr.length} visited hosts to ${filePath}`);
+      if (verbose) console.log(`Saved ${arr.length} visited hosts to ${filePath}`);
     } catch (err) {
       console.warn(`Failed to persist visited-file ${filePath}`, err);
     }
   }
 
-  const visitedFileArg =
-    visitedFileArgIndex >= 0 ? args[visitedFileArgIndex].split("=")[1] : null;
+  const visitedFileArg = visitedFileArgIndex >= 0 ? args[visitedFileArgIndex].split("=")[1] : null;
   const visitedFile = visitedFileArg
     ? path.isAbsolute(visitedFileArg)
       ? visitedFileArg
@@ -206,9 +168,7 @@ export async function mainCLI(): Promise<void> {
     : path.join(outDir, "visited.json");
 
   if (resume) {
-    const prev = await loadVisitedFile(visitedFile).catch(
-      () => new Set<string>()
-    );
+    const prev = await loadVisitedFile(visitedFile).catch(() => new Set<string>());
     for (const h of prev) visited.add(h);
   }
   for (const seed of seeds) {
@@ -217,9 +177,7 @@ export async function mainCLI(): Promise<void> {
   }
 
   if (global)
-    console.log(
-      `Starting BFS with ${discovered.size} seeds, depth=${depth}, dryRun=${dryRun}`
-    );
+    console.log(`Starting BFS with ${discovered.size} seeds, depth=${depth}, dryRun=${dryRun}`);
 
   // ponytail: deque via index pointer, O(1) pop vs O(n) shift. Upgrade to actual Deque if 10k+ items.
   const queue: Array<{ url: string; depth: number }> = [];
@@ -229,19 +187,13 @@ export async function mainCLI(): Promise<void> {
   const browser = await chromium.launch();
 
   // Helper: try to fetch the main site's title (root origin) to use as site.name
-  async function fetchSiteMainName(
-    browser: Browser,
-    pageUrl: string,
-    verboseFlag = false
-  ) {
+  async function fetchSiteMainName(browser: Browser, pageUrl: string, verboseFlag = false) {
     try {
       const urlObj = new URL(pageUrl);
       const origin = urlObj.origin;
       const page = await browser.newPage();
       try {
-        await page
-          .goto(origin, { waitUntil: "domcontentloaded", timeout: 5000 })
-          .catch(() => {});
+        await page.goto(origin, { waitUntil: "domcontentloaded", timeout: 5000 }).catch(() => {});
         const metaTitle = await page
           .evaluate(() => {
             const sel =
@@ -257,8 +209,7 @@ export async function mainCLI(): Promise<void> {
           })
           .catch(() => null);
         await page.close();
-        const candidate =
-          (metaTitle && String(metaTitle).trim()) || urlObj.hostname;
+        const candidate = (metaTitle && String(metaTitle).trim()) || urlObj.hostname;
         const cleaned = sanitizeLabel(candidate) || urlObj.hostname;
         return extractFriendName(cleaned, origin);
       } catch (e) {
@@ -278,15 +229,12 @@ export async function mainCLI(): Promise<void> {
     while (qHead < queue.length) {
       const { url, depth: curDepth } = queue[qHead++];
       if (global)
-        console.log(
-          `Queue pop: ${url} (depth=${curDepth}, remaining=${queue.length - qHead})`
-        );
+        console.log(`Queue pop: ${url} (depth=${curDepth}, remaining=${queue.length - qHead})`);
       const baseHostFull = hostnameFromUrl(url);
       const baseHost = baseHostFull;
       if (!baseHost) continue;
       if (visited.has(baseHost)) {
-        if (verbose)
-          console.log(`Skipping ${baseHost} because we've already visited it`);
+        if (verbose) console.log(`Skipping ${baseHost} because we've already visited it`);
         continue;
       }
       visited.add(baseHost);
@@ -302,12 +250,7 @@ export async function mainCLI(): Promise<void> {
       for (const c of FRIEND_PAGE_CANDIDATES) {
         const attempt = new URL(c, url).href;
         if (global) console.log("Trying candidate friend page:", attempt);
-        const found = await findFriendPageAnchors(
-          browser as Browser,
-          attempt,
-          baseHost,
-          verbose
-        );
+        const found = await findFriendPageAnchors(browser as Browser, attempt, baseHost, verbose);
         if (found && found.anchors && found.anchors.length > 0) {
           targetAnchors = found.anchors;
           pageMeta = found.meta;
@@ -316,12 +259,7 @@ export async function mainCLI(): Promise<void> {
       }
 
       if (!targetAnchors) {
-        const found = await findFriendPageAnchors(
-          browser as Browser,
-          url,
-          baseHost,
-          verbose
-        );
+        const found = await findFriendPageAnchors(browser as Browser, url, baseHost, verbose);
         if (found && found.anchors && found.anchors.length > 0) {
           targetAnchors = found.anchors;
           pageMeta = found.meta;
@@ -339,11 +277,7 @@ export async function mainCLI(): Promise<void> {
           const h = hFull;
           if (!h) return null;
           if (h === baseHost) return null;
-          if (
-            hostMatchesSet(h, IGNORED_HOSTS) ||
-            hostMatchesSet(h, AGGREGATORS)
-          )
-            return null;
+          if (hostMatchesSet(h, IGNORED_HOSTS) || hostMatchesSet(h, AGGREGATORS)) return null;
           const nm = extractFriendName(a.text || null, a.href) || h;
           return { name: nm, url: a.href } as { name: string; url: string };
         })
@@ -357,8 +291,7 @@ export async function mainCLI(): Promise<void> {
           .catch(() => false)) || queuedWrites.has(baseFilename);
       if (!baseYamlExists && friendsList.length > 0) {
         // Prefer the site's main/root title instead of the friend-list page title
-        const siteMainName =
-          (await fetchSiteMainName(browser, url, !!global)) || undefined;
+        const siteMainName = (await fetchSiteMainName(browser, url, !!global)) || undefined;
         const siteNameRaw = siteMainName || pageMeta?.title || url;
         const siteName = sanitizeLabel(siteNameRaw) || baseHost;
         const siteDescRaw = pageMeta?.description ?? siteNameRaw;
@@ -376,13 +309,10 @@ export async function mainCLI(): Promise<void> {
           if (asyncWrite) enqueueWrite(baseFilename, yamlContent);
           else {
             await fs.writeFile(baseFilename, yamlContent, "utf8");
-            if (global)
-              console.log(`Wrote base YAML for ${baseHost} -> ${baseFilename}`);
+            if (global) console.log(`Wrote base YAML for ${baseHost} -> ${baseFilename}`);
           }
         } else if (global) {
-          console.log(
-            `[DRY] Would write base YAML for ${baseHost} -> ${baseFilename}`
-          );
+          console.log(`[DRY] Would write base YAML for ${baseHost} -> ${baseFilename}`);
         }
       }
 
@@ -391,10 +321,7 @@ export async function mainCLI(): Promise<void> {
         const anchorHost = anchorHostFull;
         if (!anchorHost) continue;
         if (anchorHost === baseHost) continue;
-        if (
-          hostMatchesSet(anchorHost, IGNORED_HOSTS) ||
-          hostMatchesSet(anchorHost, AGGREGATORS)
-        )
+        if (hostMatchesSet(anchorHost, IGNORED_HOSTS) || hostMatchesSet(anchorHost, AGGREGATORS))
           continue;
 
         const anchorFilename = path.join(outDir, `${anchorHost}.yml`);
@@ -405,17 +332,14 @@ export async function mainCLI(): Promise<void> {
             .catch(() => false)) || queuedWrites.has(anchorFilename);
         if (anchorYamlExists) {
           if (global)
-            console.log(
-              `Skipping ${anchorHost}: yaml already present (${anchorFilename})`
-            );
+            console.log(`Skipping ${anchorHost}: yaml already present (${anchorFilename})`);
           continue;
         }
 
         if (!discovered.has(anchorHost) && !visited.has(anchorHost) && curDepth < depth) {
           discovered.set(anchorHost, anchor.href);
           queue.push({ url: anchor.href, depth: curDepth + 1 });
-          if (global)
-            console.log(`Enqueued ${anchor.href} (host=${anchorHost})`);
+          if (global) console.log(`Enqueued ${anchor.href} (host=${anchorHost})`);
         }
       }
 

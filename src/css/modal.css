@@ -13,7 +13,9 @@
   z-index: 1000;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
 }
 #stats-modal.show,
 #about-modal.show {
@@ -174,8 +176,7 @@ pre {
   overflow: auto;
 }
 pre code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
-    "Noto Mono", monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Noto Mono", monospace;
   font-size: 13px;
   color: var(--text-color);
 }

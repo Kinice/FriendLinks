@@ -51,10 +51,7 @@
       "reason": "status-403",
       "status": 403,
       "isTls": false,
-      "redirectChain": [
-        "https://ttio.cc/",
-        "https://ttio.cc/"
-      ],
+      "redirectChain": ["https://ttio.cc/", "https://ttio.cc/"],
       "finalUrl": "https://ttio.cc/",
       "clientRedirect": false
     },
@@ -72,10 +69,7 @@
       "reason": "status-403",
       "status": 403,
       "isTls": false,
-      "redirectChain": [
-        "https://blog.liuzhen932.top/",
-        "https://blog.liuzhen932.top/"
-      ],
+      "redirectChain": ["https://blog.liuzhen932.top/", "https://blog.liuzhen932.top/"],
       "finalUrl": "https://blog.liuzhen932.top/?__cf_chl_rt_tk=9gA81PqNMuiFnb8D.EnH2b5iNHxjBzLrFNmRNzxztDs-1765032765-1.0.1.1-SdDJJBFSbMRWk9Tmzfz2edsRQRPgGgw7Bxa71ub8oFM",
       "clientRedirect": true
     },
@@ -111,10 +105,7 @@
       "reason": "status-567",
       "status": 567,
       "isTls": false,
-      "redirectChain": [
-        "https://inkss.cn/",
-        "https://inkss.cn/security"
-      ],
+      "redirectChain": ["https://inkss.cn/", "https://inkss.cn/security"],
       "finalUrl": "https://inkss.cn/security",
       "clientRedirect": true
     },
@@ -190,10 +181,7 @@
       "reason": "status-403",
       "status": 403,
       "isTls": false,
-      "redirectChain": [
-        "https://blog.mckero.com/",
-        "https://blog.mckero.com/"
-      ],
+      "redirectChain": ["https://blog.mckero.com/", "https://blog.mckero.com/"],
       "finalUrl": "https://blog.mckero.com/",
       "clientRedirect": false
     },
@@ -229,10 +217,7 @@
       "reason": "status-403",
       "status": 403,
       "isTls": false,
-      "redirectChain": [
-        "https://blog.liuzhen932.top/",
-        "https://blog.liuzhen932.top/"
-      ],
+      "redirectChain": ["https://blog.liuzhen932.top/", "https://blog.liuzhen932.top/"],
       "finalUrl": "https://blog.liuzhen932.top/?__cf_chl_rt_tk=zrWjiVLuQBhbyAz0PhOfzUnDBjPHX.OYYMazGEwnTEI-1765033013-1.0.1.1-CpZGnS6yOP7s_NQTPysOpL7RrNJcsgnXLTXkHnwE0uI",
       "clientRedirect": true
     },
@@ -250,10 +235,7 @@
       "reason": "status-403",
       "status": 403,
       "isTls": false,
-      "redirectChain": [
-        "https://ttio.cc/",
-        "https://ttio.cc/"
-      ],
+      "redirectChain": ["https://ttio.cc/", "https://ttio.cc/"],
       "finalUrl": "https://ttio.cc/",
       "clientRedirect": true
     },
@@ -289,10 +271,7 @@
       "reason": "status-403",
       "status": 403,
       "isTls": false,
-      "redirectChain": [
-        "https://www.bqiu.top/",
-        "https://www.bqiu.top/"
-      ],
+      "redirectChain": ["https://www.bqiu.top/", "https://www.bqiu.top/"],
       "finalUrl": "https://www.bqiu.top/",
       "clientRedirect": true
     },

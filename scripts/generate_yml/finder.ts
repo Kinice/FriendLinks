@@ -6,7 +6,7 @@ export async function findFriendPageAnchors(
   browser: Browser,
   pageUrl: string,
   baseHost: string,
-  verbose = false
+  verbose = false,
 ): Promise<{
   length: number;
   anchors: Anchor[];
@@ -36,10 +36,7 @@ export async function findFriendPageAnchors(
     const dbg = verbose || isDebugEnabled();
     for (const ind of negativeIndicators) {
       if (bodyText.includes(ind)) {
-        if (dbg)
-          console.log(
-            `Skipping ${pageUrl} because page body contains indicator: "${ind}"`
-          );
+        if (dbg) console.log(`Skipping ${pageUrl} because page body contains indicator: "${ind}"`);
         return null;
       }
     }
@@ -67,18 +64,14 @@ export async function findFriendPageAnchors(
           (a as HTMLAnchorElement).title ||
           (a as HTMLAnchorElement).textContent ||
           "",
-      }))
+      })),
     );
 
     const friendAnchors = anchors.filter(
       (a) =>
-        looksLikeFriendLink(a.href, a.text, baseHost) &&
-        !isLikelyNonBlog(a.href, a.text ?? "")
+        looksLikeFriendLink(a.href, a.text, baseHost) && !isLikelyNonBlog(a.href, a.text ?? ""),
     );
-    if (dbg)
-      console.log(
-        `Found ${friendAnchors.length} friend-like anchors on ${pageUrl}`
-      );
+    if (dbg) console.log(`Found ${friendAnchors.length} friend-like anchors on ${pageUrl}`);
     if (dbg && friendAnchors.length > 0) {
       for (const a of friendAnchors) {
         console.log(`  -> ${a.href}  [${(a.text || "").slice(0, 80)}]`);

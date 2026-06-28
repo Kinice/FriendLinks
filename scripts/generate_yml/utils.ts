@@ -1,9 +1,4 @@
-import {
-  IGNORED_HOSTS,
-  AGGREGATORS,
-  RESOURCE_EXT_REGEX,
-  NON_BLOG_TEXT_INDICATORS,
-} from "./types";
+import { IGNORED_HOSTS, AGGREGATORS, RESOURCE_EXT_REGEX, NON_BLOG_TEXT_INDICATORS } from "./types";
 
 // Sanitize label text (trim, collapse whitespace, decode a few HTML entities)
 export function sanitizeLabel(text: string): string {
@@ -60,25 +55,14 @@ export function hostMatchesSet(host: string, set: Set<string>): boolean {
   return false;
 }
 
-export function looksLikeFriendLink(
-  href: string,
-  text: string | null,
-  baseHost: string
-): boolean {
+export function looksLikeFriendLink(href: string, text: string | null, baseHost: string): boolean {
   if (!href) return false;
   try {
     const url = new URL(href, `http://${baseHost}`);
     const host = url.hostname.toLowerCase();
     if (host === baseHost) {
-      const internalNonBlogSegments = [
-        "/archives",
-        "/tags",
-        "/author",
-        "/category",
-        "/categories",
-      ];
-      if (internalNonBlogSegments.some((seg) => url.pathname.startsWith(seg)))
-        return false;
+      const internalNonBlogSegments = ["/archives", "/tags", "/author", "/category", "/categories"];
+      if (internalNonBlogSegments.some((seg) => url.pathname.startsWith(seg))) return false;
     }
     const textLower = (text || "").toLowerCase();
     const linkKeyWords = [
@@ -105,9 +89,7 @@ export function looksLikeFriendLink(
 
 export function isDebugEnabled(): boolean {
   return Boolean(
-    process.env.DEBUG_GENERATOR === "1" ||
-      process.env.DEBUG === "1" ||
-      process.env.VERBOSE === "1"
+    process.env.DEBUG_GENERATOR === "1" || process.env.DEBUG === "1" || process.env.VERBOSE === "1",
   );
 }
 
