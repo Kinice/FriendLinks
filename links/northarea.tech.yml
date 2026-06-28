@@ -1,6 +1,7 @@
 site:
   name: "North Area"
   url: "https://northarea.tech/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "ResearchGate"

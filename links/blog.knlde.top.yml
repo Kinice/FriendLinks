@@ -1,6 +1,7 @@
 site:
   name: "Chinyuan Tai"
   url: "https://blog.knlde.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "天翔TNXGの空间站\n                明日尚未到来，希望凝于心上"

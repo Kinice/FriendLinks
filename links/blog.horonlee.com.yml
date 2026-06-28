@@ -1,6 +1,7 @@
 site:
   name: "皓然小站"
   url: "https://blog.horonlee.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "QQ 群 1269024821"

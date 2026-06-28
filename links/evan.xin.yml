@@ -1,6 +1,7 @@
 site:
   name: "Evan"
   url: "https://evan.xin/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "文章"

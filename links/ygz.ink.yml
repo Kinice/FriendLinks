@@ -1,6 +1,7 @@
 site:
   name: "ygz"
   url: "https://ygz.ink/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "宗宗酱"

@@ -1,6 +1,7 @@
 site:
   name: "Adil"
   url: "https://blog.adil.com.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Adil"

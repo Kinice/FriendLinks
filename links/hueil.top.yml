@@ -1,6 +1,7 @@
 site:
   name: "Hueil"
   url: "https://hueil.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Hueilの小窝"

@@ -1,6 +1,7 @@
 site:
   name: "SinGO"
   url: "https://blog.xsnet.eu.org/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "开往"

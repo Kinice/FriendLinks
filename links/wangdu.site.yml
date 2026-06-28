@@ -1,6 +1,7 @@
 site:
   name: "文武科技柜"
   url: "https://wangdu.site/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "文武科技柜"

@@ -1,6 +1,7 @@
 site:
   name: "锦木祈杰"
   url: "https://qijieya.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "碎碎念"

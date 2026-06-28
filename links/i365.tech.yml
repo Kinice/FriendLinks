@@ -1,6 +1,7 @@
 site:
   name: "i365"
   url: "https://i365.tech/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "免注册实时聊天室free4.chat语音、文字、文件、屏幕共享，不用注册，关掉就消失。语音聊天文件传输屏幕共享"

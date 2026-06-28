@@ -1,6 +1,7 @@
 site:
   name: "Frez79"
   url: "https://re.frez79.io/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "CanNook\n            Can1425 互联网自留地"

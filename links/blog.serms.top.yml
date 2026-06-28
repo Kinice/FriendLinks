@@ -1,6 +1,7 @@
 site:
   name: "SerMs"
   url: "https://blog.serms.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Hexo"

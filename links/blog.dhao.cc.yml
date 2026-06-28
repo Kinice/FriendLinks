@@ -1,6 +1,7 @@
 site:
   name: "众星 - 彬彬加冰"
   url: "https://blog.dhao.cc/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "张洪Heo\n                                        分享设计与科技生活"

@@ -1,6 +1,7 @@
 site:
   name: "茗辰原"
   url: "https://mingcy.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "茗辰原 の 异世界(老站点) 茗辰原，一个与众不同的异世界，等待你的探索与发现。"

@@ -1,6 +1,7 @@
 site:
   name: "春风吹"
   url: "https://cuojue.org/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Server Status"

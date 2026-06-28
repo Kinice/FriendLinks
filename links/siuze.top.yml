@@ -1,6 +1,7 @@
 site:
   name: "少年游"
   url: "https://siuze.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "山人码"

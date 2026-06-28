@@ -1,6 +1,7 @@
 site:
   name: "字节星球"
   url: "https://bytecho.net/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "开往"

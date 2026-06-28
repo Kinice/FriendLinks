@@ -1,6 +1,7 @@
 site:
   name: "空气力学先驱"
   url: "https://misakishiki.site/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "文档"

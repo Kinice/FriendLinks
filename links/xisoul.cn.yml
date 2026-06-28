@@ -1,6 +1,7 @@
 site:
   name: "XiSoul"
   url: "https://xisoul.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "IT Tools"

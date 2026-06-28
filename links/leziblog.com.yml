@@ -1,6 +1,7 @@
 site:
   name: "LeZi的猫窝"
   url: "https://leziblog.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Travelling"

@@ -1,6 +1,7 @@
 site:
   name: "微霞"
   url: "https://yuuu.org/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "github"

@@ -1,6 +1,7 @@
 site:
   name: "素心"
   url: "https://haiy.space/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "灯火不休时在代码里种诗arrow_outward"

@@ -1,6 +1,7 @@
 site:
   name: "iNetech"
   url: "https://blog.udp0.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "孤影墨香"

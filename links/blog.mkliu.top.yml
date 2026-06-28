@@ -1,6 +1,7 @@
 site:
   name: "michaelliunsky"
   url: "https://blog.mkliu.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "友情链接"

@@ -1,6 +1,7 @@
 site:
   name: "烛影Sord"
   url: "https://blog.sord.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Hexo"

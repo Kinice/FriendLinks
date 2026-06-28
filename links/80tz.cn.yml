@@ -1,6 +1,7 @@
 site:
   name: "弘源数据"
   url: "https://80tz.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "十年"

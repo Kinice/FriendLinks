@@ -1,6 +1,7 @@
 site:
   name: "钧言极客"
   url: "https://jinjun.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "钧言极客"

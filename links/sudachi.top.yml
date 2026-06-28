@@ -1,6 +1,7 @@
 site:
   name: "莱姆Lime"
   url: "https://sudachi.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "网易云歌单"

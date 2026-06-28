@@ -1,6 +1,7 @@
 site:
   name: "玖涯博客"
   url: "https://blog.nineya.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "NINEYA"

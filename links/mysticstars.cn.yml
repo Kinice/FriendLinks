@@ -1,6 +1,7 @@
 site:
   name: "Mystic Stars"
   url: "https://mysticstars.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "GHS 2024"

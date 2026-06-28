@@ -1,6 +1,7 @@
 site:
   name: "陆梧途说"
   url: "https://luwut.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "陆梧途说 Luwut.com"

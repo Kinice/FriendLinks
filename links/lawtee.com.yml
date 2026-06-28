@@ -1,6 +1,7 @@
 site:
   name: "老T博客"
   url: "https://lawtee.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "GitHub"

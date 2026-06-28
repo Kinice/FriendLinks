@@ -1,6 +1,7 @@
 site:
   name: "牛魔博客"
   url: "https://nmwbk.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "深思"

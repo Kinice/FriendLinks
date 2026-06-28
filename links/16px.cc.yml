@@ -1,6 +1,7 @@
 site:
   name: "16px"
   url: "https://16px.cc/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "默小班\t一个初中生的小站点。"

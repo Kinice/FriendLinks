@@ -1,6 +1,7 @@
 site:
   name: "材料与逻辑"
   url: "https://zhyong.site/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "相册"

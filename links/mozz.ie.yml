@@ -1,6 +1,7 @@
 site:
   name: "蚊帐"
   url: "https://mozz.ie/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Candy2-Hugo"

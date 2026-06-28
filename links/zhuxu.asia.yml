@@ -1,6 +1,7 @@
 site:
   name: "朱某"
   url: "https://zhuxu.asia/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "https://zhuxu.asia/"

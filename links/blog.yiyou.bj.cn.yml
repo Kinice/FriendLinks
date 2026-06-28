@@ -1,6 +1,7 @@
 site:
   name: "益友网站"
   url: "https://blog.yiyou.bj.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "音乐"

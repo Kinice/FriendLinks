@@ -1,6 +1,7 @@
 site:
   name: "AcmeZone"
   url: "https://acmezone.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "B1ue1nWh1te\n                        深海的个人主页"

@@ -1,6 +1,7 @@
 site:
   name: "笔搁纸鸯"
   url: "https://b.wihi.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "开往-友链接力"

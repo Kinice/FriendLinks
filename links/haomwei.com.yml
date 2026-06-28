@@ -1,6 +1,7 @@
 site:
   name: "屠城"
   url: "https://haomwei.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "雅岚生活雅岚文艺博客"

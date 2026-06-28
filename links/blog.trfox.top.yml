@@ -1,6 +1,7 @@
 site:
   name: "Teror"
   url: "https://blog.trfox.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Mix Space"

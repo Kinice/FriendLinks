@@ -1,6 +1,7 @@
 site:
   name: "阿岳"
   url: "https://littlefean.github.io/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "开往"

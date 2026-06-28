@@ -1,6 +1,7 @@
 site:
   name: "秋澪"
   url: "https://blog.akimio.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "个人主页"

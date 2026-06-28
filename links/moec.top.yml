@@ -1,6 +1,7 @@
 site:
   name: "老兄de博客"
   url: "https://moec.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "友人帐"

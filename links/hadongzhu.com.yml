@@ -1,6 +1,7 @@
 site:
   name: "哈冬猪"
   url: "https://hadongzhu.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "哈冬猪的小站"

@@ -1,6 +1,7 @@
 site:
   name: "晴雀堂"
   url: "https://blog.verynb.net/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "开往"

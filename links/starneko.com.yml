@@ -1,6 +1,7 @@
 site:
   name: "MilkSU"
   url: "https://starneko.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "RzWeb Binary RE"

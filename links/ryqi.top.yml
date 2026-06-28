@@ -1,6 +1,7 @@
 site:
   name: "合荒小站"
   url: "https://ryqi.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "GitHub"

@@ -1,6 +1,7 @@
 site:
   name: "索玛"
   url: "https://suo.ma/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "一楼没太阳\n                  只有坏掉的东西才会停下来"

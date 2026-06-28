@@ -1,6 +1,7 @@
 site:
   name: "Enento"
   url: "https://enento.cloud/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "友链"

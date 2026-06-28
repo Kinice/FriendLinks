@@ -1,6 +1,7 @@
 site:
   name: "文案姐笔记"
   url: "https://5186a.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "文案姐"

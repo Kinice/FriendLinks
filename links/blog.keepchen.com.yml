@@ -1,6 +1,7 @@
 site:
   name: "希仁之拥"
   url: "https://blog.keepchen.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "希仁之拥"

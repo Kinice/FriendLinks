@@ -1,6 +1,7 @@
 site:
   name: "KEVIN"
   url: "https://blog.kevinchu.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "知识库"

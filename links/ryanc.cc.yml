@@ -1,6 +1,7 @@
 site:
   name: "Ryan Wang"
   url: "https://ryanc.cc/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "GitHub"

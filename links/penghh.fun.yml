@@ -1,6 +1,7 @@
 site:
   name: "彭宏豪"
   url: "https://penghh.fun/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "AI效率工具导航\n            我创建的好用软件导航网站"

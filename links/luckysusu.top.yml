@@ -1,6 +1,7 @@
 site:
   name: "苏苏"
   url: "https://luckysusu.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "苏苏の休憩小屋 \n      归途依旧可爱"

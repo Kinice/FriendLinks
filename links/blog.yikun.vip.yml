@@ -1,6 +1,7 @@
 site:
   name: "易困"
   url: "https://blog.yikun.vip/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "易困Yikun"

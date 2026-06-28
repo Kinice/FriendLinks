@@ -1,6 +1,7 @@
 site:
   name: "Chise"
   url: "https://chise.hachiroku.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Gallery"

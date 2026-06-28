@@ -1,6 +1,7 @@
 site:
   name: "CC的数字花园"
   url: "https://cyrus19.cc/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "全站索引 & 时间轴"

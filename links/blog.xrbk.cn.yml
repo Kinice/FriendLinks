@@ -1,6 +1,7 @@
 site:
   name: "新锐博客"
   url: "https://blog.xrbk.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "公共CDN"

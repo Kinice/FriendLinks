@@ -1,6 +1,7 @@
 site:
   name: "Qaiu"
   url: "https://blog.qaiu.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Qaiu blog"

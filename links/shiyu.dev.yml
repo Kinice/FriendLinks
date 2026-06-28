@@ -1,6 +1,7 @@
 site:
   name: "云烟成雨"
   url: "https://shiyu.dev/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Ouen"

@@ -1,6 +1,7 @@
 site:
   name: "风间苏苏"
   url: "https://theresa.cafe/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "IIROSE \n      iirose.com"

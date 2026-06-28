@@ -1,6 +1,7 @@
 site:
   name: "MOZE"
   url: "https://blog.imzy.ink/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "MOZE"

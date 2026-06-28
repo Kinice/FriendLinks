@@ -1,6 +1,7 @@
 site:
   name: "InsectMk"
   url: "https://insectmk.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "蜀ICP备2023013851号-1"

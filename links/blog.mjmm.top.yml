@@ -1,6 +1,7 @@
 site:
   name: "木锦棉棉"
   url: "https://blog.mjmm.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "随机前往一个开往项目网站"

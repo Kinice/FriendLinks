@@ -1,6 +1,7 @@
 site:
   name: "小橙子"
   url: "https://anorange.icu/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "服务状态"

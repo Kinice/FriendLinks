@@ -1,6 +1,7 @@
 site:
   name: "makotowu"
   url: "https://makotowu.cnstlapy.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "makotowu笔记"

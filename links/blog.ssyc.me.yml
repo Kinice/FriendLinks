@@ -1,6 +1,7 @@
 site:
   name: "世上云川"
   url: "https://blog.ssyc.me/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "听雨"

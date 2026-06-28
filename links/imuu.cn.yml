@@ -1,6 +1,7 @@
 site:
   name: "网际驿站"
   url: "https://imuu.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "岁月静好"

@@ -1,6 +1,7 @@
 site:
   name: "zxalive"
   url: "https://zxalive.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "摄影"

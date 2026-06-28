@@ -1,6 +1,7 @@
 site:
   name: "Kloudy Shape"
   url: "https://shape.kloudy.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "穿梭虫洞"

@@ -1,6 +1,7 @@
 site:
   name: "寒星皓月"
   url: "https://wanghanyue.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "网站首页"

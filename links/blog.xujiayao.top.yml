@@ -1,6 +1,7 @@
 site:
   name: "Xujiayao"
   url: "https://blog.xujiayao.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "评论管理系统"

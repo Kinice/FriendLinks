@@ -1,6 +1,7 @@
 site:
   name: "糖果博客"
   url: "https://wpocn.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "资讯"

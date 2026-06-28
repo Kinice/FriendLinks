@@ -1,6 +1,7 @@
 site:
   name: "Antx"
   url: "https://blog.antx.cc/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "导航"

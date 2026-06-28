@@ -1,6 +1,7 @@
 site:
   name: "VirtualHotBar"
   url: "https://blog.hotpe.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "NetMount\n                            统一管理和挂载云存储设施"

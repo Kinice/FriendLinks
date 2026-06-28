@@ -1,6 +1,7 @@
 site:
   name: "弈鸣小筑"
   url: "https://blog.ymhut.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "ip查询"

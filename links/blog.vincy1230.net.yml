@@ -1,6 +1,7 @@
 site:
   name: "云昔"
   url: "https://blog.vincy1230.net/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "朋友们"

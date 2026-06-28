@@ -1,6 +1,7 @@
 site:
   name: "林卷"
   url: "https://geedea.pro/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Hsins"

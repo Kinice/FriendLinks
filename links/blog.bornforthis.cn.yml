@@ -1,6 +1,7 @@
 site:
   name: "别碰我的镜头盖"
   url: "https://blog.bornforthis.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "文档"

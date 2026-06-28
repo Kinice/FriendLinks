@@ -1,6 +1,7 @@
 site:
   name: "Rawley"
   url: "https://rawley2025.xyz/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "安知鱼\n                      生活明朗，万物可爱"

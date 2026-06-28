@@ -1,6 +1,7 @@
 site:
   name: "流年网"
   url: "https://liunian.cc/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "找回密码"

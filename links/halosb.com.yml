@@ -1,6 +1,7 @@
 site:
   name: "知栖小筑"
   url: "https://halosb.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "b\n                  \n                  baidu.com"

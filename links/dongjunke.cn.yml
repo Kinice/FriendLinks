@@ -1,6 +1,7 @@
 site:
   name: "友链 - 东评西就"
   url: "https://dongjunke.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "小饿\n            「东评西就」博客作者"

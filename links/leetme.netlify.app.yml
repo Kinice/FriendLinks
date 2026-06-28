@@ -1,6 +1,7 @@
 site:
   name: "Leet"
   url: "https://leetme.netlify.app/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Travelling"

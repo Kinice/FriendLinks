@@ -1,6 +1,7 @@
 site:
   name: "小T"
   url: "https://tyhguan.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "社区"

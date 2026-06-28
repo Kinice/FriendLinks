@@ -1,6 +1,7 @@
 site:
   name: "cyp"
   url: "https://cyp0633.icu/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "GitHub"

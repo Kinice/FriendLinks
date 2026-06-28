@@ -1,6 +1,7 @@
 site:
   name: "Takagi"
   url: "https://lixingyong.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "图床"

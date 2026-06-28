@@ -1,6 +1,7 @@
 site:
   name: "映屿"
   url: "https://blog.verdant.ee/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "MRZHU的小站"

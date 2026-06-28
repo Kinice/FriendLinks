@@ -1,6 +1,7 @@
 site:
   name: "点点点"
   url: "https://wccto.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "永恒末匕\n            留下瞬间，记录永恒"

@@ -1,6 +1,7 @@
 site:
   name: "Taosu"
   url: "https://blog.yblue.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Fluid Blog\n            主题博客"

@@ -1,6 +1,7 @@
 site:
   name: "圆周率"
   url: "https://yuanzj.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "开往"

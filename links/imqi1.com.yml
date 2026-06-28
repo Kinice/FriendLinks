@@ -1,6 +1,7 @@
 site:
   name: "ImQi1"
   url: "https://imqi1.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Keyle技术，生活vrast.cn23:22:36"

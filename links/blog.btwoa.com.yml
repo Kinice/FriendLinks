@@ -1,6 +1,7 @@
 site:
   name: "放养平凡"
   url: "https://blog.btwoa.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "YPMusic"

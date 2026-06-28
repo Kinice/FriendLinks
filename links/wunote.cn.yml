@@ -1,6 +1,7 @@
 site:
   name: "某咸鱼"
   url: "https://wunote.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "欸嘿~"

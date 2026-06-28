@@ -1,6 +1,7 @@
 site:
   name: "icsteam"
   url: "https://blog.icsteam.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "icstem.cn工业自动化砖家"

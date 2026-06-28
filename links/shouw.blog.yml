@@ -1,6 +1,7 @@
 site:
   name: "shouw"
   url: "https://shouw.blog/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Arkito's Blog兴趣驱使"

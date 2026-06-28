@@ -1,6 +1,7 @@
 site:
   name: "蛙言网"
   url: "https://b66b.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "建站资源"

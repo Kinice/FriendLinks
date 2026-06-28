@@ -1,6 +1,7 @@
 site:
   name: "Liu Zijian"
   url: "https://blog.liuzijian.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "张凯强\n            本站主题Fluid作者的个人博客"

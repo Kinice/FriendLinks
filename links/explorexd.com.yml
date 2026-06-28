@@ -1,6 +1,7 @@
 site:
   name: "极客日记"
   url: "https://explorexd.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "wmSafe博客\n                                        他还没有自我介绍呢"

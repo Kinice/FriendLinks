@@ -1,6 +1,7 @@
 site:
   name: "Bryan"
   url: "https://singee.me/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "我的 Twitter\n              @ImSingee\n              Follow"

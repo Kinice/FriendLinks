@@ -1,6 +1,7 @@
 site:
   name: "Vientiane"
   url: "https://blog.vanxnf.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Fluid Docs\n            主题使用指南"

@@ -1,6 +1,7 @@
 site:
   name: "Dejavu"
   url: "https://dejavu.moe/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Blog"

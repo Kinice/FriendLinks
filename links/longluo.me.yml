@@ -1,6 +1,7 @@
 site:
   name: "Long Luo"
   url: "https://longluo.me/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "GitHub"

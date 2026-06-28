@@ -1,6 +1,7 @@
 site:
   name: "我本平凡"
   url: "https://pingfan.me/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "GitHub\n            代码仓库与开源项目"

@@ -1,6 +1,7 @@
 site:
   name: "橙の小站"
   url: "https://blog.zhaozilin.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "QQ"

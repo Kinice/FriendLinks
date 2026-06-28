@@ -1,6 +1,7 @@
 site:
   name: "核桃"
   url: "https://twistoy.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Memos"

@@ -1,6 +1,7 @@
 site:
   name: "ImCaO"
   url: "https://imcao.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "JustLaws"

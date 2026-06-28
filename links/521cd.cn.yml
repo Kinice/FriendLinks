@@ -1,6 +1,7 @@
 site:
   name: "彩豆博客"
   url: "https://521cd.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "程序源码"

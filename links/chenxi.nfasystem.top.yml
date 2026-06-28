@@ -1,6 +1,7 @@
 site:
   name: "晨曦"
   url: "https://chenxi.nfasystem.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "我的Github主页"

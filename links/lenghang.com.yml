@@ -1,6 +1,7 @@
 site:
   name: "冷行日记"
   url: "https://lenghang.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "leaf软件"

@@ -1,6 +1,7 @@
 site:
   name: "小新笔记坊"
   url: "https://xxbjf.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "云端减肥云端之法进行减肥～"

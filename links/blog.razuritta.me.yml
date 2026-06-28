@@ -1,6 +1,7 @@
 site:
   name: "Razuritta"
   url: "https://blog.razuritta.me/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Shucheng Li"

@@ -1,6 +1,7 @@
 site:
   name: "归子莫"
   url: "https://blog.guizimo.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "CSDN"

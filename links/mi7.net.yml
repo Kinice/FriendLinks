@@ -1,6 +1,7 @@
 site:
   name: "米七"
   url: "https://mi7.net/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "博客园"

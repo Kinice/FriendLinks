@@ -1,6 +1,7 @@
 site:
   name: "CWorld"
   url: "https://cworld0.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "小林的小窝分享技术、日常"

@@ -1,6 +1,7 @@
 site:
   name: "waltz26"
   url: "https://waltz26.com.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "小狐狸\n                  人生自古谁无死，早死晚死都得死。"

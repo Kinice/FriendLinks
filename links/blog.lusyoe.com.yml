@@ -1,6 +1,7 @@
 site:
   name: "青萍叙事"
   url: "https://blog.lusyoe.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "清欲の小窝"

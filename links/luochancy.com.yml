@@ -1,6 +1,7 @@
 site:
   name: "洛寒兮"
   url: "https://luochancy.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "I‘m Luochancy"

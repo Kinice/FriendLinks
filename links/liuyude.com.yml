@@ -1,6 +1,7 @@
 site:
   name: "LiuYude"
   url: "https://liuyude.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "慧行说-在知识的尽头,慢慢变老"

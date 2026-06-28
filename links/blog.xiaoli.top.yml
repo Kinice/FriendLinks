@@ -1,6 +1,7 @@
 site:
   name: "xiaoli"
   url: "https://blog.xiaoli.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "友链"

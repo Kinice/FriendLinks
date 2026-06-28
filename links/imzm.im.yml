@@ -1,6 +1,7 @@
 site:
   name: "陈仓颉"
   url: "https://imzm.im/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "陈仓颉"

@@ -1,6 +1,7 @@
 site:
   name: "阿航"
   url: "https://hanier.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "阿航的生活志"

@@ -1,6 +1,7 @@
 site:
   name: "Moeyy"
   url: "https://moeyy.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Markdown Guide"

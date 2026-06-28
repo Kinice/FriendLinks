@@ -1,6 +1,7 @@
 site:
   name: "sunyunzeng"
   url: "https://sunyunzeng.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "米兰app2026世界杯中国官网"

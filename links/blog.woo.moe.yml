@@ -1,6 +1,7 @@
 site:
   name: "Hinai"
   url: "https://blog.woo.moe/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "文章"

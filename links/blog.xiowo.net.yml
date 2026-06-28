@@ -1,6 +1,7 @@
 site:
   name: "Mo"
   url: "https://blog.xiowo.net/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Mo 的主页"

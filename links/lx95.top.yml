@@ -1,6 +1,7 @@
 site:
   name: "lx95"
   url: "https://lx95.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "芈亓的Blog"

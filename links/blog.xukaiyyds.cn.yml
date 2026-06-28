@@ -1,6 +1,7 @@
 site:
   name: "XK"
   url: "https://blog.xukaiyyds.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Hexo快速、简洁且高效的博客框架"

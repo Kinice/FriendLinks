@@ -1,6 +1,7 @@
 site:
   name: "AnKode"
   url: "https://blog.anxko.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "开往"

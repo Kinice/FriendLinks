@@ -1,6 +1,7 @@
 site:
   name: "清梦云熙"
   url: "https://skylan.cc/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Ryan Wang's Blog \n                    Halo爱码士"

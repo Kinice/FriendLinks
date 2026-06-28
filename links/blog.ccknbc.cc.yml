@@ -1,6 +1,7 @@
 site:
   name: "CC"
   url: "https://blog.ccknbc.cc/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "状态"

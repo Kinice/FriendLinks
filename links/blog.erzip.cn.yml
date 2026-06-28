@@ -1,6 +1,7 @@
 site:
   name: "咸鱼博客"
   url: "https://blog.erzip.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Supermini233"

@@ -1,6 +1,7 @@
 site:
   name: "tenyon"
   url: "https://tenyon.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "破碎云计算\n                                        云服务器我就用破碎云！"

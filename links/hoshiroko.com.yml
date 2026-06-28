@@ -1,6 +1,7 @@
 site:
   name: "薄荷の小屋"
   url: "https://hoshiroko.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "关于此项目"

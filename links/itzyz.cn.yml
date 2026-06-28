@@ -1,6 +1,7 @@
 site:
   name: "阿松"
   url: "https://itzyz.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "找回密码"

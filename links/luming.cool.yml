@@ -1,6 +1,7 @@
 site:
   name: "路明笔记"
   url: "https://luming.cool/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "公告"

@@ -1,6 +1,7 @@
 site:
   name: "张成威"
   url: "https://zhangchengwei.work/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "我的主页"

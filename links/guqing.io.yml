@@ -1,6 +1,7 @@
 site:
   name: "guqing"
   url: "https://guqing.io/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Ryan Wang's Blog\n                  细应和雨断，轻只爱风裁"

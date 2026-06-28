@@ -1,6 +1,7 @@
 site:
   name: "陈杨树下"
   url: "https://demochen.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "友情链接"

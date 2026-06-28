@@ -1,6 +1,7 @@
 site:
   name: "猫普"
   url: "https://maplezz.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "https://maplezz.com/favicon/avatar.webp"

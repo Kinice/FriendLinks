@@ -1,6 +1,7 @@
 site:
   name: "liangbm3"
   url: "https://liangbm3.site/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "🚇"

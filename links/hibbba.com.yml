@@ -1,6 +1,7 @@
 site:
   name: "贝贝吧"
   url: "https://hibbba.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "我的发布"

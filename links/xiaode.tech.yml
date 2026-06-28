@@ -1,6 +1,7 @@
 site:
   name: "风里有花香"
   url: "https://xiaode.tech/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "我的追番"

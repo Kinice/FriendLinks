@@ -1,6 +1,7 @@
 site:
   name: "HackerTerry"
   url: "https://hackerterry.netlify.app/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Darkless\n            犹豫就会败北"

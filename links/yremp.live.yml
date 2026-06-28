@@ -1,6 +1,7 @@
 site:
   name: "流年"
   url: "https://yremp.live/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "技术"

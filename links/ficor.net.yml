@@ -1,6 +1,7 @@
 site:
   name: "荒野菲克"
   url: "https://ficor.net/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "荒野菲克"

@@ -1,6 +1,7 @@
 site:
   name: "Monkey-PaPa"
   url: "https://blog.zjh2002.icu/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "CSDN主页"

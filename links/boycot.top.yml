@@ -1,6 +1,7 @@
 site:
   name: "boycot"
   url: "https://boycot.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "音乐鉴赏"

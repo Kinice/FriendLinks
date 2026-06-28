@@ -1,6 +1,7 @@
 site:
   name: "云泽记"
   url: "https://blog.yunzeji.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "免责声明"

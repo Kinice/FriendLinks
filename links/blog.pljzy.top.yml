@@ -1,6 +1,7 @@
 site:
   name: "ZY知识库"
   url: "https://blog.pljzy.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "爱发电-支持我"

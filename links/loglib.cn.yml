@@ -1,6 +1,7 @@
 site:
   name: "李文君"
   url: "https://loglib.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "动态"

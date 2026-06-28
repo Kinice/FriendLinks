@@ -1,6 +1,7 @@
 site:
   name: "空想笔记"
   url: "https://blog.fufu.ink/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "相册"

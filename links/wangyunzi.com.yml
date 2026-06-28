@@ -1,6 +1,7 @@
 site:
   name: "RAE"
   url: "https://wangyunzi.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "一大加贝"

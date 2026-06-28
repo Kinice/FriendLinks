@@ -1,6 +1,7 @@
 site:
   name: "UyoAhz"
   url: "https://uyoahz.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "sina"

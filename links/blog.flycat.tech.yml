@@ -1,6 +1,7 @@
 site:
   name: "会飞的猫"
   url: "https://blog.flycat.tech/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "IT工具箱"

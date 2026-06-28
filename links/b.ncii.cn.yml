@@ -1,6 +1,7 @@
 site:
   name: "卖烤肉"
   url: "https://b.ncii.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Github"

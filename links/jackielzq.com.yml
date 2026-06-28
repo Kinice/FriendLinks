@@ -1,6 +1,7 @@
 site:
   name: "Jackie"
   url: "https://jackielzq.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Jed_Xu\n          老朋友徐爷"

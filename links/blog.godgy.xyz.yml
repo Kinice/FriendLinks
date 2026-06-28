@@ -1,6 +1,7 @@
 site:
   name: "梦境学习站"
   url: "https://blog.godgy.xyz/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "小梦书屋"

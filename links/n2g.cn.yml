@@ -1,6 +1,7 @@
 site:
   name: "Xio"
   url: "https://n2g.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Zimoo`s 也是一位蜀国人"

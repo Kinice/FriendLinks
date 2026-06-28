@@ -1,6 +1,7 @@
 site:
   name: "selfboot"
   url: "https://selfboot.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "https://shenglvshi.cn/"

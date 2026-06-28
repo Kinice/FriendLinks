@@ -1,6 +1,7 @@
 site:
   name: "我不是咕咕鸽"
   url: "https://blog.laoda.de/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "我不是咕咕鸽"

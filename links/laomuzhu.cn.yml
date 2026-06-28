@@ -1,6 +1,7 @@
 site:
   name: "COST"
   url: "https://laomuzhu.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "木竹"

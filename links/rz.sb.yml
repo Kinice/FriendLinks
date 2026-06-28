@@ -1,6 +1,7 @@
 site:
   name: "若志随笔"
   url: "https://rz.sb/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "逛一逛"

@@ -1,6 +1,7 @@
 site:
   name: "蛋蛋之家"
   url: "https://wuqishi.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "蛋蛋之家\n                                        一枚蛋蛋的自留地"

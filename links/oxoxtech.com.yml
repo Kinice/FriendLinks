@@ -1,6 +1,7 @@
 site:
   name: "牛牛技术"
   url: "https://oxoxtech.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "桂ICP备2023000639号"

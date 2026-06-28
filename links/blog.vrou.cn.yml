@@ -1,6 +1,7 @@
 site:
   name: "温柔鱼"
   url: "https://blog.vrou.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "香水的个人主页\n                                        他还没有自我介绍呢"

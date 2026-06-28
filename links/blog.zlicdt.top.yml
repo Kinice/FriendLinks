@@ -1,6 +1,7 @@
 site:
   name: "zlicdt"
   url: "https://blog.zlicdt.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Hao_Tian\n            一个兼具日常向和技术向的小站"

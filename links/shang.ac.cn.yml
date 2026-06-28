@@ -1,6 +1,7 @@
 site:
   name: "枕雨听秋声"
   url: "https://shang.ac.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "萌ICP备20250911号"

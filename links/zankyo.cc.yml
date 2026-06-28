@@ -1,6 +1,7 @@
 site:
   name: "Zankyo"
   url: "https://zankyo.cc/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "Linux"

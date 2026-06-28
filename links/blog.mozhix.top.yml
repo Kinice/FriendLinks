@@ -1,6 +1,7 @@
 site:
   name: "MoZhi"
   url: "https://blog.mozhix.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "BIIBII记录生活中的技术脉搏"

@@ -1,6 +1,7 @@
 site:
   name: "二月初二"
   url: "https://chenliss.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "https://zhuti.designer.xiaomi.com/"

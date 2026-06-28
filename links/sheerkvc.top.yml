@@ -1,6 +1,7 @@
 site:
   name: "sheerkvc"
   url: "https://sheerkvc.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "书签站"

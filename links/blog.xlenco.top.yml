@@ -1,6 +1,7 @@
 site:
   name: "希乐"
   url: "https://blog.xlenco.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "开往"

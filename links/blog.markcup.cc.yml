@@ -1,6 +1,7 @@
 site:
   name: "MarkCup"
   url: "https://blog.markcup.cc/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "个人主页"

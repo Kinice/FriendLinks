@@ -1,6 +1,7 @@
 site:
   name: "joojen Zhou"
   url: "https://joojen.com/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "WeChat"

@@ -1,6 +1,7 @@
 site:
   name: "Imz"
   url: "https://blog.imz.me/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "博客"

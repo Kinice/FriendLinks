@@ -1,6 +1,7 @@
 site:
   name: "Steven"
   url: "https://blog.stevenw.cc/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "小Q博客"

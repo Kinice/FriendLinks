@@ -1,6 +1,7 @@
 site:
   name: "無名"
   url: "https://imsyy.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "imsyy"

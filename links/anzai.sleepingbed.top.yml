@@ -1,6 +1,7 @@
 site:
   name: "安仔"
   url: "https://anzai.sleepingbed.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "实验室"

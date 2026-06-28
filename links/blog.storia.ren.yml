@@ -1,6 +1,7 @@
 site:
   name: "绘星里"
   url: "https://blog.storia.ren/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "安知鱼生活明朗，万物可爱1.54 s"

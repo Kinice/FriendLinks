@@ -1,6 +1,7 @@
 site:
   name: "beanflame"
   url: "https://blog.beanflame.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "豆焰博客园"

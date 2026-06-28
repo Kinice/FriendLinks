@@ -1,6 +1,7 @@
 site:
   name: "慕雪的寒舍"
   url: "https://blog.musnow.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "开往"

@@ -1,6 +1,7 @@
 site:
   name: "T-ATOM"
   url: "https://blog.kevinly.com.cn/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "GitHub"

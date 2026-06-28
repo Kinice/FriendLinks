@@ -1,6 +1,7 @@
 site:
   name: "Zostanzo"
   url: "https://zhangzhao219.github.io/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "吱吱的小站"

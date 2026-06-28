@@ -1,6 +1,7 @@
 site:
   name: "Moreality"
   url: "https://moreality.net/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "开往"

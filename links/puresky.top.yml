@@ -1,6 +1,7 @@
 site:
   name: "Cyon"
   url: "https://puresky.top/"
+  description: "友情链接"
   links: "/links"
   friends:
     - name: "校运随笔：我的校运会与 227 班的荣光"
