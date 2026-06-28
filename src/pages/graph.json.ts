@@ -130,28 +130,22 @@ export async function GET() {
     });
   }
 
-  // ── 构建时力导预计算（与客户端参数一致，停在暂态） ──────────
-  const simNodes = nodes.map((n) => ({
-    ...n,
-    // 与 3d-force-graph 默认初始化一致：[-5, 5] 立方体随机
-    x: (Math.random() - 0.5) * 10,
-    y: (Math.random() - 0.5) * 10,
-    z: (Math.random() - 0.5) * 10,
-  }));
-
+  // ── 构建时力导预计算（与客户端完全一致） ─────────────────────
   const simLinks = linksArr.map((l) => ({
     source: typeof l.source === "string" ? l.source : (l as any).source,
     target: typeof l.target === "string" ? l.target : (l as any).target,
   }));
 
-  const simulation = forceSimulation(simNodes as any)
+  // 不预设 x/y/z，让 d3-force-3d 内部随机生成（与客户端一致）
+  const simNodes = nodes.map((n) => ({ ...n }));
+
+  const simulation = forceSimulation(simNodes as any, 3)
     .force("link", forceLink(simLinks as any).id((d: any) => d.id).distance(30))
     .force("charge", forceManyBody().strength(-60))
     .force("center", forceCenter(0, 0, 0))
     .velocityDecay(0.3)
     .alphaDecay(0.02);
 
-  // 与客户端 cooldownTicks(200) 一致
   for (let i = 0; i < 200; i++) simulation.tick();
   simulation.stop();
 
