@@ -121,98 +121,8 @@ export function init3d(graphData: GraphData) {
   // ── 6. Tooltip ──────────────────────────────────────────────────
   const tooltip = createTooltip();
 
-  // 构建邻居映射
-  const neighborMap = new Map<string, Set<string>>();
-  for (const l of links) {
-    const src = typeof l.source === "object" ? l.source.id : l.source;
-    const tgt = typeof l.target === "object" ? l.target.id : l.target;
-    if (!neighborMap.has(src)) neighborMap.set(src, new Set());
-    if (!neighborMap.has(tgt)) neighborMap.set(tgt, new Set());
-    neighborMap.get(src)!.add(tgt);
-    neighborMap.get(tgt)!.add(src);
-  }
-
   // ── 7. 创建 3D 图 ────────────────────────────────────────────────
 
-  // 7a ─ 构建合并的 LineSegments ──────────────────────────────────
-  const linkPosArr = new Float32Array(links.length * 2 * 3);
-  const linkColArr = new Float32Array(links.length * 2 * 3);
-
-  // 用预计算坐标填充初始位置
-  for (let i = 0; i < links.length; i++) {
-    const srcId = links[i].source;
-    const tgtId = links[i].target;
-    const srcNode = nodes.find((n: any) => n.id === srcId);
-    const tgtNode = nodes.find((n: any) => n.id === tgtId);
-    if (srcNode && tgtNode) {
-      const idx = i * 6;
-      linkPosArr[idx]     = srcNode.x || 0;
-      linkPosArr[idx + 1] = srcNode.y || 0;
-      linkPosArr[idx + 2] = srcNode.z || 0;
-      linkPosArr[idx + 3] = tgtNode.x || 0;
-      linkPosArr[idx + 4] = tgtNode.y || 0;
-      linkPosArr[idx + 5] = tgtNode.z || 0;
-    }
-  }
-
-  const linkGeom = new THREE.BufferGeometry();
-  linkGeom.setAttribute("position", new THREE.BufferAttribute(linkPosArr, 3));
-  linkGeom.setAttribute("color", new THREE.BufferAttribute(linkColArr, 3));
-
-  // 精确背景色（16进制 → 归一化）
-  const BG_HEX: Record<string, [number, number, number]> = {
-    dark: [0x0f / 255, 0x11 / 255, 0x15 / 255],   // #0f1115
-    light: [1, 1, 1],                                // #ffffff
-  };
-
-  const linkMat = new THREE.LineBasicMaterial({
-    vertexColors: true,
-    transparent: false,
-  });
-
-  const linkSegments = new THREE.LineSegments(linkGeom, linkMat);
-  let linkObjCreated = false;
-
-  // 是否有任何激活态
-  function hasActiveState(): boolean {
-    return !!(focusedId || hoveredId || highlightedSet.size > 0);
-  }
-
-  // 7b ─ 颜色刷新函数 ──────────────────────────────────────────
-  /** 非激活线 = 精确背景色，transparent:false 不做混合，肉眼永远看不见 */
-  function refreshLinkColors() {
-    const dark = isDarkRef.value;
-    const col = linkGeom.attributes.color.array;
-    const [br, bg, bb] = dark ? BG_HEX.dark : BG_HEX.light;
-    const active = hasActiveState();
-
-    for (let i = 0; i < links.length; i++) {
-      const srcStr = typeof links[i].source === "object" ? links[i].source.id : links[i].source;
-      const tgtStr = typeof links[i].target === "object" ? links[i].target.id : links[i].target;
-
-      let r: number, g: number, b: number;
-
-      if (active && focusedId && (srcStr === focusedId || tgtStr === focusedId)) {
-        r = 1.0; g = dark ? 0.86 : 0.71; b = dark ? 0.31 : 0.12;
-      } else if (active && hoveredId && !focusedId && (srcStr === hoveredId || tgtStr === hoveredId)) {
-        r = 0.95; g = 0.95; b = 0.95;
-      } else if (active && !focusedId && highlightedSet.size > 0 &&
-                 (highlightedSet.has(srcStr) || highlightedSet.has(tgtStr))) {
-        r = 0.9; g = 0.9; b = 0.9;
-      } else {
-        // 精确背景色，不做混合 → 完全不可见
-        r = br; g = bg; b = bb;
-      }
-
-      const idx = i * 6;
-      col[idx] = r; col[idx + 1] = g; col[idx + 2] = b;
-      col[idx + 3] = r; col[idx + 4] = g; col[idx + 5] = b;
-    }
-
-    linkGeom.attributes.color.needsUpdate = true;
-  }
-
-  // 7c ─ 创建 Graph（颜色在 graphData 之后设置）───────────────
   const Graph = ForceGraph3D()(container, {
     controlType: "orbit",
   })
@@ -232,14 +142,37 @@ export function init3d(graphData: GraphData) {
       if (focusedId === n.id) return baseSize * 1.5;
       return baseSize;
     })
-    .linkThreeObject(() => {
-      if (!linkObjCreated) {
-        linkObjCreated = true;
-        return linkSegments;
-      }
-      return new THREE.Object3D();
+    // ── 连线：用 linkVisibility 精确控制显隐 ───────────────────
+    .linkVisibility((l: any) => {
+      const src = typeof l.source === "object" ? l.source.id : l.source;
+      const tgt = typeof l.target === "object" ? l.target.id : l.target;
+
+      if (focusedId) return src === focusedId || tgt === focusedId;
+      if (hoveredId) return src === hoveredId || tgt === hoveredId;
+      if (highlightedSet.size > 0) return highlightedSet.has(src) || highlightedSet.has(tgt);
+
+      return false; // 默认全隐藏
     })
-    .linkPositionUpdate(() => false)
+    .linkColor((l: any) => {
+      const src = typeof l.source === "object" ? l.source.id : l.source;
+      const tgt = typeof l.target === "object" ? l.target.id : l.target;
+      const dark = isDarkRef.value;
+
+      if (focusedId && (src === focusedId || tgt === focusedId)) {
+        return dark ? "rgba(255,220,80,0.95)" : "rgba(255,180,30,0.95)";
+      }
+      if (hoveredId && !focusedId && (src === hoveredId || tgt === hoveredId)) {
+        return "rgba(200,200,200,0.6)";
+      }
+      return "rgba(200,200,200,0.4)";
+    })
+    .linkWidth((l: any) => {
+      const src = typeof l.source === "object" ? l.source.id : l.source;
+      const tgt = typeof l.target === "object" ? l.target.id : l.target;
+      if (focusedId && (src === focusedId || tgt === focusedId)) return 2.0;
+      return 0.8;
+    })
+    .linkDirectionalParticles(0) // 关闭粒子
     .backgroundColor(isDarkRef.value ? "#0f1115" : "#ffffff")
     .enableNodeDrag(true)
     .enableNavigationControls(true)
@@ -249,9 +182,6 @@ export function init3d(graphData: GraphData) {
     .cooldownTime(0)
     .d3AlphaDecay(0.02)
     .d3VelocityDecay(0.3);
-
-  // 初始颜色（必须在 graphData 之后调用，否则框架会重置）
-  refreshLinkColors();
 
   // 位置已由构建时预计算，cooldownTicks(0) 冻结仿真
 
@@ -343,12 +273,10 @@ export function init3d(graphData: GraphData) {
     if (_isTouchDevice && _touchStartTime > 0) {
       const dt = Date.now() - _touchStartTime;
       if (dt > 400) {
-        // 长按 → 聚焦
         focusNodeById(n.id);
         return;
       }
     }
-    // 短按/点击 → 打开链接
     if (n.url) window.open(withRef(n.url), "_blank");
   });
 
@@ -379,8 +307,7 @@ export function init3d(graphData: GraphData) {
     if (prevNode) setNodeColor(prevNode, prevNode._cDefault);
     if (currNode) setNodeColor(currNode, currNode._cHover);
 
-    // 更新连线颜色
-    refreshLinkColors();
+    Graph.refresh(); // 触发 linkVisibility / linkColor 重新计算
 
     if (n) {
       const content = document.createElement("div");
@@ -441,26 +368,21 @@ export function init3d(graphData: GraphData) {
   function applyTheme() {
     const dark = isDarkRef.value;
     Graph.backgroundColor(dark ? "#0f1115" : "#ffffff");
-    // 更新所有节点的默认颜色
     const gd = Graph.graphData() as any;
     if (gd.nodes) {
       for (const nd of gd.nodes) {
         nd._cDefault = dark ? adjustHex(nd.palColor, 20) : nd.palColor;
       }
     }
-    // 刷新节点颜色
     Graph.nodeColor((n: any) => {
       const id = n.id;
       if (focusedId === id) return n._cFocus;
       if (highlightedSet.size > 0 && highlightedSet.has(id)) return n._cHighlight;
       return n._cDefault;
     });
-    // 刷新连线颜色
-    refreshLinkColors();
-    // 更新 tooltip 样式
+    Graph.refresh();
     tooltip.el.style.background = dark ? "rgba(0,0,0,0.75)" : "rgba(255,255,255,0.95)";
     tooltip.el.style.color = dark ? "#fff" : "#111";
-
     if (hoveredId && gd.nodes) {
       const hovered = gd.nodes.find((nd: any) => nd.id === hoveredId);
       if (hovered) setNodeColor(hovered, hovered._cHover);
@@ -482,13 +404,12 @@ export function init3d(graphData: GraphData) {
   function focusNodeById(id: string) {
     _lastFocusedId = focusedId;
     focusedId = id;
-    // 刷新节点颜色
     Graph.nodeColor((n: any) => {
       if (focusedId === n.id) return n._cFocus;
       if (highlightedSet.size > 0 && highlightedSet.has(n.id)) return n._cHighlight;
       return n._cDefault;
     });
-    refreshLinkColors();
+    Graph.refresh();
 
     const currentData = Graph.graphData() as any;
     const node = currentData.nodes?.find((n: any) => n.id === id);
@@ -522,17 +443,17 @@ export function init3d(graphData: GraphData) {
       if (highlightedSet.size > 0 && highlightedSet.has(n.id)) return n._cHighlight;
       return n._cDefault;
     });
-    refreshLinkColors();
+    Graph.refresh();
   }
 
   function clearHighlights() {
     highlightedSet.clear();
     focusedId = null;
-    refreshLinkColors();
     Graph.nodeColor((n: any) => {
       if (highlightedSet.size > 0 && highlightedSet.has(n.id)) return n._cHighlight;
       return n._cDefault;
     });
+    Graph.refresh();
     if (hoveredId) {
       const gd = Graph.graphData() as any;
       const h = gd.nodes?.find((nd: any) => nd.id === hoveredId);
@@ -547,8 +468,8 @@ export function init3d(graphData: GraphData) {
     hoveredId = null;
     lastHoveredId = null;
     tooltip.hide();
-    refreshLinkColors();
     Graph.nodeColor((n: any) => n._cDefault);
+    Graph.refresh();
   }
 
   function focusByDomain(urlOrHost: string) {
@@ -576,7 +497,6 @@ export function init3d(graphData: GraphData) {
       }) ?? [];
 
     if (matched.length > 0) {
-      // 只聚焦搜索到的节点，不点亮所有邻居（否则节点密密麻麻一团乱麻）
       clearHighlights();
       focusNodeById(matched[0].id);
     }
