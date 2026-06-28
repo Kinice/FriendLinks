@@ -73,6 +73,16 @@ bun run build
 
 开发模式下，修改 `links/*.yml` 后**直接刷新浏览器**即可看到效果，无需手动运行脚本。JSON 数据通过 Astro 端点（`src/pages/*.json.ts`）实时生成。
 
+### 友链路由探测脚本
+
+`scripts/probe_links.mjs` 是一个辅助测试脚本，用于自动探测主站的友链页面路由：
+
+```bash
+bun scripts/probe_links.mjs
+```
+
+它会尝试常见路径（`/links`、`/link`、`/friends` 等）并自动写入找到的 `links` 字段。**注意：命中率很低，仅作测试使用**，推荐手动确认路由。
+
 ### 项目结构
 
 ```
