@@ -54,14 +54,6 @@ function createTooltip(): TooltipApi {
 
 type ThemeRef = { value: boolean }; // true = dark
 
-function getBaseColor(node: any): string {
-  return (node as any).palColor || PALETTE[hashToIndex(node.id)] || "#888";
-}
-
-function themedColor(base: string, isDark: boolean): string {
-  return isDark ? adjustHex(base, 20) : base;
-}
-
 // ─── 3D 初始化 ──────────────────────────────────────────────────────────
 
 export function init3d(graphData: GraphData) {
@@ -83,25 +75,32 @@ export function init3d(graphData: GraphData) {
   const degValues = Object.values(degreeMap);
   const maxDegree = degValues.length ? Math.max(...degValues) : 1;
 
-  // ── 2. 预处理节点 ────────────────────────────────────────────────
-  const rawNodes = graphData.nodes || [];
-  const nodes = rawNodes.map((n: any) => ({
-    ...n,
-    palColor: PALETTE[hashToIndex(n.id)],
-  }));
-
-  const links = rawLinks.map((l: any) => ({
-    source: l.source ?? l[0],
-    target: l.target ?? l[1],
-  }));
-
-  // ── 3. 主题检测 ──────────────────────────────────────────────────
+  // ── 2. 主题检测（提前定义） ─────────────────────────────────────
   const prefersDark = (): boolean => {
     if (document.documentElement.dataset.theme === "dark") return true;
     if (document.documentElement.dataset.theme === "light") return false;
     return window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
   };
   const isDarkRef: ThemeRef = { value: prefersDark() };
+
+  // ── 3. 预处理节点 & 预计算颜色 ─────────────────────────────────
+  const rawNodes = graphData.nodes || [];
+  const isDark = isDarkRef.value;
+  const nodes = rawNodes.map((n: any) => {
+    const base = PALETTE[hashToIndex(n.id)];
+    return Object.assign({}, n, {
+      palColor: base,
+      _cDefault: isDark ? adjustHex(base, 20) : base,
+      _cHover: adjustHex(base, 40),
+      _cFocus: adjustHex(base, 60),
+      _cHighlight: adjustHex(base, 20),
+    });
+  });
+
+  const links = rawLinks.map((l: any) => ({
+    source: l.source ?? l[0],
+    target: l.target ?? l[1],
+  }));
 
   // ── 4. 搜索索引 ──────────────────────────────────────────────────
   const fuse = new Fuse(nodes, {
@@ -147,15 +146,11 @@ export function init3d(graphData: GraphData) {
     .nodeLabel(null) // 关闭内置标签，使用自定义 tooltip
     .nodeColor((n: any) => {
       const id = n.id;
-      const base = getBaseColor(n);
-      // 聚焦节点：最强高亮
-      if (focusedId === id) return adjustHex(base, 60);
-      // 悬停节点：中等高亮
-      if (hoveredId === id) return adjustHex(base, 40);
-      // 高亮组内节点：轻微高亮
-      if (highlightedSet.size > 0 && highlightedSet.has(id)) return adjustHex(base, 20);
-      // 高亮组外节点：保持原色（不变灰）
-      return themedColor(base, isDarkRef.value);
+      if (focusedId === id) return n._cFocus;
+      if (highlightedSet.size > 0) {
+        return highlightedSet.has(id) ? n._cHighlight : (isDarkRef.value ? "#2a2a2a" : "#e0e0e0");
+      }
+      return n._cDefault;
     })
     .nodeVal((n: any) => {
       const deg = degreeMap[n.id] || 0;
@@ -280,15 +275,34 @@ export function init3d(graphData: GraphData) {
     focusNodeById(n.id);
   });
 
+  /** 直接修改节点 Three.js 材质颜色（不触发全局刷新） */
+  function setNodeColor(node: any, color: string) {
+    if (!node || !node.__threeObj) return;
+    const mesh = node.__threeObj.children[0];
+    if (mesh && mesh.material && mesh.material.color) {
+      mesh.material.color.set(color);
+    }
+  }
+
   Graph.onNodeHover((n: any) => {
     const newHoveredId = n ? n.id : null;
-    if (lastHoveredId === newHoveredId) return; // 同一个节点，不重复处理
+    if (lastHoveredId === newHoveredId) return;
 
-    lastHoveredId = hoveredId;
+    const prevId = hoveredId;
     hoveredId = newHoveredId;
+    lastHoveredId = newHoveredId;
 
+    // 找到前一个节点和当前节点的数据
+    const gd = Graph.graphData() as any;
+    const prevNode = gd.nodes?.find((nd: any) => nd.id === prevId);
+    const currNode = n;
+
+    // 直接改材质颜色，只影响这 1~2 个节点
+    if (prevNode) setNodeColor(prevNode, prevNode._cDefault);
+    if (currNode) setNodeColor(currNode, currNode._cHover);
+
+    // 显示/隐藏 tooltip
     if (n) {
-      // 显示 tooltip
       const content = document.createElement("div");
       content.className = "graph-tooltip-content";
       const titleEl = document.createElement("strong");
@@ -319,8 +333,7 @@ export function init3d(graphData: GraphData) {
     } else {
       tooltip.hide();
     }
-
-    refreshColors();
+    // 不再调用 refreshColors()——不触发全局刷新
   });
 
   // ── 10. 主题切换 ─────────────────────────────────────────────────
@@ -353,8 +366,20 @@ export function init3d(graphData: GraphData) {
     // 更新 tooltip 样式
     tooltip.el.style.background = dark ? "rgba(0,0,0,0.75)" : "rgba(255,255,255,0.95)";
     tooltip.el.style.color = dark ? "#fff" : "#111";
-    // 刷新节点颜色
+    // 重新计算所有节点的默认颜色
+    const gd = Graph.graphData() as any;
+    if (gd.nodes) {
+      for (const nd of gd.nodes) {
+        nd._cDefault = dark ? adjustHex(nd.palColor, 20) : nd.palColor;
+      }
+    }
+    // 刷新全局颜色（主题切换影响所有节点）
     refreshColors();
+    // 恢复 hover 状态（如果存在）
+    if (hoveredId && gd.nodes) {
+      const hovered = gd.nodes.find((nd: any) => nd.id === hoveredId);
+      if (hovered) setNodeColor(hovered, hovered._cHover);
+    }
   }
 
   // ── 11. API ──────────────────────────────────────────────────────
@@ -413,6 +438,12 @@ export function init3d(graphData: GraphData) {
     focusedId = null;
     _lastFocusedId = null;
     refreshColors();
+    // 恢复 hover 状态
+    if (hoveredId) {
+      const gd = Graph.graphData() as any;
+      const h = gd.nodes?.find((nd: any) => nd.id === hoveredId);
+      if (h) setNodeColor(h, h._cHover);
+    }
   }
 
   function clearLocalEffects() {
