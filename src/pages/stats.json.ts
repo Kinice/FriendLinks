@@ -93,7 +93,21 @@ export async function GET() {
   stats.overview.totalConnections = stats.connections.total;
   stats.overview.totalNodes = validSites.length + externalHosts.size;
 
-  return new Response(JSON.stringify(stats, null, 2), {
+  // 统计友链页面路由分布
+  const linkRoutes: Record<string, number> = {};
+  for (const s of validSites) {
+    if (s.links) {
+      linkRoutes[s.links] = (linkRoutes[s.links] || 0) + 1;
+    }
+  }
+  // 按使用数量降序排列
+  const linkRoutesSorted = Object.entries(linkRoutes)
+    .sort(([, a], [, b]) => b - a)
+    .map(([route, count]) => ({ route, count }));
+
+  const statsWithRoutes = { ...stats, linkRoutes: linkRoutesSorted };
+
+  return new Response(JSON.stringify(statsWithRoutes, null, 2), {
     headers: { "Content-Type": "application/json" },
   });
 }

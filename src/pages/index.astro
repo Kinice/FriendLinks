@@ -496,6 +496,16 @@ import "../css/modal.css";
                   <span class="stat-value">${data.overview.totalConnections}</span>
                 </div>
               </div>
+
+              <div class="stat-section">
+                <h3>友链页面路由排行</h3>
+                ${(data.linkRoutes || []).map(r => `
+                  <div class="stat-item">
+                    <span class="stat-label">${r.route}</span>
+                    <span class="stat-value">${r.count}</span>
+                  </div>
+                `).join('')}
+              </div>
             </div>
           `;
 
