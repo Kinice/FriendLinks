@@ -1,6 +1,6 @@
 import { loadSites } from "../utils/load-sites";
 import type { GraphNode, GraphLink, GraphCategory } from "../types/graph";
-import { forceSimulation, forceLink, forceManyBody, forceCenter } from "d3-force-3d";
+import { forceSimulation, forceLink, forceManyBody } from "d3-force-3d";
 
 function getHost(u: string): string {
   try {
@@ -140,9 +140,8 @@ export async function GET() {
   const simNodes = nodes.map((n) => ({ ...n }));
 
   const simulation = forceSimulation(simNodes as any, 3)
-    .force("link", forceLink(simLinks as any).id((d: any) => d.id).distance(80))
-    .force("charge", forceManyBody().strength(-200))
-    .force("center", forceCenter(0, 0, 0).strength(0.3))
+    .force("link", forceLink(simLinks as any).id((d: any) => d.id).distance(40))
+    .force("charge", forceManyBody().strength(-300))
     .velocityDecay(0.3)
     .alphaDecay(0.02);
 
