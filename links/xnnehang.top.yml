@@ -1,0 +1,12 @@
+site:
+  name: "xnnehang.top"
+  description: "友情链接"
+  url: "https://xnnehang.top/"
+  links: "/friends"
+  friends:
+    - name: "GitHub"
+      url: "https://github.com/MrXnneHang"
+    - name: "Astro"
+      url: "https://astro.build"
+    - name: "Fuwari"
+      url: "https://github.com/saicaca/fuwari"

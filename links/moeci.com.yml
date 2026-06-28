@@ -1,0 +1,10 @@
+site:
+  name: "moeci.com"
+  description: "友情链接"
+  url: "https://moeci.com/"
+  links: "/friends"
+  friends:
+    - name: "渝ICP备16001348号-1"
+      url: "https://beian.miit.gov.cn/"
+    - name: "渝公网安备50022202000018号"
+      url: "http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=50022202000018"

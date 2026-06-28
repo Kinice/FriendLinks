@@ -1,0 +1,16 @@
+site:
+  name: "jamestang.space"
+  description: "友情链接"
+  url: "https://jamestang.space/"
+  links: "/friends"
+  friends:
+    - name: "GitHub"
+      url: "https://github.com/James-Heller"
+    - name: "Astro"
+      url: "https://astro.build"
+    - name: "Fuwari"
+      url: "https://github.com/saicaca/fuwari"
+    - name: "浙ICP备2026045884号"
+      url: "https://beian.miit.gov.cn/"
+    - name: "浙公网安备33010502013193号"
+      url: "http://www.beian.gov.cn/portal/registerSystemInfo"

@@ -1,0 +1,18 @@
+site:
+  name: "lznauy.cn"
+  description: "友情链接"
+  url: "https://lznauy.cn/"
+  links: "/friends"
+  friends:
+    - name: "lznauy的技术小屋"
+      url: "https://lznauy.cn/"
+    - name: "开往"
+      url: "https://www.travellings.cn/go.html"
+    - name: "Github"
+      url: "https://github.com/lznauy"
+    - name: "陕ICP备2025062140号-1"
+      url: "https://beian.miit.gov.cn/"
+    - name: "浙公网安备 33011002018126 号"
+      url: "https://beian.mps.gov.cn/#/query/webSearch?code=33011002018126"
+    - name: "Hugo"
+      url: "https://gohugo.io/"
