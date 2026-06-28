@@ -325,7 +325,24 @@ export function init3d(graphData: GraphData) {
     }
   }
 
+  // ── 长按检测（移动端替代右键聚焦）────────────────────────────
+  let _touchStartTime = 0;
+  const _isTouchDevice = "ontouchstart" in window;
+
+  container.addEventListener("touchstart", () => {
+    _touchStartTime = Date.now();
+  });
+
   Graph.onNodeClick((n: any) => {
+    if (_isTouchDevice && _touchStartTime > 0) {
+      const dt = Date.now() - _touchStartTime;
+      if (dt > 400) {
+        // 长按 → 聚焦
+        focusNodeById(n.id);
+        return;
+      }
+    }
+    // 短按/点击 → 打开链接
     if (n.url) window.open(withRef(n.url), "_blank");
   });
 
