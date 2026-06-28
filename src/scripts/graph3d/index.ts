@@ -190,10 +190,14 @@ export function init3d(graphData: GraphData) {
     .enableNavigationControls(true)
     .nodeOpacity(1.0)
     .warmupTicks(0)
-    .cooldownTicks(200)
-    .cooldownTime(20000)
+    .cooldownTicks(0)
+    .cooldownTime(0)
     .d3AlphaDecay(0.02)
     .d3VelocityDecay(0.3);
+
+  // 禁用默认力——位置已由构建时预计算
+  Graph.d3Force("charge", null);
+  Graph.d3Force("link", null);
 
   // 渲染后自动适配视角
   requestAnimationFrame(() => {
@@ -509,13 +513,14 @@ export function init3d(graphData: GraphData) {
 // ─── 紧凑格式展开 ─────────────────────────────────────────────────────────
 
 function expandCompact(c: any): GraphData {
-  const { nid, nnm, nur, nfa, nde } = c;
+  const { nid, nnm, nur, nfa, nde, nx, ny, nz } = c;
   const nodes = nid.map((_id: string, i: number) => ({
     id: nid[i],
     name: nnm[i],
     url: nur[i],
     favicon: nfa[i],
     desc: nde[i],
+    ...(nx ? { x: nx[i], y: ny[i], z: nz[i] } : {}),
   }));
   const links = (c.ls || []).map((s: number, i: number) => ({
     source: nid[s],
