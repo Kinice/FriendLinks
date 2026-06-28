@@ -1,5 +1,3 @@
-import { init3dFromUrl } from "./graph3d/index";
-
 type SearchResult = { id: string; name: string; url?: string };
 
 interface GraphApi {
@@ -7,7 +5,6 @@ interface GraphApi {
   focusNodeById?: (id: string) => void;
   focusByDomain?: (domain: string) => void;
   highlightNodesAndNeighbors?: (ids: string[]) => void;
-  // Accept either a domain string (domain or full URL) OR array of node ids.
   highlightNodesByDomain?: (domainOrIds: string | string[]) => void;
   clearHighlights?: () => void;
   clearLocalEffects?: () => void;
@@ -20,6 +17,9 @@ declare global {
 }
 
 (async () => {
+  // 动态导入 3D 图模块，实现代码分割
+  const { init3dFromUrl } = await import("./graph3d/index");
+
   const controller = await init3dFromUrl("/graph.json");
 
   const input = document.getElementById("graph-search") as HTMLInputElement | null;
