@@ -191,8 +191,8 @@ export function init3d(graphData: GraphData) {
     .enableNodeDrag(true)
     .enableNavigationControls(true)
     .nodeOpacity(1.0)
-    .warmupTicks(0) // 位置已在构建时算好，客户端直接从那儿开始
-    .cooldownTicks(200)
+    .warmupTicks(0)    // 位置已由 ngraph 预计算，客户端不再跑仿真
+    .cooldownTicks(0)
     .cooldownTime(20000)
     .d3AlphaDecay(0.02)
     .d3VelocityDecay(0.3);
@@ -516,13 +516,15 @@ export function init3d(graphData: GraphData) {
 // ─── 紧凑格式展开 ─────────────────────────────────────────────────────────
 
 function expandCompact(c: any): GraphData {
-  const { nid, nnm, nur, nfa, nde } = c;
+  const { nid, nnm, nur, nfa, nde, nx, ny, nz } = c;
   const nodes = nid.map((_id: string, i: number) => ({
     id: nid[i],
     name: nnm[i],
     url: nur[i],
     favicon: nfa[i],
     desc: nde[i],
+    // 如果有 ngraph 预计算的位置则带上，让客户端直接使用（不再跑仿真）
+    ...(nx ? { x: nx[i], y: ny[i], z: nz[i] } : {}),
   }));
   const links = (c.ls || []).map((s: number, i: number) => ({
     source: nid[s],
