@@ -147,9 +147,7 @@ export function init3d(graphData: GraphData) {
     .nodeColor((n: any) => {
       const id = n.id;
       if (focusedId === id) return n._cFocus;
-      if (highlightedSet.size > 0) {
-        return highlightedSet.has(id) ? n._cHighlight : (isDarkRef.value ? "#2a2a2a" : "#e0e0e0");
-      }
+      if (highlightedSet.size > 0 && highlightedSet.has(id)) return n._cHighlight;
       return n._cDefault;
     })
     .nodeVal((n: any) => {
