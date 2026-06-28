@@ -191,15 +191,11 @@ export function init3d(graphData: GraphData) {
     .enableNodeDrag(true)
     .enableNavigationControls(true)
     .nodeOpacity(1.0)
-    .warmupTicks(0)    // 位置已由构建时预计算，客户端不再跑
-    .cooldownTicks(0)
-    .cooldownTime(0)
-    .d3AlphaDecay(0.0228)
-    .d3VelocityDecay(0.4);
-
-  // 禁用默认力，防止仿真挪动预计算的位置
-  Graph.d3Force("charge", null);
-  Graph.d3Force("center", null);
+    .warmupTicks(0) // 位置已在构建时算好，客户端直接从那儿开始
+    .cooldownTicks(200)
+    .cooldownTime(20000)
+    .d3AlphaDecay(0.02)
+    .d3VelocityDecay(0.3);
 
   // 渲染后自动适配视角
   requestAnimationFrame(() => {

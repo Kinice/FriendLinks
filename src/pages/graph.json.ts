@@ -1,6 +1,5 @@
 import { loadSites } from "../utils/load-sites";
 import type { GraphNode, GraphLink, GraphCategory } from "../types/graph";
-import { forceSimulation, forceLink, forceManyBody } from "d3-force-3d";
 
 function getHost(u: string): string {
   try {
@@ -130,42 +129,18 @@ export async function GET() {
     });
   }
 
-  // ── 构建时力导预计算（与客户端完全一致） ─────────────────────
-  const simLinks = linksArr.map((l) => ({
-    source: typeof l.source === "string" ? l.source : (l as any).source,
-    target: typeof l.target === "string" ? l.target : (l as any).target,
-  }));
-
-  // 不预设 x/y/z，让 d3-force-3d 内部随机生成（与客户端一致）
-  const simNodes = nodes.map((n) => ({ ...n }));
-
-  const simulation = forceSimulation(simNodes as any, 3)
-    .force("link", forceLink(simLinks as any).id((d: any) => d.id).distance(40))
-    .force("charge", forceManyBody().strength(-300))
-    .velocityDecay(0.3)
-    .alphaDecay(0.02);
-
-  for (let i = 0; i < 200; i++) simulation.tick();
-  simulation.stop();
-
-  // ── 列式紧凑输出（含预计算的位置） ──────────────────────────
+  // ── 列式紧凑输出（无位置，客户端自行跑力导） ─────────────────
   const nid: string[] = [];
   const nnm: string[] = [];
   const nur: string[] = [];
   const nfa: string[] = [];
   const nde: string[] = [];
-  const nx: number[] = [];
-  const ny: number[] = [];
-  const nz: number[] = [];
-  for (const n of simNodes) {
+  for (const n of nodes) {
     nid.push(n.id);
     nnm.push(n.name);
     nur.push(n.url);
     nfa.push(n.favicon ?? "");
     nde.push(n.desc ?? "");
-    nx.push(n.x);
-    ny.push(n.y);
-    nz.push(n.z);
   }
 
   const idIndex = new Map<string, number>();
@@ -178,7 +153,7 @@ export async function GET() {
     if (si != null && ti != null) { ls.push(si); lt.push(ti); }
   }
 
-  const compact = { nid, nnm, nur, nfa, nde, nx, ny, nz, ls, lt, c: categories };
+  const compact = { nid, nnm, nur, nfa, nde, ls, lt, c: categories };
   return new Response(JSON.stringify(compact), {
     headers: { "Content-Type": "application/json" },
   });
