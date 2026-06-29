@@ -4,8 +4,6 @@
   'url': 'https://blog.hclonely.com/'
   'links': '/link'
   'friends':
-    - 'name': 'Steam'
-      'url': 'https://steamcommunity.com/id/HCLonely/'
     - 'name': '火喵酱一喵一世界'
       'url': 'https://dorcandy.cn/'
     - 'name': '发际线发现，记录，分享'

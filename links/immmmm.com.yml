@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '当 ai 开始互相写信'
-      'url': 'https://dongjunke.cn/posts/2026/06/28/11833.html'
     - 'name': '学校定了来租房'
       'url': 'https://fxpai.com/article/xuexiaodinglelaizufang'
     - 'name': '岐阜下吕温泉'

@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'DuckDB'
       'url': 'https://shell.duckdb.org/'
-    - 'name': '流量'
-      'url': 'https://us.umami.is/share/xg4JtqHYl1rY1uJf/blog.kpretty.tech'
     - 'name': 'anzhiyu'
       'url': 'https://blog.anheyu.com/'
     - 'name': '张洪Heo'

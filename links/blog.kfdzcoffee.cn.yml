@@ -1,0 +1,16 @@
+site:
+  name: "kfdzcoffee"
+  url: "https://blog.kfdzcoffee.cn/"
+  description: "友情链接"
+  links: "/friends"
+  friends:
+    - name: "Serenity's Blog"
+      url: "https://www.aobp.cn/"
+    - name: "花开暖年"
+      url: "https://huakainuannian.cn/"
+    - name: "晴雀堂"
+      url: "https://blog.verynb.net/"
+    - name: "张洪Heo"
+      url: "https://blog.zhheo.com/"
+    - name: "ImPatrick Blog"
+      url: "https://impatrick.blog/"

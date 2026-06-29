@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '小红书 生活分享与创作内容'
-      'url': 'https://www.xiaohongshu.com/user/profile/64ee81a8000000000100646b?xsec_token=YBcaPHm_JfwMpn1HsnT9_tYUeCymMg66r_V4VV5KRRzTQ=&xsec_source=app_share&xhsshare=CopyLink&appuid=64ee81a8000000000100646b&apptime=1756158542&share_id=ec3e9bd6096d47adb65dea802e99beb8'
     - 'name': 'Jekyll'
       'url': 'https://jekyllrb.com/'

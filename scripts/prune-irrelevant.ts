@@ -136,6 +136,8 @@ const JUNK_NAME_PATTERNS: RegExp[] = [
   /^(借款|贷款|借贷|金融|理财|投资|信用贷|网贷)/i,
   // 迷信/测试/算卦
   /^(姓名测试|算命|占卜|八字|风水|测名|起名|塔罗|面相)/i,
+  // 内容农场（中文网、小说网等）
+  /中文网|小说网|小说网|作文网/i,
 ];
 
 // ─── 无关 URL 模式 ─────────────────────────────────────────────
@@ -143,7 +145,7 @@ const JUNK_NAME_PATTERNS: RegExp[] = [
 const JUNK_URL_PATTERNS: RegExp[] = [
   /beian\./i,
   /\.(jpg|jpeg|png|gif|webp|svg|ico|bmp)(\?|$)/i,
-  /rss\.xml/i,
+  /\/rss|\/feed|\/atom|rss\.xml|atom\.xml|\.xml$/i,
   // 项目仓库而非个人博客
   /github\.com\/(withastro|YunYouJun|walinejs)\//i,
   // mailto 协议
@@ -278,6 +280,8 @@ function isJunkEntry(f: { name: string; url: string }, siteUrl?: string): boolea
       "steampowered.com", "store.steampowered.com",
       "steamcommunity.com", "www.steamcommunity.com",
       "epicgames.com", "www.epicgames.com",
+      // Apple
+      "apple.com", "www.apple.com", "apps.apple.com",
       // 商业服务
       "mzswpco.com", "www.mzswpco.com",
       // 论坛
@@ -349,6 +353,15 @@ function isJunkEntry(f: { name: string; url: string }, siteUrl?: string): boolea
       "qzone.qq.com",
     ];
     if (nonBlogDomains.some(d => hostname === d || hostname.endsWith("." + d))) return true;
+    // .edu 域名
+    if (hostname.endsWith(".edu") || hostname.endsWith(".edu.cn") || hostname.endsWith(".edu.tw") || hostname.endsWith(".edu.hk")) return true;
+  } catch {}
+
+  // 子路由检查：路径深度 >= 3 的视为具体文章/页面，非首页
+  try {
+    const u = new URL(url.startsWith("http") ? url : `https://${url}`);
+    const path = u.pathname.replace(/\/$/, "");
+    if (path.split("/").filter(Boolean).length >= 3) return true;
   } catch {}
 
   // IP 地址 URL

@@ -4,8 +4,6 @@
   'url': 'https://lansganbs.cn/'
   'links': '/friends'
   'friends':
-    - 'name': 'Steam'
-      'url': 'https://steamcommunity.com/id/LANSGANBS/'
     - 'name': 'www.nihao.show'
       'url': 'https://www.nihao.show/'
     - 'name': 'blog.lhl.one'

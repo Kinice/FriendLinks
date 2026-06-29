@@ -6,7 +6,3 @@
   'friends':
     - 'name': '国科大SEP国科大SEPSEP系统——信息门户，电子邮件，校园网'
       'url': 'https://sep.ucas.ac.cn/'
-    - 'name': '华农门户华农门户学校的网页'
-      'url': 'https://portal-paas.hzau.edu.cn/'
-    - 'name': '学生邮箱学生邮箱华农邮箱'
-      'url': 'https://webmail.hzau.edu.cn/'

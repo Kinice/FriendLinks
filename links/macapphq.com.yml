@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '小鸭计时'
-      'url': 'https://apps.apple.com/cn/app/%E5%B0%8F%E9%B8%AD%E8%AE%A1%E6%97%B6-%E5%84%BF%E7%AB%A5%E5%8F%AF%E8%A7%86%E5%8C%96%E8%AE%A1%E6%97%B6%E5%99%A8/id6747744932'
     - 'name': 'KidCue'
       'url': 'https://kidcue.app/'
     - 'name': 'Alkaid`s Blog blog.ifoz.net 外部链接'

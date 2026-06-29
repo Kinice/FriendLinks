@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Pixiv'
-      'url': 'https://www.pixiv.net/users/22732684/illustrations'
-    - 'name': 'Steam'
-      'url': 'https://steamcommunity.com/profiles/76561198351198710/'
     - 'name': 'Instagram'
       'url': 'https://www.instagram.com/zsedczy'
     - 'name': '500px'

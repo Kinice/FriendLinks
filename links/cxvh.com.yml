@@ -94,8 +94,6 @@
       'url': 'http://www.dangdang.com/'
     - 'name': '力扣 (LeetCode)'
       'url': 'https://leetcode-cn.com/problemset/all/'
-    - 'name': 'css/reset'
-      'url': 'https://meyerweb.com/eric/tools/css/reset/index.html'
     - 'name': 'github趋势'
       'url': 'https://github-trending.com/'
     - 'name': 'codesandbox'

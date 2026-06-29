@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Steam'
-      'url': 'https://steamcommunity.com/id/swaggymacro/'
     - 'name': '静水流深'
       'url': 'https://xtxcool.com/?from=b.ncii.cn'
     - 'name': 'Grape 的博客'

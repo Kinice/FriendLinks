@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Steam'
-      'url': 'https://steamcommunity.com/profiles/76561199660884493/'
     - 'name': '监测'
       'url': 'https://s.nbplus.eu.org/'
     - 'name': '晴雀'

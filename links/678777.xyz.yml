@@ -4,8 +4,6 @@
   'url': 'https://678777.xyz/'
   'links': '/link'
   'friends':
-    - 'name': '博客'
-      'url': 'http://blog.nomeet.cn/index.php/page/3/'
     - 'name': 'HDLBits'
       'url': 'https://hdlbits.01xz.net/wiki/Main_Page'
     - 'name': 'GTC'
