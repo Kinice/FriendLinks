@@ -35,6 +35,7 @@ probe_by_route/
 scripts/fetch-friend-routes.ts
 scripts/fetch-links-html.ts
 scripts/fetch-link-slash.ts
+scripts/fetch-friends.ts
 scripts/probe_subs.ts
 scripts/probe.ts
 scripts/check_links_playwright.mjs

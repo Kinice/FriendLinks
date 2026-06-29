@@ -145,14 +145,14 @@ export async function GET() {
       "link",
       forceLink(simLinks as any)
         .id((d: any) => d.id)
-        .distance(40),
+        .distance(120),
     )
-    .force("charge", forceManyBody().strength(-120))
+    .force("charge", forceManyBody().strength(-300))
     .force("center", forceCenter(0, 0, 0).strength(0.02))
-    .alphaDecay(0.01)
-    .velocityDecay(0.4);
+    .alphaDecay(0.008)
+    .velocityDecay(0.35);
 
-  for (let i = 0; i < 500; i++) sim.tick();
+  for (let i = 0; i < 800; i++) sim.tick();
   sim.stop();
 
   // ── 列式紧凑输出（含预计算 3D 位置） ─────────────────────────
