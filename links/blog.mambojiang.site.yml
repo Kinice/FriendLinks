@@ -1,0 +1,14 @@
+'site':
+  'name': 'blog.mambojiang.site'
+  'url': 'https://blog.mambojiang.site/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'Fiveth一名学生、独立开发者、博主'
+      'url': 'https://blog.fiveth.cc'
+    - 'name': '本杰明一名学生、独立开发者、博主、摄影师、航拍飞手、剪辑师'
+      'url': 'https://timewaster43.github.io'
+    - 'name': 'Example SiteExample Site Description'
+      'url': 'https://example.com'
+    - 'name': 'Example Site 2Example Site Description'
+      'url': 'https://example.com'
