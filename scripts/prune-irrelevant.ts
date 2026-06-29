@@ -66,6 +66,8 @@ const JUNK_NAME_PATTERNS: RegExp[] = [
   /^(站长|论坛|社区|交流|BBS)/i,
   // 游戏/试玩
   /^(游戏|试玩|娱乐|赌博|博彩|棋牌|Slot|Casino)/i,
+  // 游戏商城/平台
+  /^(Steam|Epic|Origin|Uplay|Battle\.net|Xbox|PlayStation|Nintendo|任天堂|索尼|微软游戏)/i,
   // 商业服务
   /^(清除|甲醛|除甲醛|保洁|装修|维修|家政|开锁)/i,
   // 支付/收款
@@ -272,6 +274,10 @@ function isJunkEntry(f: { name: string; url: string }, siteUrl?: string): boolea
       // 游戏/娱乐
       "ibb22.com", "www.ibb22.com",
       "pgg33.com", "www.pgg33.com",
+      // 游戏商城/平台
+      "steampowered.com", "store.steampowered.com",
+      "steamcommunity.com", "www.steamcommunity.com",
+      "epicgames.com", "www.epicgames.com",
       // 商业服务
       "mzswpco.com", "www.mzswpco.com",
       // 论坛

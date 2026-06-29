@@ -6,6 +6,7 @@
 import { writeFileSync } from "node:fs";
 import { chromium } from "playwright";
 import YAML from "yaml";
+import { filterFriends } from "./filter";
 
 const CONCURRENCY = 12;
 const TIMEOUT = 15000;
@@ -72,23 +73,30 @@ async function main() {
     done++;
     const label = host.padEnd(24);
     if (links.length >= 2) {
+      const rawFriends = links.map(f => ({
+        name: f.name.replace(/[\r\n]+/g, " ").replace(/\s+/g, " ").trim(),
+        url: f.url,
+      }));
+      const filtered = filterFriends(rawFriends, `https://${host}/`);
+      if (filtered.length < 2) {
+        done++;
+        console.log(`[${String(done).padStart(3)}/${SITES.length}] ${host.padEnd(24)} ⏭️ 过滤后不足`);
+        return;
+      }
       const doc = {
         site: {
           name: host,
           url: `https://${host}/`,
           description: "友情链接",
           links: "/link/",
-          friends: links.map(f => ({
-            name: f.name.replace(/[\r\n]+/g, " ").replace(/\s+/g, " ").trim(),
-            url: f.url,
-          })),
+          friends: filtered,
         },
       };
       writeFileSync(`links/${host}.yml`, YAML.stringify(doc, { indent: 2, lineWidth: 0, defaultStringType: "QUOTE_SINGLE" }), "utf8");
       written++;
-      console.log(`[${String(done).padStart(3)}/${SITES.length}] ${label} ✅ ${links.length} 个友链`);
+      console.log(`[${String(done).padStart(3)}/${SITES.length}] ${host.padEnd(24)} ✅ ${filtered.length} 个友链`);
     } else {
-      console.log(`[${String(done).padStart(3)}/${SITES.length}] ${label} ⏭️ 跳过`);
+      console.log(`[${String(done).padStart(3)}/${SITES.length}] ${host.padEnd(24)} ⏭️ 跳过`);
     }
   }
 
