@@ -746,17 +746,6 @@ export function init3d(graphData: GraphData) {
 
   // ── 9. 交互事件 ──────────────────────────────────────────────────
 
-  function withRef(url: string): string {
-    try {
-      const u = new URL(url);
-      const ref = window.location.origin;
-      u.searchParams.set("ref", ref);
-      return u.href;
-    } catch {
-      return url;
-    }
-  }
-
   // ── 长按检测（移动端替代右键聚焦）────────────────────────────
   let _touchStartTime = 0;
   const _isTouchDevice = "ontouchstart" in window;
@@ -775,7 +764,7 @@ export function init3d(graphData: GraphData) {
       }
     }
     // 短按/点击 → 打开链接
-    if (n.url) window.open(withRef(n.url), "_blank");
+    if (n.url) window.open(n.url, "_blank");
   });
 
   Graph.onNodeRightClick((n: any) => {
@@ -834,7 +823,7 @@ export function init3d(graphData: GraphData) {
         const urlEl = document.createElement("div");
         urlEl.className = "graph-tooltip-url";
         const a = document.createElement("a");
-        a.href = withRef(n.url);
+        a.href = n.url;
         a.target = "_blank";
         a.rel = "noopener noreferrer";
         a.textContent = n.url;
