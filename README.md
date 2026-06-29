@@ -148,6 +148,23 @@ bun run prune
 
 脚本会自动剔除无关条目，友链全空时自动删除文件。
 
+### 六度分隔理论验证
+
+基于构建好的 `dist/all.json` 数据，对所有 C(n,2) 节点对计算最短路径，检验友链网络是否符合「六度分隔理论」(任意两个节点之间最多经过 6 条边即可连通)。
+
+```bash
+# Python 版本
+python3 scripts/six_degrees_test.py
+
+# JavaScript 版本 (Bun)
+bun scripts/six_degrees_test.js
+
+# TypeScript 版本 (Bun)
+bun scripts/six_degrees_test.ts
+```
+
+输出包括距离分布直方图、最大距离点对路径、以及是否突破 6 度。
+
 ---
 
 ## 调色板
