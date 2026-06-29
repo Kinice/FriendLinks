@@ -646,18 +646,18 @@ import "../css/modal.css";
         const statsContent = document.getElementById("stats-content");
         const closeBtn = statsModal?.querySelector(".close-btn");
 
-        function showStatsModal() {
+        const showStatsModal = () => {
           if (!statsModal) return;
           statsModal.classList.add("show");
           loadStatsData();
-        }
+        };
 
-        function hideStatsModal() {
+        const hideStatsModal = () => {
           if (!statsModal) return;
           statsModal.classList.remove("show");
-        }
+        };
 
-        function loadStatsData() {
+        const loadStatsData = () => {
           if (!statsContent) return;
 
           statsContent.innerHTML = '<div class="loading">加载中...</div>';
@@ -677,9 +677,9 @@ import "../css/modal.css";
               statsContent.innerHTML =
                 '<div class="error">加载失败，请稍后重试</div>';
             });
-        }
+        };
 
-        function renderStats(data) {
+        const renderStats = (data) => {
           if (!statsContent) return;
 
           const statsHtml = `
@@ -780,15 +780,15 @@ import "../css/modal.css";
         const aboutModal = document.getElementById("about-modal");
         const aboutClose = aboutModal?.querySelector(".close-btn");
 
-        function showAboutModal() {
+        const showAboutModal = () => {
           if (!aboutModal) return;
           aboutModal.classList.add("show");
-        }
+        };
 
-        function hideAboutModal() {
+        const hideAboutModal = () => {
           if (!aboutModal) return;
           aboutModal.classList.remove("show");
-        }
+        };
 
         if (aboutBtn) {
           aboutBtn.addEventListener("click", showAboutModal);
@@ -816,8 +816,8 @@ import "../css/modal.css";
         // 连线设置面板按钮
         const opacityBtn = document.getElementById("opacity-toggle");
         if (opacityBtn) {
-          opacityBtn.addEventListener("click", function () {
-            var toggle = window.__toggleOpacityPanel;
+          opacityBtn.addEventListener("click", () => {
+            const toggle = window.__toggleOpacityPanel;
             if (typeof toggle === "function") {
               toggle();
             }
@@ -825,38 +825,36 @@ import "../css/modal.css";
         }
 
         // ── 路径查找模态 ──────────────────────────────────────────
-        var pathModal = document.getElementById("path-modal");
-        var pathToggle2 = document.getElementById("path-toggle");
-        var pathFromInput = document.getElementById("path-search-from");
-        var pathToInput = document.getElementById("path-search-to");
-        var pathFromResults = document.getElementById("path-results-from");
-        var pathToResults = document.getElementById("path-results-to");
-        var pathInfo = document.getElementById("path-info");
-        var pathLength = document.getElementById("path-length");
-        var pathStepIndicator = document.getElementById("path-step-indicator");
-        var pathPrevBtn = document.getElementById("path-prev-btn");
-        var pathNextBtn = document.getElementById("path-next-btn");
-        var pathClearBtn = document.getElementById("path-clear-btn");
-        var pathError = document.getElementById("path-error");
+        const pathModal = document.getElementById("path-modal");
+        const pathToggleBtn = document.getElementById("path-toggle");
+        const pathFromInput = document.getElementById("path-search-from");
+        const pathToInput = document.getElementById("path-search-to");
+        const pathFromResults = document.getElementById("path-results-from");
+        const pathToResults = document.getElementById("path-results-to");
+        const pathInfo = document.getElementById("path-info");
+        const pathLength = document.getElementById("path-length");
+        const pathStepIndicator = document.getElementById("path-step-indicator");
+        const pathPrevBtn = document.getElementById("path-prev-btn");
+        const pathNextBtn = document.getElementById("path-next-btn");
+        const pathClearBtn = document.getElementById("path-clear-btn");
+        const pathError = document.getElementById("path-error");
 
-        var selectedFrom = null; // { id, name, url }
-        var selectedTo = null;
+        let selectedFrom = null; // { id, name, url }
+        let selectedTo = null;
 
-        function getApi() {
-          return window.__graphApi || {};
-        }
+        const getApi = () => window.__graphApi || {};
 
-        function showPathModal() {
+        const showPathModal = () => {
           if (pathModal) {
             pathModal.classList.add("show");
             if (pathFromInput) pathFromInput.focus();
           }
-        }
-        function hidePathModal() {
+        };
+        const hidePathModal = () => {
           if (pathModal) pathModal.classList.remove("show");
           clearPathSelections();
-        }
-        function clearPathSelections() {
+        };
+        const clearPathSelections = () => {
           selectedFrom = null;
           selectedTo = null;
           if (pathFromInput) { pathFromInput.value = ""; }
@@ -865,51 +863,49 @@ import "../css/modal.css";
           if (pathToResults) { pathToResults.style.display = "none"; pathToResults.innerHTML = ""; }
           if (pathInfo) pathInfo.style.display = "none";
           if (pathError) pathError.style.display = "none";
-          var api = getApi();
+          const api = getApi();
           if (api.clearPath) api.clearPath();
-        }
+        };
 
-        if (pathToggle2) pathToggle2.addEventListener("click", showPathModal);
+        if (pathToggleBtn) pathToggleBtn.addEventListener("click", showPathModal);
         if (pathModal) {
-          var pathCloseBtn = pathModal.querySelector(".close-btn");
+          const pathCloseBtn = pathModal.querySelector(".close-btn");
           if (pathCloseBtn) pathCloseBtn.addEventListener("click", hidePathModal);
-          pathModal.addEventListener("click", function(e) {
+          pathModal.addEventListener("click", (e) => {
             if (e.target === pathModal) hidePathModal();
           });
         }
 
         // 搜索结果渲染
-        function renderPathResults(container, list, onSelect) {
+        const renderPathResults = (container, list, onSelect) => {
           container.innerHTML = "";
           if (!list || !list.length) {
             container.style.display = "none";
             return;
           }
-          for (var i = 0; i < Math.min(list.length, 8); i++) {
-            var it = list[i];
-            var el = document.createElement("div");
+          for (let i = 0; i < Math.min(list.length, 8); i++) {
+            const it = list[i];
+            const el = document.createElement("div");
             el.className = "path-result-item";
-            el.innerHTML = '<div class="path-result-name">' + it.name + '</div>' +
-              '<div class="path-result-url">' + (it.url || '') + '</div>';
-            el.onclick = (function(item) {
-              return function() {
-                onSelect(item);
-                container.style.display = "none";
-              };
-            })(it);
+            el.innerHTML = `<div class="path-result-name">${it.name}</div>
+              <div class="path-result-url">${it.url || ""}</div>`;
+            el.addEventListener("click", () => {
+              onSelect(it);
+              container.style.display = "none";
+            });
             container.appendChild(el);
           }
           container.style.display = "block";
-        }
+        };
 
         // 起点搜索
         if (pathFromInput) {
-          pathFromInput.addEventListener("input", function() {
-            var v = pathFromInput.value.trim();
+          pathFromInput.addEventListener("input", () => {
+            const v = pathFromInput.value.trim();
             if (!v) { pathFromResults.style.display = "none"; return; }
-            var api = getApi();
-            var list = api.find ? api.find(v) : [];
-            renderPathResults(pathFromResults, list, function(item) {
+            const api = getApi();
+            const list = api.find ? api.find(v) : [];
+            renderPathResults(pathFromResults, list, (item) => {
               selectedFrom = item;
               pathFromInput.value = item.name;
               checkBothSelected();
@@ -919,12 +915,12 @@ import "../css/modal.css";
 
         // 终点搜索
         if (pathToInput) {
-          pathToInput.addEventListener("input", function() {
-            var v = pathToInput.value.trim();
+          pathToInput.addEventListener("input", () => {
+            const v = pathToInput.value.trim();
             if (!v) { pathToResults.style.display = "none"; return; }
-            var api = getApi();
-            var list = api.find ? api.find(v) : [];
-            renderPathResults(pathToResults, list, function(item) {
+            const api = getApi();
+            const list = api.find ? api.find(v) : [];
+            renderPathResults(pathToResults, list, (item) => {
               selectedTo = item;
               pathToInput.value = item.name;
               checkBothSelected();
@@ -933,14 +929,14 @@ import "../css/modal.css";
         }
 
         // 两个站点都选定后自动计算路径
-        function checkBothSelected() {
+        const checkBothSelected = () => {
           if (!selectedFrom || !selectedTo) return;
-          var api = getApi();
+          const api = getApi();
           if (!api.showShortestPath) return;
 
-          var path = api.showShortestPath(selectedFrom.id, selectedTo.id);
+          const path = api.showShortestPath(selectedFrom.id, selectedTo.id);
           if (!path || !path.length) {
-            pathError.textContent = "未找到从 " + selectedFrom.name + " 到 " + selectedTo.name + " 的路径";
+            pathError.textContent = `未找到从 ${selectedFrom.name} 到 ${selectedTo.name} 的路径`;
             pathError.style.display = "block";
             pathInfo.style.display = "none";
             return;
@@ -949,23 +945,23 @@ import "../css/modal.css";
           pathError.style.display = "none";
           pathInfo.style.display = "block";
           updatePathUI();
-        }
+        };
 
-        function updatePathUI() {
-          var api = getApi();
-          var info = api.getPathInfo ? api.getPathInfo() : null;
+        const updatePathUI = () => {
+          const api = getApi();
+          const info = api.getPathInfo ? api.getPathInfo() : null;
           if (!info) return;
 
-          pathLength.textContent = info.totalSteps + " 个节点";
-          pathStepIndicator.textContent = "当前: 第 " + (info.currentStep + 1) + " / " + info.totalSteps + " 步";
+          pathLength.textContent = `${info.totalSteps} 个节点`;
+          pathStepIndicator.textContent = `当前: 第 ${info.currentStep + 1} / ${info.totalSteps} 步`;
           pathPrevBtn.disabled = info.currentStep <= 0;
           pathNextBtn.disabled = info.currentStep >= info.totalSteps - 1;
-        }
+        };
 
         // 步进按钮
         if (pathPrevBtn) {
-          pathPrevBtn.addEventListener("click", function() {
-            var api = getApi();
+          pathPrevBtn.addEventListener("click", () => {
+            const api = getApi();
             if (api.stepPathPrev) {
               api.stepPathPrev();
               updatePathUI();
@@ -973,8 +969,8 @@ import "../css/modal.css";
           });
         }
         if (pathNextBtn) {
-          pathNextBtn.addEventListener("click", function() {
-            var api = getApi();
+          pathNextBtn.addEventListener("click", () => {
+            const api = getApi();
             if (api.stepPathNext) {
               api.stepPathNext();
               updatePathUI();
@@ -984,13 +980,13 @@ import "../css/modal.css";
 
         // 清除路径
         if (pathClearBtn) {
-          pathClearBtn.addEventListener("click", function() {
+          pathClearBtn.addEventListener("click", () => {
             clearPathSelections();
           });
         }
 
         // 点击外部关闭搜索结果
-        document.addEventListener("click", function(e) {
+        document.addEventListener("click", (e) => {
           if (pathFromInput && pathFromResults && !pathFromInput.contains(e.target) && !pathFromResults.contains(e.target)) {
             pathFromResults.style.display = "none";
           }
@@ -1000,7 +996,7 @@ import "../css/modal.css";
         });
 
         // ESC 关闭
-        document.addEventListener("keydown", function(e) {
+        document.addEventListener("keydown", (e) => {
           if (e.key === "Escape" && pathModal && pathModal.classList.contains("show")) {
             hidePathModal();
           }

@@ -12,7 +12,7 @@
   "env": {
     "builtin": true,
     "browser": true,
-    "es2022": true
+    "esnext": true
   },
   "ignorePatterns": ["dist/", "node_modules/", "public/scripts/"],
   "overrides": [
