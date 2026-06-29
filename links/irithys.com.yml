@@ -1,0 +1,10 @@
+'site':
+  'name': 'irithys.com'
+  'url': 'https://irithys.com/'
+  'description': '友情链接'
+  'links': '/friends/'
+  'friends':
+    - 'name': 'YXVM'
+      'url': 'https://yxvm.com/'
+    - 'name': 'Ghost'
+      'url': 'https://ghost.org/'
