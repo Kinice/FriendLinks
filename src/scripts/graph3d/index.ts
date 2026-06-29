@@ -256,26 +256,18 @@ export function init3d(graphData: GraphData) {
 
   const baseLinkSegments = new THREE.LineSegments(baseLinkGeom, baseLinkMat);
 
-  // ── 叠加线网（hover/focus 时显示） ────────────────────────────
-  const overlayPosArr = new Float32Array(links.length * 2 * 3);
-  const overlayGeom = new THREE.BufferGeometry();
-  overlayGeom.setAttribute("position", new THREE.BufferAttribute(overlayPosArr, 3));
-  overlayGeom.setDrawRange(0, 0); // 默认不绘制任何线段
+  // ── 叠加线网（hover/focus 时显示，粗管+荧光） ──────────────
+  const LINK_THICKNESS = 0.35;
+  const sharedCoreGeom = new THREE.CylinderGeometry(LINK_THICKNESS * 0.3, LINK_THICKNESS * 0.3, 1, 5);
+  const sharedHaloGeom = new THREE.CylinderGeometry(LINK_THICKNESS * 1.8, LINK_THICKNESS * 1.8, 1, 8);
 
-  const overlayMat = new THREE.LineBasicMaterial({
-    color: 0xffffff,
-    transparent: true,
-    opacity: 0.8,
-    depthWrite: false,
-  });
-
-  const overlaySegments = new THREE.LineSegments(overlayGeom, overlayMat);
-  overlaySegments.visible = false;
+  const overlayGroup = new THREE.Group();
+  overlayGroup.visible = false;
 
   // 合并成组供 linkThreeObject 使用
   const linkGroup = new THREE.Group();
   linkGroup.add(baseLinkSegments);
-  linkGroup.add(overlaySegments);
+  linkGroup.add(overlayGroup);
 
   let linkObjCreated = false;
 
@@ -286,15 +278,50 @@ export function init3d(graphData: GraphData) {
     baseLinkMat.needsUpdate = true;
   }
 
-  /** 构建叠加线网：只包含与指定节点相连的连线 */
+  /** 构建叠加线网：粗管 + 荧光光晕 */
   function buildOverlay(nodeId: string | null, color: THREE.ColorRepresentation) {
+    // 清除旧的叠加线段
+    while (overlayGroup.children.length > 0) {
+      const child = overlayGroup.children[0] as THREE.Mesh;
+      child.geometry = undefined as any; // 共享几何体不在此 dispose
+      if (child.material) (child.material as THREE.Material).dispose();
+      overlayGroup.remove(child);
+    }
+
     if (!nodeId) {
-      overlaySegments.visible = false;
+      overlayGroup.visible = false;
       return;
     }
 
-    const pos = overlayGeom.attributes.position.array as Float32Array;
-    let count = 0;
+    const baseColor = new THREE.Color(color);
+
+    // 核心材质（细、亮、高荧光）
+    const coreMat = new THREE.MeshStandardMaterial({
+      color: baseColor,
+      emissive: baseColor,
+      emissiveIntensity: 0.7,
+      transparent: true,
+      opacity: 1.0,
+      depthWrite: false,
+    });
+
+    // 光晕材质（粗、半透明、柔光）
+    const haloColor = baseColor.clone();
+    const haloMat = new THREE.MeshStandardMaterial({
+      color: haloColor,
+      emissive: haloColor,
+      emissiveIntensity: 0.4,
+      transparent: true,
+      opacity: 0.25,
+      depthWrite: false,
+    });
+
+    const up = new THREE.Vector3(0, 1, 0);
+    const start = new THREE.Vector3();
+    const end = new THREE.Vector3();
+    const dir = new THREE.Vector3();
+    const mid = new THREE.Vector3();
+    const quat = new THREE.Quaternion();
 
     for (let i = 0; i < links.length; i++) {
       const srcStr = typeof links[i].source === "object" ? links[i].source.id : links[i].source;
@@ -302,23 +329,34 @@ export function init3d(graphData: GraphData) {
 
       if (srcStr === nodeId || tgtStr === nodeId) {
         const baseIdx = i * 6;
-        const overlayIdx = count * 6;
+        start.set(linkPosArr[baseIdx], linkPosArr[baseIdx + 1], linkPosArr[baseIdx + 2]);
+        end.set(linkPosArr[baseIdx + 3], linkPosArr[baseIdx + 4], linkPosArr[baseIdx + 5]);
 
-        pos[overlayIdx]     = linkPosArr[baseIdx];
-        pos[overlayIdx + 1] = linkPosArr[baseIdx + 1];
-        pos[overlayIdx + 2] = linkPosArr[baseIdx + 2];
-        pos[overlayIdx + 3] = linkPosArr[baseIdx + 3];
-        pos[overlayIdx + 4] = linkPosArr[baseIdx + 4];
-        pos[overlayIdx + 5] = linkPosArr[baseIdx + 5];
+        dir.subVectors(end, start);
+        const length = dir.length();
+        if (length < 0.01) continue;
+        dir.normalize();
 
-        count++;
+        mid.addVectors(start, end).multiplyScalar(0.5);
+        quat.setFromUnitVectors(up, dir);
+
+        // 光晕层（宽、透）
+        const haloMesh = new THREE.Mesh(sharedHaloGeom, haloMat);
+        haloMesh.position.copy(mid);
+        haloMesh.quaternion.copy(quat);
+        haloMesh.scale.set(1, length, 1);
+        overlayGroup.add(haloMesh);
+
+        // 核心层（细、亮）
+        const coreMesh = new THREE.Mesh(sharedCoreGeom, coreMat);
+        coreMesh.position.copy(mid);
+        coreMesh.quaternion.copy(quat);
+        coreMesh.scale.set(1, length, 1);
+        overlayGroup.add(coreMesh);
       }
     }
 
-    overlayMat.color.set(color);
-    overlayGeom.setDrawRange(0, count * 2);
-    overlayGeom.attributes.position.needsUpdate = true;
-    overlaySegments.visible = true;
+    overlayGroup.visible = true;
   }
 
   // 7c ─ 创建 Graph（颜色在 graphData 之后设置）───────────────
@@ -576,7 +614,7 @@ export function init3d(graphData: GraphData) {
     // 刷新基础线网透明度
     refreshLinkColors();
     // 如果叠加线网可见，重建以匹配主题
-    if (overlaySegments.visible) {
+    if (overlayGroup.visible) {
       if (focusedId) {
         buildOverlay(focusedId, dark ? 0xffdd44 : 0xff9900);
       } else if (hoveredId) {

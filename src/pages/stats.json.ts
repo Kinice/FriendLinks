@@ -107,7 +107,7 @@ export async function GET() {
 
   const statsWithRoutes = { ...stats, linkRoutes: linkRoutesSorted };
 
-  return new Response(JSON.stringify(statsWithRoutes, null, 2), {
+  return new Response(JSON.stringify(statsWithRoutes), {
     headers: { "Content-Type": "application/json" },
   });
 }

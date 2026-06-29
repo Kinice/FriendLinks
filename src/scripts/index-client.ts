@@ -17,10 +17,45 @@ declare global {
 }
 
 (async () => {
+  // ── 首屏加载蒙版 ──────────────────────────────────────────────
+  const loadingEl = document.getElementById("loading-overlay");
+  const textEl = document.getElementById("loading-text");
+  const timeEl = document.getElementById("loading-time");
+  const barEl = document.getElementById("loading-bar");
+
+  const startTime = Date.now();
+  let timer: ReturnType<typeof setInterval> | null = null;
+  function updateTime() {
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+    if (timeEl) timeEl.textContent = `${elapsed}s`;
+  }
+
   // 动态导入 3D 图模块，实现代码分割
+  if (textEl) textEl.textContent = "加载模块中...";
+  timer = setInterval(updateTime, 100);
+
   const { init3dFromUrl } = await import("./graph3d/index");
 
+  if (textEl) textEl.textContent = "下载图数据中 (1.2 MB)...";
+  if (barEl) barEl.style.width = "30%";
+
   const controller = await init3dFromUrl("/graph.json");
+
+  if (textEl) textEl.textContent = "渲染 3D 场景中...";
+  if (barEl) barEl.style.width = "70%";
+
+  // 等待至少两帧让 Three.js 完成首屏渲染
+  await new Promise((r) => requestAnimationFrame(r));
+  await new Promise((r) => requestAnimationFrame(r));
+
+  if (barEl) barEl.style.width = "100%";
+  updateTime();
+
+  // 淡出蒙版
+  if (timer) clearInterval(timer);
+  setTimeout(() => {
+    if (loadingEl) loadingEl.classList.add("hidden");
+  }, 400);
 
   const input = document.getElementById("graph-search") as HTMLInputElement | null;
   const results = document.getElementById("graph-search-results");

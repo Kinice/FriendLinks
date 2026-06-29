@@ -56,6 +56,21 @@ import "../css/modal.css";
       </div>
     </div>
     <div id="main"></div>
+
+    <!-- 首屏加载蒙版 -->
+    <div id="loading-overlay">
+      <div class="loading-box">
+        <div class="loading-spinner"></div>
+        <div class="loading-status">
+          <span id="loading-text">正在加载友链数据...</span>
+          <span id="loading-time" class="loading-time"></span>
+        </div>
+        <div class="loading-bar-track">
+          <div id="loading-bar" class="loading-bar-fill"></div>
+        </div>
+      </div>
+    </div>
+
     <div class="top-buttons">
       <button id="theme-toggle" class="top-button" aria-label="切换主题"
         >切换主题</button
@@ -290,12 +305,12 @@ import "../css/modal.css";
         font-size: 18px;
         font-weight: bold;
         line-height: 1.2;
-        color: #007acc; /* 亮色主题下的高亮蓝色 */
+        color: var(--accent);
       }
 
-      /* 暗色主题下的数字颜色 */
+      /* 暗色主题下的数字颜色（--accent 自动切换） */
       html[data-theme="dark"] #stats-modal .stat-value {
-        color: #4da6ff; /* 暗色主题下的浅蓝色 */
+        color: var(--accent);
       }
       #stats-modal .loading {
         text-align: center;
@@ -304,7 +319,7 @@ import "../css/modal.css";
       }
       #stats-modal .error {
         text-align: center;
-        color: #e74c3c;
+        color: var(--danger);
         padding: 40px;
       }
       #stats-modal .stats-grid {
@@ -360,6 +375,70 @@ import "../css/modal.css";
         #stats-modal .modal-header h2 {
           font-size: 16px;
         }
+      }
+
+      /* 首屏加载蒙版 */
+      #loading-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg, #0f1115);
+        transition: opacity 0.5s ease;
+      }
+      #loading-overlay.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .loading-box {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid var(--border);
+        border-top-color: #4a9eff;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      .loading-status {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        align-items: center;
+      }
+      .loading-status span {
+        font-size: 14px;
+        color: var(--muted);
+        font-family: sans-serif;
+      }
+      .loading-time {
+        font-size: 12px !important;
+        color: var(--muted) !important;
+        font-variant-numeric: tabular-nums;
+      }
+      .loading-bar-track {
+        width: 200px;
+        height: 3px;
+        background: var(--border);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .loading-bar-fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #4a9eff, #7c5cfc);
+        border-radius: 2px;
+        transition: width 0.3s ease;
       }
     </style>
     <script>
