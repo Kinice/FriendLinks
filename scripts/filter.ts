@@ -231,6 +231,7 @@ const NON_BLOG_DOMAINS = [
       "linuxcat.top", "www.linuxcat.top",
       // 死站
       "blog.sunguoqi.com",
+      "halo.oneln.org",
       // 游戏商城
   "steampowered.com", "store.steampowered.com",
   "steamcommunity.com", "www.steamcommunity.com",

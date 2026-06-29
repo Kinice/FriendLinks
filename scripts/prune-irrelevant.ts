@@ -340,6 +340,7 @@ function isJunkEntry(f: { name: string; url: string }, siteUrl?: string): boolea
       "linuxcat.top", "www.linuxcat.top",
       // 死站
       "blog.sunguoqi.com",
+      "halo.oneln.org",
       "wanfangdata.com", "www.wanfangdata.com",
       "cqvip.com", "www.cqvip.com",
       "arxiv.org", "www.arxiv.org",
