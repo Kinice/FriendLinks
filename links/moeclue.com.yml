@@ -1,0 +1,16 @@
+'site':
+  'name': 'moeclue.com'
+  'url': 'https://www.moeclue.com/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'NERAKA33'
+      'url': 'https://www.tedxsfit.com/about-us'
+    - 'name': 'NERAKA33'
+      'url': 'https://bitpronexus.com/about/'
+    - 'name': 'SENYUMTOTO'
+      'url': 'https://traveltipsthailand.com/about-us/'
+    - 'name': 'SENYUMTOTO'
+      'url': 'https://codebulbs.com/archive/'
+    - 'name': 'CodeVibrant'
+      'url': 'https://codevibrant.com/'

@@ -1,0 +1,9 @@
+/** 敏感域名（SHA-256 哈希，避免明文出现在 git） */
+export const SENSITIVE_DOMAINS: string[] = [
+  "c0768c37f1e56957c5fc74454db8b1c39dad1aaebb1c85b94f75832c05c36fd9",
+  "ca402493c91ca87cb7ab3b77ad2c7efad952b4c665092e078133f8626d056a18",
+  "c123efbc4b3139957bdccff96d9c6790042815a4e256c617f4714bc66d9dfcba",
+  "af28ca3f1acc36d8c5c0377ee82a5c2cc8f5e72619a56ad0738fcb2c1abc7713",
+  "2ec15621efe4dedeeaa6499d9881e79645b5527a8cffe0e17b580b187968c3ce",
+  "d8af3783c30c711514c6b8c33f1fa5cecb825e849872178007b86e5e2ebe9ff1",
+];

@@ -109,10 +109,19 @@ site:
 
 ### 清理脚本
 
-`scripts/prune-irrelevant.ts` 用于剔除友链中的无关条目（备案号、主题框架、社交链接、站内页面等）：
+`scripts/prune-irrelevant.ts` 用于剔除友链中的无关条目。过滤规则分类在 `scripts/filter/` 下：
 
 ```bash
-bun run scripts/prune-irrelevant.ts
+bun run prune
 ```
+
+| 文件 | 用途 |
+|------|------|
+| `names.ts` | 名称关键词匹配 |
+| `urls.ts` | URL 模式匹配 |
+| `domains.ts` | 非博客域名列表 |
+| `sensitive.ts` | 敏感域名（SHA-256 哈希） |
+| `subdomains.ts` | 服务子域名前缀 |
+| `platforms.ts` | 托管平台列表 |
 
 空文件会被自动删除。

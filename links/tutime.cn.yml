@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Valine'
-      'url': 'https://valine.js.org'
     - 'name': '啊不嘟'
       'url': 'https://www.oplog.cn/'
     - 'name': '青柠博客'

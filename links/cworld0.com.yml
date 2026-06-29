@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '小林的小窝分享技术、日常'
-      'url': 'https://www.xiaorin.com/'
     - 'name': '又见苍岚蓝天依旧，明眸如初'
       'url': 'https://www.zywvvd.com/'
     - 'name': '陆陆侠的生活安安~这里是陆陆侠的生活'

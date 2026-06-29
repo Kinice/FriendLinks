@@ -1,8 +1,0 @@
-'site':
-  'name': 'zepoch.cc'
-  'description': '友情链接'
-  'url': 'https://zepoch.cc/'
-  'links': '/link'
-  'friends':
-    - 'name': 'Valine'
-      'url': 'https://valine.js.org'

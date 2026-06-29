@@ -1,0 +1,12 @@
+site:
+  name: "pmnick"
+  url: "https://pmnick.cc/"
+  description: "友情链接"
+  links: "/blogroll/"
+  friends:
+    - name: "jcjyxjs"
+      url: "https://elstec.cn/"
+    - name: "夏的博客"
+      url: "https://xiau.net/"
+    - name: "咕咚同学"
+      url: "https://blog.gudong.site/"
