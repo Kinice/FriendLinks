@@ -176,6 +176,7 @@ const NON_BLOG_DOMAINS = [
   // 博客平台
   "cnblogs.com", "www.cnblogs.com",
   "csdn.net", "blog.csdn.net",
+  "jianshu.com", "www.jianshu.com",
   // 搜索引擎
   "baidu.com", "www.baidu.com",
   "bing.com", "www.bing.com",

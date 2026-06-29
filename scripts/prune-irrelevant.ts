@@ -223,8 +223,9 @@ function isJunkEntry(f: { name: string; url: string }, siteUrl?: string): boolea
       "dogerolls.com",
       "boringbay.com",
       // 博客平台（非独立个人网站）
-      "cnblogs.com", "www.cnblogs.com",
-      "csdn.net", "blog.csdn.net",
+	      "cnblogs.com", "www.cnblogs.com",
+	      "csdn.net", "blog.csdn.net",
+	      "jianshu.com", "www.jianshu.com",
       // 搜索引擎
       "baidu.com", "www.baidu.com",
       "bing.com", "www.bing.com",
