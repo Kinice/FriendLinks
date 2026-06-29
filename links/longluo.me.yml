@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'My CSDN'
-      'url': 'http://blog.csdn.net/tcpipstack'
     - 'name': 'Fabrice Bellard'
       'url': 'https://bellard.org/'
     - 'name': '阮一峰老师'
@@ -36,8 +34,6 @@
       'url': 'https://physnya.top'
     - 'name': 'Weichky’s Blog'
       'url': 'https://blog.weichky.com'
-    - 'name': '383494’s Blog'
-      'url': 'https://www.cnblogs.com/x383494'
     - 'name': 'PhilFan'
       'url': 'https://www.philfan.cn/'
     - 'name': '独元殇'

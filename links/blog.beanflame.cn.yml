@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '豆焰博客园'
-      'url': 'https://www.cnblogs.com/beanflame'
     - 'name': '白夜'
       'url': 'http://blog.karunari.moe/'
     - 'name': 'Akilar'
@@ -20,8 +18,6 @@
       'url': 'https://blog.rain.cx'
     - 'name': '空梦'
       'url': 'https://kmar.top/'
-    - 'name': '田所浩托Trotsky'
-      'url': 'https://cnblogs.com/Dinnerbone'
     - 'name': '小熊猫Dev-C++'
       'url': 'https://royqh.net/devcpp'
     - 'name': '空间龙眼官网'

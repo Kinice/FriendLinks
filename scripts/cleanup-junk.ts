@@ -6,7 +6,7 @@
  * 用法: bun scripts/cleanup-junk.ts
  */
 
-import { readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync, unlinkSync } from "node:fs";
 import { resolve } from "node:path";
 import YAML from "yaml";
 
@@ -112,7 +112,7 @@ function isJunkEntry(f: { name: string; url: string }, siteUrl?: string): boolea
       "bilibili.com", "space.bilibili.com", "www.bilibili.com",
       "twitter.com", "x.com",
       "music.163.com",
-      "github.io", "pages.dev", "vercel.app", "r2.dev",
+      "pages.dev", "vercel.app", "r2.dev",
       "guides.github.com",
       // 博客聚合/导航/圈子（非个人博客）
       "boyouquan.com", "www.boyouquan.com",
@@ -134,6 +134,9 @@ function isJunkEntry(f: { name: string; url: string }, siteUrl?: string): boolea
       "morerss.com",
       "dogerolls.com",
       "boringbay.com",
+      // 博客平台（非独立个人网站）
+      "cnblogs.com", "www.cnblogs.com",
+      "csdn.net", "blog.csdn.net",
       // 社交/分享
       "facebook.com", "www.facebook.com",
       "reddit.com",
@@ -241,7 +244,11 @@ function main() {
     const { cleaned, removed } = cleanupFriends(site.friends, site.url);
     totalRemoved += removed;
 
-    if (removed > 0) {
+    if (cleaned.length === 0) {
+      // 友链全空 → 删除整个文件（无论是一开始就空还是刚被清空）
+      try { unlinkSync(filePath); } catch {}
+      if (removed > 0 || site.friends.length > 0) totalFilesChanged++;
+    } else if (removed > 0) {
       site.friends = cleaned;
       const output = YAML.stringify(obj, {
         indent: 2,

@@ -25,5 +25,14 @@ links/*.json
 public/*.json
 public/scripts/*.js
 
+# 探测/爬虫产物（开发调试用，不提交）
+crawl_log.txt
+probe_result.txt
+.restore_links.txt
+probe_by_route/
 
-
+# 批量抓取脚本（单次使用，不提交）
+scripts/fetch-friend-routes.ts
+scripts/probe_subs.ts
+scripts/check_links_playwright.mjs
+scripts/generate_yml/

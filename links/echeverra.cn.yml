@@ -6,10 +6,6 @@
   'friends':
     - 'name': '掘金'
       'url': 'https://juejin.cn/user/2242659451942712/posts'
-    - 'name': '博客园'
-      'url': 'https://www.cnblogs.com/echeverra/'
-    - 'name': 'CSDN'
-      'url': 'https://blog.csdn.net/weixin_41394875?spm=1011.2124.3001.5343&type=blog'
     - 'name': 'segmentfault'
       'url': 'https://segmentfault.com/u/echeverra/articles'
     - 'name': '彬红茶日记'

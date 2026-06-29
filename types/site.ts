@@ -3,6 +3,8 @@ export interface Site {
   description: string;
   url: string;
   favicon?: string;
+  /** 自定义颜色，16 进制，如 #ff6600（可选，默认从调色板随机分配） */
+  color?: string;
   /** 友链页面路由，如 /links /link /friends /friend 等，不含末尾斜杠（必填） */
   links: string;
   friends: Array<{

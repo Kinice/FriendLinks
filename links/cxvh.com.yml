@@ -68,8 +68,6 @@
       'url': 'http://www.juming.com/'
     - 'name': '百度云智学院'
       'url': 'https://abcxueyuan.baidu.com/#/line_course?nodeId=&index=&pageNo=1&sortTag=1'
-    - 'name': 'CSDN'
-      'url': 'https://edu.csdn.net/course'
     - 'name': '看雪'
       'url': 'https://www.kanxue.com/course.htm'
     - 'name': '慕课'

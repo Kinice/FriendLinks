@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'CSDN主页'
-      'url': 'https://blog.csdn.net/qq_53461589?spm=1010.2135.3001.5421'
     - 'name': 'POETIZE'
       'url': 'https://poetize.cn/'
     - 'name': '轻笑Chuckle'

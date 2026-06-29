@@ -6,13 +6,9 @@
   'friends':
     - 'name': 'KeepTheme'
       'url': 'https://keep-hexo.musnow.top/?utm_source=mirror'
-    - 'name': 'CSDN'
-      'url': 'https://musnow.blog.csdn.net/'
     - 'name': '51CTO'
       'url': 'https://blog.51cto.com/u_15307009'
     - 'name': '说说'
       'url': 'https://memos.musnow.top'
     - 'name': '个人主页'
       'url': 'https://musnow.top/?utm_source=blog'
-    - 'name': 'CSDN'
-      'url': 'https://blog.csdn.net/muxuen'

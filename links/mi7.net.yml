@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '博客园'
-      'url': 'https://www.cnblogs.com/mi7coder/'
     - 'name': 'www.imaegoo.com'
       'url': 'https://www.imaegoo.com'
     - 'name': '宇宙湾'
@@ -20,8 +18,6 @@
       'url': 'https://muziliblog.com/'
     - 'name': 'Valine'
       'url': 'https://valine.js.org'
-    - 'name': '博客园www.cnblogs.com'
-      'url': 'https://www.cnblogs.com/mi7coder'
     - 'name': '掘  金juejin.cn'
       'url': 'https://juejin.cn/user/536217404835224'
     - 'name': '知识共享'

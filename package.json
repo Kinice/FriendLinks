@@ -20,7 +20,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "oxlint src/",
+    "fmt": "oxfmt src/ --write",
+    "fmt-check": "oxfmt src/ --check"
   },
   "dependencies": {
     "3d-force-graph": "^1.80.0",

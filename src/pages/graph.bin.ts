@@ -51,6 +51,7 @@ export async function GET() {
       url: s.url,
       favicon: siteIcon,
       desc: s.description,
+      ...(s.color ? { color: s.color } : {}),
     });
     linkMap.set(host, new Set());
     hostToId.set(host, siteId);
@@ -132,7 +133,7 @@ export async function GET() {
   }
 
   // ── 构建时 3D 力导布局 ─────────────────────────────────────────
-  const simNodes = nodes.map((n) => ({ ...n }));
+  const simNodes = nodes.map((n) => Object.assign({}, n));
   const simLinks = linksArr.map((l) => ({
     source: typeof l.source === "string" ? l.source : (l as any).source,
     target: typeof l.target === "string" ? l.target : (l as any).target,
@@ -140,7 +141,12 @@ export async function GET() {
 
   // 三轴等强微弱居中，保持 3D 散布
   const sim = forceSimulation(simNodes as any, 3)
-    .force("link", forceLink(simLinks as any).id((d: any) => d.id).distance(40))
+    .force(
+      "link",
+      forceLink(simLinks as any)
+        .id((d: any) => d.id)
+        .distance(40),
+    )
     .force("charge", forceManyBody().strength(-120))
     .force("center", forceCenter(0, 0, 0).strength(0.02))
     .alphaDecay(0.01)
@@ -176,7 +182,10 @@ export async function GET() {
   for (const l of linksArr) {
     const si = idIndex.get(l.source);
     const ti = idIndex.get(l.target);
-    if (si != null && ti != null) { ls.push(si); lt.push(ti); }
+    if (si != null && ti != null) {
+      ls.push(si);
+      lt.push(ti);
+    }
   }
 
   const compact = { nid, nnm, nur, nfa, nde, nx, ny, nz, ls, lt, c: categories };

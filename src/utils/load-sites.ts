@@ -17,6 +17,11 @@ function isValidUrl(u: unknown): u is string {
   }
 }
 
+function isValidHexColor(c: unknown): c is string {
+  if (!isString(c)) return false;
+  return /^#[0-9a-fA-F]{6}$/.test(c);
+}
+
 function isFriend(obj: unknown): obj is { name: string; url: string; favicon?: string } {
   if (!obj || typeof obj !== "object") return false;
   const o = obj as any;
@@ -32,6 +37,7 @@ function isSite(obj: unknown): obj is Site {
   if (!isString(o.name) || o.name.trim() === "") return false;
   if (!isString(o.description) || o.description.trim() === "") return false;
   if (!isValidUrl(o.url)) return false;
+  if (o.color != null && !isValidHexColor(o.color)) return false;
   if (!isString(o.links) || o.links.trim() === "") return false;
   if (o.favicon != null && !isValidUrl(o.favicon)) return false;
   const friends = o.friends;
@@ -73,7 +79,8 @@ async function parseAndValidate(file: string): Promise<Site | null> {
         if (!isString(o.description) || o.description.trim() === "")
           console.error(" - site.description: 需要非空字符串");
         if (!isValidUrl(o.url)) console.error(" - site.url: 需要合法 http/https URL");
-        if (!isString(o.links) || o.links.trim() === "") console.error(" - site.links: 需要非空字符串（友链路由，如 /links /link /friends）");
+        if (!isString(o.links) || o.links.trim() === "")
+          console.error(" - site.links: 需要非空字符串（友链路由，如 /links /link /friends）");
         if (!Array.isArray(o.friends)) console.error(" - site.friends: 需要数组");
         else {
           o.friends.forEach((f: any, idx: number) => {

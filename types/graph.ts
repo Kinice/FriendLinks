@@ -4,6 +4,7 @@ export type Site = {
   description: string;
   url: string;
   favicon?: string;
+  color?: string;
   friends: Friend[];
 };
 
@@ -13,6 +14,7 @@ export type GraphNode = {
   url: string;
   favicon?: string;
   desc?: string;
+  color?: string;
 };
 export type GraphLink = { source: string; target: string; symbol?: string[] };
 export type GraphCategory = { name: string };

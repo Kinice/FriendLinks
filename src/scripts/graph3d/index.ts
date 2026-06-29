@@ -89,7 +89,7 @@ export function init3d(graphData: GraphData) {
   const rawNodes = graphData.nodes || [];
   const isDark = isDarkRef.value;
   const nodes = rawNodes.map((n: any) => {
-    const base = PALETTE[hashToIndex(n.id)];
+    const base = n.color || PALETTE[hashToIndex(n.id)];
     return Object.assign({}, n, {
       palColor: base,
       _cDefault: isDark ? adjustHex(base, 20) : base,
@@ -149,7 +149,9 @@ export function init3d(graphData: GraphData) {
   const linkOpacity = { value: saved };
 
   function saveOpacity(v: number) {
-    try { localStorage.setItem(STORAGE_KEY, String(v)); } catch {}
+    try {
+      localStorage.setItem(STORAGE_KEY, String(v));
+    } catch {}
   }
 
   function createControlPanel() {
@@ -235,7 +237,7 @@ export function init3d(graphData: GraphData) {
     const tgtNode = nodes.find((n: any) => n.id === tgtId);
     if (srcNode && tgtNode) {
       const idx = i * 6;
-      linkPosArr[idx]     = srcNode.x || 0;
+      linkPosArr[idx] = srcNode.x || 0;
       linkPosArr[idx + 1] = srcNode.y || 0;
       linkPosArr[idx + 2] = srcNode.z || 0;
       linkPosArr[idx + 3] = tgtNode.x || 0;
@@ -445,8 +447,7 @@ export function init3d(graphData: GraphData) {
             const s = 6 + sinA2 * 0.5;
             sprite.scale.setScalar(s);
             sprite.material.opacity =
-              (0.4 + (focusedId === node.id ? 0.45 : hoveredId === node.id ? 0.3 : 0.15)) *
-              (0.8 + sinA3 * 0.2);
+              (0.4 + (focusedId === node.id ? 0.45 : hoveredId === node.id ? 0.3 : 0.15)) * (0.8 + sinA3 * 0.2);
           }
         }
       }
@@ -739,9 +740,7 @@ export function init3d(graphData: GraphData) {
         const nodeUrl = (n.url || "").toString().toLowerCase();
         let nodeHost = nodeUrl;
         try {
-          nodeHost = new URL(
-            nodeUrl.startsWith("http") ? nodeUrl : `https://${nodeUrl}`,
-          ).hostname.toLowerCase();
+          nodeHost = new URL(nodeUrl.startsWith("http") ? nodeUrl : `https://${nodeUrl}`).hostname.toLowerCase();
         } catch {}
         return nodeHost === targetHost || nodeUrl.includes(targetHost);
       }) ?? [];

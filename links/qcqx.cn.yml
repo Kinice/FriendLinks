@@ -4,8 +4,6 @@
   'url': 'https://qcqx.cn/'
   'links': '/link'
   'friends':
-    - 'name': 'CSDN'
-      'url': 'https://blog.csdn.net/qxchuckle'
     - 'name': '酷安'
       'url': 'http://www.coolapk.com/u/4137393'
     - 'name': '评论管理'
