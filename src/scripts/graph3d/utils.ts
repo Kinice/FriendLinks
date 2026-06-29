@@ -87,17 +87,26 @@ export const LOD_DISTANCES = {
 } as const;
 
 /** 全局共享的 LOD 几何体（半径=1，实际尺寸由 scale 控制） */
-let _sharedLODGeoms: { near: THREE.SphereGeometry; mid: THREE.SphereGeometry; far: THREE.SphereGeometry } | null = null;
+let _sharedLODGeoms: { near: THREE.SphereGeometry; mid: THREE.SphereGeometry } | null = null;
+let _sharedPointGeom: THREE.BufferGeometry | null = null;
 
 export function getSharedLODGeometries() {
   if (!_sharedLODGeoms) {
     _sharedLODGeoms = {
       near: new THREE.SphereGeometry(1, 16, 16), // 高细节
       mid: new THREE.SphereGeometry(1, 8, 8), // 中细节
-      far: new THREE.SphereGeometry(1, 4, 4), // 低细节
     };
   }
   return _sharedLODGeoms;
+}
+
+/** 远层共享单顶点几何体（所有节点共用） */
+function getSharedPointGeom(): THREE.BufferGeometry {
+  if (!_sharedPointGeom) {
+    _sharedPointGeom = new THREE.BufferGeometry();
+    _sharedPointGeom.setAttribute("position", new THREE.BufferAttribute(new Float32Array([0, 0, 0]), 3));
+  }
+  return _sharedPointGeom;
 }
 
 /**
@@ -122,13 +131,16 @@ export function createNodeLOD(baseColor: string): THREE.LOD {
   // 中层：Lambert 漫反射 + 中分段球体
   const meshMid = new THREE.Mesh(geoms.mid, new THREE.MeshLambertMaterial({ color }));
 
-  // 远层：Basic 无光照 + 低分段球体（最省 GPU）
-  const meshFar = new THREE.Mesh(geoms.far, new THREE.MeshBasicMaterial({ color }));
+  // 远层：点精灵 — 单顶点，无几何体开销，始终面向相机
+  const pointFar = new THREE.Points(
+    getSharedPointGeom(),
+    new THREE.PointsMaterial({ color, size: 1.8, sizeAttenuation: true }),
+  );
 
   const lod = new THREE.LOD();
   lod.addLevel(meshNear, LOD_DISTANCES.NEAR);
   lod.addLevel(meshMid, LOD_DISTANCES.MID);
-  lod.addLevel(meshFar, Infinity);
+  lod.addLevel(pointFar, Infinity);
 
   return lod;
 }
@@ -140,8 +152,9 @@ export function updateLODColor(lod: THREE.LOD, color: string): void {
   const c = new THREE.Color(color);
   for (let i = 0; i < lod.levels.length; i++) {
     const obj = lod.levels[i].object;
-    if (obj instanceof THREE.Mesh && obj.material) {
-      const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+    // Mesh（近/中层球体）或 Points（远层点精灵）
+    if ((obj instanceof THREE.Mesh || obj instanceof THREE.Points) && (obj as any).material) {
+      const mats = Array.isArray((obj as any).material) ? (obj as any).material : [(obj as any).material];
       for (const mat of mats) {
         if ("color" in mat) {
           (mat as THREE.MeshBasicMaterial).color.copy(c);

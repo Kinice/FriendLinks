@@ -82,6 +82,16 @@ declare module "three" {
       constructor(params?: any);
       color: any;
     }
+    class PointsMaterial {
+      constructor(params?: any);
+      color: any;
+      size: number;
+      sizeAttenuation: boolean;
+    }
+    class Points extends Object3D {
+      constructor(geom?: BufferGeometry, mat?: PointsMaterial);
+      material: PointsMaterial;
+    }
     class Mesh extends Object3D {
       constructor(geom?: any, mat?: any);
       position: Vector3;
