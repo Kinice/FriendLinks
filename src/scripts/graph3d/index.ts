@@ -862,6 +862,10 @@ export function init3d(graphData: GraphData) {
       if (oldMesh.material) {
         (oldMesh.material as THREE.Material).dispose();
       }
+      // 隐藏 3d-force-graph 自动创建的 Sprite 装饰（不再需要）
+      for (let i = 1; i < node.__threeObj.children.length; i++) {
+        if (node.__threeObj.children[i]) node.__threeObj.children[i].visible = false;
+      }
     }
     lodsCreated = true;
   }
@@ -885,20 +889,15 @@ export function init3d(graphData: GraphData) {
   });
   ro.observe(container);
 
-  // 涟漪波动动画 + 叠加线自适应缩放 + LOD 更新
-  let animationTime = 0;
-  let ripplesInited = false;
+  // 叠加线自适应缩放 + LOD 更新
   let lastInteraction = performance.now();
   let frameSkip = 0;
-  const FRAME_SKIP_IDLE = 2; // 空闲时跳过的帧数
-  const MAX_VISIBLE_SPRITES = 200; // 最多显示 Sprite 的节点数
-  const FAR_ZOOM_THRESHOLD = 800; // 超过此距离视为远距俯瞰，跳过 Sprite 动画
+  const FRAME_SKIP_IDLE = 2;
 
   function animateRipples() {
     const now = performance.now();
     const idle = now - lastInteraction > 2000;
 
-    // 空闲时每 2 帧才执行一次渲染逻辑，降低 CPU 50%
     if (idle) {
       frameSkip++;
       if (frameSkip < FRAME_SKIP_IDLE) {
@@ -908,10 +907,9 @@ export function init3d(graphData: GraphData) {
       frameSkip = 0;
     }
 
-    animationTime += 0.02;
     const currentData = Graph.graphData() as any;
 
-    // 叠加线自适应：视野越大线越粗，保持屏幕像素宽度
+    // 叠加线自适应
     if (overlayGroup.visible && overlayGroup.children.length > 0) {
       try {
         const cam = Graph.cameraPosition();
@@ -927,7 +925,7 @@ export function init3d(graphData: GraphData) {
       } catch {}
     }
 
-    // 路径叠加线使用独立的缩放因子
+    // 路径叠加线
     if (pathOverlayGroup && pathOverlayGroup.children.length > 0) {
       try {
         const cam = Graph.cameraPosition();
@@ -942,67 +940,18 @@ export function init3d(graphData: GraphData) {
       } catch {}
     }
 
-    // ── 合并为一次遍历：LOD 更新 + Sprite 动画 ──────────────────
+    // LOD 更新
     if (lodsCreated && currentData.nodes) {
-      // 判断是否处于远距俯瞰模式（所有节点底模已坍缩为点，不再需要 glow）
-      const cam = Graph.cameraPosition();
-      const camDist = Math.sqrt(cam.x * cam.x + cam.y * cam.y + cam.z * cam.z);
-      const isFarZoom = camDist > FAR_ZOOM_THRESHOLD;
-
-      if (!ripplesInited) {
-        for (const node of currentData.nodes) {
-          if (node.__threeObj) {
-            for (let i = 2; i < node.__threeObj.children.length; i++) {
-              node.__threeObj.children[i].visible = false;
-            }
-          }
-        }
-        ripplesInited = true;
-      }
-
-      const sinA2 = Math.sin(animationTime * 2);
-      const sinA3 = Math.sin(animationTime * 3);
-
-      // 节点过多时只对度数最高的 N 个节点显示 Sprite
-      let spriteCount = 0;
-      const nodes = currentData.nodes as any[];
-      const needThrottle = nodes.length > MAX_VISIBLE_SPRITES * 2;
-      // 预排序：度数高的节点优先显示 Sprite（稳定的排序只在节点变化时执行）
-      if (needThrottle && !nodes._sortedByDegree) {
-        nodes.sort((a: any, b: any) => (b.degree || 0) - (a.degree || 0));
-        nodes._sortedByDegree = true;
-      }
-
       const sceneCam = Graph.camera() as THREE.PerspectiveCamera;
-
-      for (const node of nodes) {
-        // LOD 更新：每帧根据相机距离切换节点精度
-        if (node.__lod && sceneCam) (node.__lod as THREE.LOD).update(sceneCam);
-
-        // 远距俯瞰时完全跳过 Sprite 动画（点太小根本看不见 glow）
-        if (isFarZoom) continue;
-
-        if (node.__threeObj && node.__threeObj.children.length > 1) {
-          const sprite = node.__threeObj.children[1];
-          if (sprite) {
-            const lodLevel = node.__lod ? (node.__lod as THREE.LOD).getCurrentLevel() : 0;
-            // 远节点 + 超出 Sprite 数量上限的节点 → 隐藏 Sprite
-            const skipSprite = lodLevel >= 2 || (needThrottle && spriteCount >= MAX_VISIBLE_SPRITES);
-            if (skipSprite) {
-              sprite.visible = false;
-            } else {
-              spriteCount++;
-              sprite.visible = true;
-              const s = 6 + sinA2 * 0.5;
-              sprite.scale.setScalar(s);
-              sprite.material.opacity =
-                (0.4 + (focusedId === node.id ? 0.45 : hoveredId === node.id ? 0.3 : 0.15)) * (0.8 + sinA3 * 0.2);
-            }
-          }
+      if (sceneCam) {
+        for (const node of currentData.nodes) {
+          if (node.__lod) (node.__lod as THREE.LOD).update(sceneCam);
         }
       }
     }
+
     requestAnimationFrame(animateRipples);
+  }
   }
 
   // 监听交互事件，重置空闲计时器
