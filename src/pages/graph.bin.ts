@@ -2,6 +2,7 @@ import { loadSites } from "../utils/load-sites";
 import type { GraphNode, GraphLink, GraphCategory } from "../../types/graph";
 import { forceSimulation, forceLink, forceManyBody, forceCenter } from "d3-force-3d";
 import { encode } from "msgpackr";
+import { printProgress, printDone } from "../utils/progress";
 
 function getHost(u: string): string {
   try {
@@ -27,22 +28,13 @@ const resolveFavicon = (fav: string | undefined) => {
   return localFallback;
 };
 
-const BAR_WIDTH = 24;
-
-function printProgress(phase: string, label: string, pct: number) {
-  const filled = Math.round((pct / 100) * BAR_WIDTH);
-  const empty = BAR_WIDTH - filled;
-  const bar = "█".repeat(filled) + "░".repeat(empty);
-  process.stderr.write(`\r  ${phase} ${bar} ${String(Math.round(pct)).padStart(3)}%  ${label}`);
-}
-
 export async function GET() {
   const startTime = performance.now();
 
   printProgress("❶", "加载友链数据…", 0);
   const validSites = await loadSites();
   printProgress("❶", `已加载 ${validSites.length} 个站点`, 100);
-  process.stderr.write("\n");
+  printDone("站点加载完成");
 
   const categories: GraphCategory[] = [{ name: "site" }, { name: "friend" }];
   const nodes: GraphNode[] = [];
@@ -168,7 +160,7 @@ export async function GET() {
     .velocityDecay(0.35);
 
   printProgress("❷", "图构建完成", 100);
-  process.stderr.write("\n");
+  printDone("图构建完成");
 
   const TICKS = 800;
   const TICK_LOG = 40;
@@ -180,7 +172,7 @@ export async function GET() {
     }
   }
   sim.stop();
-  process.stderr.write("\n");
+  printDone("力导仿真完成");
 
   // ── 列式紧凑输出（含预计算 3D 位置） ─────────────────────────
   const nid: string[] = [];
@@ -217,8 +209,7 @@ export async function GET() {
 
   const compact = { nid, nnm, nur, nfa, nde, nx, ny, nz, ls, lt, c: categories };
   const elapsed = ((performance.now() - startTime) / 1000).toFixed(1);
-  printProgress("✔", `完成，耗时 ${elapsed}s`, 100);
-  process.stderr.write("\n");
+  printDone(`完成，耗时 ${elapsed}s`);
   return new Response(encode(compact) as unknown as BodyInit, {
     headers: { "Content-Type": "application/octet-stream" },
   });

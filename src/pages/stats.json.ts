@@ -1,4 +1,5 @@
 import { loadSites } from "../utils/load-sites";
+import { printProgress, printDone } from "../utils/progress";
 
 function getHost(u: string): string {
   try {
@@ -10,7 +11,10 @@ function getHost(u: string): string {
 
 export async function GET() {
   const start = performance.now();
+
+  printProgress("❶", "加载友链数据…", 0);
   const validSites = await loadSites();
+  printProgress("❶", `已加载 ${validSites.length} 个站点`, 20);
 
   const siteHostSet = new Set<string>();
   for (const s of validSites) {
@@ -45,6 +49,7 @@ export async function GET() {
       }
     }
   }
+  printProgress("❶", "链接映射构建完成", 40);
 
   const stats = {
     coreNodes: {
@@ -70,6 +75,7 @@ export async function GET() {
     },
   };
 
+  printProgress("❷", "计算核心节点连接…", 50);
   const processedCoreLinks = new Set<string>();
   for (const [sourceHost, targetHosts] of linkMap) {
     for (const targetNorm of targetHosts) {
@@ -93,6 +99,7 @@ export async function GET() {
   stats.connections.total = stats.connections.coreToCore.total + stats.connections.coreToFriend;
   stats.overview.totalConnections = stats.connections.total;
   stats.overview.totalNodes = validSites.length + externalHosts.size;
+  printProgress("❷", "连接统计完成", 75);
 
   // 统计友链页面路由分布
   const linkRoutes: Record<string, number> = {};
@@ -101,15 +108,15 @@ export async function GET() {
       linkRoutes[s.links] = (linkRoutes[s.links] || 0) + 1;
     }
   }
-  // 按使用数量降序排列
   const linkRoutesSorted = Object.entries(linkRoutes)
     .sort(([, a], [, b]) => b - a)
     .map(([route, count]) => ({ route, count }));
 
   const statsWithRoutes = { ...stats, linkRoutes: linkRoutesSorted };
+  printProgress("❷", "路由统计完成", 100);
 
   const elapsed = ((performance.now() - start) / 1000).toFixed(1);
-  console.error(`  ✔ /stats.json  ${validSites.length} 站点，${stats.connections.total} 连接，耗时 ${elapsed}s`);
+  printDone(`/stats.json  ${validSites.length} 站点，${stats.connections.total} 连接，耗时 ${elapsed}s`);
 
   return new Response(JSON.stringify(statsWithRoutes), {
     headers: { "Content-Type": "application/json" },
