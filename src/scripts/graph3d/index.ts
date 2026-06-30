@@ -231,6 +231,244 @@ export function init3d(graphData: GraphData) {
   // 暴露 toggle 方法给外部使用
   (window as any).__toggleOpacityPanel = togglePanel;
 
+  // ── 7b. 邻居节点右侧面板 ──────────────────────────────────────────
+
+  function createNeighborPanelStyle() {
+    const id = "neighbor-panel-style";
+    if (document.getElementById(id)) return;
+    const style = document.createElement("style");
+    style.id = id;
+    style.textContent = `
+      #neighbor-panel {
+        position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+        width: 280px; max-height: 75vh;
+        background: var(--card-bg, rgba(30,30,40,0.92));
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--border, rgba(255,255,255,0.1));
+        border-right: none;
+        border-radius: 8px 0 0 8px;
+        z-index: 9997;
+        display: flex; flex-direction: column;
+        font-family: sans-serif;
+        box-shadow: -4px 0 24px rgba(0,0,0,0.2);
+        transition: width 0.25s ease, transform 0.25s ease;
+        overflow: hidden;
+      }
+      #neighbor-panel.hidden { display: none; }
+      #neighbor-panel.collapsed { width: 36px; }
+      #neighbor-panel.collapsed .np-body,
+      #neighbor-panel.collapsed .np-node-name,
+      #neighbor-panel.collapsed .np-title { display: none; }
+      #neighbor-panel.collapsed .np-header { border-bottom: none; padding: 0; }
+      #neighbor-panel.collapsed .np-collapse-btn {
+        width: 36px; height: 36px; border-radius: 8px 0 0 8px; border: none;
+        font-size: 14px; margin: 0;
+      }
+      #neighbor-panel.collapsed .np-close-btn { display: none; }
+      .np-header {
+        padding: 8px 10px 6px;
+        border-bottom: 1px solid var(--border, rgba(255,255,255,0.08));
+        flex-shrink: 0;
+      }
+      .np-title-row {
+        display: flex; align-items: center; gap: 4px;
+      }
+      .np-title {
+        font-size: 11px; font-weight: 600;
+        color: var(--muted, #aaa);
+        text-transform: uppercase; letter-spacing: 0.5px;
+        flex: 1;
+      }
+      .np-node-name {
+        font-size: 13px; font-weight: 600;
+        color: var(--text-color, #fff);
+        padding: 3px 0 0 0;
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      }
+      .np-collapse-btn, .np-close-btn {
+        background: none; border: none; border-radius: 4px;
+        color: var(--muted, #888); cursor: pointer;
+        font-size: 12px; width: 22px; height: 22px;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0; transition: background 0.15s;
+      }
+      .np-collapse-btn:hover, .np-close-btn:hover {
+        background: rgba(255,255,255,0.08);
+        color: var(--text-color, #fff);
+      }
+      .np-body {
+        flex: 1; overflow-y: auto;
+        padding: 2px 0;
+        max-height: 55vh;
+      }
+      .np-body::-webkit-scrollbar { width: 4px; }
+      .np-body::-webkit-scrollbar-thumb {
+        background: var(--border, rgba(255,255,255,0.15));
+        border-radius: 2px;
+      }
+      .np-item {
+        padding: 6px 10px; cursor: pointer;
+        border-bottom: 1px solid var(--border, rgba(255,255,255,0.04));
+        transition: background 0.12s;
+      }
+      .np-item:hover { background: rgba(255,255,255,0.06); }
+      .np-item-name {
+        font-size: 13px; font-weight: 600;
+        color: var(--text-color, #fff);
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      }
+      .np-item-url {
+        font-size: 11px;
+        color: var(--muted, #888);
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        margin-top: 1px;
+      }
+      .np-empty {
+        padding: 16px 10px; font-size: 12px;
+        color: var(--muted, #888); text-align: center;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function createNeighborPanel(): HTMLElement {
+    let panel = document.getElementById("neighbor-panel") as HTMLElement | null;
+    if (panel) return panel;
+
+    createNeighborPanelStyle();
+
+    panel = document.createElement("div");
+    panel.id = "neighbor-panel";
+    panel.classList.add("hidden");
+
+    // header
+    const header = document.createElement("div");
+    header.className = "np-header";
+
+    const titleRow = document.createElement("div");
+    titleRow.className = "np-title-row";
+
+    const title = document.createElement("span");
+    title.className = "np-title";
+    title.textContent = "邻居节点";
+
+    const collapseBtn = document.createElement("button");
+    collapseBtn.className = "np-collapse-btn";
+    collapseBtn.textContent = "◀";
+    collapseBtn.title = "收起面板";
+
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "np-close-btn";
+    closeBtn.textContent = "×";
+    closeBtn.title = "关闭面板";
+
+    titleRow.appendChild(title);
+    titleRow.appendChild(collapseBtn);
+    titleRow.appendChild(closeBtn);
+
+    const nodeName = document.createElement("div");
+    nodeName.className = "np-node-name";
+
+    header.appendChild(titleRow);
+    header.appendChild(nodeName);
+
+    // body
+    const body = document.createElement("div");
+    body.className = "np-body";
+
+    panel.appendChild(header);
+    panel.appendChild(body);
+
+    // interactions
+    collapseBtn.addEventListener("click", () => {
+      panel!.classList.toggle("collapsed");
+      collapseBtn.textContent = panel!.classList.contains("collapsed") ? "▶" : "◀";
+      collapseBtn.title = panel!.classList.contains("collapsed") ? "展开面板" : "收起面板";
+    });
+
+    closeBtn.addEventListener("click", () => {
+      panel!.classList.add("hidden");
+    });
+
+    document.body.appendChild(panel);
+    return panel;
+  }
+
+  const neighborPanel = createNeighborPanel();
+
+  function updateNeighborPanel(nodeId: string | null) {
+    if (!neighborPanel) return;
+    if (!nodeId) {
+      neighborPanel.classList.add("hidden");
+      return;
+    }
+
+    // If collapse is active, don't auto-expand — keep collapsed state
+    if (!neighborPanel.classList.contains("collapsed")) {
+      neighborPanel.classList.remove("hidden");
+    }
+
+    const gd = Graph.graphData() as any;
+    const focusedNode = gd.nodes?.find((n: any) => n.id === nodeId);
+    const nameEl = neighborPanel.querySelector(".np-node-name");
+    if (nameEl) {
+      nameEl.textContent = focusedNode ? focusedNode.name || focusedNode.id : nodeId;
+    }
+
+    const body = neighborPanel.querySelector(".np-body") as HTMLElement;
+    if (!body) return;
+    body.innerHTML = "";
+
+    const neighborIds = neighborMap.get(nodeId);
+    if (!neighborIds || neighborIds.size === 0) {
+      const empty = document.createElement("div");
+      empty.className = "np-empty";
+      empty.textContent = "无邻居节点";
+      body.appendChild(empty);
+      return;
+    }
+
+    // Collect neighbor data
+    const entries: Array<{ id: string; name: string; url: string }> = [];
+    for (const nid of neighborIds) {
+      const node = gd.nodes?.find((n: any) => n.id === nid);
+      if (node) {
+        entries.push({
+          id: nid,
+          name: node.name || nid,
+          url: node.url || "",
+        });
+      }
+    }
+
+    // Sort by URL dictionary order
+    entries.sort((a, b) => a.url.localeCompare(b.url));
+
+    for (const entry of entries) {
+      const item = document.createElement("div");
+      item.className = "np-item";
+      item.dataset.id = entry.id;
+
+      const nameEl_ = document.createElement("div");
+      nameEl_.className = "np-item-name";
+      nameEl_.textContent = entry.name;
+
+      const urlEl = document.createElement("div");
+      urlEl.className = "np-item-url";
+      urlEl.textContent = entry.url;
+
+      item.appendChild(nameEl_);
+      item.appendChild(urlEl);
+
+      item.addEventListener("click", () => {
+        focusNodeById(entry.id);
+      });
+
+      body.appendChild(item);
+    }
+  }
+
   // ── 7. 创建 3D 图 ────────────────────────────────────────────────
 
   // 7a ─ 构建合并的 LineSegments ──────────────────────────────────
@@ -767,7 +1005,13 @@ export function init3d(graphData: GraphData) {
   // 监听交互事件，重置空闲计时器
   const interactionEvents = ["mousemove", "mousedown", "wheel", "touchstart", "touchmove"];
   for (const evt of interactionEvents) {
-    container.addEventListener(evt, () => { lastInteraction = performance.now(); }, { passive: true });
+    container.addEventListener(
+      evt,
+      () => {
+        lastInteraction = performance.now();
+      },
+      { passive: true },
+    );
   }
 
   animateRipples();
@@ -952,6 +1196,8 @@ export function init3d(graphData: GraphData) {
     refreshAllNodeColors();
     // 聚焦叠加线网（金色）
     buildOverlay(id, isDarkRef.value ? 0xffdd44 : 0xff9900);
+    // 更新右侧邻居面板
+    updateNeighborPanel(id);
 
     const currentData = Graph.graphData() as any;
     const node = currentData.nodes?.find((n: any) => n.id === id);
@@ -987,6 +1233,7 @@ export function init3d(graphData: GraphData) {
   function clearHighlights() {
     highlightedSet.clear();
     focusedId = null;
+    updateNeighborPanel(null);
     // 如果有悬停，恢复悬停叠加线网
     if (hoveredId) {
       buildOverlay(hoveredId, isDarkRef.value ? 0xeeeeee : 0x888888);
@@ -1009,6 +1256,7 @@ export function init3d(graphData: GraphData) {
     hoveredId = null;
     lastHoveredId = null;
     tooltip.hide();
+    updateNeighborPanel(null);
     buildOverlay(null, 0xffffff); // 清除叠加线网
     // 恢复所有节点到默认颜色
     const gd = Graph.graphData() as any;
@@ -1063,6 +1311,7 @@ export function init3d(graphData: GraphData) {
     focusedId = null;
     _lastFocusedId = null;
     highlightedSet.clear();
+    updateNeighborPanel(null);
 
     pathNodeIds = path;
     pathStepIndex = 0; // 默认步进到起点
@@ -1136,6 +1385,7 @@ export function init3d(graphData: GraphData) {
     highlightNodesAndNeighbors,
     clearHighlights,
     clearLocalEffects,
+    updateNeighborPanel,
     getGraphData,
     showShortestPath,
     stepPathNext,

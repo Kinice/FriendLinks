@@ -1,15 +1,5 @@
 type SearchResult = { id: string; name: string; url?: string };
 
-interface GraphApi {
-  find?: (q: string) => SearchResult[];
-  focusNodeById?: (id: string) => void;
-  focusByDomain?: (domain: string) => void;
-  highlightNodesAndNeighbors?: (ids: string[]) => void;
-  highlightNodesByDomain?: (domainOrIds: string | string[]) => void;
-  clearHighlights?: () => void;
-  clearLocalEffects?: () => void;
-}
-
 (async () => {
   // ── 首屏加载蒙版 ──────────────────────────────────────────────
   const loadingEl = document.getElementById("loading-overlay");
