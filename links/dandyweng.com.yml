@@ -1,0 +1,14 @@
+'site':
+  'name': 'dandyweng.com'
+  'url': 'https://www.dandyweng.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'view more on Camarts'
+      'url': 'https://camarts.app'
+    - 'name': 'view'
+      'url': 'https://www.yumpu.com/en/document/read/70728532/51-the-cultured-traveller-eleventh-anniversary-edition-september-november-2025-issue-51/50'
+    - 'name': 'Camarts'
+      'url': 'https://camartsphotography.com'
+    - 'name': 'Instagram'
+      'url': 'https://www.instagram.com/dandyweng'

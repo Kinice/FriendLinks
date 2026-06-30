@@ -1,0 +1,14 @@
+'site':
+  'name': 'dege365.com'
+  'url': 'https://www.dege365.com/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': '尊龙凯时2026世界杯中国官网'
+      'url': 'http://www.taihaowy.com'
+    - 'name': '2026FIFA世界杯下单平台官网'
+      'url': 'http://www.xin-translation.com'
+    - 'name': '米兰milan(中国)体育官方网站'
+      'url': 'http://www.jiuzhouwo.com'
+    - 'name': '星空体育中国官网入口'
+      'url': 'http://www.yuecaiyunji.com'

@@ -1,0 +1,10 @@
+'site':
+  'name': 'lilynet.work'
+  'url': 'https://lilynet.work/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'AS203236'
+      'url': 'https://www.peeringdb.com/net/30802'
+    - 'name': 'IPv6'
+      'url': 'https://bgp.he.net/AS203236#_prefixes6'

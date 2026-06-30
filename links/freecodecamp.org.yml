@@ -1,0 +1,12 @@
+'site':
+  'name': 'freecodecamp.org'
+  'url': 'https://www.freecodecamp.org/'
+  'description': '友情链接'
+  'links': '/about'
+  'friends':
+    - 'name': 'download our IRS Determination Letter here'
+      'url': 'https://s3.amazonaws.com/freecodecamp/Free+Code+Camp+Inc+IRS+Determination+Letter.pdf'
+    - 'name': 'this link to donate whatever amount you want through PayPal'
+      'url': 'https://paypal.me/freecodecamp'
+    - 'name': 'Publication powered by Hashnode'
+      'url': 'https://hashnode.com/'

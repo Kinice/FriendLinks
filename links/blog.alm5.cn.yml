@@ -1,0 +1,10 @@
+'site':
+  'name': 'blog.alm5.cn'
+  'url': 'https://blog.alm5.cn/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'EvanNotFound''s Blog用香港记者的速度更新文章'
+      'url': 'https://ohevan.com'
+    - 'name': 'Example SiteExample Site Description'
+      'url': 'https://example.com'

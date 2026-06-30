@@ -1,0 +1,10 @@
+'site':
+  'name': 'yp7.net'
+  'url': 'https://yp7.net/'
+  'description': '友情链接'
+  'links': '/friends'
+  'friends':
+    - 'name': '二猫子'
+      'url': 'https://www.ermao.net/'
+    - 'name': 'YouYou'
+      'url': 'https://vpnnew.net/blog/'

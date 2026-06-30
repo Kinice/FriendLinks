@@ -1,0 +1,18 @@
+'site':
+  'name': 'blog.ztyukino.com'
+  'url': 'https://blog.ztyukino.com/'
+  'description': '友情链接'
+  'links': '/friends'
+  'friends':
+    - 'name': 'fqzlr 坐而言不如起而行. Blog'
+      'url': 'https://fqzlr.com/'
+    - 'name': 'xf_blog 立志用 cloudflare workers,GitHub pages 和 vercel 做出整个互联网的up(虽然不会成功'
+      'url': 'https://lm-xiao-fen.github.io'
+    - 'name': 'UpXuu''s blog 逐光而上 Blog'
+      'url': 'https://upxuu.com'
+    - 'name': '团子和蛋糕 如果你喜欢那么欢迎来到我的世界！ Blog'
+      'url': 'https://blog.tsh520.cn'
+    - 'name': 'MmzMing 神人的博客 Blog'
+      'url': 'https://tblog.mmzhiku.xyz'
+    - 'name': 'NNNullptr南 数学生的古早拼贴风格网站 Blog'
+      'url': 'https://xnmoe.com'

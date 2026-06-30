@@ -1,0 +1,16 @@
+'site':
+  'name': 'blog.srowo.cn'
+  'url': 'https://blog.srowo.cn/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'xiobb''s Blog'
+      'url': 'https://www.imxb.de/'
+    - 'name': '如城所书'
+      'url': 'https://www.moeouo.cn/'
+    - 'name': 'FloatSheep'
+      'url': 'https://blog.hesiy.cn/'
+    - 'name': 'Wlog'
+      'url': 'https://blog.wmz1024.com/'
+    - 'name': 'Serein'
+      'url': 'https://uptodo.top/'

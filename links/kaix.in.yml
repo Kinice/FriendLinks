@@ -1,0 +1,10 @@
+'site':
+  'name': 'kaix.in'
+  'url': 'https://kaix.in/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'kindle 电子书'
+      'url': 'https://www.amazon.cn/gp/product/B06XFRKL9K'
+    - 'name': '定格咖啡馆'
+      'url': 'https://digg.cafe'

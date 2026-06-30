@@ -1,0 +1,14 @@
+'site':
+  'name': 'snhere.com'
+  'url': 'https://www.snhere.com/'
+  'description': '友情链接'
+  'links': '/about'
+  'friends':
+    - 'name': 'Qode Interactive'
+      'url': 'https://qodeinteractive.com/'
+    - 'name': 'Dribbble'
+      'url': 'https://dribbble.com/pengsn'
+    - 'name': 'Behance'
+      'url': 'https://www.behance.net/pengsn'
+    - 'name': 'INSTAGRAM'
+      'url': 'https://www.instagram.com/skyoval'

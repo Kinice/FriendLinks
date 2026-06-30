@@ -1,0 +1,10 @@
+'site':
+  'name': 'efu.me'
+  'url': 'https://www.efu.me/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Bluesky'
+      'url': 'https://bsky.app/profile/everfu.bsky.social'
+    - 'name': 'GitRoll'
+      'url': 'https://gitroll.io/profile/u2BBodYwZBmh0EQ0lqLH0NvXs75L2/stacks'

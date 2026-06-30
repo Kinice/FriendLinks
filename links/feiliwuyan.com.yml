@@ -1,0 +1,18 @@
+'site':
+  'name': 'feiliwuyan.com'
+  'url': 'https://feiliwuyan.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Snake Wu'
+      'url': 'https://d-d.design'
+    - 'name': 'springwood'
+      'url': 'https://springwood.me'
+    - 'name': 'Yan'
+      'url': 'https://synyan.net'
+    - 'name': 'YELIN开发团队'
+      'url': 'http://dld.yelinteam.com'
+    - 'name': '奇想播放器'
+      'url': 'http://ikinks.yelinteam.com/'
+    - 'name': 'Travelling 开往'
+      'url': 'https://travellings.now.sh/'

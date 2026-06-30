@@ -1,0 +1,10 @@
+'site':
+  'name': 'feishu.xiao-feishu.top'
+  'url': 'https://feishu.xiao-feishu.top/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'Microsoft Clarity'
+      'url': 'https://clarity.microsoft.com/projects'
+    - 'name': '我的网站'
+      'url': 'http://ymh0000123.github.io'

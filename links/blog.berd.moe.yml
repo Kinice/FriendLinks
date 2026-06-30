@@ -1,0 +1,10 @@
+'site':
+  'name': 'blog.berd.moe'
+  'url': 'https://blog.berd.moe/'
+  'description': '友情链接'
+  'links': '/about'
+  'friends':
+    - 'name': 'Dimpurr'
+      'url': 'http://dimpurr.com/'
+    - 'name': 'Clearision'
+      'url': 'http://blog.dimpurr.com/clearision/'

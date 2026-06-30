@@ -1,0 +1,16 @@
+'site':
+  'name': 'naigou.cn'
+  'url': 'https://www.naigou.cn/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': '开发框架'
+      'url': 'https://astro.build'
+    - 'name': 'tailwindcss.com'
+      'url': 'https://tailwindcss.com'
+    - 'name': 'mingcute.com/'
+      'url': 'https://mingcute.com/'
+    - 'name': 'preline.co'
+      'url': 'https://preline.co'
+    - 'name': 'edgeone.ai/zh'
+      'url': 'https://edgeone.ai/zh'

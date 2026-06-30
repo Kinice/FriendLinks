@@ -1,0 +1,14 @@
+'site':
+  'name': 'karina.xin'
+  'url': 'https://karina.xin/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '推歌台'
+      'url': 'https://163cn.tv/87D2hS7'
+    - 'name': '魔法少女用戸协议*'
+      'url': 'https://chii.in/blog/345062'
+    - 'name': 'B站小店'
+      'url': 'https://b23.tv/oidKan3'
+    - 'name': '爱发电'
+      'url': 'https://www.ifdian.net/a/nyamoe'

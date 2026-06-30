@@ -1,0 +1,10 @@
+'site':
+  'name': 'gfbzsblog.site'
+  'url': 'https://www.gfbzsblog.site/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'My garden'
+      'url': 'https://www.yuque.com/gufangbuzishang-lzxva'
+    - 'name': '晓梦羊®18852号'
+      'url': 'https://bloginc.kamyang.com/tech-expert/18852.html'

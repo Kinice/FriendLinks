@@ -1,0 +1,10 @@
+'site':
+  'name': 'blog.uuanqin.top'
+  'url': 'https://blog.uuanqin.top/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'UserScripts bibtex-TJU'
+      'url': 'https://greasyfork.org/zh-CN/scripts/466046-%E7%9F%A5%E7%BD%91-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE-bibtex-%E5%A4%A9%E6%B4%A5%E5%A4%A7%E5%AD%A6'
+    - 'name': 'Folo'
+      'url': 'https://app.follow.is/share/users/uuanqin'

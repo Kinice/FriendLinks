@@ -1,0 +1,16 @@
+'site':
+  'name': 'blog.sunhaoyuan.top'
+  'url': 'https://blog.sunhaoyuan.top/'
+  'description': '友情链接'
+  'links': '/friends'
+  'friends':
+    - 'name': 'hiRipple -Ripple‘s blogA blog created by Ripple, GAMER 2025.游戏像素'
+      'url': 'https://hiripple.com/'
+    - 'name': 'leungsekyuleungsekyu 的个人博客主页新粗犷主义'
+      'url': 'https://leungsekyu.com/'
+    - 'name': '森雨 - RainMorime森雨(RainMorime)的个人网站科技'
+      'url': 'https://rainmorime.com/'
+    - 'name': 'Rico的设计漫想写代码的设计师Ricoui, 热衷于做些有趣和创意的作品。拥有 UI/UX 设计工作经验，目前专注于网页设计和视觉落地，以及开发探索portf'
+      'url': 'https://ricoui.com/'
+    - 'name': '記緒漂流于记忆之川，泛思绪之舟。内容'
+      'url': 'https://ttio.cc'

@@ -1,0 +1,12 @@
+'site':
+  'name': 'zyq.today'
+  'url': 'https://zyq.today/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '帽子和烏龜第二版'
+      'url': 'https://ejsoon.win/hat-and-turtle-intro2/'
+    - 'name': '风记星辰冬季壹言：朔风寒将至·冬日暖人心'
+      'url': 'https://www.thyuu.com/78931'
+    - 'name': 'obaby'
+      'url': 'https://h4ck.org.cn'

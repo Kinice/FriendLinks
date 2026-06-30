@@ -1,0 +1,10 @@
+'site':
+  'name': 'jarodise.com'
+  'url': 'https://jarodise.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '🎧播客'
+      'url': 'https://namecard.xiaoyuzhoufm.com/j7yhu'
+    - 'name': 'Xiaohongshu'
+      'url': 'https://xhslink.com/m/8Y6tGPyqC4h'

@@ -1,0 +1,12 @@
+'site':
+  'name': 'bi1vmm.cn'
+  'url': 'https://bi1vmm.cn/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'cunzher'
+      'url': 'https://www.labmed.icu'
+    - 'name': '💌QSL交换申请'
+      'url': 'https://f.wps.cn/g/KGO3V6TI'
+    - 'name': '📮QSL查询/签收'
+      'url': 'https://www.kdocs.cn/etapps/query/q/KRnLmuyY'

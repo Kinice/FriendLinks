@@ -1,0 +1,16 @@
+'site':
+  'name': 'jaketao.com'
+  'url': 'http://jaketao.com/'
+  'description': '友情链接'
+  'links': '/about'
+  'friends':
+    - 'name': 'AWS LightSail'
+      'url': 'https://jingine.com/aws-lightsail'
+    - 'name': '他乡2.0'
+      'url': 'https://taxiang.app'
+    - 'name': 'CCTV报道'
+      'url': 'https://blog.jing.do/6164'
+    - 'name': 'HelloGWU'
+      'url': 'https://hellogwu.com'
+    - 'name': '<img decoding="async" src="https://card.psnprofiles.com/1/jingeniuz.png" border='
+      'url': 'https://psnprofiles.com/jingeniuz'

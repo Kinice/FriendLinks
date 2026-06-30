@@ -1,0 +1,18 @@
+'site':
+  'name': 'librehat.com'
+  'url': 'https://www.librehat.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'this discussion'
+      'url': 'https://discussion.fedoraproject.org/t/fedora-silverblue-cant-update-to-fedora-43-because-of-conflicting-interests/171563'
+    - 'name': 'distrobox'
+      'url': 'https://distrobox.it/'
+    - 'name': 'this post on StackExchange'
+      'url': 'https://unix.stackexchange.com/questions/372902/how-to-configure-hostapd-conf-for-wps-push-button'
+    - 'name': 'official documentation'
+      'url': 'https://www.home-assistant.io/installation/linux#install-home-assistant-core'
+    - 'name': 'Wine'
+      'url': 'https://flathub.org/apps/org.winehq.Wine'
+    - 'name': 'Armbian support'
+      'url': 'https://www.armbian.com/bananapi-m5/'

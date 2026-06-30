@@ -1,0 +1,16 @@
+'site':
+  'name': 'consolelz.github.io'
+  'url': 'https://consolelz.github.io/'
+  'description': '友情链接'
+  'links': '/friends'
+  'friends':
+    - 'name': '一蓑烟雨的博客'
+      'url': 'https://easyf12.top/'
+    - 'name': 'Joker2Yue'
+      'url': 'https://blog.joker2yue.com/'
+    - 'name': 'MiKey'
+      'url': 'https://mikeytk.cn/'
+    - 'name': 'Akilar糖果屋'
+      'url': 'https://akilar.top/'
+    - 'name': 'Fomalhaut🥝'
+      'url': 'https://www.fomal.cc/'

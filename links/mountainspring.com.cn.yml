@@ -1,0 +1,10 @@
+'site':
+  'name': 'mountainspring.com.cn'
+  'url': 'https://mountainspring.com.cn/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Instagram'
+      'url': 'https://www.instagram.com/mountainspring2004/'
+    - 'name': 'Xiaohongshu'
+      'url': 'https://www.xiaohongshu.com/user/profile/62d75eaa000000000303c1a2'

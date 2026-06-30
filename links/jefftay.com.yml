@@ -1,0 +1,12 @@
+'site':
+  'name': 'jefftay.com'
+  'url': 'https://jefftay.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Retro-Futurism'
+      'url': 'https://en.wikipedia.org/wiki/Retrofuturism'
+    - 'name': 'a lifetime of curiosity.'
+      'url': 'https://nesslabs.com/a-year-of-curiosity'
+    - 'name': 'Quartz v5.0.0'
+      'url': 'https://quartz.jzhao.xyz/'

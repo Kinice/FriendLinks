@@ -1,0 +1,18 @@
+'site':
+  'name': 'blog.aizrf.com'
+  'url': 'https://blog.aizrf.com/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'ZRF.ME'
+      'url': 'https://zrf.me/'
+    - 'name': 'TG-Blog'
+      'url': 'https://tg.zrf.me/'
+    - 'name': '影视站'
+      'url': 'https://ys.zrfme.com/'
+    - 'name': '临时邮箱'
+      'url': 'https://mail.zrf.me/'
+    - 'name': '免费域名'
+      'url': 'https://001316.xyz/'
+    - 'name': '电报社群'
+      'url': 'https://d.zrf.me/tgq/'

@@ -1,0 +1,12 @@
+'site':
+  'name': 'abp.io'
+  'url': 'https://abp.io/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Live Demo'
+      'url': 'https://x.leptontheme.com/'
+    - 'name': 'Recent Questions'
+      'url': 'https://stackoverflow.com/questions/tagged/abp'
+    - 'name': 'Volosoft'
+      'url': 'https://volosoft.com/'

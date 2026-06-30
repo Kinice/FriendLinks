@@ -64,5 +64,6 @@ export const JUNK_NAME_PATTERNS: RegExp[] = [
   /命令查询|命令大全|镜像|镜像站|Mirror/i,
   /^(排名|排行榜|编程语言排名|TIOBE)/i,
   /^(Waline|Twikoo|Giscus| utterances|Cusdis|Valine)/i,
-  /^(站点已过期|域名出售|域名停放|域名过期|site is for sale|domain is parked|this domain|buy this domain|备案过期|网站已关闭|网站已停止)/i,
-];
+	  /^(站点已过期|域名出售|域名停放|域名过期|site is for sale|domain is parked|this domain|buy this domain|备案过期|网站已关闭|网站已停止)/i,
+	  /媒体娱乐应用|工作流编辑器|实时语音翻译/i,  // 产品功能/类型描述，非博客名称
+	];

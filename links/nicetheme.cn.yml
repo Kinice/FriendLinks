@@ -1,0 +1,16 @@
+'site':
+  'name': 'nicetheme.cn'
+  'url': 'https://www.nicetheme.cn/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '黑苹果乐园'
+      'url': 'https://mackext.com'
+    - 'name': 'Loome洛米'
+      'url': 'http://www.loome.net'
+    - 'name': '萨龙网络'
+      'url': 'https://salongweb.com'
+    - 'name': '比比网'
+      'url': 'https://beebee.work/'
+    - 'name': 'SSL证书'
+      'url': 'https://www.zundun.cn/buy/zuntrust'

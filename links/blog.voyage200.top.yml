@@ -1,0 +1,12 @@
+'site':
+  'name': 'blog.voyage200.top'
+  'url': 'https://blog.voyage200.top/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'zellij'
+      'url': 'https://zellij.dev/'
+    - 'name': '使用 css 强制修改'
+      'url': 'https://add0n.com/stylus.html'
+    - 'name': 'SkyWT'
+      'url': 'https://skywt.cn/'

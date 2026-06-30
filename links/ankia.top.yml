@@ -1,0 +1,10 @@
+'site':
+  'name': 'ankia.top'
+  'url': 'https://www.ankia.top/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '个人作品'
+      'url': 'https://nexuslabs.cn/'
+    - 'name': '少数派'
+      'url': 'https://sspai.com/u/zq9sqij0/updates'

@@ -1,0 +1,14 @@
+'site':
+  'name': 'xyzghio.xyz'
+  'url': 'https://xyzghio.xyz/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': '安达卢西亚商会'
+      'url': 'https://yunagi7.github.io/'
+    - 'name': 'Dongdong'
+      'url': 'https://dongdongbh.tech/'
+    - 'name': '特立独行的异类'
+      'url': 'https://chensenlin.cn/'
+    - 'name': 'Deep'
+      'url': 'https://www.deepblog.cn/'

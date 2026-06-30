@@ -1,0 +1,10 @@
+'site':
+  'name': 'linyu.live'
+  'url': 'https://linyu.live/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '𝑻𝒚𝒑𝒆𝒄𝒉𝒐'
+      'url': 'https://typecho.org'
+    - 'name': '𝑪𝒖𝒕𝒆𝒆𝒏'
+      'url': 'https://blog.zwying.com'

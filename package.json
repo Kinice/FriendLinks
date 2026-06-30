@@ -15,22 +15,25 @@
   },
   "type": "module",
   "main": "index.js",
-  "scripts": {
-    "check-access": "bun scripts/check-access.ts",
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "lint": "oxlint src/",
-    "fmt": "oxfmt src/ --write",
-    "fmt-check": "oxfmt src/ --check",
-    "prune": "bun scripts/prune-irrelevant.ts",
-    "probe": "bun scripts/probe_subs.ts"
-  },
+	  "scripts": {
+	    "check-access": "bun scripts/check-access.ts",
+	    "dev": "astro dev",
+	    "build": "astro build",
+	    "preview": "astro preview",
+	    "lint": "oxlint src/",
+	    "fmt": "oxfmt src/ --write",
+	    "fmt-check": "oxfmt src/ --check",
+	    "prune": "bun scripts/prune-irrelevant.ts",
+	    "probe": "bun scripts/probe_subs.ts",
+	    "fetch": "bun scripts/fetch-friends.ts"
+	  },
   "dependencies": {
     "3d-force-graph": "^1.80.0",
     "astro": "7.0.3",
+    "cheerio": "^1.2.0",
     "d3-force-3d": "^3.0.6",
     "fuse.js": "^7.4.2",
+    "ky": "^2.0.2",
     "msgpackr": "^2.0.4",
     "yaml": "^2.9.0"
   },

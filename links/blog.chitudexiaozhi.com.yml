@@ -1,0 +1,10 @@
+'site':
+  'name': 'blog.chitudexiaozhi.com'
+  'url': 'https://blog.chitudexiaozhi.com/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': '全部文章'
+      'url': 'https://blog.ctdxz.com/all-articles/'
+    - 'name': '女子寮の舍友们点击前往女子寮'
+      'url': 'https://www.ctdxz.com/'

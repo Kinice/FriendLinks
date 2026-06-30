@@ -1,0 +1,14 @@
+'site':
+  'name': 'json.cn'
+  'url': 'https://www.json.cn/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '在线ps 美术字'
+      'url': 'https://www.meishuzi.cn'
+    - 'name': '天天文库'
+      'url': 'https://www.wenku365.com/'
+    - 'name': '学霸说保险'
+      'url': 'https://www.275.com/'
+    - 'name': 'ip查询'
+      'url': 'https://www.ip138.com/'

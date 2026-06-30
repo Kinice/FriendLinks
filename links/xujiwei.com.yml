@@ -1,0 +1,14 @@
+'site':
+  'name': 'xujiwei.com'
+  'url': 'https://xujiwei.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'My Works'
+      'url': 'https://tickplant.com/'
+    - 'name': 'Fdream''s Blog'
+      'url': 'http://fdream.net/blog/'
+    - 'name': '密陀僧的blog'
+      'url': 'http://www.0e2.net/'
+    - 'name': 'zBench'
+      'url': 'http://zww.me'

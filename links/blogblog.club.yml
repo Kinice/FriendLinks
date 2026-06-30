@@ -1,0 +1,10 @@
+'site':
+  'name': 'blogblog.club'
+  'url': 'https://blogblog.club/'
+  'description': '友情链接'
+  'links': '/about'
+  'friends':
+    - 'name': 'Wiwi 官大為'
+      'url': 'https://wiwi.blog'
+    - 'name': '好和弦 NiceChord'
+      'url': 'https://nicechord.com/'

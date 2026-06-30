@@ -1,0 +1,10 @@
+'site':
+  'name': 'yeshu.cloud'
+  'url': 'https://yeshu.cloud/'
+  'description': '友情链接'
+  'links': '/about'
+  'friends':
+    - 'name': '公众号'
+      'url': 'https://weixin.sogou.com/weixin?query=a_warm_tree'
+    - 'name': 'flomo'
+      'url': 'https://flomoapp.com/register2/?MjUxMzc'

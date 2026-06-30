@@ -1,0 +1,18 @@
+'site':
+  'name': 'lennychen.top'
+  'url': 'https://lennychen.top/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Instagram'
+      'url': 'https://www.instagram.com/lennychen13/_'
+    - 'name': 'The Waves'
+      'url': 'https://www.wikiwand.com/en/The_Waves'
+    - 'name': 'time machine(feat. aren park)'
+      'url': 'https://soundcloud.com/mjapanay/timemachine'
+    - 'name': 'Check Your English Vocabulary for Leisure, Travel and Tourism, Second Edition'
+      'url': 'https://www.amazon.sg/English-Vocabulary-Leisure-Travel-Tourism/dp/0713687363'
+    - 'name': 'chatsimple'
+      'url': 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral'
+    - 'name': 'Material for MkDocs'
+      'url': 'https://squidfunk.github.io/mkdocs-material/'

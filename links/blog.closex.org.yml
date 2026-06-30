@@ -1,0 +1,14 @@
+'site':
+  'name': 'blog.closex.org'
+  'url': 'https://blog.closex.org/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Medium'
+      'url': 'https://closex.medium.com'
+    - 'name': 'Instagram'
+      'url': 'https://www.instagram.com/closexorg/'
+    - 'name': 'Bento'
+      'url': 'https://bento.me/closex'
+    - 'name': 'Zenn'
+      'url': 'https://zenn.dev/closex'

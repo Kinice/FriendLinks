@@ -1,0 +1,12 @@
+'site':
+  'name': 'zhaogushi.cn'
+  'url': 'https://www.zhaogushi.cn/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '搜狗搜索'
+      'url': 'https://www.sogou.com'
+    - 'name': '今日头条'
+      'url': 'https://www.toutiao.com'
+    - 'name': '老刘博客'
+      'url': 'http://www.liublog.cn'

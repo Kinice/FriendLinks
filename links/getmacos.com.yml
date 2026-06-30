@@ -1,0 +1,10 @@
+'site':
+  'name': 'getmacos.com'
+  'url': 'https://getmacos.com/'
+  'description': '友情链接'
+  'links': '/roll/'
+  'friends':
+    - 'name': '⬇ Direct Download'
+      'url': 'https://akirabox.to/7d5GLxP5GxRJ/file'
+    - 'name': 'macOS'
+      'url': 'https://en.wikipedia.org/wiki/MacOS'

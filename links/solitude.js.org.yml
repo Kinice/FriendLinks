@@ -1,0 +1,10 @@
+'site':
+  'name': 'solitude.js.org'
+  'url': 'https://solitude.js.org/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Preview'
+      'url': 'https://everfu.github.io/solitude-demo/'
+    - 'name': 'AFDIAN'
+      'url': 'https://afdian.com/a/everfu'

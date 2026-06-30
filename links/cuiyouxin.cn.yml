@@ -1,0 +1,10 @@
+'site':
+  'name': 'cuiyouxin.cn'
+  'url': 'https://cuiyouxin.cn/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '网站秒变APP'
+      'url': 'https://blackace.app/'
+    - 'name': '问卷星'
+      'url': 'https://www.wjx.cn/'

@@ -1,0 +1,18 @@
+'site':
+  'name': '52yahuan.com'
+  'url': 'https://www.52yahuan.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '新站点'
+      'url': 'https://www.fairy.tw'
+    - 'name': '进程截杀器'
+      'url': 'http://shajincheng.com/'
+    - 'name': '灰狼云空间'
+      'url': 'https://www.yun316.net'
+    - 'name': '筑砼匠'
+      'url': 'https://www.6tor.com'
+    - 'name': '小鑫博客'
+      'url': 'https://xiazhengxin.name/'
+    - 'name': '定の栈'
+      'url': 'https://blog.saop.cc/'

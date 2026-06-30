@@ -1,0 +1,10 @@
+'site':
+  'name': 'lyshark.com'
+  'url': 'https://www.lyshark.com/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': '中国互联网联合辟谣平台'
+      'url': 'https://www.piyao.org.cn/'
+    - 'name': '国家互联网应急响应中心'
+      'url': 'https://www.cert.org.cn/publish/main/index.html'

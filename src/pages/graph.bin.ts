@@ -145,10 +145,10 @@ export async function GET() {
       "link",
       forceLink(simLinks as any)
         .id((d: any) => d.id)
-        .distance(120),
+        .distance(250),
     )
-    .force("charge", forceManyBody().strength(-300))
-    .force("center", forceCenter(0, 0, 0).strength(0.02))
+    .force("charge", forceManyBody().strength(-800))
+    .force("center", forceCenter(0, 0, 0).strength(0.01))
     .alphaDecay(0.008)
     .velocityDecay(0.35);
 

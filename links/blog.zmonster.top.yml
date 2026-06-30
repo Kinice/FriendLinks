@@ -1,0 +1,18 @@
+'site':
+  'name': 'blog.zmonster.top'
+  'url': 'https://blog.zmonster.top/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '打字机'
+      'url': 'https://kaiyiwing.github.io/qwerty-learner'
+    - 'name': 'Maven仓库'
+      'url': 'https://mvnrepository.com'
+    - 'name': 'AS历史版本'
+      'url': 'https://www.androiddevtools.cn/index.html'
+    - 'name': '阳光沙滩论坛'
+      'url': 'https://www.sunofbeach.net/'
+    - 'name': '珂泽小站'
+      'url': 'https://www.kezez.com/'
+    - 'name': 'guqing''s blog'
+      'url': 'https://guqing.io'

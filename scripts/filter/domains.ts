@@ -263,6 +263,8 @@ export const NON_BLOG_DOMAINS: string[] = [
   "www.gerenjianli.com",
   "lwzzlf.cn",
   "www.lwzzlf.cn",
-  "163mu.com",
-  "www.163mu.com",
-];
+	  "163mu.com",
+	  "www.163mu.com",
+	  "onetrans.app",         // 商业翻译应用（OneTrans）
+	  "vision-flow.art",      // 商业 AI 工具（VisionFlow）
+	];

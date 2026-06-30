@@ -1,0 +1,18 @@
+'site':
+  'name': 'careful.fyi'
+  'url': 'https://careful.fyi/'
+  'description': '友情链接'
+  'links': '/friends.html'
+  'friends':
+    - 'name': '南柯一梦藏在字里的山河与旧梦。https://www.nkmon.com→'
+      'url': 'https://www.nkmon.com'
+    - 'name': 'Thun888夏日当空，心如深渊。https://blog.hzchu.top→'
+      'url': 'https://blog.hzchu.top'
+    - 'name': 'irTouchの小站Stay Hungry, Stay Foolish。https://www.xsl.im→'
+      'url': 'https://www.xsl.im'
+    - 'name': '小聂的窝一个简单纯粹的个人分享空间。https://xiaonie.me→'
+      'url': 'https://xiaonie.me'
+    - 'name': 'Keyle''s Blog在这里记录一些偶尔冒出来转眼就会忘的灵感。https://vrast.cn→'
+      'url': 'https://vrast.cn'
+    - 'name': '清羽飞扬柳影曳曳，清酒孤灯，扬笔撒墨，心境如霜。https://blog.liushen.fun→'
+      'url': 'https://blog.liushen.fun'

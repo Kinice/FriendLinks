@@ -1,0 +1,16 @@
+'site':
+  'name': 'jeffjade.com'
+  'url': 'https://www.jeffjade.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '倾城之链'
+      'url': 'https://site.lovejade.cn/'
+    - 'name': '玉桃文飨轩'
+      'url': 'https://share.lovejade.cn/'
+    - 'name': '素问智聊斋'
+      'url': 'https://chatgpt.nicelinks.site/'
+    - 'name': 'Arya 在线'
+      'url': 'https://markdown.lovejade.cn/'
+    - 'name': '浪潮之巅'
+      'url': 'https://quickapp.lovejade.cn/good-book-recommendation-list/#%E5%B9%B3%E5%87%A1%E7%9A%84%E4%B8%96%E7%95%8C'

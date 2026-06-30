@@ -1,0 +1,12 @@
+'site':
+  'name': 'yumieko.kikowiwu.com'
+  'url': 'https://yumieko.kikowiwu.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '秘密基地'
+      'url': 'https://www.yumieko.com/'
+    - 'name': 'GPL3.0'
+      'url': 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+    - 'name': 'haunt'
+      'url': 'https://dthompson.us/projects/haunt.html'

@@ -1,0 +1,10 @@
+'site':
+  'name': 'liduos.com'
+  'url': 'https://liduos.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '莫尔索随笔 on Jike'
+      'url': 'https://web.okjike.com/u/0d4d6ca0-ac3f-4056-991e-d10bbdc3fb7c'
+    - 'name': 'Claude Code'
+      'url': 'https://code.claude.com/docs/'

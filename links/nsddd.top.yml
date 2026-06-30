@@ -1,0 +1,12 @@
+'site':
+  'name': 'nsddd.top'
+  'url': 'http://nsddd.top/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'AI · Reading & KnowledgeTelepaceAI-powered reading assistant designed to help yo'
+      'url': 'https://telepace.cc'
+    - 'name': 'Buy me a coffee'
+      'url': 'https://www.buymeacoffee.com/cubxxw'
+    - 'name': '小红书'
+      'url': 'https://www.xiaohongshu.com/user/profile/62a33af9000000001b025dd3'

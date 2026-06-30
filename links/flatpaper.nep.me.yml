@@ -1,0 +1,16 @@
+'site':
+  'name': 'flatpaper.nep.me'
+  'url': 'https://flatpaper.nep.me/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'Homulilly'
+      'url': 'https://homulilly.com/'
+    - 'name': 'Next.js 基于 React 的全栈 Web 应用框架。'
+      'url': 'https://nextjs.org/'
+    - 'name': 'Lucide Icons 简洁一致的开源图标库。'
+      'url': 'https://lucide.dev/icons/'
+    - 'name': 'MDN Web Docs Web 技术文档与前端开发参考。'
+      'url': 'https://developer.mozilla.org/'
+    - 'name': '现代 JavaScript 教程 JavaScript 语言的现代教程，涵盖基础与高级内容'
+      'url': 'https://zh.javascript.info/'

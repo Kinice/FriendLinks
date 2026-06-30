@@ -1,0 +1,10 @@
+'site':
+  'name': 'h3blog.com'
+  'url': 'https://www.h3blog.com/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': '萝卜兔资源网'
+      'url': 'http://www.luobotu.cn'
+    - 'name': 'TendCode'
+      'url': 'https://tendcode.com/'

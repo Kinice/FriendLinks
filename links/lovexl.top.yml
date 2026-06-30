@@ -1,0 +1,8 @@
+'site':
+  'name': 'lovexl.top'
+  'url': 'https://lovexl.top/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'EssEree 商城'
+      'url': 'https://www.esseree.com/'

@@ -1,0 +1,10 @@
+'site':
+  'name': 'blog.youmuwhisper.space'
+  'url': 'https://blog.youmuwhisper.space/'
+  'description': '友情链接'
+  'links': '/friends'
+  'friends':
+    - 'name': 'Candinya'
+      'url': 'https://candinya.com'
+    - 'name': 'Github Pages'
+      'url': 'https://github.io'

@@ -22,6 +22,11 @@ export function isJunkEntry(f: { name: string; url: string }, siteUrl?: string):
   if (/^https?:\/\//i.test(name) && /^https?:\/\//i.test(url)) return true;
   for (const p of JUNK_URL_PATTERNS) { if (p.test(url)) return true; }
 
+  // 无效 URL 格式
+  if (/^https?:\/\/\s/.test(url)) return true;   // "https: //..." 冒号后空格
+  if (/^https?:\/\/$/.test(url)) return true;     // "http://" 无主机
+  if (/^https?:\/\/#/.test(url)) return true;     // "http://#"
+
   // ── 域名检查 ────────────────────────────────────────────
   try {
     const hostname = new URL(url.startsWith("http") ? url : `https://${url}`).hostname.toLowerCase();
@@ -38,7 +43,7 @@ export function isJunkEntry(f: { name: string; url: string }, siteUrl?: string):
     // 敏感域名（SHA-256 哈希）
     const h = createHash("sha256").update(hostname).digest("hex");
     if (SENSITIVE_DOMAINS.includes(h)) return true;
-  } catch {}
+  } catch { return true; } // URL 解析失败 → 视为垃圾
 
   // IP 地址
   if (/^https?:\/\/(\d{1,3}\.){3}\d{1,3}/.test(url)) return true;

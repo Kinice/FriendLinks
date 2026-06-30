@@ -1,0 +1,10 @@
+'site':
+  'name': 'yeminxi.github.io'
+  'url': 'https://yeminxi.github.io/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'Vercel 主站二'
+      'url': 'https://blog.418121.xyz/'
+    - 'name': '个人主页'
+      'url': 'https://418121.xyz/'

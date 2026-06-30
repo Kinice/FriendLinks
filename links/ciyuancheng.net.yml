@@ -1,0 +1,18 @@
+'site':
+  'name': 'ciyuancheng.net'
+  'url': 'https://www.ciyuancheng.net/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': '客户端下载'
+      'url': 'https://www.cycity.pro/'
+    - 'name': 'TouchGal'
+      'url': 'https://www.touchgal.io/'
+    - 'name': 'ACG盒子'
+      'url': 'https://www.acgbox.link/'
+    - 'name': 'WAIT：以图搜番'
+      'url': 'https://whatanimeisthis.com/?utm_source=cyc-anime'
+    - 'name': '莉斯坦ACG'
+      'url': 'https://www.limulu.moe/'
+    - 'name': '鸟白岛演绎厅-音乐爱好者的社区'
+      'url': 'https://www.summerpockets.com/'

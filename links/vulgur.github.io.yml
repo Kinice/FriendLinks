@@ -1,0 +1,14 @@
+'site':
+  'name': 'vulgur.github.io'
+  'url': 'https://vulgur.github.io/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'here'
+      'url': 'https://app.termly.io/notify/4458be93-32a2-4ec3-8e98-f9b9a508d38c'
+    - 'name': 'Termly’s Privacy Policy Generator'
+      'url': 'https://termly.io/products/privacy-policy-generator/?ftseo'
+    - 'name': 'Instagram'
+      'url': 'https://instagram.com/vulgur'
+    - 'name': 'NexT.Gemini'
+      'url': 'https://theme-next.org/'

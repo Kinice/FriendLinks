@@ -1,0 +1,14 @@
+'site':
+  'name': 'itho.cn'
+  'url': 'https://itho.cn/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'CNFF landscape'
+      'url': 'https://landscape.cncf.io/'
+    - 'name': 'operatorhub.io'
+      'url': 'https://operatorhub.io/'
+    - 'name': 'Emlog'
+      'url': 'https://www.emlog.net'
+    - 'name': 'Kubernetes'
+      'url': 'https://kubernetes.io'

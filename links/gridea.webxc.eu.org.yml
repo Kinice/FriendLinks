@@ -1,0 +1,8 @@
+'site':
+  'name': 'gridea.webxc.eu.org'
+  'url': 'https://gridea.webxc.eu.org/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'JavaScript 第三天'
+      'url': 'https://gridea.webxc.ml/javascript-di-san-tian/'

@@ -1,0 +1,10 @@
+'site':
+  'name': 'zhiyin.run'
+  'url': 'https://www.zhiyin.run/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '领流量卡'
+      'url': 'https://172.lot-ml.com/ProductEn/Index/8175b7e50c7df508'
+    - 'name': 'AeroCore'
+      'url': 'https://aerocore.lovestu.com'

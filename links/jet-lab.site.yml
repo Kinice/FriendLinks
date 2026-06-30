@@ -1,0 +1,12 @@
+'site':
+  'name': 'jet-lab.site'
+  'url': 'https://www.jet-lab.site/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '愧怍愧怍的小站'
+      'url': 'https://kuizuo.cn/'
+    - 'name': 'MarkBaiMarkBai 的数字自留地'
+      'url': 'https://blog.051088.xyz/'
+    - 'name': 'YuxBao一程山水，一念清欢'
+      'url': 'https://yux-bao.site'

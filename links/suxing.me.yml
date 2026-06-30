@@ -1,0 +1,18 @@
+'site':
+  'name': 'suxing.me'
+  'url': 'https://www.suxing.me/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'soloDance'
+      'url': 'https://w2solodance.com/'
+    - 'name': 'Uazoh优佐生活'
+      'url': 'http://www.uazoh.com/'
+    - 'name': 'WP酷'
+      'url': 'http://www.mywpku.com/'
+    - 'name': '殁漂遥'
+      'url': 'https://www.mpyit.com/'
+    - 'name': '泪雪建站'
+      'url': 'https://zhan.leiue.com'
+    - 'name': '萨龙网络'
+      'url': 'https://salongweb.com'

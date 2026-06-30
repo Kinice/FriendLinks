@@ -1,0 +1,10 @@
+'site':
+  'name': 'blogwe.com'
+  'url': 'https://blogwe.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '朋.友 新兴的博客友链展示站点，汇聚优质博客与个人网站，支持 RSS 订阅和实时更新。'
+      'url': 'https://peng.you/'
+    - 'name': 'BlogFinder 每个博客都是一座宝藏，发现优秀的个人博客.'
+      'url': 'https://bf.zzxworld.com/'

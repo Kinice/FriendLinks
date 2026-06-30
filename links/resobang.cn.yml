@@ -1,0 +1,12 @@
+'site':
+  'name': 'resobang.cn'
+  'url': 'https://www.resobang.cn/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '免费算命'
+      'url': 'https://www.tiatiatoutiao.com'
+    - 'name': '扁平吊装带'
+      'url': 'https://www.jslift.com'
+    - 'name': '钢卷吊具'
+      'url': 'https://www.jsxingsheng.com'

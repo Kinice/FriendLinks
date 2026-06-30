@@ -1,0 +1,18 @@
+'site':
+  'name': 'blog.ldora.cn'
+  'url': 'https://blog.ldora.cn/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '非洲企鹅の博客'
+      'url': 'http://flyqie.date'
+    - 'name': '方块世界群组 - 主页'
+      'url': 'https://fksj.icu'
+    - 'name': 'SHEDの博客'
+      'url': 'http://shed.cm/'
+    - 'name': '我的世界服务器中文社区'
+      'url': 'https://www.mcsbbs.com/'
+    - 'name': 'bZIP73的小站'
+      'url': 'https://anyxavier.asia/'
+    - 'name': 'mingzhe论坛'
+      'url': 'https://16743000.bbscloud.com'

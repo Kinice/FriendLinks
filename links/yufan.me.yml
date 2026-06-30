@@ -1,0 +1,12 @@
+'site':
+  'name': 'yufan.me'
+  'url': 'https://yufan.me/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'dreaife'
+      'url': 'https://dreaife.tokyo'
+    - 'name': 'Elykia'
+      'url': 'https://elykia.cn'
+    - 'name': '王叨叨'
+      'url': 'https://wangdaodao.com'

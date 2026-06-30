@@ -1,0 +1,18 @@
+'site':
+  'name': 'wenruifan.github.io'
+  'url': 'https://wenruifan.github.io/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'University of Sheffield'
+      'url': 'https://www.sheffield.ac.uk/'
+    - 'name': 'AI Research Engineer (AIRE)'
+      'url': 'https://shef-aire.github.io/'
+    - 'name': 'Haiping Lu'
+      'url': 'https://haipinglu.github.io/'
+    - 'name': 'DOI'
+      'url': 'https://doi.org/10.48550/arXiv.2403.10635'
+    - 'name': 'Funny Wii'
+      'url': 'https://funnywii.com'
+    - 'name': 'Hugo Blox Builder'
+      'url': 'https://hugoblox.com/?utm_campaign=poweredby'

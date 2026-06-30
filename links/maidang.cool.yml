@@ -1,0 +1,10 @@
+'site':
+  'name': 'maidang.cool'
+  'url': 'http://www.maidang.cool/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'ired'
+      'url': 'https://www.ired.team/'
+    - 'name': '靶机下载'
+      'url': 'https://www.vulnhub.com/entry/sunset-dawn,341/'

@@ -1,0 +1,16 @@
+'site':
+  'name': 'wsdjeg.net'
+  'url': 'https://wsdjeg.net/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'OWASP LLM Top 10'
+      'url': 'https://owasp.org/www-project-top-10-for-large-language-model-applications/'
+    - 'name': 'chat.nvim'
+      'url': 'https://nvim.chat'
+    - 'name': 'F-Droid'
+      'url': 'https://f-droid.org/'
+    - 'name': 'Termux 官网'
+      'url': 'https://termux.org'
+    - 'name': 'DeepSeek API'
+      'url': 'https://platform.deepseek.com/'

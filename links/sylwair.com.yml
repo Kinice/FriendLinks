@@ -1,0 +1,14 @@
+'site':
+  'name': 'sylwair.com'
+  'url': 'https://www.sylwair.com/'
+  'description': '友情链接'
+  'links': '/friends'
+  'friends':
+    - 'name': 'CCoreychiucoreychiu.com暂无站点简介。'
+      'url': 'https://coreychiu.com/?utm_source=localhost'
+    - 'name': 'HHuglemonhuglemon.com暂无站点简介。'
+      'url': 'https://huglemon.com/?utm_source=localhost'
+    - 'name': 'LLuolinkluolink.com暂无站点简介。'
+      'url': 'https://luolink.com/?utm_source=localhost'
+    - 'name': 'BBlogblog.keepchen.com暂无站点简介。'
+      'url': 'https://blog.keepchen.com/?utm_source=localhost'

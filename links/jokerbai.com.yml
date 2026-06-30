@@ -1,0 +1,12 @@
+'site':
+  'name': 'jokerbai.com'
+  'url': 'https://jokerbai.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '⚙️基于K8S的CICD实战'
+      'url': 'https://www.lanqiao.cn/courses/10022'
+    - 'name': 'vitepress-theme-teekTeek官网'
+      'url': 'https://vp.teek.top/'
+    - 'name': '运维开发故事运维开发路上的指明灯'
+      'url': 'https://www.devopstory.cn/'

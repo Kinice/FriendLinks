@@ -1,0 +1,16 @@
+'site':
+  'name': 'blog.li2niu.com'
+  'url': 'https://blog.li2niu.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '小红书：开发者李二牛 li2niu'
+      'url': 'https://www.xiaohongshu.com/user/profile/5b679a64e8ac2b2d8b574dc9?xhsshare=CopyLink&appuid=5b679a64e8ac2b2d8b574dc9&apptime=1720272739'
+    - 'name': 'B 站：开发者李二牛 li2niu'
+      'url': 'https://b23.tv/ocERE0U'
+    - 'name': '小宇宙：牛言牛语|跑步科技播客'
+      'url': 'https://li2niu.podcast.xyz'
+    - 'name': 'GameraSnap: 佳明手表拍照控制器'
+      'url': 'https://garmintakephotos.com'
+    - 'name': 'Newrathon.com'
+      'url': 'https://newrathon.com'

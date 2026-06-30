@@ -4,13 +4,5 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '爱派AI 👈'
-      'url': 'https://iui.su/3039/'
-    - 'name': '6月分享 🤩'
-      'url': 'https://iui.su/210/'
     - 'name': '官网首页 🤗'
       'url': 'https://iui.su/'
-    - 'name': '趣闲赚APP 💸'
-      'url': 'https://iui.su/3430/'
-    - 'name': '安卓影视app 👏'
-      'url': 'https://iui.su/458/'

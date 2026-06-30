@@ -1,0 +1,10 @@
+'site':
+  'name': 'blog.ariven.cn'
+  'url': 'https://blog.ariven.cn/'
+  'description': '友情链接'
+  'links': '/link'
+  'friends':
+    - 'name': 'SkyDreamClub官网'
+      'url': 'https://www.xfex.cc/'
+    - 'name': '天梦航空'
+      'url': 'https://tianmengva.com/'

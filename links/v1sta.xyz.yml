@@ -1,0 +1,16 @@
+'site':
+  'name': 'v1sta.xyz'
+  'url': 'https://v1sta.xyz/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': '了解 IndieWeb'
+      'url': 'https://indieweb.org'
+    - 'name': 'Cytrogen'
+      'url': 'https://Cytrogen.icu'
+    - 'name': 'IndieWeb 联盟主页'
+      'url': 'https://xn--sr8hvo.ws'
+    - 'name': 'lok'
+      'url': 'https://l3on.site'
+    - 'name': 'Daniele63'
+      'url': 'https://frutigeraeroarchive.org/'

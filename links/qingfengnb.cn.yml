@@ -1,0 +1,10 @@
+'site':
+  'name': 'qingfengnb.cn'
+  'url': 'https://www.qingfengnb.cn/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '碎碎念~'
+      'url': 'https://www.sping.ink'
+    - 'name': '12321互联网不良信息举报专区'
+      'url': 'https://12321.cn'

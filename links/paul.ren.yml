@@ -1,0 +1,12 @@
+'site':
+  'name': 'paul.ren'
+  'url': 'https://paul.ren/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '奇趣影棚项目 Vibe Coding 第一天问题记录继续失业在家无所事事中，打算找点 Vibe Coding 能落地的实际业务，巩固一下后端和运维相关知识。看到'
+      'url': 'https://paugram.com/coding/vibe-coding-day-1.html'
+    - 'name': 'wu先生'
+      'url': 'https://wuziya.com'
+    - 'name': 'miaoer'
+      'url': 'https://www.miaoer.net'

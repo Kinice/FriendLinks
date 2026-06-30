@@ -650,7 +650,25 @@ export function init3d(graphData: GraphData) {
   // 涟漪波动动画 + 叠加线自适应缩放 + LOD 更新
   let animationTime = 0;
   let ripplesInited = false;
+  let lastInteraction = performance.now();
+  let frameSkip = 0;
+  const FRAME_SKIP_IDLE = 2; // 空闲时跳过的帧数
+  const MAX_VISIBLE_SPRITES = 200; // 最多显示 Sprite 的节点数
+
   function animateRipples() {
+    const now = performance.now();
+    const idle = now - lastInteraction > 2000;
+
+    // 空闲时每 2 帧才执行一次渲染逻辑，降低 CPU 50%
+    if (idle) {
+      frameSkip++;
+      if (frameSkip < FRAME_SKIP_IDLE) {
+        requestAnimationFrame(animateRipples);
+        return;
+      }
+      frameSkip = 0;
+    }
+
     animationTime += 0.02;
     const currentData = Graph.graphData() as any;
 
@@ -662,7 +680,7 @@ export function init3d(graphData: GraphData) {
         const scale = dist / 600;
         const clamped = Math.max(0.5, Math.min(scale, 5));
         for (const child of overlayGroup.children) {
-          if (child === pathOverlayGroup) continue; // 跳过路径叠加组，由其独立缩放
+          if (child === pathOverlayGroup) continue;
           const mesh = child as THREE.Mesh;
           const curScale = mesh.scale;
           mesh.scale.set(clamped, curScale.y, clamped);
@@ -670,7 +688,7 @@ export function init3d(graphData: GraphData) {
       } catch {}
     }
 
-    // 路径叠加线使用独立的缩放因子（比 hover/focus 管道稍细）
+    // 路径叠加线使用独立的缩放因子
     if (pathOverlayGroup && pathOverlayGroup.children.length > 0) {
       try {
         const cam = Graph.cameraPosition();
@@ -708,17 +726,31 @@ export function init3d(graphData: GraphData) {
         }
         ripplesInited = true;
       }
+
       const sinA2 = Math.sin(animationTime * 2);
       const sinA3 = Math.sin(animationTime * 3);
-      for (const node of currentData.nodes) {
+
+      // 节点过多时只对度数最高的 N 个节点显示 Sprite
+      let spriteCount = 0;
+      const nodes = currentData.nodes as any[];
+      const needThrottle = nodes.length > MAX_VISIBLE_SPRITES * 2;
+      // 预排序：度数高的节点优先显示 Sprite（稳定的排序只在节点变化时执行）
+      if (needThrottle && !nodes._sortedByDegree) {
+        nodes.sort((a: any, b: any) => (b.degree || 0) - (a.degree || 0));
+        nodes._sortedByDegree = true;
+      }
+
+      for (const node of nodes) {
         if (node.__threeObj && node.__threeObj.children.length > 1) {
           const sprite = node.__threeObj.children[1];
           if (sprite) {
-            // 远节点跳过 sprite 动画（LOD 远层已无光照计算，sprite 更无必要）
-            const skipSprite = node.__lod && (node.__lod as THREE.LOD).getCurrentLevel() >= 2;
+            const lodLevel = node.__lod ? (node.__lod as THREE.LOD).getCurrentLevel() : 0;
+            // 远节点 + 超出 Sprite 数量上限的节点 → 隐藏 Sprite
+            const skipSprite = lodLevel >= 2 || (needThrottle && spriteCount >= MAX_VISIBLE_SPRITES);
             if (skipSprite) {
               sprite.visible = false;
             } else {
+              spriteCount++;
               sprite.visible = true;
               const s = 6 + sinA2 * 0.5;
               sprite.scale.setScalar(s);
@@ -731,6 +763,13 @@ export function init3d(graphData: GraphData) {
     }
     requestAnimationFrame(animateRipples);
   }
+
+  // 监听交互事件，重置空闲计时器
+  const interactionEvents = ["mousemove", "mousedown", "wheel", "touchstart", "touchmove"];
+  for (const evt of interactionEvents) {
+    container.addEventListener(evt, () => { lastInteraction = performance.now(); }, { passive: true });
+  }
+
   animateRipples();
 
   // 阻止右键默认菜单

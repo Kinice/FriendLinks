@@ -1,0 +1,10 @@
+'site':
+  'name': 'gohugo.io'
+  'url': 'https://gohugo.io/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Mastodon'
+      'url': 'https://fosstodon.org/@gohugoio'
+    - 'name': 'Your Company?'
+      'url': 'https://bep.is/en/hugo-sponsor-2023-01/?utm_campaign=hugosponsor&utm_content=gohugoio&utm_medium=banner&utm_source=hugohome'

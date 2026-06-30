@@ -1,0 +1,12 @@
+'site':
+  'name': 'shaogefenhao.com'
+  'url': 'https://shaogefenhao.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '知识星球 open in new window'
+      'url': 'https://wx.zsxq.com/dweb2/index/group/15522848288852'
+    - 'name': '开源网站：DDD 参考指南'
+      'url': 'http://domain-driven-design.org/'
+    - 'name': '电子书：《Java 研发自测》'
+      'url': 'https://java-self-testing.github.io/java-self-testing-book/'

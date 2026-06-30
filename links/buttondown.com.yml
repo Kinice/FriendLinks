@@ -1,0 +1,10 @@
+'site':
+  'name': 'buttondown.com'
+  'url': 'https://buttondown.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Mastodon'
+      'url': 'https://mastodon.social/@buttondown'
+    - 'name': 'Threads'
+      'url': 'https://threads.net/@buttondownemail'

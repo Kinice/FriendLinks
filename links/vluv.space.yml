@@ -1,0 +1,18 @@
+'site':
+  'name': 'vluv.space'
+  'url': 'https://vluv.space/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'CSS Animation'
+      'url': 'https://cssanimation.rocks/'
+    - 'name': 'FreeFrontend'
+      'url': 'https://freefrontend.com/'
+    - 'name': 'CSS Design Awards'
+      'url': 'https://www.cssdesignawards.com/'
+    - 'name': '阮一峰的网络日志'
+      'url': 'https://www.ruanyifeng.com/blog/'
+    - 'name': '博客之家 Perass'
+      'url': 'https://www.perass.com/'
+    - 'name': 'Bitiful'
+      'url': 'https://console.bitiful.com/dashboard'

@@ -93,8 +93,8 @@ let _sharedPointGeom: THREE.BufferGeometry | null = null;
 export function getSharedLODGeometries() {
   if (!_sharedLODGeoms) {
     _sharedLODGeoms = {
-      near: new THREE.SphereGeometry(1, 16, 16), // 高细节
-      mid: new THREE.SphereGeometry(1, 8, 8), // 中细节
+      near: new THREE.SphereGeometry(1, 12, 12), // 高细节
+      mid: new THREE.SphereGeometry(1, 6, 6), // 中细节
     };
   }
   return _sharedLODGeoms;

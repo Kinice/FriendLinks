@@ -1,0 +1,18 @@
+'site':
+  'name': 'blog.mzihen.com'
+  'url': 'https://blog.mzihen.com/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'Harry'
+      'url': 'https://mianao.info'
+    - 'name': '缙哥哥'
+      'url': 'https://www.dujin.org/'
+    - 'name': 'vian'
+      'url': 'https://vian.top'
+    - 'name': 'UI柒'
+      'url': 'https://www.ui7.net/'
+    - 'name': 'linlinxing'
+      'url': 'https://linlinxing.com/'
+    - 'name': 'jita'
+      'url': 'https://www.17renwuba.com/uid/69448'

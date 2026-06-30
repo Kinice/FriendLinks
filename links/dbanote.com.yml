@@ -1,0 +1,18 @@
+'site':
+  'name': 'dbanote.com'
+  'url': 'https://dbanote.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'hackhp blog'
+      'url': 'https://www.hackhp.com/'
+    - 'name': 'bleem'
+      'url': 'https://mritd.com/'
+    - 'name': '隐者の书庭'
+      'url': 'https://paxinla.github.io/'
+    - 'name': 'SimonSu'
+      'url': 'https://simonsu.cn/'
+    - 'name': 'Keinx'
+      'url': 'https://www.keinx.com/'
+    - 'name': '希仁之拥'
+      'url': 'https://blog.keepchen.com/'

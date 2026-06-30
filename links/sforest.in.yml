@@ -1,0 +1,14 @@
+'site':
+  'name': 'sforest.in'
+  'url': 'https://sforest.in/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'pic.twitter.com/e5kir7wLWD'
+      'url': 'https://t.co/e5kir7wLWD'
+    - 'name': '网络流24题'
+      'url': 'https://loj.ac/p?tagIds=30'
+    - 'name': '看起来很让人心动的UI框架'
+      'url': 'https://arwes.dev/'
+    - 'name': 'BlueEve'
+      'url': 'https://blueeve04.github.io/'

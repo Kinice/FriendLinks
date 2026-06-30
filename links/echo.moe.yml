@@ -1,0 +1,10 @@
+'site':
+  'name': 'echo.moe'
+  'url': 'https://echo.moe/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Anthropic的文章'
+      'url': 'https://www.anthropic.com/engineering/harness-design-long-running-apps'
+    - 'name': 'Lecture 1B, MIT 6.001 (1986)'
+      'url': 'https://youtu.be/V_7mmwpgJHU'

@@ -1,0 +1,18 @@
+'site':
+  'name': 'kulayu.com'
+  'url': 'https://www.kulayu.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '下次一定'
+      'url': 'https://www.iiice.cn/'
+    - 'name': '臭蛋蛋影视'
+      'url': 'https://www.cddys1.com/'
+    - 'name': '鸭先知'
+      'url': 'https://www.yxzhi.com/'
+    - 'name': '自媒体维基'
+      'url': 'https://www.zmt.wiki/'
+    - 'name': '可乐影视'
+      'url': 'https://www.klyingshi2.com/'
+    - 'name': '星书签'
+      'url': 'https://www.star8.cn/'

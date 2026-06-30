@@ -1,0 +1,18 @@
+'site':
+  'name': 'geohot.com'
+  'url': 'http://geohot.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Axel Nix'
+      'url': 'https://blog.comma.ai/ourfirstlawsuit/'
+    - 'name': 'my startup'
+      'url': 'https://comma.ai/'
+    - 'name': 'my other startup'
+      'url': 'https://tinygrad.org'
+    - 'name': 'poorly written blog'
+      'url': 'https://geohot.github.io/blog/'
+    - 'name': 'instagram'
+      'url': 'https://www.instagram.com/georgehotz/'
+    - 'name': 'a music career'
+      'url': 'https://soundcloud.com/tomcr00se/'

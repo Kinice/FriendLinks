@@ -1,0 +1,16 @@
+'site':
+  'name': 'bleatingsheep.org'
+  'url': 'https://bleatingsheep.org/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Hurricane Electric'
+      'url': 'https://tunnelbroker.net/'
+    - 'name': 'Fedora Wiki'
+      'url': 'https://fedoraproject.org/wiki/IPv6_tunnel_via_Hurricane_Electric'
+    - 'name': 'PVE'
+      'url': 'https://www.proxmox.com/en/proxmox-ve'
+    - 'name': 'LXD'
+      'url': 'https://linuxcontainers.org/lxd/introduction/'
+    - 'name': 'vuepress-theme-plume'
+      'url': 'https://theme-plume.vuejs.press'

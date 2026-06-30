@@ -1,0 +1,12 @@
+'site':
+  'name': 'blog.donglu.fun'
+  'url': 'https://blog.donglu.fun/'
+  'description': '友情链接'
+  'links': '/friend'
+  'friends':
+    - 'name': 'Allen'
+      'url': 'http://xiaode.tech/'
+    - 'name': 'Bensz'
+      'url': 'https://blognas.hwb0307.com'
+    - 'name': '爱编程的大丙'
+      'url': 'https://subingwen.cn/link/'

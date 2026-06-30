@@ -1,0 +1,8 @@
+'site':
+  'name': 'airsado.cn'
+  'url': 'https://www.airsado.cn/'
+  'description': '友情链接'
+  'links': '/links.html'
+  'friends':
+    - 'name': '授权平台'
+      'url': 'https://auth.ihewro.com/admin'

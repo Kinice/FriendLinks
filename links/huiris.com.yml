@@ -1,0 +1,14 @@
+'site':
+  'name': 'huiris.com'
+  'url': 'https://huiris.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Substack'
+      'url': 'https://huiris.substack.com/'
+    - 'name': '晨钟暮鼓'
+      'url': 'http://liangqid.com/'
+    - 'name': '空间穿梭'
+      'url': 'https://blogs.quest'
+    - 'name': 'bigfa'
+      'url': 'https://fatesinger.com/104289'

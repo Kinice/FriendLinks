@@ -1,0 +1,10 @@
+'site':
+  'name': 'essay.ink'
+  'url': 'https://www.essay.ink/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': '反馈社区'
+      'url': 'https://essay.featurebase.app'
+    - 'name': '小红书'
+      'url': 'https://www.xiaohongshu.com/user/profile/666a65f4000000001e00bee4'

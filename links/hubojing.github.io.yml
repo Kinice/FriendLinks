@@ -1,0 +1,10 @@
+'site':
+  'name': 'hubojing.github.io'
+  'url': 'https://hubojing.github.io/'
+  'description': '友情链接'
+  'links': '/friends'
+  'friends':
+    - 'name': 'www.jhxie.com/'
+      'url': 'https://www.jhxie.com/'
+    - 'name': 'Jimmy'
+      'url': 'https://jimmycai.com'

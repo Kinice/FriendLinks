@@ -1,0 +1,16 @@
+'site':
+  'name': 'zkn.moe'
+  'url': 'https://zkn.moe/'
+  'description': '友情链接'
+  'links': '/friends'
+  'friends':
+    - 'name': '毛毛的梦写些活着的日常→'
+      'url': 'https://www.maodream.com/'
+    - 'name': 'YuanRetro一枚喜欢科技的高中生哦~→'
+      'url': 'https://www.yuanshen.dev/'
+    - 'name': '池鱼小栈｜д•´)!!→'
+      'url': 'https://chiyu.it/'
+    - 'name': 'liuzhen932 的小窝只要愿意去做，人无所不通→'
+      'url': 'https://blog.liuzhen932.top/'
+    - 'name': 'Kuriyona''s Space→'
+      'url': 'https://kuriyona.com/'

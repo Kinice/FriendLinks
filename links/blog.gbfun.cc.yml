@@ -1,0 +1,14 @@
+'site':
+  'name': 'blog.gbfun.cc'
+  'url': 'https://blog.gbfun.cc/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': '图像处理<1>'
+      'url': 'https://www.iloveimg.com/zh-cn/compress-image'
+    - 'name': '图像处理<2>'
+      'url': 'https://imagestool.com/webp2jpg-online/'
+    - 'name': '图标搜寻'
+      'url': 'https://fontawesome.com/start'
+    - 'name': '炸了么'
+      'url': 'https://zhale.me/'

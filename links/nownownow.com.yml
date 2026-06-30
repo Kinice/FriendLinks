@@ -1,0 +1,14 @@
+'site':
+  'name': 'nownownow.com'
+  'url': 'https://nownownow.com/'
+  'description': '友情链接'
+  'links': '/about'
+  'friends':
+    - 'name': 'Gregory Brown'
+      'url': 'https://practicingdeveloper.com/now/'
+    - 'name': 'Derek Sivers'
+      'url': 'https://sive.rs/'
+    - 'name': 'BearBlog.dev'
+      'url': 'https://bearblog.dev/'
+    - 'name': 'porkbun.com'
+      'url': 'https://www.porkbun.com/'

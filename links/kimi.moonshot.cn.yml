@@ -1,0 +1,10 @@
+'site':
+  'name': 'kimi.moonshot.cn'
+  'url': 'https://kimi.moonshot.cn/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': '开放平台'
+      'url': 'https://platform.kimi.com/'
+    - 'name': '社会招聘'
+      'url': 'https://app.mokahr.com/su/phmkug'

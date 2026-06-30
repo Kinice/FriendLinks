@@ -1,0 +1,12 @@
+'site':
+  'name': 'alexhsu.com'
+  'url': 'https://alexhsu.com/'
+  'description': '友情链接'
+  'links': '/about'
+  'friends':
+    - 'name': 'lofi jazz stories'
+      'url': 'https://open.spotify.com/album/1Q4MFybt42LCB3Z6BntkRH'
+    - 'name': 'Astro.js'
+      'url': 'https://astro.build/'
+    - 'name': 'stephango.com'
+      'url': 'https://stephango.com'

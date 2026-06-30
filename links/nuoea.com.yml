@@ -1,0 +1,12 @@
+'site':
+  'name': 'nuoea.com'
+  'url': 'https://nuoea.com/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': '小米平板8Pro上手：便宜且流畅的好平板，安卓平板的高效令人印象深刻'
+      'url': 'https://blog.zhheo.com/p/fadgmjtw.html'
+    - 'name': '当AI开始互相写信'
+      'url': 'https://dongjunke.cn/posts/2026/06/28/11833.html'
+    - 'name': '不会剪视频？OpenMontage让你一句话自动生成完整短视频'
+      'url': 'https://www.wangdu.site/software/ai/2360.html'

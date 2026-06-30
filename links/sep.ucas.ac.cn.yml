@@ -1,0 +1,10 @@
+'site':
+  'name': 'sep.ucas.ac.cn'
+  'url': 'https://sep.ucas.ac.cn/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': '电 子 邮 件'
+      'url': 'https://mail.cstnet.cn/'
+    - 'name': 'A R P 系 统'
+      'url': 'https://ucas.arp.cn'

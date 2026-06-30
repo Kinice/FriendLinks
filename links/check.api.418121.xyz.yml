@@ -1,0 +1,12 @@
+'site':
+  'name': 'check.api.418121.xyz'
+  'url': 'https://check.api.418121.xyz/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '小小API'
+      'url': 'https://xxapi.cn/'
+    - 'name': 'LiuShen'
+      'url': 'https://www.liushen.fun/'
+    - 'name': '叶泯希的友链'
+      'url': 'https://blog.418121.xyz/links/'

@@ -1,0 +1,14 @@
+'site':
+  'name': 'blog.wryhf.com'
+  'url': 'https://blog.wryhf.com/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': '一言网 提供一句话服务'
+      'url': 'https://hitokoto.cn/'
+    - 'name': '图标库 国际通用标准图标库'
+      'url': 'https://fontawesome.com/'
+    - 'name': '搬瓦工 VPS服务商'
+      'url': 'https://bandwagonhost.com/'
+    - 'name': 'Artitalk.js 基于 LeanCloud'
+      'url': 'https://artitalk.js.org/'

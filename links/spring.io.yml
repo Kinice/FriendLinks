@@ -1,0 +1,16 @@
+'site':
+  'name': 'spring.io'
+  'url': 'https://spring.io/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Learn more'
+      'url': 'https://spring.academy/'
+    - 'name': 'Micrometer'
+      'url': 'https://micrometer.io'
+    - 'name': 'Reactor'
+      'url': 'https://projectreactor.io'
+    - 'name': 'Subscribe'
+      'url': 'https://go-vmware.broadcom.com/tnz-spring-newsletter-subscribe'
+    - 'name': 'Terms of Use'
+      'url': 'https://www.broadcom.com/company/legal/terms-of-use'

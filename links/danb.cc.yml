@@ -1,0 +1,18 @@
+'site':
+  'name': 'danb.cc'
+  'url': 'https://danb.cc/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '舒克先生资源网'
+      'url': 'https://www.skxsj.com'
+    - 'name': '酷小呵'
+      'url': 'https://kuhehe.vip'
+    - 'name': '易航博客'
+      'url': 'http://blog.yihang.info/'
+    - 'name': '好软猫'
+      'url': 'https://www.haoruanmao.com'
+    - 'name': '松子软件'
+      'url': 'https://www.61ku.com/'
+    - 'name': '张洪Heo'
+      'url': 'https://blog.zhheo.com/'

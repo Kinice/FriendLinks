@@ -1,0 +1,10 @@
+'site':
+  'name': 'hiyuansir.com'
+  'url': 'https://www.hiyuansir.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '开封网'
+      'url': 'https://www.kf.cn/c/2022-10-08/733936.shtml'
+    - 'name': 'iilil.COM'
+      'url': 'https://iilil.com'

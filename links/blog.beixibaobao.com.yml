@@ -1,0 +1,14 @@
+'site':
+  'name': 'blog.beixibaobao.com'
+  'url': 'https://blog.beixibaobao.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Web生肉'
+      'url': 'https://ncode.syosetu.com/n7938eq/'
+    - 'name': '中文翻译'
+      'url': 'https://www.linovelib.com/novel/3305.html'
+    - 'name': 'Web生肉'
+      'url': 'https://kakuyomu.jp/works/1177354054892870623'
+    - 'name': 'wikimoeBlog'
+      'url': 'https://www.wikimoe.com/'

@@ -1,0 +1,14 @@
+'site':
+  'name': 'obsidian.md'
+  'url': 'https://obsidian.md/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Discord'
+      'url': 'https://discord.gg/obsidianmd'
+    - 'name': 'Discord'
+      'url': 'https://discord.com/invite/obsidianmd'
+    - 'name': 'Threads'
+      'url': 'https://www.threads.net/@obsdmd'
+    - 'name': 'Mastodon'
+      'url': 'https://mas.to/@obsidian'

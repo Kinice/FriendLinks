@@ -1,0 +1,10 @@
+'site':
+  'name': 'are.ink'
+  'url': 'https://are.ink/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'Gridea Pro'
+      'url': 'https://gridea.pro'
+    - 'name': 'Gridea'
+      'url': 'https://open.gridea.dev'

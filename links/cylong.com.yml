@@ -1,0 +1,16 @@
+'site':
+  'name': 'cylong.com'
+  'url': 'https://www.cylong.com/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '小红书'
+      'url': 'https://www.xiaohongshu.com/user/profile/5fba43f2000000000101df9d'
+    - 'name': '南贺神社'
+      'url': 'https://ceaser.wang/'
+    - 'name': 'BladeCode'
+      'url': 'https://incoder.org/'
+    - 'name': 'Xthon''s Blog'
+      'url': 'http://xthon.cn/'
+    - 'name': 'NexT.Pisces'
+      'url': 'https://pisces.theme-next.org/'

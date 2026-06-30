@@ -1,0 +1,12 @@
+'site':
+  'name': 'b.julym.com'
+  'url': 'https://b.julym.com/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': '✨新站点'
+      'url': 'https://b.ncii.cn/'
+    - 'name': '👁️色图检测'
+      'url': 'https://nsfw.ncii.cn/?fron=macroblog'
+    - 'name': 'Shawn'
+      'url': 'https://shawnzeng.com'

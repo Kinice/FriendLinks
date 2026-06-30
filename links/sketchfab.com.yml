@@ -1,0 +1,10 @@
+'site':
+  'name': 'sketchfab.com'
+  'url': 'https://sketchfab.com/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'Buy on Fab'
+      'url': 'https://fab.com'
+    - 'name': 'Become a Seller on Fab'
+      'url': 'https://www.fab.com/become-a-publisher'

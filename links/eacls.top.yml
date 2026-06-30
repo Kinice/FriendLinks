@@ -1,0 +1,16 @@
+'site':
+  'name': 'eacls.top'
+  'url': 'https://www.eacls.top/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': '云开(中国大陆)Kaiyun·官方网站-登录入口'
+      'url': 'http://www.huafeng666.com'
+    - 'name': '开云网页版登录(官网)登录入口'
+      'url': 'http://www.jnrxcy.com'
+    - 'name': '开云(中国)kaiyun网页版登录入口'
+      'url': 'http://www.xigonglvyou.com'
+    - 'name': '开云·kaiyun(中国)官方网站 登录入口'
+      'url': 'http://www.mt5wls.com'
+    - 'name': '开云「中国」kaiyun体育网址登录入口'
+      'url': 'http://www.inrefine.net'

@@ -1,0 +1,16 @@
+'site':
+  'name': 'bluepika.life'
+  'url': 'https://bluepika.life/'
+  'description': '友情链接'
+  'links': '/about'
+  'friends':
+    - 'name': 'Pixyer 使用 AI 为商品生成摄影照 ↗︎'
+      'url': 'https://pixyer.ai/'
+    - 'name': 'NiFiTi A Web3 App ↗︎'
+      'url': 'https://nifiti.xyz/'
+    - 'name': 'Figma UX Writing UI2 中的 UX Writing 中文版 ↗︎'
+      'url': 'https://www.figma.com/community/file/1391822229052105906'
+    - 'name': '新年第一杯喝什么 迭代到第三次的新年小游戏 ↗︎'
+      'url': 'https://jioho.cn/what-to-drink/2024/#/index'
+    - 'name': 'Files Preview 本地 Http 文件服务器 ↗︎'
+      'url': 'https://www.npmjs.com/package/files-preview'

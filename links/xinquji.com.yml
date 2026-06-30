@@ -1,0 +1,18 @@
+'site':
+  'name': 'xinquji.com'
+  'url': 'https://xinquji.com/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'iTab'
+      'url': 'https://itab.link/?utm_source=xinquji'
+    - 'name': '小舒同学'
+      'url': 'https://xiaoshu.app/?utm_source=xinquji'
+    - 'name': 'Easy Indie'
+      'url': 'https://www.ezindie.com/?utm_source=xinquji'
+    - 'name': 'Mac 客'
+      'url': 'https://www.macapphq.com/?utm_source=xinquji'
+    - 'name': 'Similarlabs'
+      'url': 'https://similarlabs.com/?utm_source=xinquji'
+    - 'name': 'nano-banana中文站'
+      'url': 'http://www.nano-banana.cn/?utm_source=xinquji'

@@ -1,0 +1,12 @@
+'site':
+  'name': 'liujiacai.net'
+  'url': 'https://liujiacai.net/'
+  'description': '友情链接'
+  'links': '/'
+  'friends':
+    - 'name': 'Mastodon'
+      'url': 'https://mastodon.social/@liujiacai'
+    - 'name': '我的 Clojure 视频课程'
+      'url': 'https://ke.segmentfault.com/course/1650000012581084'
+    - 'name': 'RustTalk'
+      'url': 'https://rusttalk.github.io/'

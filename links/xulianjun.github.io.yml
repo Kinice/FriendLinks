@@ -1,0 +1,10 @@
+'site':
+  'name': 'xulianjun.github.io'
+  'url': 'https://xulianjun.github.io/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': '爱编程的大丙 程序猿里边做饭比较好吃的一个讲师'
+      'url': 'https://subingwen.cn'
+    - 'name': 'kshao Life Oriented Programming'
+      'url': 'https://ksh7.com/'

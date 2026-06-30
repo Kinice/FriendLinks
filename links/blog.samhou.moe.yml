@@ -1,0 +1,16 @@
+'site':
+  'name': 'blog.samhou.moe'
+  'url': 'https://blog.samhou.moe/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'English'
+      'url': 'https://samhou0.substack.com'
+    - 'name': '碎碎念'
+      'url': 'https://clanna.dev/@samhou'
+    - 'name': '6 刀一年 1c2.5g'
+      'url': 'https://hyw.ch/dedi-6usd'
+    - 'name': 'Blog Finder'
+      'url': 'https://bf.zzxworld.com/'
+    - 'name': '爱发电'
+      'url': 'https://afdian.com/a/samhou'
