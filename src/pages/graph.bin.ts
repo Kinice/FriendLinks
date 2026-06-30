@@ -164,15 +164,20 @@ export async function GET() {
 
   const TICKS = 800;
   const TICK_LOG = 40;
+  const alphaMin = sim.alphaMin(); // d3 默认 0.001
+  let actualTicks = 0;
   for (let i = 0; i < TICKS; i++) {
     sim.tick();
-    if (i % TICK_LOG === 0 || i === TICKS - 1) {
+    actualTicks++;
+    // alpha 降至阈值以下 → 系统已收敛，提前结束
+    if (sim.alpha() < alphaMin) break;
+    if (i % TICK_LOG === 0) {
       const pct = Math.round(((i + 1) / TICKS) * 100);
       printProgress("❸", `力导仿真 ${i + 1}/${TICKS}`, pct);
     }
   }
   sim.stop();
-  printDone("力导仿真完成");
+  printDone(`力导仿真完成（${actualTicks} tick）`);
 
   // ── 列式紧凑输出（含预计算 3D 位置） ─────────────────────────
   const nid: string[] = [];
