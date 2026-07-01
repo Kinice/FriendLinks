@@ -36,18 +36,25 @@ export async function GET() {
   printProgress("❶", `已加载 ${validSites.length} 个站点`, 100);
   printDone("站点加载完成");
 
+  // ── dev 模式快速验证：只取 500 随机节点 ───────────────────────
+  let sites = validSites;
+  if (import.meta.env.DEV && sites.length > 500) {
+    const shuffled = [...sites].sort(() => Math.random() - 0.5);
+    sites = shuffled.slice(0, 500);
+  }
+
   const categories: GraphCategory[] = [{ name: "site" }, { name: "friend" }];
   const nodes: GraphNode[] = [];
   const siteHostSet = new Set<string>();
 
-  for (const s of validSites) {
+  for (const s of sites) {
     siteHostSet.add(getHost(s.url));
   }
 
   const linkMap = new Map<string, Set<string>>();
   const hostToId = new Map<string, string>();
 
-  for (const s of validSites) {
+  for (const s of sites) {
     const host = getHost(s.url) || s.url;
     const siteId = host;
     const siteIcon = resolveFavicon(s.favicon);
@@ -68,7 +75,7 @@ export async function GET() {
     friend: { name: string; url: string; favicon?: string };
   }> = [];
 
-  for (const s of validSites) {
+  for (const s of sites) {
     const sourceNorm = getHost(s.url);
     for (const f of s.friends) {
       const targetHost = getHost(f.url);
