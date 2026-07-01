@@ -39,7 +39,6 @@
     "fuse.js": "^7.4.2",
     "ky": "^2.0.2",
     "msgpackr": "^2.0.4",
-    "troika-three-text": "^0.52.4",
     "yaml": "^2.9.0"
   },
   "devDependencies": {

@@ -804,40 +804,7 @@ export function init3d(graphData: GraphData) {
   // 初始颜色（必须在 graphData 之后调用，否则框架会重置）
   refreshLinkColors();
 
-  // ── 8. SDF 标签系统（troika-three-text GPU 渲染） ─────────────
-  const labelGroup = new THREE.Group();
-  labelGroup.name = "labels";
-  const labelScene = Graph.scene();
-  if (labelScene) labelScene.add(labelGroup);
-
-  const LABEL_MIN_DEGREE = 2;
-  const LABEL_MAX_DIST = 700;
-  // 动态 import 避免 troika 模块初始化时序问题
-  let _TextClass: any = null;
-  import("troika-three-text")
-    .then((m) => {
-      _TextClass = m.Text;
-      // 模块加载完成后创建标签
-      for (const node of nodes) {
-        const deg = degreeMap[node.id] || 0;
-        if (deg < LABEL_MIN_DEGREE) continue;
-        if (node.x == null) continue;
-        if (node.name && node.name.length > 40) continue; // 过长名称跳过
-        const text = new _TextClass();
-        text.text = node.name || node.id;
-        text.fontSize = 0.6;
-        text.color = 0xffffff;
-        text.position.set(node.x, node.y + 1.2, node.z);
-        text.anchorX = "center";
-        text.anchorY = "bottom";
-        text.sync();
-        (text as any)._nodePos = { x: node.x, y: node.y, z: node.z };
-        labelGroup.add(text);
-      }
-    })
-    .catch(() => {}); // troika 加载失败静默跳过
-
-  // ── 9. LOD 替换：将默认球体替换为多层级细节模型 ──────────
+  // ── 8. LOD 替换：将默认球体替换为多层级细节模型 ──────────
   let lodsCreated = false;
 
   /** 刷新所有节点颜色（替代 Graph.nodeColor()，兼容 LOD） */
@@ -986,24 +953,6 @@ export function init3d(graphData: GraphData) {
         }
         // 飞船模式：自动悬停视野中央最近的星球
         if (isFlyMode) updateAutoHover(currentData.nodes, sceneCam);
-      }
-    }
-
-    // SDF 标签距离 LOD
-    if (labelGroup.children.length > 0) {
-      const cp = Graph.cameraPosition();
-      for (const child of labelGroup.children) {
-        const t = child as any;
-        if (!t._nodePos) continue;
-        const dx = t._nodePos.x - cp.x;
-        const dy = t._nodePos.y - cp.y;
-        const dz = t._nodePos.z - cp.z;
-        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-        const visible = dist < LABEL_MAX_DIST;
-        if (t.visible !== visible) t.visible = visible;
-        if (visible) {
-          t.opacity = Math.max(0.2, Math.min(1, 1 - (dist - 525) / LABEL_MAX_DIST));
-        }
       }
     }
 
