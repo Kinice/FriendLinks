@@ -162,7 +162,7 @@ export async function GET() {
         .id((d: any) => d.id)
         .distance(350),
     )
-    .force("charge", forceManyBody().strength(-800).theta(1.5))
+    .force("charge", forceManyBody().strength(-800).theta(2.5))
     .force("center", forceCenter(0, 0, 0).strength(0.005))
     .alphaDecay(0.008)
     .velocityDecay(0.35);
