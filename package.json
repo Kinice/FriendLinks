@@ -19,6 +19,7 @@
     "check-access": "bun scripts/check-access.ts",
     "dev": "astro dev",
     "build": "astro build",
+    "minibuild": "astro build",
     "preview": "astro preview",
     "lint": "oxlint src/",
     "fmt": "oxfmt src/ --write",
