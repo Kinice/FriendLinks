@@ -282,4 +282,9 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  "cowtransfer.com",      // 奶牛快传
 			  "ttttt.link",           // 钛盘(备用域名)
 			  "www.ttttt.link",
+			  "lifeweek.com.cn",      // 三联生活周刊(杂志官网)
+			  "dili360.com",          // 中国国家地理(杂志官网)
+			  "www.dili360.com",
+			  "boduoad.com",          // 广告/垃圾站
+			  "cssworld.cn",          // CSS世界(书籍官网)
 			];
