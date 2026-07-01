@@ -11,6 +11,10 @@ import { SENSITIVE_DOMAINS } from "./filter/sensitive";
 import { SERVICE_SUBDOMAINS } from "./filter/subdomains";
 import { PLATFORM_HOSTS } from "./filter/platforms";
 
+// ─── 预计算加速结构 ──────────────────────────────────────────
+const NON_BLOG_SET = new Set(NON_BLOG_DOMAINS);
+const SENSITIVE_SET = new Set(SENSITIVE_DOMAINS);
+
 // ─── 过滤函数 ──────────────────────────────────────────────────
 
 export function isJunkEntry(f: { name: string; url: string }, siteUrl?: string): boolean {
@@ -29,20 +33,21 @@ export function isJunkEntry(f: { name: string; url: string }, siteUrl?: string):
 
   // ── 域名检查 ────────────────────────────────────────────
   try {
-    const hostname = new URL(url.startsWith("http") ? url : `https://${url}`).hostname.toLowerCase();
+    const parsed = new URL(url.startsWith("http") ? url : `https://${url}`);
+    const hostname = parsed.hostname.toLowerCase();
+    const pathname = parsed.pathname;
+    // 友链必须指向首页或 /blog(s) 子路由
+    if (pathname !== "/" && pathname !== "" && !/^\/blogs?\b/i.test(pathname)) return true;
     if (/^api[.-]/i.test(hostname)) return true;
     if (SERVICE_SUBDOMAINS.test(hostname)) return true;
-    // 非博客域名（明文，支持子域名匹配）
-    if (NON_BLOG_DOMAINS.some(d => hostname === d || hostname.endsWith("." + d))) return true;
+    // 非博客域名（明文，支持子域名匹配）— O(1) Set 查找
+    const hostParts = hostname.split(".");
+    const hostIsJunk = NON_BLOG_SET.has(hostname) || hostParts.some((_, i) => NON_BLOG_SET.has(hostParts.slice(i).join(".")));
+    if (hostIsJunk) return true;
     // 敏感域名（SHA-256 哈希）
-    const hostHash = createHash("sha256").update(hostname).digest("hex");
-    if (SENSITIVE_DOMAINS.includes(hostHash)) return true;
-    // .edu / .gov
-    if (hostname.endsWith(".edu") || hostname.endsWith(".edu.cn") || hostname.endsWith(".edu.tw") || hostname.endsWith(".edu.hk")) return true;
-    if (hostname.endsWith(".gov") || hostname.endsWith(".gov.cn")) return true;
-    // 敏感域名（SHA-256 哈希）
-    const h = createHash("sha256").update(hostname).digest("hex");
-    if (SENSITIVE_DOMAINS.includes(h)) return true;
+    if (SENSITIVE_SET.has(createHash("sha256").update(hostname).digest("hex"))) return true;
+    // 仅排除个人绝对无法注册的机构域名
+    if (/\.(edu|gov|mil|go)(\.[a-z]{2})?$/.test(hostname)) return true;
   } catch { return true; } // URL 解析失败 → 视为垃圾
 
   // IP 地址
