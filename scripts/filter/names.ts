@@ -60,6 +60,7 @@ export const JUNK_NAME_PATTERNS: RegExp[] = [
   /媒体娱乐应用|工作流编辑器|实时语音翻译/i,  // 产品功能/类型描述，非博客名称
   /(文件传输|局域网传输|文件中转|空投快传|隔空投送|轻松传|钛盘|文叔叔|AirPortal|PairDrop|SnapDrop|匿名聊天室|文件快递柜)/i,  // 工具网站
   /破解|接码|验证码|打码|短信轰炸|呼死你/i,  // 黑灰产关键词
+  /(⚠️?失联|已失联|已失效|已挂|已死|失联中|已关站|站已挂)/,   // 失联标记
   /\uFFFD/,                                          // 编码乱码(GBK被误当UTF-8解码) — 必放第一行就近维护
   /porn|xxx|adult\s*(video|film|movie|content|网站|视频|影片|电影)|nude\s*(pic|pics|photo|video|cam)|onlyfans|camgirl|ai\s*(sex|girlfriend|gf)|sex\s*(chat|video|doll|bot|game)/i,  // 色情/成人(英文)
   /(色情|情色|淫秽|淫荡|淫乱|黄片|毛片|A片|裸聊|裸照|裸体|艳照|约炮|一夜情|嫖娼|卖淫|援交|福利姬|自慰)/i,  // 色情(中文)
