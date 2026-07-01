@@ -11,7 +11,6 @@ import {
   setNodeColor,
   updateAllNodePositions,
   updateLinkPositions,
-  updateLOD,
   zoomToFit,
   animateCamera,
   type RenderContext,
@@ -152,13 +151,10 @@ export function init3d(graphData: GraphData) {
   const ctx: RenderContext = createRenderer(container, nodes.length, linkArr.length);
 
   const nodeStates: NodeState[] = nodes.map((n: any) => ({
-    color: n.color || PALETTE[hashToIndex(n.id)],
     _cDefault: n._cDefault,
     _cHover: n._cHover,
     _cFocus: n._cFocus,
     _cHighlight: n._cHighlight,
-    opacity: 1,
-    visible: true,
   }));
 
   updateAllNodePositions(ctx, nodes, degreeMap, maxDegree, nodeStates);
@@ -515,9 +511,6 @@ export function init3d(graphData: GraphData) {
     if (camMoved || _queryCamMove) {
       _lastCamPos.x = camPos.x; _lastCamPos.y = camPos.y; _lastCamPos.z = camPos.z;
       _queryCamMove = false;
-
-      // LOD 更新
-      updateLOD(ctx);
 
       // 标签淡出
       if (labelGroup.children.length > 0) {

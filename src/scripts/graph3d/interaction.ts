@@ -31,7 +31,7 @@ export function createInteraction(
     hoveredIndex: null,
   };
 
-  const allInstanced = [ctx.nodesNear, ctx.nodesMid, ctx.nodesFar];
+  const allInstanced = [ctx.nodes];
   let lastHoveredId: string | null = null;
 
   function getNodeAtMouse(event: MouseEvent): GraphNode | null {

@@ -1,6 +1,6 @@
 /**
  * Three.js 原生渲染层
- * 替代 3d-force-graph 的渲染管线：InstancedMesh(×3 LOD) + LineSegments + OrbitControls
+ * 替代 3d-force-graph：单层 InstancedMesh + LineSegments + OrbitControls
  */
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
@@ -14,29 +14,21 @@ export interface RenderContext {
   camera: THREE.PerspectiveCamera;
   renderer: THREE.WebGLRenderer;
   controls: OrbitControls;
-  nodesNear: THREE.InstancedMesh;
-  nodesMid: THREE.InstancedMesh;
-  nodesFar: THREE.InstancedMesh;
+  nodes: THREE.InstancedMesh;
   linkLines: THREE.LineSegments;
-  dummy: THREE.Object3D; // 用于矩阵计算
+  dummy: THREE.Object3D;
 }
 
 export interface NodeState {
-  color: string;
   _cDefault: string;
   _cHover: string;
   _cFocus: string;
   _cHighlight: string;
-  opacity: number;
-  visible: boolean;
 }
 
 // ─── 常量 ──────────────────────────────────────────────────────────
 
-const NEAR_DIST = 200;
-const MID_DIST = 500;
-const NEAR_SEG = 12;
-const MID_SEG = 6;
+const NODE_SEGMENTS = 8;
 const BG_COLOR = 0x0f1115;
 
 // ─── 工厂 ──────────────────────────────────────────────────────────
@@ -67,38 +59,24 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
   controls.maxDistance = 20000;
   controls.zoomSpeed = 1.5;
 
-  // ── Lights ──
+  // Lights
   scene.add(new THREE.AmbientLight(0xcccccc, Math.PI));
   const dirLight = new THREE.DirectionalLight(0xffffff, 0.6 * Math.PI);
   scene.add(dirLight);
 
-  // ── InstancedMesh: 近层 ──
-  const geomNear = new THREE.SphereGeometry(1, NEAR_SEG, NEAR_SEG);
-  const matNear = new THREE.MeshStandardMaterial({ roughness: 0.6, metalness: 0.1 });
-  const nodesNear = new THREE.InstancedMesh(geomNear, matNear, nodeCount);
-  nodesNear.count = nodeCount;
-  scene.add(nodesNear);
+  // InstancedMesh: 单层球体
+  const nodeGeom = new THREE.SphereGeometry(1, NODE_SEGMENTS, NODE_SEGMENTS);
+  const nodeMat = new THREE.MeshStandardMaterial({ roughness: 0.6, metalness: 0.1 });
+  const nodes = new THREE.InstancedMesh(nodeGeom, nodeMat, nodeCount);
+  nodes.count = nodeCount;
+  nodes.frustumCulled = true;
+  scene.add(nodes);
 
-  // ── InstancedMesh: 中层 ──
-  const geomMid = new THREE.SphereGeometry(1, MID_SEG, MID_SEG);
-  const matMid = new THREE.MeshLambertMaterial();
-  const nodesMid = new THREE.InstancedMesh(geomMid, matMid, nodeCount);
-  nodesMid.count = nodeCount;
-  scene.add(nodesMid);
-
-  // ── InstancedMesh: 远层 (Points) ──
-  const geomFar = new THREE.BufferGeometry();
-  geomFar.setAttribute("position", new THREE.BufferAttribute(new Float32Array([0, 0, 0]), 3));
-  const matFar = new THREE.PointsMaterial({ size: 3, sizeAttenuation: true });
-  const nodesFar = new THREE.InstancedMesh(geomFar, matFar, nodeCount);
-  nodesFar.count = nodeCount;
-  scene.add(nodesFar);
-
-  // ── 连线 (LineSegments) ──
+  // 连线 (LineSegments)
   const linkGeom = new THREE.BufferGeometry();
-  const linkPositions = new Float32Array(linkCount * 6); // 2 points × 3 coords per link
+  const linkPositions = new Float32Array(linkCount * 6);
   linkGeom.setAttribute("position", new THREE.BufferAttribute(linkPositions, 3));
-  linkGeom.setDrawRange(0, 0); // 默认不绘制
+  linkGeom.setDrawRange(0, 0);
   const linkMat = new THREE.LineBasicMaterial({
     color: 0x555555,
     transparent: true,
@@ -109,13 +87,12 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
   linkLines.frustumCulled = false;
   scene.add(linkLines);
 
-  // ── Dummy ──
   const dummy = new THREE.Object3D();
 
-  return { scene, camera, renderer, controls, nodesNear, nodesMid, nodesFar, linkLines, dummy };
+  return { scene, camera, renderer, controls, nodes, linkLines, dummy };
 }
 
-// ─── 节点位置更新 ──────────────────────────────────────────────────
+// ─── 节点位置 + 颜色 ──────────────────────────────────────────────
 
 export function updateAllNodePositions(
   ctx: RenderContext,
@@ -135,63 +112,20 @@ export function updateAllNodePositions(
       new THREE.Quaternion(),
       new THREE.Vector3(size, size, size),
     );
-    ctx.nodesNear.setMatrixAt(i, m);
-    ctx.nodesMid.setMatrixAt(i, m);
-    ctx.nodesFar.setMatrixAt(i, m);
+    ctx.nodes.setMatrixAt(i, m);
 
-    // 默认颜色
     if (nodeStates[i]) {
-      ctx.nodesNear.setColorAt(i, new THREE.Color(nodeStates[i]._cDefault));
-      ctx.nodesMid.setColorAt(i, new THREE.Color(nodeStates[i]._cDefault));
-      ctx.nodesFar.setColorAt(i, new THREE.Color(nodeStates[i]._cDefault));
+      ctx.nodes.setColorAt(i, new THREE.Color(nodeStates[i]._cDefault));
     }
   }
 
-  ctx.nodesNear.instanceMatrix.needsUpdate = true;
-  ctx.nodesMid.instanceMatrix.needsUpdate = true;
-  ctx.nodesFar.instanceMatrix.needsUpdate = true;
-  if (ctx.nodesNear.instanceColor) ctx.nodesNear.instanceColor.needsUpdate = true;
-  if (ctx.nodesMid.instanceColor) ctx.nodesMid.instanceColor.needsUpdate = true;
-  if (ctx.nodesFar.instanceColor) ctx.nodesFar.instanceColor.needsUpdate = true;
+  ctx.nodes.instanceMatrix.needsUpdate = true;
+  if (ctx.nodes.instanceColor) ctx.nodes.instanceColor.needsUpdate = true;
 }
 
 export function setNodeColor(ctx: RenderContext, index: number, color: string) {
-  ctx.nodesNear.setColorAt(index, new THREE.Color(color));
-  ctx.nodesMid.setColorAt(index, new THREE.Color(color));
-  ctx.nodesFar.setColorAt(index, new THREE.Color(color));
-  if (ctx.nodesNear.instanceColor) ctx.nodesNear.instanceColor.needsUpdate = true;
-  if (ctx.nodesMid.instanceColor) ctx.nodesMid.instanceColor.needsUpdate = true;
-  if (ctx.nodesFar.instanceColor) ctx.nodesFar.instanceColor.needsUpdate = true;
-}
-
-// ─── LOD 切换（基于相机距离） ─────────────────────────────────────
-
-export function updateLOD(ctx: RenderContext) {
-  const camPos = ctx.camera.position;
-  for (let i = 0; i < ctx.nodesNear.count; i++) {
-    const m = new THREE.Matrix4();
-    ctx.nodesNear.getMatrixAt(i, m);
-    const pos = new THREE.Vector3();
-    pos.setFromMatrixPosition(m);
-    const dist = camPos.distanceTo(pos);
-
-    if (dist < NEAR_DIST) {
-      ctx.nodesNear.setVisibleAt(i, true);
-      ctx.nodesMid.setVisibleAt(i, false);
-      ctx.nodesFar.setVisibleAt(i, false);
-    } else if (dist < MID_DIST) {
-      ctx.nodesNear.setVisibleAt(i, false);
-      ctx.nodesMid.setVisibleAt(i, true);
-      ctx.nodesFar.setVisibleAt(i, false);
-    } else {
-      ctx.nodesNear.setVisibleAt(i, false);
-      ctx.nodesMid.setVisibleAt(i, false);
-      ctx.nodesFar.setVisibleAt(i, true);
-    }
-  }
-  ctx.nodesNear.instanceMatrix.needsUpdate = true;
-  ctx.nodesMid.instanceMatrix.needsUpdate = true;
-  ctx.nodesFar.instanceMatrix.needsUpdate = true;
+  ctx.nodes.setColorAt(index, new THREE.Color(color));
+  if (ctx.nodes.instanceColor) ctx.nodes.instanceColor.needsUpdate = true;
 }
 
 // ─── 连线更新 ──────────────────────────────────────────────────────
@@ -200,7 +134,7 @@ export function updateLinkPositions(
   ctx: RenderContext,
   links: { source: string; target: string }[],
   nodeIdToIndex: Map<string, number>,
-  nodes: GraphNode[],
+  graphNodes: GraphNode[],
   opacity: number,
 ) {
   const pos = ctx.linkLines.geometry.attributes.position.array as Float32Array;
@@ -212,8 +146,8 @@ export function updateLinkPositions(
     const ti = nodeIdToIndex.get(typeof l.target === "string" ? l.target : (l.target as any).id ?? l.target);
     if (si == null || ti == null) continue;
 
-    const sn = nodes[si];
-    const tn = nodes[ti];
+    const sn = graphNodes[si];
+    const tn = graphNodes[ti];
     const j = i * 6;
     pos[j] = sn.x ?? 0;
     pos[j + 1] = sn.y ?? 0;
@@ -230,10 +164,10 @@ export function updateLinkPositions(
 
 // ─── 相机 ──────────────────────────────────────────────────────────
 
-export function zoomToFit(ctx: RenderContext, nodes: GraphNode[], ms: number, padding: number) {
-  if (!nodes.length) return;
+export function zoomToFit(ctx: RenderContext, graphNodes: GraphNode[], ms: number, padding: number) {
+  if (!graphNodes.length) return;
   const box = new THREE.Box3();
-  for (const n of nodes) {
+  for (const n of graphNodes) {
     box.expandByPoint(new THREE.Vector3(n.x ?? 0, n.y ?? 0, n.z ?? 0));
   }
   box.expandByScalar(padding);
@@ -246,30 +180,20 @@ export function zoomToFit(ctx: RenderContext, nodes: GraphNode[], ms: number, pa
   const fov = ctx.camera.fov * (Math.PI / 180);
   const dist = maxDim / (2 * Math.tan(fov / 2));
 
-  const target = center.clone();
-  const pos = center.clone().add(new THREE.Vector3(0, 0, dist));
-
-  // 简单线性插值动画
   const startPos = ctx.camera.position.clone();
   const startTarget = ctx.controls.target.clone();
+  const targetPos = center.clone().add(new THREE.Vector3(0, 0, dist));
   const startTime = performance.now();
 
-  function animate() {
-    const elapsed = performance.now() - startTime;
-    const t = Math.min(1, elapsed / ms);
-    const ease = 1 - Math.pow(1 - t, 3); // easeOutCubic
-    ctx.camera.position.lerpVectors(startPos, pos, ease);
-    ctx.controls.target.lerpVectors(startTarget, target, ease);
+  function anim() {
+    const t = Math.min(1, (performance.now() - startTime) / ms);
+    const ease = 1 - Math.pow(1 - t, 3);
+    ctx.camera.position.lerpVectors(startPos, targetPos, ease);
+    ctx.controls.target.lerpVectors(startTarget, center, ease);
     ctx.controls.update();
-    if (t < 1) {
-      requestAnimationFrame(animate);
-    }
+    if (t < 1) requestAnimationFrame(anim);
   }
-  animate();
-}
-
-export function getCameraPosition(ctx: RenderContext): { x: number; y: number; z: number } {
-  return { x: ctx.camera.position.x, y: ctx.camera.position.y, z: ctx.camera.position.z };
+  anim();
 }
 
 export function animateCamera(
@@ -278,36 +202,27 @@ export function animateCamera(
   lookAt: { x: number; y: number; z: number },
   ms: number,
 ) {
-  const startPos = ctx.camera.position.clone();
-  const startTarget = ctx.controls.target.clone();
-  const endPos = new THREE.Vector3(pos.x, pos.y, pos.z);
-  const endTarget = new THREE.Vector3(lookAt.x, lookAt.y, lookAt.z);
-  const startTime = performance.now();
+  const sp = ctx.camera.position.clone();
+  const st = ctx.controls.target.clone();
+  const ep = new THREE.Vector3(pos.x, pos.y, pos.z);
+  const et = new THREE.Vector3(lookAt.x, lookAt.y, lookAt.z);
+  const t0 = performance.now();
 
-  function animate() {
-    const elapsed = performance.now() - startTime;
-    const t = Math.min(1, elapsed / ms);
-    const ease = 1 - Math.pow(1 - t, 3);
-    ctx.camera.position.lerpVectors(startPos, endPos, ease);
-    ctx.controls.target.lerpVectors(startTarget, endTarget, ease);
+  function anim() {
+    const t = Math.min(1, (performance.now() - t0) / ms);
+    const e = 1 - Math.pow(1 - t, 3);
+    ctx.camera.position.lerpVectors(sp, ep, e);
+    ctx.controls.target.lerpVectors(st, et, e);
     ctx.controls.update();
-    if (t < 1) {
-      requestAnimationFrame(animate);
-    }
+    if (t < 1) requestAnimationFrame(anim);
   }
-  animate();
+  anim();
 }
-
-// ─── 工具 ──────────────────────────────────────────────────────────
 
 export function dispose(ctx: RenderContext) {
   ctx.renderer.dispose();
-  ctx.nodesNear.geometry.dispose();
-  ctx.nodesMid.geometry.dispose();
-  ctx.nodesFar.geometry.dispose();
-  (ctx.nodesNear.material as THREE.Material).dispose();
-  (ctx.nodesMid.material as THREE.Material).dispose();
-  (ctx.nodesFar.material as THREE.Material).dispose();
+  ctx.nodes.geometry.dispose();
+  (ctx.nodes.material as THREE.Material).dispose();
   ctx.linkLines.geometry.dispose();
   (ctx.linkLines.material as THREE.Material).dispose();
 }
