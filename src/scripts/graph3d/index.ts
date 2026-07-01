@@ -1467,6 +1467,7 @@ export function init3d(graphData: GraphData) {
 
   function enterFlyMode() {
     Graph.enableNavigationControls(false);
+    Graph.enablePointerInteraction(false);
     isFlyMode = true;
     reticleOffset.x = 0;
     reticleOffset.y = 0;
@@ -1507,6 +1508,7 @@ export function init3d(graphData: GraphData) {
   function exitFlyMode() {
     isFlyMode = false;
     Graph.enableNavigationControls(true);
+    Graph.enablePointerInteraction(true);
 
     if (spaceshipObj) {
       const cam = Graph.camera() as THREE.PerspectiveCamera;
