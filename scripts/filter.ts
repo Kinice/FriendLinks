@@ -40,8 +40,9 @@ export function isJunkEntry(f: { name: string; url: string }, siteUrl?: string):
     const pathname = parsed.pathname;
     // 绝对白名单 — 无论如何不被过滤
     if (WHITELIST_SET.has(hostname) || WHITELIST_SET.has(hostname.replace(/^www\./, ""))) return false;
-    // 友链必须指向首页
+    // 友链必须指向首页（无子路由、无查询参数）
     if (pathname !== "/" && pathname !== "") return true;
+    if (parsed.search) return true;
     if (/^api[.-]/i.test(hostname)) return true;
     if (SERVICE_SUBDOMAINS.test(hostname)) return true;
     // 非博客域名（明文，支持子域名匹配）— O(1) Set 查找
