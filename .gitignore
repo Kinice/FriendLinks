@@ -28,6 +28,10 @@ public/scripts/*.js
 # 探测/爬虫产物（开发调试用，不提交）
 crawl_log.txt
 probe_result.txt
+dead.txt
+slow.txt
+unknown.txt
+名字.txt
 .restore_links.txt
 probe_by_route/
 
