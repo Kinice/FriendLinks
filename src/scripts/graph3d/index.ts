@@ -5,7 +5,7 @@
 import Fuse from "fuse.js";
 import * as THREE from "three";
 import { decode } from "msgpackr";
-import { PALETTE, hashToIndex, degreeToSize, adjustHex, createTextSprite } from "./utils";
+import { PALETTE, hashToIndex, adjustHex, createTextSprite } from "./utils";
 import {
   createRenderer,
   setNodeColor,
@@ -80,7 +80,6 @@ export function init3d(graphData: GraphData) {
     if (s != null) degreeMap[s] = (degreeMap[s] || 0) + 1;
     if (t != null) degreeMap[t] = (degreeMap[t] || 0) + 1;
   }
-  const degValues = Object.values(degreeMap);
 
   // ── 2. 节点预处理 ──
   const rawNodes = graphData.nodes || [];
