@@ -1044,8 +1044,7 @@ export function init3d(graphData: GraphData) {
     ctx,
     updateLinkOpacity(v: number) { linkOpacity.value = v; refreshLinkColors(); },
   };
-  (window as any).__graphApi = (window as any).__graphApi || {};
-  Object.assign((window as any).__graphApi, api);
+  (window as any).__graphApi = api; // 直接赋值，不用 Object.assign 合并
   return api;
 }
 
