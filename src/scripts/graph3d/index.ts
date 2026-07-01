@@ -1021,56 +1021,62 @@ export function init3d(graphData: GraphData) {
       } catch {}
     }
 
-    // LOD 更新 + 飞船自动悬停
-    if (lodsCreated && currentData.nodes) {
-      const sceneCam = Graph.camera() as THREE.PerspectiveCamera;
-      if (sceneCam) {
-        // 相机位置缓存：没移动就不更新 LOD（节省 ~95% 空闲帧遍历）
-        const camPos = Graph.cameraPosition();
-        const camMoved =
-          Math.abs(camPos.x - _lastCamPos.x) > 0.1 ||
-          Math.abs(camPos.y - _lastCamPos.y) > 0.1 ||
-          Math.abs(camPos.z - _lastCamPos.z) > 0.1;
-        if (camMoved) {
-          _lastCamPos.x = camPos.x;
-          _lastCamPos.y = camPos.y;
-          _lastCamPos.z = camPos.z;
+    // LOD 更新 + 标签 LOD + 飞船自动悬停
+    // 相机移动检测共用，避免重复计算
+    const camPos = Graph.cameraPosition();
+    const camMoved =
+      Math.abs(camPos.x - _lastCamPos.x) > 1 ||
+      Math.abs(camPos.y - _lastCamPos.y) > 1 ||
+      Math.abs(camPos.z - _lastCamPos.z) > 1;
+
+    if (camMoved) {
+      _lastCamPos.x = camPos.x;
+      _lastCamPos.y = camPos.y;
+      _lastCamPos.z = camPos.z;
+
+      // 节点 LOD 更新
+      if (lodsCreated && currentData.nodes) {
+        const sceneCam = Graph.camera() as THREE.PerspectiveCamera;
+        if (sceneCam) {
           for (const node of currentData.nodes) {
             if (node.__lod) (node.__lod as THREE.LOD).update(sceneCam);
           }
         }
-        // 飞船模式：自动悬停视野中央最近的星球
-        if (isFlyMode) updateAutoHover(currentData.nodes, sceneCam);
+      }
+
+      // 标签距离 LOD：远距离淡出，同时受全局开关控制
+      if (labelGroup.children.length > 0) {
+        const show = labelShow.value;
+        for (const child of labelGroup.children) {
+          const sprite = child as THREE.Sprite;
+          const np = (sprite as any)._nodePos;
+          if (!np) continue;
+          if (!show) {
+            if (sprite.visible) sprite.visible = false;
+            continue;
+          }
+          const dx = np.x - camPos.x;
+          const dy = np.y - camPos.y;
+          const dz = np.z - camPos.z;
+          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+          // >5000 隐藏，5000→2000 逐渐淡入，<2000 完全显示
+          if (dist > 5000) {
+            if (sprite.visible) sprite.visible = false;
+          } else if (dist < 2000) {
+            sprite.visible = true;
+            sprite.material.opacity = 1;
+          } else {
+            sprite.visible = true;
+            sprite.material.opacity = (5000 - dist) / 3000;
+          }
+        }
       }
     }
 
-    // 标签距离 LOD：远距离淡出，同时受全局开关控制
-    if (labelGroup.children.length > 0) {
-      const cp = Graph.cameraPosition();
-      const show = labelShow.value;
-      for (const child of labelGroup.children) {
-        const sprite = child as THREE.Sprite;
-        const np = (sprite as any)._nodePos;
-        if (!np) continue;
-        if (!show) {
-          sprite.visible = false;
-          continue;
-        }
-        const dx = np.x - cp.x;
-        const dy = np.y - cp.y;
-        const dz = np.z - cp.z;
-        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-        // >5000 隐藏，5000→2000 逐渐淡入，<2000 完全显示
-        if (dist > 5000) {
-          sprite.visible = false;
-        } else if (dist < 2000) {
-          sprite.visible = true;
-          sprite.material.opacity = 1;
-        } else {
-          sprite.visible = true;
-          sprite.material.opacity = (5000 - dist) / 3000;
-        }
-      }
+    // 飞船模式：自动悬停视野中央最近的星球
+    if (isFlyMode) {
+      const sceneCam = Graph.camera() as THREE.PerspectiveCamera;
+      if (sceneCam && currentData.nodes) updateAutoHover(currentData.nodes, sceneCam);
     }
 
     // 飞船模式：弹簧-阻尼准星物理 + 视角跟随
