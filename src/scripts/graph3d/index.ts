@@ -1019,13 +1019,12 @@ export function init3d(graphData: GraphData) {
         reticleOffset.x += reticleVelocity.x * 0.016;
         reticleOffset.y += reticleVelocity.y * 0.016;
 
-        // 2. 准星偏移 → 相机旋转（偏移大 = 转得快）
+        // 2. 准星偏移 → 相机旋转（独立 yaw/pitch，无限 360°）
         const rotScale = 0.05;
-        // 俯仰限制 ±85°，避免 Gimbal lock 导致 180° 限制
-        const euler = cam.rotation;
-        const newPitch = euler.x + reticleOffset.y * rotScale;
-        euler.x = Math.max(-1.48, Math.min(1.48, newPitch)); // ±85°
-        euler.y -= reticleOffset.x * rotScale;
+        flyYaw -= reticleOffset.x * rotScale;
+        flyPitch += reticleOffset.y * rotScale;
+        flyPitch = Math.max(-1.48, Math.min(1.48, flyPitch)); // ±85°
+        cam.rotation.set(flyPitch, flyYaw, 0, "YXZ");
 
         // 3. 更新准星 DOM 位置
         if (flyCrosshair) {
@@ -1184,6 +1183,8 @@ export function init3d(graphData: GraphData) {
   let flyOnKeyUp: ((e: KeyboardEvent) => void) | null = null;
   let autoHoverId: string | null = null;
   let flyAutoPilot = false;
+  let flyYaw = 0;
+  let flyPitch = 0;
   // 准星弹簧-阻尼物理
   const reticleOffset = { x: 0, y: 0 };
   const reticleVelocity = { x: 0, y: 0 };
@@ -1331,9 +1332,9 @@ export function init3d(graphData: GraphData) {
     if (node?.url) window.open(node.url, "_blank");
   }
 
-  /** 全屏退出时自动切回球幕模式 */
-  function onFullscreenChange() {
-    if (!document.fullscreenElement && isFlyMode) {
+  /** 指针锁定丢失时自动切回球幕模式 */
+  function onPointerLockChange() {
+    if (!document.pointerLockElement && isFlyMode) {
       exitFlyMode();
       const btn = document.getElementById("fly-toggle");
       if (btn) btn.textContent = "🚀 飞船模式";
@@ -1471,10 +1472,13 @@ export function init3d(graphData: GraphData) {
     reticleOffset.y = 0;
     reticleVelocity.x = 0;
     reticleVelocity.y = 0;
+    flyYaw = 0;
+    flyPitch = 0;
 
-    // 全屏锁定鼠标不溢出
+    // 锁定指针（鼠标不溢出）+ 全屏辅助
+    try { container.requestPointerLock(); } catch {}
     try { document.documentElement.requestFullscreen(); } catch {}
-    document.addEventListener("fullscreenchange", onFullscreenChange);
+    document.addEventListener("pointerlockchange", onPointerLockChange);
 
     const cam = Graph.camera() as THREE.PerspectiveCamera;
     cam.rotation.order = "YXZ"; // 偏航优先，避免万向锁
@@ -1516,8 +1520,9 @@ export function init3d(graphData: GraphData) {
     container.removeEventListener("click", onFlyClick);
     flyOnKeyDown = flyOnKeyUp = null;
 
-    // 退出全屏
-    document.removeEventListener("fullscreenchange", onFullscreenChange);
+    // 释放指针 + 退出全屏
+    document.removeEventListener("pointerlockchange", onPointerLockChange);
+    try { if (document.pointerLockElement) document.exitPointerLock(); } catch {}
     try { if (document.fullscreenElement) document.exitFullscreen(); } catch {}
 
     if (flyCrosshair) flyCrosshair.style.display = "none";
