@@ -357,4 +357,5 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  // 组件库/框架官网(CSS被当链接名)
 			  "shoelace.style", "hilla.dev", "core.clarity.design",
 			  "openjsf.org", "lion.js.org", "auro.alaskaair.com",
+			  "packetstormsecurity.org",   // 漏洞利用库，非博客
 			];
