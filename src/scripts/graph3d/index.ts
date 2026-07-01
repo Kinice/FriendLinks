@@ -509,11 +509,36 @@ export function init3d(graphData: GraphData) {
   let _queryCamMove = true;
   let _lblFrameSkip = 0;
 
+  // FPS 监控
+  let _fpsFrames = 0;
+  let _fpsLastTime = performance.now();
+  let _fpsDisplay: HTMLElement | null = null;
+
+  function updateFPS() {
+    _fpsFrames++;
+    const now = performance.now();
+    if (now - _fpsLastTime >= 1000) {
+      const fps = Math.round(_fpsFrames / ((now - _fpsLastTime) / 1000));
+      _fpsFrames = 0;
+      _fpsLastTime = now;
+      if (!_fpsDisplay) {
+        _fpsDisplay = document.createElement("div");
+        _fpsDisplay.style.cssText = "position:fixed;top:8px;right:8px;z-index:10000;background:rgba(0,0,0,0.7);color:#0f0;padding:4px 8px;border-radius:4px;font:12px monospace;";
+        document.body.appendChild(_fpsDisplay);
+      }
+      const nodeCount = ctx.nodes.count;
+      const labelCount = labelGroup.children.length;
+      _fpsDisplay.textContent = `FPS:${fps} | nodes:${nodeCount} | labels:${labelCount}`;
+    }
+  }
+
   function animateLoop() {
     requestAnimationFrame(animateLoop);
 
-    // 按需创建标签（相机靠近时才创建，避免一次创建31k个Canvas）
+    // 按需创建标签
     ensureLabels();
+
+    updateFPS();
 
     const camPos = ctx.camera.position;
     const camMoved =
