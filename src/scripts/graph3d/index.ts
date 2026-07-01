@@ -980,6 +980,9 @@ export function init3d(graphData: GraphData) {
 
     flyControlPanel = createFlyControlPanel();
     flyControlPanel.style.display = "block";
+    // 同步按钮文字
+    const flyBtn = document.getElementById("fly-toggle");
+    if (flyBtn) flyBtn.textContent = "🌐 球幕模式";
   }
 
   function exitFlyMode() {
@@ -999,6 +1002,9 @@ export function init3d(graphData: GraphData) {
     if (flyCrosshair) { flyCrosshair.style.display = "none"; flyCrosshair = null; }
     if (flyControlPanel) { flyControlPanel.style.display = "none"; flyControlPanel = null; }
     (interaction as any).setFlyMode?.(false);
+    // 同步按钮文字
+    const flyBtn = document.getElementById("fly-toggle");
+    if (flyBtn) flyBtn.textContent = "🚀 飞船模式";
     document.body.style.cursor = "";
   }
 
