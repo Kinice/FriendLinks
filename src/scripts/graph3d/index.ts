@@ -413,7 +413,6 @@ export function init3d(graphData: GraphData) {
   }
 
   function buildPathOverlay(path: string[]) {
-    clearOldPathState();
     if (path.length < 2) return;
     pathOverlayGroup = new THREE.Group();
     const sharedCoreGeom = new THREE.CylinderGeometry(0.3, 0.3, 1, 6);
