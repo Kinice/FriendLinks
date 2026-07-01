@@ -408,4 +408,16 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  "2017.thegiac.com", "sins-expo.com", "gzicee.com", // 会议/展会
 			  "jiuyelighting.1688.com", // 1688商业
 			  "alistguazai.icu", "678cn.com", "115fzw.cc", "115fz.cc", "678ca.com", // 辅助/挂载
+			  // 数字开头非博客批量(P3) — 影视/工具/商业/spam/菠菜
+			  "58hu.com", "66dpw.vip", "bbibb.top", "4ksj.com", "4kzn.com", "3dmgame.com", // 影视
+			  "51aspx.com", "51ou.com", "52abp.com", "53bk.com", "7-zip.org", "7zip.top", // 工具/软件
+			  "99banzou.com", "502book.com", "33.agilestudio.cn", "3d66.com", "software.3d66.com", // 工具
+			  "3dbody.tech", "3dmodelhaven.com", "desk.3gbizhi.com", "99colorthemes.com", "hao.uisdc.com", // 素材/壁纸
+			  "52xianbao.cn", "52xiaohua.com", "5577.com", "800zhe.com.cn", "izheye.com", // 商业/spam
+			  "88esim.com", "51-expo.cn", "263mailplus.com", "393.com", "95dir.com", "wuyiyiba.com", "tiancebbs.cn", // 商业
+			  "68design.net", "58che.com", "8090-sec.com", "36kr.com", "91exam.org", "51tracking.com", "6pm.com", // 行业/商业
+			  "61.life", "512.long.ge", "121699.aizhy.com", "xinjiangs.snidenws.cn", "ccopyright.com.cn", // 杂项
+			  "31idc.com", "42cloud.cn", // IDC
+			  "678tiyu.com", "bjcbsy.cn", "laitaoxie.cn", "smilegift.cn", "nxxinglin.com", "silliandesign.com", "tuchun66.com", // 菠菜
+			  "ti.360.net", "quake.360.net", "ata.360.net", "se.360.cn", "image.so.com", "st.so.com", "blogs.360.cn", // 360企业站
 			];
