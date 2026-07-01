@@ -65,6 +65,8 @@ export const JUNK_NAME_PATTERNS: RegExp[] = [
   /(成人\s*(?:影片|视频|网站|影视|动漫|小说|图片|直播|游戏|无码)|无码\s*(?:成人|影片|视频|中出|内射|流出|破解))/i,  // 成人内容(排除"无码科技"等正经名称)
   /(?<![a-zA-Z])hentai|hentai(?![a-zA-Z])|JavDB|\bJAV\b|pornhub|youporn|xvideos|redtube|brazzers|playboy\s*(?:magazine|tv|club)?|hustler/i,  // 色情品牌
   /(大奶|巨乳|美乳|爆乳|操逼|肏|鸡巴|骚货|婊子|贱人|浪货|小母狗|公狗)/i,  // 涉黄脏话
+  /^(한국어|한국말|اردو|العربية|پښتو|ภาษาไทย|हिन्दी|हिंदी|Български|Ελληνικά|Ελλάδα|עִברִית|ישראל|Deutsch|Français|Español|Italiano|Português|Nederlands|Svenska|Norsk|Dansk|Suomi|Polski|Čeština|Română|Magyar|Türkçe|Русский|Українська|日本語|中文|English|Tiếng\s*Việt|Bahasa\s*(?:Indonesia|Melayu)|Filipino|Tagalog)$/i,  // 纯语言/国家标签(非真实站名)
+  /^[^\p{L}\p{N}]{2,}$/u,                           // 纯emoji/符号名(无任何语言文字)
   /(菠菜|赌球|博球|买球|押球|赌注|下注|投注|网投|赌场|赌城|赌盘|赌博|博彩|彩票|竞猜|盘口|赔率|百家乐|新葡京|永利|美高梅|威尼斯人|太阳城|乐天堂|尊龙凯时)/i,  // 赌博/菠菜
   /(六合彩|时时彩|PK10|幸运飞艇|秒速飞艇|捕鱼游戏|老虎机|轮盘赌)/i,  // 赌博游戏
   /(bet365|betway|1xbet|betfair|betano|betwin|hhpoker|aapoker|pokerstar)\b/i,  // 赌博平台
