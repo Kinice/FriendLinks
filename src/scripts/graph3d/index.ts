@@ -548,6 +548,59 @@ export function init3d(graphData: GraphData) {
   const tooltip = createTooltip();
   const interaction = createInteraction(ctx, nodes);
 
+  // 高亮叠加线网（hover/focus 时显示）
+  const overlayGroup = new THREE.Group();
+  overlayGroup.visible = false;
+  ctx.scene.add(overlayGroup);
+
+  const sharedHaloGeom = new THREE.CylinderGeometry(0.5, 0.5, 1, 6);
+  const sharedCoreGeom = new THREE.CylinderGeometry(0.18, 0.18, 1, 6);
+  const up_v = new THREE.Vector3(0, 1, 0);
+  const quat_v = new THREE.Quaternion();
+  const mid_v = new THREE.Vector3();
+  const start_v = new THREE.Vector3();
+  const end_v = new THREE.Vector3();
+  const dir_v = new THREE.Vector3();
+
+  function buildOverlay(nodeId: string | null, color: THREE.ColorRepresentation) {
+    while (overlayGroup.children.length > 0) {
+      const child = overlayGroup.children[0] as THREE.Mesh;
+      child.geometry = undefined as any;
+      if (child.material) (child.material as THREE.Material).dispose();
+      overlayGroup.remove(child);
+    }
+    if (!nodeId) { overlayGroup.visible = false; return; }
+
+    const baseColor = new THREE.Color(color);
+    const coreMat = new THREE.MeshStandardMaterial({
+      color: baseColor, emissive: baseColor, emissiveIntensity: 0.7, transparent: true, opacity: 1, depthWrite: false,
+    });
+    const haloMat = new THREE.MeshStandardMaterial({
+      color: baseColor.clone(), emissive: baseColor.clone(), emissiveIntensity: 0.4, transparent: true, opacity: 0.25, depthWrite: false,
+    });
+
+    const linkPos = ctx.linkLines.geometry.attributes.position.array as Float32Array;
+    for (let i = 0; i < links.length; i++) {
+      if (links[i].source !== nodeId && links[i].target !== nodeId) continue;
+      const j = i * 6;
+      start_v.set(linkPos[j], linkPos[j + 1], linkPos[j + 2]);
+      end_v.set(linkPos[j + 3], linkPos[j + 4], linkPos[j + 5]);
+      dir_v.subVectors(end_v, start_v);
+      const len = dir_v.length();
+      if (len < 0.01) continue;
+      dir_v.normalize();
+      mid_v.addVectors(start_v, end_v).multiplyScalar(0.5);
+      quat_v.setFromUnitVectors(up_v, dir_v);
+
+      const halo = new THREE.Mesh(sharedHaloGeom, haloMat);
+      halo.position.copy(mid_v); halo.quaternion.copy(quat_v); halo.scale.set(1, len, 1);
+      const core = new THREE.Mesh(sharedCoreGeom, coreMat);
+      core.position.copy(mid_v); core.quaternion.copy(quat_v); core.scale.set(1, len, 1);
+      overlayGroup.add(halo); overlayGroup.add(core);
+    }
+    overlayGroup.visible = true;
+  }
+
   interaction.onHover = (n: any) => {
     const newHoveredId = n ? n.id : null;
     if (lastHoveredId === newHoveredId) return;
@@ -560,6 +613,9 @@ export function init3d(graphData: GraphData) {
     if (n) {
       const ci = nodeIdToIndex.get(n.id);
       if (ci != null) setNodeColor(ctx, ci, nodes[ci]._cHover);
+      if (!focusedId && !pathNodeIds) buildOverlay(n.id, 0xeeeeee);
+    } else {
+      if (!focusedId && !pathNodeIds) buildOverlay(null, 0xffffff);
     }
     if (n) {
       const content = document.createElement("div");
@@ -593,6 +649,7 @@ export function init3d(graphData: GraphData) {
   function focusNodeById(id: string) {
     _lastFocusedId = focusedId; focusedId = id;
     refreshAllNodeColors();
+    buildOverlay(id, 0xffdd44);
     updateNeighborPanel(id);
     const node = nodes.find((n) => n.id === id);
     if (node && node.x != null) {
@@ -612,7 +669,7 @@ export function init3d(graphData: GraphData) {
 
   function clearHighlights() {
     highlightedSet.clear();
-    if (focusedId) { focusedId = null; updateNeighborPanel(null); }
+    if (focusedId) { focusedId = null; updateNeighborPanel(null); buildOverlay(null, 0xffffff); }
     refreshAllNodeColors();
   }
 
