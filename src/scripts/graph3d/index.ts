@@ -1024,7 +1024,7 @@ export function init3d(graphData: GraphData) {
         flyYaw -= reticleOffset.x * rotScale;
         flyPitch += reticleOffset.y * rotScale;
         flyPitch = Math.max(-1.48, Math.min(1.48, flyPitch)); // ±85°
-        cam.rotation.set(flyPitch, flyYaw, 0, "YXZ");
+        cam.rotation.set(flyPitch, flyYaw, flyRoll, "YXZ");
 
         // 3. 更新准星 DOM 位置
         if (flyCrosshair) {
@@ -1033,17 +1033,16 @@ export function init3d(graphData: GraphData) {
           flyCrosshair.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
         }
 
-        // 4. WASD 飞行（独立于准星） — 自动驾驶时自动前进
+        // 4. WASD 飞行 + Q/E 横滚（独立于准星）— 自动驾驶时自动前进
         const speed = (flyKeys.shift ? SHIFT_MULTIPLIER : 1) * MOVE_SPEED;
         if (flyAutoPilot || flyKeys.w) cam.translateZ(-speed);
         if (!flyAutoPilot && flyKeys.s) cam.translateZ(speed);
-        if (flyKeys.s) cam.translateZ(speed);
         if (flyKeys.a) cam.translateX(-speed);
         if (flyKeys.d) cam.translateX(speed);
         if (flyKeys.r) cam.translateY(speed);
         if (flyKeys.f) cam.translateY(-speed);
-        if (flyKeys.q) cam.rotateZ(speed * 0.03);
-        if (flyKeys.e) cam.rotateZ(-speed * 0.03);
+        if (flyKeys.q) flyRoll += speed * 0.003;
+        if (flyKeys.e) flyRoll -= speed * 0.003;
       }
     }
 
@@ -1185,6 +1184,7 @@ export function init3d(graphData: GraphData) {
   let flyAutoPilot = false;
   let flyYaw = 0;
   let flyPitch = 0;
+  let flyRoll = 0;
   // 准星弹簧-阻尼物理
   const reticleOffset = { x: 0, y: 0 };
   const reticleVelocity = { x: 0, y: 0 };
@@ -1399,6 +1399,7 @@ export function init3d(graphData: GraphData) {
 
   /** 在飞船模式下自动悬停视野中心的星球 */
   function updateAutoHover(nodes: any[], cam: THREE.PerspectiveCamera) {
+    cam.updateMatrixWorld(true);
     cam.getWorldPosition(_camPos);
     cam.getWorldDirection(_forward);
 
@@ -1407,15 +1408,12 @@ export function init3d(graphData: GraphData) {
 
     for (const node of nodes) {
       if (node.x == null) continue;
-      // 忽略过远的节点（> 800 单位）
       _toNode.set(node.x - _camPos.x, node.y - _camPos.y, node.z - _camPos.z);
       const dist = _toNode.length();
-      if (dist > 800) continue;
-      // 朝向评分：前方为正，越靠近视野中心越高
+      if (dist > 1200) continue;
       const dot = _forward.dot(_toNode) / dist;
-      if (dot < 0.85) continue;
-      // 综合评分：中心度 / 距离
-      const score = dot / (1 + dist * 0.01);
+      if (dot < 0.5) continue; // 放宽到 60° 锥体
+      const score = dot / (1 + dist * 0.005);
       if (score > bestScore) {
         bestScore = score;
         bestNode = node;
@@ -1475,6 +1473,7 @@ export function init3d(graphData: GraphData) {
     reticleVelocity.y = 0;
     flyYaw = 0;
     flyPitch = 0;
+    flyRoll = 0;
 
     // 锁定指针（鼠标不溢出）+ 全屏辅助
     try { container.requestPointerLock(); } catch {}
