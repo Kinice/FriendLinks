@@ -117,15 +117,31 @@ export async function GET() {
   let maxDist = 0, processed = 0;
   const startTime = performance.now();
 
+  // 预分配可复用的数组，避免每次 BFS 分配
+  const qBuf = new Int32Array(n);
+  const dBuf = new Int32Array(n);
+
   for (const a of mainNodes) {
-    const distArr = new Int32Array(n).fill(-1);
-    distArr[a] = 0;
-    const q = [a]; let head = 0;
-    while (head < q.length) { const u = q[head++]; for (const v of adj[u]) { if (distArr[v] === -1) { distArr[v] = distArr[u] + 1; q.push(v); } } }
+    dBuf.fill(-1, 0, n);
+    dBuf[a] = 0;
+    qBuf[0] = a;
+    let head = 0, tail = 1;
+    while (head < tail) {
+      const u = qBuf[head++];
+      const neighbors = adj[u];
+      const nd = dBuf[u] + 1;
+      for (let k = 0; k < neighbors.length; k++) {
+        const v = neighbors[k];
+        if (dBuf[v] === -1) {
+          dBuf[v] = nd;
+          qBuf[tail++] = v;
+        }
+      }
+    }
     for (const b of mainNodes) {
       if (b <= a) continue;
-      if (distArr[b] === -1) continue;
-      const d = distArr[b];
+      const d = dBuf[b];
+      if (d === -1) continue;
       if (d > maxDist) maxDist = d;
       degreeDist[d] = (degreeDist[d] || 0) + 1;
     }
