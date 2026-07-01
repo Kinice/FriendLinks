@@ -70,6 +70,7 @@ export const NON_BLOG_DOMAINS: string[] = [
   "cnblogs.com",
   "www.cnblogs.com",
   "cifnews.com",
+  "useplaintext.email",
   "shenzhouwenxue.com",
   "digitalchina.com",
   "dcholdings.com",
