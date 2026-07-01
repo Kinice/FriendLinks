@@ -169,22 +169,33 @@ export function init3d(graphData: GraphData) {
   labelGroup.name = "labels";
   ctx.scene.add(labelGroup);
 
-  let labelsCreated = false;
+  let labelsCreated = new Set<number>(); // 改为 Set 追踪已创建的节点索引
   const LABEL_MAX_FADE_START = 3000;
   const LABEL_FADE_FULL = 1000;
+  const nodeIdToLabelIndex = new Map<string, number>(); // 反查 label index
+  nodes.forEach((n, i) => nodeIdToLabelIndex.set(n.id, i));
 
-  function createLabels() {
-    if (labelsCreated) return;
-    if (!nodes.length || nodes[0].x == null) return;
-    labelsCreated = true;
-    for (const node of nodes) {
-      const name = node.name || node.id;
+  function ensureLabels() {
+    const show = labelShow.value;
+    if (!show) return;
+    const camPos = ctx.camera.position;
+
+    for (let i = 0; i < nodes.length; i++) {
+      if (labelsCreated.has(i)) continue;
+      const n = nodes[i];
+      if (n.x == null) continue;
+      const dx = n.x - camPos.x, dy = (n.y || 0) - camPos.y, dz = (n.z || 0) - camPos.z;
+      const sqDist = dx * dx + dy * dy + dz * dz;
+      if (sqDist > LABEL_MAX_FADE_START * LABEL_MAX_FADE_START) continue;
+
+      labelsCreated.add(i);
+      const name = n.name || n.id;
       if (name.length > 40) continue;
-      const deg = degreeMap[node.id] || 0;
+      const deg = degreeMap[n.id] || 0;
       const nodeSize = degreeToSize(deg, maxDegree);
       const sprite = createTextSprite(name);
-      sprite.position.set(node.x!, node.y! + nodeSize / 2 + 10, node.z!);
-      (sprite as any)._nodePos = { x: node.x, y: node.y, z: node.z };
+      sprite.position.set(n.x!, n.y! + nodeSize / 2 + 10, n.z!);
+      (sprite as any)._nodePos = { x: n.x, y: n.y, z: n.z };
       labelGroup.add(sprite);
     }
   }
@@ -247,6 +258,7 @@ export function init3d(graphData: GraphData) {
       cb.addEventListener("change", () => {
         labelShow.value = cb.checked;
         cbLabel.textContent = cb.checked ? "显示" : "隐藏";
+        if (cb.checked) ensureLabels(); // 开启时立即创建视野内标签
       });
       const row = document.createElement("div");
       row.style.cssText = "display:flex;align-items:center;";
@@ -500,8 +512,8 @@ export function init3d(graphData: GraphData) {
   function animateLoop() {
     requestAnimationFrame(animateLoop);
 
-    // 首帧创建标签
-    if (!labelsCreated) createLabels();
+    // 按需创建标签（相机靠近时才创建，避免一次创建31k个Canvas）
+    ensureLabels();
 
     const camPos = ctx.camera.position;
     const camMoved =
@@ -517,6 +529,7 @@ export function init3d(graphData: GraphData) {
       _lblFrameSkip++;
       if (_lblFrameSkip >= 3 && labelGroup.children.length > 0) {
         _lblFrameSkip = 0;
+        ensureLabels(); // 相机移动时检查是否有新节点进入视野
         const show = labelShow.value;
         for (const child of labelGroup.children) {
           const sprite = child as THREE.Sprite;
