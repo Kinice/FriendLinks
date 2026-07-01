@@ -106,9 +106,9 @@ export function init3d(graphData: GraphData) {
   let lastHoveredId: string | null = null;
   let focusedId: string | null = null;
   let highlightedSet = new Set<string>();
-  let pathNodeIds: string[] | null = null;
-  let pathStepIndex = -1;
-  let pathOverlayGroup: THREE.Group | null = null;
+  // 路径状态（存在 window 上避免闭包问题）
+  const pathState = { ids: null as string[] | null, step: -1, overlay: null as THREE.Group | null };
+  (window as any).__pathState = pathState;
 
   // ── 6. 邻居映射 ──
   const links = rawLinks.map((l: any) => ({
@@ -400,22 +400,22 @@ export function init3d(graphData: GraphData) {
 
   // ── 11. 路径查找 ──
   function clearOldPathState() {
-    pathNodeIds = null; pathStepIndex = -1;
-    if (pathOverlayGroup) {
-      while (pathOverlayGroup.children.length > 0) {
-        const child = pathOverlayGroup.children[0] as THREE.Mesh;
+    pathState.ids = null; pathState.step = -1;
+    if (pathState.overlay) {
+      while (pathState.overlay.children.length > 0) {
+        const child = pathState.overlay.children[0] as THREE.Mesh;
         if (child.material) (child.material as THREE.Material).dispose();
-        pathOverlayGroup.remove(child);
+        pathState.overlay.remove(child);
       }
-      ctx.scene.remove(pathOverlayGroup);
-      pathOverlayGroup = null;
+      ctx.scene.remove(pathState.overlay);
+      pathState.overlay = null;
     }
   }
 
   function buildPathOverlay(path: string[]) {
     clearOldPathState();
     if (path.length < 2) return;
-    pathOverlayGroup = new THREE.Group();
+    pathState.overlay = new THREE.Group();
     const sharedCoreGeom = new THREE.CylinderGeometry(0.3, 0.3, 1, 6);
     const sharedHaloGeom = new THREE.CylinderGeometry(0.8, 0.8, 1, 6);
     const coreMat = new THREE.MeshStandardMaterial({ color: 0xffd700, emissive: new THREE.Color(0xffd700), emissiveIntensity: 0.7, transparent: true, opacity: 1, depthWrite: false });
@@ -438,18 +438,18 @@ export function init3d(graphData: GraphData) {
       halo.position.copy(mid); halo.quaternion.copy(quat); halo.scale.set(1, len, 1);
       const core = new THREE.Mesh(sharedCoreGeom, coreMat);
       core.position.copy(mid); core.quaternion.copy(quat); core.scale.set(1, len, 1);
-      pathOverlayGroup.add(halo); pathOverlayGroup.add(core);
+      pathState.overlay.add(halo); pathState.overlay.add(core);
     }
-    ctx.scene.add(pathOverlayGroup);
+    ctx.scene.add(pathState.overlay);
   }
 
   function refreshPathNodeColors() {
-    if (!pathNodeIds) return;
-    const pathSet = new Set(pathNodeIds);
+    if (!pathState.ids) return;
+    const pathSet = new Set(pathState.ids);
     for (let i = 0; i < nodes.length; i++) {
       const nd = nodes[i];
       if (pathSet.has(nd.id)) {
-        if (pathStepIndex >= 0 && nd.id === pathNodeIds[pathStepIndex]) {
+        if (pathState.step >= 0 && nd.id === pathState.ids[pathState.step]) {
           setNodeColor(ctx, i, adjustHex(nd._cDefault, 70));
         } else {
           setNodeColor(ctx, i, "#FF8C00");
@@ -466,7 +466,7 @@ export function init3d(graphData: GraphData) {
     clearOldPathState();
     focusedId = null; highlightedSet.clear();
     updateNeighborPanel(null);
-    pathNodeIds = path; pathStepIndex = 0;
+    pathState.ids = path; pathState.step = 0;
     refreshPathNodeColors();
     buildOverlay(null, 0xffffff); // 清除聚焦叠加线
     // 路径模式下隐藏普通连线，只显示金色路径管道
@@ -481,29 +481,30 @@ export function init3d(graphData: GraphData) {
   }
 
   function stepPathNext(): { ok: boolean; step: number; total: number } {
-    if (!pathNodeIds || pathStepIndex >= pathNodeIds.length - 1) return { ok: false, step: pathStepIndex, total: pathNodeIds?.length || 0 };
-    pathStepIndex++;
+    if (!pathState.ids) return { ok: false, step: 0, total: 0 };
+    if (pathState.step >= pathState.ids.length - 1) return { ok: false, step: pathState.step, total: pathState.ids.length };
+    pathState.step++;
     refreshPathNodeColors();
-    const nid = pathNodeIds[pathStepIndex];
+    const nid = pathState.ids[pathState.step];
     const n = nodes.find((nd) => nd.id === nid);
     if (n && n.x != null) {
       const pad = 200;
       animateCamera(ctx, { x: n.x + pad, y: n.y! + pad * 0.5, z: n.z! + pad }, { x: n.x!, y: n.y!, z: n.z! }, 600);
     }
-    return { ok: true, step: pathStepIndex, total: pathNodeIds.length };
+    return { ok: true, step: pathState.step, total: pathState.ids.length };
   }
 
   function stepPathPrev(): { ok: boolean; step: number; total: number } {
-    if (!pathNodeIds || pathStepIndex <= 0) return { ok: false, step: pathStepIndex, total: pathNodeIds?.length || 0 };
-    pathStepIndex--;
+    if (!pathState.ids || pathState.step <= 0) return { ok: false, step: pathState.step, total: pathState.ids?.length || 0 };
+    pathState.step--;
     refreshPathNodeColors();
-    const nid = pathNodeIds[pathStepIndex];
+    const nid = pathState.ids[pathState.step];
     const n = nodes.find((nd) => nd.id === nid);
     if (n && n.x != null) {
       const pad = 200;
       animateCamera(ctx, { x: n.x + pad, y: n.y! + pad * 0.5, z: n.z! + pad }, { x: n.x!, y: n.y!, z: n.z! }, 600);
     }
-    return { ok: true, step: pathStepIndex, total: pathNodeIds.length };
+    return { ok: true, step: pathState.step, total: pathState.ids.length };
   }
 
   function clearPath() {
@@ -513,8 +514,8 @@ export function init3d(graphData: GraphData) {
   }
 
   function getPathInfo() {
-    if (!pathNodeIds) return null;
-    return { path: pathNodeIds, totalSteps: pathNodeIds.length, currentStep: pathStepIndex, currentId: pathStepIndex >= 0 ? pathNodeIds[pathStepIndex] : null };
+    if (!pathState.ids) return null;
+    return { path: pathState.ids, totalSteps: pathState.ids.length, currentStep: pathState.step, currentId: pathState.step >= 0 ? pathState.ids[pathState.step] : null };
   }
 
   // ── 12. 颜色管理 ──
@@ -522,9 +523,9 @@ export function init3d(graphData: GraphData) {
     for (let i = 0; i < nodes.length; i++) {
       const nd = nodes[i];
       let color: string;
-      if (pathNodeIds && pathStepIndex >= 0 && nd.id === pathNodeIds[pathStepIndex]) {
+      if (pathState.ids && pathState.step >= 0 && nd.id === pathState.ids[pathState.step]) {
         color = adjustHex(nd._cDefault, 70);
-      } else if (pathNodeIds && pathNodeIds.includes(nd.id)) {
+      } else if (pathState.ids && pathState.ids.includes(nd.id)) {
         color = "#FF8C00";
       } else if (focusedId === nd.id) {
         color = nd._cFocus;
@@ -694,9 +695,9 @@ export function init3d(graphData: GraphData) {
     if (n) {
       const ci = nodeIdToIndex.get(n.id);
       if (ci != null) setNodeColor(ctx, ci, nodes[ci]._cHover);
-      if (!focusedId && !pathNodeIds) buildOverlay(n.id, 0xeeeeee);
+      if (!focusedId && !pathState.ids) buildOverlay(n.id, 0xeeeeee);
     } else {
-      if (!focusedId && !pathNodeIds) buildOverlay(null, 0xffffff);
+      if (!focusedId && !pathState.ids) buildOverlay(null, 0xffffff);
     }
     if (n) {
       const content = document.createElement("div");

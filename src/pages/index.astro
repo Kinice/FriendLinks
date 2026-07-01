@@ -956,7 +956,9 @@ import "../css/modal.css";
           pathError.style.display = "none";
           pathStepIndicator.style.display = "inline";
           pathClearBtn.style.display = "inline-flex";
-          updatePathUI({ step: 0, total: path.length });
+          // 直接从 window.__pathState 读取，不依赖 API
+          const ps = window.__pathState;
+          if (ps && ps.ids) updatePathUI({ step: ps.step, total: ps.ids.length });
         };
 
         const updatePathUI = (res) => {
@@ -966,17 +968,21 @@ import "../css/modal.css";
           pathNextBtn.disabled = res.step >= res.total - 1;
         };
 
-        // 步进按钮
+        // 步进按钮 — 直接从 window.__pathState 读取状态
         if (pathPrevBtn) {
           pathPrevBtn.addEventListener("click", () => {
             const api = getApi();
-            if (api.stepPathPrev) updatePathUI(api.stepPathPrev());
+            if (api.stepPathPrev) api.stepPathPrev();
+            const ps = window.__pathState;
+            if (ps && ps.ids) updatePathUI({ step: ps.step, total: ps.ids.length });
           });
         }
         if (pathNextBtn) {
           pathNextBtn.addEventListener("click", () => {
             const api = getApi();
-            if (api.stepPathNext) updatePathUI(api.stepPathNext());
+            if (api.stepPathNext) api.stepPathNext();
+            const ps = window.__pathState;
+            if (ps && ps.ids) updatePathUI({ step: ps.step, total: ps.ids.length });
           });
         }
 
