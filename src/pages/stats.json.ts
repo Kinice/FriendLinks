@@ -161,6 +161,8 @@ export async function GET() {
     _note: "采样估算(sample=100), 完整全节点数据请运行 bun scripts/analyze_six_degrees.ts",
   };
 
+  const finalStats = { ...statsWithRoutes, sixDegrees: sixDegreeStats };
+
   const elapsed = ((performance.now() - start) / 1000).toFixed(1);
   printDone(`/stats.json  ${validSites.length} 站点，${stats.connections.total} 连接，耗时 ${elapsed}s`);
 
