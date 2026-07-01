@@ -43,8 +43,13 @@ for await (const file of glob.scan({ cwd: LINKS_DIR })) {
   } catch {}
 }
 
-// ── 第二遍：收集友链名称（以主站名称为准） ──────────────────────
-const allNames = new Set(mainNames);
+// ── 第二遍：以 URL 去重，收集域名→规范名称 ────────────────────
+const domainToName = new Map<string, string>();
+
+// 主站优先写入
+for (const [host, name] of hostToName) {
+  domainToName.set(host, name);
+}
 
 for await (const file of glob.scan({ cwd: LINKS_DIR })) {
   try {
@@ -56,16 +61,13 @@ for await (const file of glob.scan({ cwd: LINKS_DIR })) {
     for (const f of doc.site.friends) {
       if (!f.name) continue;
       const friendHost = getHost(f.url || "");
-      // 如果该域名已有主站名称，用主站名称；否则用友链中的名称
-      const canonical = friendHost && hostToName.has(friendHost)
-        ? hostToName.get(friendHost)!
-        : f.name.trim();
-      allNames.add(canonical);
+      if (!friendHost || domainToName.has(friendHost)) continue;
+      domainToName.set(friendHost, f.name.trim());
     }
   } catch {}
 }
 
-const sorted = [...allNames].sort((a, b) => a.localeCompare(b, "zh-CN"));
+const sorted = [...domainToName.values()].sort((a, b) => a.localeCompare(b, "zh-CN"));
 await Bun.write(OUTPUT, sorted.join("\n") + "\n");
 
-console.log(`主站: ${mainNames.size} | 总计排重: ${sorted.length} → ${OUTPUT}`);
+console.log(`主站: ${mainNames.size} | 域名去重: ${sorted.length} → ${OUTPUT}`);
