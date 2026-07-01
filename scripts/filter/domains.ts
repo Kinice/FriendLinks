@@ -490,7 +490,7 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  // "备-博"开头非博客(备用/博主spam/赌博/壁纸/博客平台等72个)
 			  "fk.wwkjs.top", "imouto.tech", "blog.megumifox.com", "visit.lcese.com", // 备用/新手/信息
 			  "deepinbolivia.com", "bokequanzi.com", "blog.peter267.me", "bingdou.com.cn", // 国家/博客录/备用/冰豆
-			  "limo.ts-yun.com", "blog.bornforthis.cn", "blog.jclin.top", // 博主spam/备用
+			  "limo.ts-yun.com", "blog.jclin.top", // 博主spam/备用
 			  "samleoh.com", "hefeiyirui.com", "signcc.com", "boluoyun.com", // 博鱼/博亚/标识/菠萝云
 			  "boboji.org", "bizhib.com", "wordcloud.buyaocha.com", "biaoqingbao.xin", // 播客/壁纸/标签/表情
 			  "3.y66m.bid", "xf.ailingsi.top", "blog.wenwuhulian.com", "theblogstar.info", // 菠菜/备用/博客之星
@@ -502,9 +502,9 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  "bitinn.net", "blog.yingmiwo.me", "samovie11.com", "bikamanhua.org", // 比特/博客/博鱼/哔咔
 			  "kylen314.com", "bokelianmeng.com", "blog.zlog.online", "szkeihai.com", // 本地/博客联盟/备用/表张力
 			  "seiion.com", "blog.town", "binzhoufabu.com", "nmssb.cn", // 壁纸/博客镇/滨州/标识
-			  "qingfengnb.cn", "quanqiujiaoyi.com", "blog.lingerbhw.ml", "scuop.top", // 博主spam
+			  "quanqiujiaoyi.com", "blog.lingerbhw.ml", "scuop.top", // 博主spam
 			  "xianjichina.cn", "bloginn.vip", "anlubk.com", // 表面张力仪/博客驿站/备用站点(恢复误删)
-			  "limo.ts-yun.com", "blog.bornforthis.cn", "blog.jclin.top", // 博主spam/备用
+			  "limo.ts-yun.com", "blog.jclin.top", // 博主spam/备用
 			  "shuangyunjx.com", "tibets.no43.cn", "hebeis.laparoscopy.cn", // 壁纸/本地
 			  "lodka.vercel.app", "lcqbc.com", "1a1zp1ep5qgefi2dmptftl5slmv7divfna.com", // 表格/病例/比特币
 			];
