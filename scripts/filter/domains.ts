@@ -340,7 +340,6 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  "szkingroad.com",       // 中港物流
 			  "diancang.xyz",         // 中华典藏
 			  "zhonghaizhi.com",      // 中嗨智
-			  "xiaozhao233.com",      // 中国的小赵
 			  "huahengtaoci.com",     // 九游会菠菜
 			  // "直接访问"(按钮文本被当站名) — 均为工具/服务站点
 			  "5118.com", "5ce.com", "aidea.im", "heygen.com", "getgetai.com",
@@ -352,4 +351,7 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  "yuntianyi.com", "caiyunai.com", "mypitaya.com", "1ts.fun",
 			  "chronodivide.com", "itellyou.cn", "xiniubaba.com", "vvcha.cn",
 			  "51240.com", "ys168.com", "epubee.com",
+			  // 智能/科技商业站点
+			  "znds.com", "zhidx.com", "zhiguoxin.cn", "zhengzhaopai.com",
+			  "dmtt.run", "sczhgx.com", "gameba.cc", "aint.top",
 			];
