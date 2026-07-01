@@ -634,6 +634,7 @@ export function init3d(graphData: GraphData) {
   const reticleOffset = { x: 0, y: 0 };
   const reticleVelocity = { x: 0, y: 0 };
   let flyCrosshair: HTMLElement | null = null;
+  let flyControlPanel: HTMLElement | null = null;
   let flyOnKeyDown: ((e: KeyboardEvent) => void) | null = null;
   let flyOnKeyUp: ((e: KeyboardEvent) => void) | null = null;
   let flyOnMouseMove: ((e: MouseEvent) => void) | null = null;
@@ -651,8 +652,21 @@ export function init3d(graphData: GraphData) {
   }
 
   function handleFlyKey(e: KeyboardEvent, down: boolean) {
-    flyKeys[e.key.toLowerCase()] = down;
-    if (down && e.key === " ") { e.preventDefault(); flyAutoPilot = !flyAutoPilot; }
+    if (!isFlyMode) return;
+    const k = e.key.toLowerCase();
+    if (["w", "a", "s", "d", "r", "f", "q", "e", "shift"].includes(k)) {
+      e.preventDefault();
+      flyKeys[k] = down;
+    }
+    if (k === " " && down) {
+      e.preventDefault();
+      flyAutoPilot = !flyAutoPilot;
+      const statusEl = document.getElementById("fly-autopilot-status");
+      if (statusEl) {
+        statusEl.textContent = flyAutoPilot ? "ON" : "OFF";
+        statusEl.style.color = flyAutoPilot ? "#4f8" : "#888";
+      }
+    }
   }
 
   function onPointerLockChange() {
@@ -754,6 +768,48 @@ export function init3d(graphData: GraphData) {
     if (flyAutoPilot) updateAutoHover(nodes, ctx.camera);
   }
 
+  function createFlyControlPanel(): HTMLElement {
+    let panel = document.getElementById("fly-control-panel") as HTMLElement | null;
+    if (panel) return panel;
+    panel = document.createElement("div");
+    panel.id = "fly-control-panel";
+    panel.style.cssText = `
+      position:fixed;bottom:70px;left:16px;z-index:9998;
+      background:rgba(16,16,24,0.88);backdrop-filter:blur(8px);
+      border:1px solid rgba(255,255,255,0.08);border-radius:8px;
+      padding:8px 12px;font-family:sans-serif;font-size:12px;color:#ccc;
+      display:none;max-width:220px;line-height:1.6;
+    `;
+    panel.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <span style="font-weight:600;color:#fff;font-size:13px;">🚀 飞行控制</span>
+        <button id="fly-panel-toggle" style="background:none;border:none;color:#888;cursor:pointer;font-size:14px;">−</button>
+      </div>
+      <div id="fly-panel-body">
+        <div><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 飞行</div>
+        <div><kbd>R</kbd> 上升 · <kbd>F</kbd> 下降</div>
+        <div><kbd>Q</kbd><kbd>E</kbd> 横滚</div>
+        <div><kbd>Shift</kbd> 加速 3×</div>
+        <div><kbd>Space</kbd> 自动驾驶 <span id="fly-autopilot-status" style="color:#888;">OFF</span></div>
+        <div style="color:#888;margin-top:4px;border-top:1px solid rgba(255,255,255,0.06);padding-top:4px;">准星瞄准 · 左键打开 · 惯性视角</div>
+      </div>
+      <style>
+        #fly-control-panel kbd { display:inline-block;background:rgba(255,255,255,0.1);border-radius:3px;padding:0 5px;font-size:11px;color:#fff;margin:0 1px; }
+      </style>
+    `;
+    document.body.appendChild(panel);
+    const toggle = panel.querySelector("#fly-panel-toggle") as HTMLElement;
+    const bodyEl = panel.querySelector("#fly-panel-body") as HTMLElement;
+    if (toggle && bodyEl) {
+      toggle.addEventListener("click", () => {
+        const collapsed = bodyEl.style.display === "none";
+        bodyEl.style.display = collapsed ? "block" : "none";
+        toggle.textContent = collapsed ? "−" : "+";
+      });
+    }
+    return panel;
+  }
+
   function enterFlyMode() {
     isFlyMode = true;
     ctx.controls.enabled = false;
@@ -777,6 +833,9 @@ export function init3d(graphData: GraphData) {
       reticleVelocity.y = Math.max(-maxV, Math.min(maxV, reticleVelocity.y));
     };
     ctx.renderer.domElement.addEventListener("mousemove", flyOnMouseMove);
+
+    flyControlPanel = createFlyControlPanel();
+    flyControlPanel.style.display = "block";
   }
 
   function exitFlyMode() {
@@ -789,6 +848,7 @@ export function init3d(graphData: GraphData) {
     document.removeEventListener("pointerlockchange", onPointerLockChange);
     try { document.exitPointerLock?.(); } catch {}
     if (flyCrosshair) { flyCrosshair.style.display = "none"; flyCrosshair = null; }
+    if (flyControlPanel) { flyControlPanel.style.display = "none"; flyControlPanel = null; }
     document.body.style.cursor = "";
   }
 
