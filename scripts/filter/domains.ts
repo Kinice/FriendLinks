@@ -26,7 +26,6 @@ export const NON_BLOG_DOMAINS: string[] = [
   "icp.cab",
   "icp.n3v.cn",
   "vercel.com",
-  "netlify.app",
   "netlify.com",
   "cloudflare.com",
   "hexo.io",
@@ -148,7 +147,7 @@ export const NON_BLOG_DOMAINS: string[] = [
   "grafana.com", "prometheus.io", "elastic.co", "mongodb.com",
   "redis.io", "mysql.com", "postgresql.org", "nginx.com", "nginx.org",
   "apache.org", "jenkins.io", "git-scm.com",
-  // 不要排除的博客托管平台(netlify/vercel/github/wordpress等) — 已在上方显式排除
+  // ⚠️ 博客托管平台泛域名(不要加!!) — github.io / vercel.app / netlify.app / pages.dev / neocities.org / hashnode.dev / deno.dev / fly.dev / workers.dev / firebaseapp.com / gitlab.io / codeberg.page / surge.sh / glitch.me / onrender.com / bearblog.dev
   "appinn.com",
   "www.appinn.com",
   "xhuama.cn",
