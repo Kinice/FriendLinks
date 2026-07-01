@@ -1021,8 +1021,11 @@ export function init3d(graphData: GraphData) {
 
         // 2. 准星偏移 → 相机旋转（偏移大 = 转得快）
         const rotScale = 0.05;
-        cam.rotateY(-reticleOffset.x * rotScale);
-        cam.rotateX(reticleOffset.y * rotScale);
+        // 俯仰限制 ±85°，避免 Gimbal lock 导致 180° 限制
+        const euler = cam.rotation;
+        const newPitch = euler.x + reticleOffset.y * rotScale;
+        euler.x = Math.max(-1.48, Math.min(1.48, newPitch)); // ±85°
+        euler.y -= reticleOffset.x * rotScale;
 
         // 3. 更新准星 DOM 位置
         if (flyCrosshair) {
@@ -1474,6 +1477,7 @@ export function init3d(graphData: GraphData) {
     document.addEventListener("fullscreenchange", onFullscreenChange);
 
     const cam = Graph.camera() as THREE.PerspectiveCamera;
+    cam.rotation.order = "YXZ"; // 偏航优先，避免万向锁
     spaceshipObj = createSpaceship();
     spaceshipObj.position.set(0, -0.6, -1.2);
     cam.add(spaceshipObj);
