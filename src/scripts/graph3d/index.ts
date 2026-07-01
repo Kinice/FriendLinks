@@ -1298,6 +1298,7 @@ export function init3d(graphData: GraphData) {
     }
     // 空格切换自动驾驶（持续前进）
     if (k === " " && down) {
+      e.preventDefault();
       flyAutoPilot = !flyAutoPilot;
       const statusEl = document.getElementById("fly-autopilot-status");
       if (statusEl) {
