@@ -268,7 +268,7 @@ import "../css/modal.css";
         border: 1px solid var(--border);
         border-radius: 8px;
         padding: 20px;
-        max-width: 500px;
+        max-width: 700px;
         width: 90%;
         max-height: 80vh;
         overflow-y: auto;
@@ -700,30 +700,32 @@ import "../css/modal.css";
                 </div>
               </div>
 
-              ${data.sixDegrees ? `
-              <div class="stat-section">
-                <h3>🌐 六度分隔</h3>
-                <div class="stat-item">
-                  <span class="stat-label">主分量节点数</span>
-                  <span class="stat-value">${data.sixDegrees.mainComponentSize}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">最大边数距离</span>
-                  <span class="stat-value">${data.sixDegrees.maxEdgeDistance}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">最大中间顶点数</span>
-                  <span class="stat-value">${data.sixDegrees.maxIntermediateVertices}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">连通分量数</span>
-                  <span class="stat-value">${data.sixDegrees.componentCount}</span>
-                </div>
-                <div style="margin-top:8px;font-size:11px;color:#888;">
-                  ${Object.entries(data.sixDegrees.edgeDistanceDistribution).sort(([a],[b])=>Number(a)-Number(b)).map(([d,c]) => `${d}度: ${c}对`).join(' · ')}
+              ${data.sixDegrees ? (() => {
+                const dist = data.sixDegrees.edgeDistanceDistribution;
+                const entries = Object.entries(dist).sort(([a],[b])=>Number(a)-Number(b));
+                const maxVal = Math.max(...entries.map(([,c])=>Number(c)));
+                return `
+              <div class="stat-section" style="grid-column:1/-1;">
+                <h3>🌐 六度分隔 · 主分量 ${data.sixDegrees.mainComponentSize} 节点 · 最大 ${data.sixDegrees.maxEdgeDistance} 度</h3>
+                <div class="six-degrees-bars">
+                  ${entries.map(([d,c]) => {
+                    const pct = (Number(c)/maxVal*100).toFixed(1);
+                    const w = Math.max(1, Number(c)/maxVal*100).toFixed(0);
+                    return `<div class="sd-bar-row">
+                      <span class="sd-label">${d}度</span>
+                      <span class="sd-bar" style="width:${w}%"></span>
+                      <span class="sd-count">${Number(c).toLocaleString()}</span>
+                    </div>`;
+                  }).join('')}
                 </div>
               </div>
-              ` : ''}
+              <style>
+                .six-degrees-bars { margin-top:8px; }
+                .sd-bar-row { display:flex; align-items:center; gap:6px; margin:2px 0; font-size:11px; }
+                .sd-label { width:32px; text-align:right; color:#aaa; flex-shrink:0; }
+                .sd-bar { height:14px; background:linear-gradient(90deg,#4a9eff,#00c6ff); border-radius:3px; min-width:2px; transition:width 0.3s; }
+                .sd-count { color:#ccc; flex-shrink:0; font-variant-numeric:tabular-nums; }
+              </style>`; })() : ''}
 
               <div class="stat-section">
                 <h3>友链页面路由排行</h3>
