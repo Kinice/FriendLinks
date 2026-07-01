@@ -41,6 +41,7 @@ export async function GET() {
   if (import.meta.env.DEV && sites.length > 500) {
     const shuffled = [...sites].sort(() => Math.random() - 0.5);
     sites = shuffled.slice(0, 500);
+    console.error(`  ⚠ DEV 模式：从 ${validSites.length} 个站点中随机抽取 ${sites.length} 个快速验证`);
   }
 
   const categories: GraphCategory[] = [{ name: "site" }, { name: "friend" }];
