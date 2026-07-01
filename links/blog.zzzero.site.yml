@@ -1,0 +1,14 @@
+'site':
+  'name': 'blog.zzzero.site'
+  'url': 'https://blog.zzzero.site/'
+  'description': '友情链接'
+  'links': '/links'
+  'friends':
+    - 'name': 'Fluid Blog 主题博客'
+      'url': 'https://hexo.fluid-dev.com/'
+    - 'name': 'Fluid Docs 主题使用指南'
+      'url': 'https://hexo.fluid-dev.com/docs/'
+    - 'name': 'Fluid Repo 主题 GitHub 仓库'
+      'url': 'https://github.com/fluid-dev/hexo-theme-fluid'
+    - 'name': 'Hexo'
+      'url': 'https://hexo.io'

@@ -10,15 +10,16 @@
 
 import path from "node:path";
 import YAML from "yaml";
-import ky, { HTTPError } from "ky";
-import * as cheerio from "cheerio";
 import { FRIEND_ROUTES } from "./friend-routes";
+import {
+  fetchPage, extractTitle, extractAnchors, checkErrorPage,
+  TIMEOUT, TIMEOUT_SLOW,
+  type FetchResult,
+} from "./probe-lib";
 
 const LINKS_DIR = path.resolve(process.cwd(), "links");
 const SLOW_TXT = path.resolve(process.cwd(), "slow.txt");
-const TIMEOUT = 15000;
 const CONCURRENCY = 5;
-const UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36";
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
@@ -26,62 +27,27 @@ function getHost(u: string): string {
   try { return new URL(u).hostname.toLowerCase().replace(/^www\./, ""); } catch { return ""; }
 }
 
-function extractTitle(html: string): string {
-  const $ = cheerio.load(html);
-  return $("title").first().text().trim();
-}
-
-function extractAnchors(html: string, excludeHost: string): Array<{ t: string; h: string }> {
-  const $ = cheerio.load(html);
-  const anchors: Array<{ t: string; h: string }> = [];
-  $("a[href]").each((_, el) => {
-    const href = $(el).attr("href") || "";
-    const text = $(el).text().trim().slice(0, 80);
-    if (href.startsWith("http") && !href.includes(excludeHost) && text.length > 2) {
-      anchors.push({ t: text, h: href });
-    }
-  });
-  const seen = new Set<string>();
-  return anchors.filter(a => {
-    const k = a.h.toLowerCase().replace(/\/$/, "");
-    if (seen.has(k)) return false;
-    seen.add(k);
-    return true;
-  });
-}
-
-async function probeSlowHost(host: string): Promise<{ found: boolean; log: string }> {
+async function retryHost(host: string): Promise<{ found: boolean; log: string }> {
   const logs: string[] = [];
 
   for (const proto of ["https", "http"] as const) {
     const baseUrl = `${proto}://${host}`;
 
     // 首页存活探测
-    try {
-      const resp = await ky.get(baseUrl + "/", { timeout: TIMEOUT, headers: { "User-Agent": UA } });
-      const html = await resp.text();
-      if (html && html.length > 100) {
-        logs.push(`  ${proto.toUpperCase()} 首页可达 ✅`);
-      } else {
-        logs.push(`  ${proto.toUpperCase()} 首页内容过短，跳过`);
-        continue;
-      }
-    } catch (err) {
-      if (err instanceof HTTPError) {
-        logs.push(`  ${proto.toUpperCase()} HTTP ${err.response.status}`);
-      } else {
-        logs.push(`  ${proto.toUpperCase()} 超时/失败`);
-      }
+    const { html } = await fetchPage(null as any, baseUrl + "/", logs, `${proto.toUpperCase()} /`);
+    if (html && html.length > 100) {
+      logs.push(`  ✅ 首页可达`);
+    } else {
+      logs.push(`  ❌ 首页不可达`);
       continue;
     }
 
     // 路由探测
     for (const route of FRIEND_ROUTES) {
-      try {
-        const pageUrl = `${baseUrl}${route}`;
-        const resp = await ky.get(pageUrl, { timeout: TIMEOUT, headers: { "User-Agent": UA } });
-        const html = await resp.text();
-        const anchors = extractAnchors(html, host);
+      const pageUrl = `${baseUrl}${route}`;
+      const result = await fetchPage(null as any, pageUrl, logs, `${proto}${route}`);
+      if (result.html) {
+        const anchors = extractAnchors(result.html, host);
         if (anchors.length >= 2) {
           logs.push(`  路由 ${route} → ${anchors.length} 友链 ✅`);
 
@@ -110,8 +76,6 @@ async function probeSlowHost(host: string): Promise<{ found: boolean; log: strin
 
           return { found: true, log: logs.join("\n") };
         }
-      } catch {
-        continue;
       }
     }
 
@@ -127,7 +91,6 @@ async function main() {
   console.log("慢站重试（5 并发 · 15s 超时）");
   console.log("=".repeat(60));
 
-  // 读取 slow.txt，解析 host
   const text = await Bun.file(SLOW_TXT).text().catch(() => "");
   const lines = text.split("\n").filter(l => l && !l.startsWith("疑似") && !l.startsWith("===") && !l.startsWith("格式"));
   const hosts = lines.map(l => l.split("|")[0].trim()).filter(Boolean);
@@ -139,7 +102,6 @@ async function main() {
 
   console.log(`待重试: ${hosts.length} 个站点\n`);
 
-  // 5 并发
   const queue = [...hosts];
   let done = 0;
   let recovered = 0;
@@ -153,7 +115,7 @@ async function main() {
       const idx = ++done;
       process.stderr.write(`\r进度: ${idx}/${hosts.length} (已恢复: ${recovered})`);
 
-      const { found, log } = await probeSlowHost(host);
+      const { found, log } = await retryHost(host);
       if (found) recovered++;
       else failed++;
 
