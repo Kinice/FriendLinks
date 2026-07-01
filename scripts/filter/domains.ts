@@ -368,4 +368,18 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  "xn--74qz10cqsltibh40akss.com", // 肖申克的救赎.com
 			  "xn--kivn76b41nnhi.com",   // 星际穿越.com
 			  "hgeme.com",
+			  // emoji名称对应非博客站点
+			  "ai.dcnav.com",         // ChatGPT导航站
+			  "uiineed.com",          // TODO工具(todo.uiineed.com)
+			  "buildllmprompt.com",   // AI提示词工具
+			  "seeker-lorraine.link", // 列表聚合(driver.seeker-lorraine.link)
+			  "spec.indieweb.org",    // 规范文档
+			  "minio.org.cn",         // MinIO对象存储
+			  "dn-42.vercel.app",     // 网络实验项目
+			  "nn.labml.ai",          // AI研究文档
+			  "iabc.work",            // 项目展示页
+			  "0w0.best",             // 试验/演示站
+			  "ghostring.neocities.org", // webring导航
+			  "firechicken.club",     // webring导航
+			  "by91.qzz.io",          // 色情
 			];
