@@ -1020,7 +1020,7 @@ export function init3d(graphData: GraphData) {
         reticleOffset.y += reticleVelocity.y * 0.016;
 
         // 2. 准星偏移 → 相机旋转（偏移大 = 转得快）
-        const rotScale = 0.001;
+        const rotScale = 0.01;
         cam.rotateY(-reticleOffset.x * rotScale);
         cam.rotateX(reticleOffset.y * rotScale);
 
@@ -1302,7 +1302,7 @@ export function init3d(graphData: GraphData) {
     reticleVelocity.x += e.movementX * MOUSE_SENSITIVITY;
     reticleVelocity.y -= e.movementY * MOUSE_SENSITIVITY; // 减号：mouse up → reticle 上移
     // 限制速度上限
-    const maxV = 80;
+    const maxV = 200;
     reticleVelocity.x = Math.max(-maxV, Math.min(maxV, reticleVelocity.x));
     reticleVelocity.y = Math.max(-maxV, Math.min(maxV, reticleVelocity.y));
   }
