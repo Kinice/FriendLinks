@@ -41,6 +41,8 @@ export const NON_BLOG_DOMAINS: string[] = [
   "music.163.com",
   "boyouquan.com",
   "www.boyouquan.com",
+  "browsehappy.com",
+  "graph.org",
   "blogsclub.org",
   "www.blogsclub.org",
   "blogplanet.cn",
@@ -267,5 +269,17 @@ export const NON_BLOG_DOMAINS: string[] = [
 	  "www.163mu.com",
 		  "onetrans.app",         // 商业翻译应用（OneTrans）
 		  "vision-flow.art",      // 商业 AI 工具（VisionFlow）
-		  "myhkw.com",            // 影视站点
-		];
+			  "myhkw.com",            // 影视站点
+			  "airportal.cn",         // 文件传输工具
+			  "www.airportal.cn",
+			  "pairdrop.net",         // 局域网文件传输
+			  "snapdrop.net",         // 局域网文件传输
+			  "easychuan.cn",         // 轻松传
+			  "tmp.link",             // 钛盘文件中转站
+			  "app.tmp.link",
+			  "wenshushu.cn",         // 文叔叔
+			  "www.wenshushu.cn",
+			  "cowtransfer.com",      // 奶牛快传
+			  "ttttt.link",           // 钛盘(备用域名)
+			  "www.ttttt.link",
+			];

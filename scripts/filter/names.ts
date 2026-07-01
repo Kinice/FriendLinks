@@ -58,6 +58,7 @@ export const JUNK_NAME_PATTERNS: RegExp[] = [
   /(排名|排行榜|编程语言排名|TIOBE)/i,
   /(站点已过期|域名出售|域名停放|域名过期|site is for sale|domain is parked|this domain|buy this domain|备案过期|网站已关闭|网站已停止)/i,
   /媒体娱乐应用|工作流编辑器|实时语音翻译/i,  // 产品功能/类型描述，非博客名称
+  /(文件传输|局域网传输|文件中转|空投快传|隔空投送|轻松传|钛盘|文叔叔|AirPortal|PairDrop|SnapDrop|匿名聊天室|文件快递柜)/i,  // 工具网站
   /破解|接码|验证码|打码|短信轰炸|呼死你/i,  // 黑灰产关键词
   /\uFFFD/,                                          // 编码乱码(GBK被误当UTF-8解码) — 必放第一行就近维护
   /porn|xxx|adult\s*(video|film|movie|content|网站|视频|影片|电影)|nude\s*(pic|pics|photo|video|cam)|onlyfans|camgirl|ai\s*(sex|girlfriend|gf)|sex\s*(chat|video|doll|bot|game)/i,  // 色情/成人(英文)
