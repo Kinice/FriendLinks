@@ -59,7 +59,11 @@ export const JUNK_NAME_PATTERNS: RegExp[] = [
   /(站点已过期|域名出售|域名停放|域名过期|site is for sale|domain is parked|this domain|buy this domain|备案过期|网站已关闭|网站已停止)/i,
   /媒体娱乐应用|工作流编辑器|实时语音翻译/i,  // 产品功能/类型描述，非博客名称
   /破解|接码|验证码|打码|短信轰炸|呼死你/i,  // 黑灰产关键词
-  /porn|xxx|adult\s*video|nude\s*(pic|pic|photo|video|cam)|onlyfans|camgirl|ai\s*(sex|girlfriend|gf)|sex\s*(chat|video|doll|bot|game)/i,  // 色情/成人
+  /porn|xxx|adult\s*(video|film|movie|content|网站|视频|影片|电影)|nude\s*(pic|pics|photo|video|cam)|onlyfans|camgirl|ai\s*(sex|girlfriend|gf)|sex\s*(chat|video|doll|bot|game)/i,  // 色情/成人(英文)
+  /(色情|情色|淫秽|淫荡|淫乱|黄片|毛片|A片|裸聊|裸照|裸体|艳照|约炮|一夜情|嫖娼|卖淫|援交|福利姬|自慰)/i,  // 色情(中文)
+  /(成人\s*(?:影片|视频|网站|影视|动漫|小说|图片|直播|游戏|无码)|无码\s*(?:成人|影片|视频|中出|内射|流出|破解))/i,  // 成人内容(排除"无码科技"等正经名称)
+  /(?<![a-zA-Z])hentai|hentai(?![a-zA-Z])|JavDB|\bJAV\b|pornhub|youporn|xvideos|redtube|brazzers|playboy\s*(?:magazine|tv|club)?|hustler/i,  // 色情品牌
+  /(大奶|巨乳|美乳|爆乳|操逼|肏|鸡巴|骚货|婊子|贱人|浪货|小母狗|公狗)/i,  // 涉黄脏话
   /(菠菜|赌球|博球|买球|押球|赌注|下注|投注|网投|赌场|赌城|赌盘|赌博|博彩|彩票|竞猜|盘口|赔率|百家乐|新葡京|永利|美高梅|威尼斯人|太阳城|乐天堂|尊龙凯时)/i,  // 赌博/菠菜
   /(六合彩|时时彩|PK10|幸运飞艇|秒速飞艇|捕鱼游戏|老虎机|轮盘赌)/i,  // 赌博游戏
   /(bet365|betway|1xbet|betfair|betano|betwin|hhpoker|aapoker|pokerstar)\b/i,  // 赌博平台
