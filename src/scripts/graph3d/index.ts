@@ -170,8 +170,8 @@ export function init3d(graphData: GraphData) {
   ctx.scene.add(labelGroup);
 
   let labelsCreated = false;
-  const LABEL_MAX_FADE_START = 5000;
-  const LABEL_FADE_FULL = 2000;
+  const LABEL_MAX_FADE_START = 3000;
+  const LABEL_FADE_FULL = 1000;
 
   function createLabels() {
     if (labelsCreated) return;
