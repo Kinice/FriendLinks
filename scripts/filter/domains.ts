@@ -446,4 +446,8 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  "talentpluscareer.com", "anying.cc", "yuepian.me", "anwangli.com", "8966.cn", // 求职/图集
 			  "zh.annas-archive.org", "ay.henanjubao.com", "theaustralian.news.com.au", "anandalue.com", // 档案/举报/新闻
 			  "yunagi7.github.io", "survey.zane-liu.com", "mjh.niulasong.com", // 商会/问卷/案例
+			  // "巴/白"开头非博客
+			  "ani.gamer.com.tw", "lgrxzd.com", "web.baimiaoapp.com", "egret.com", // 动画/影视/OCR/引擎
+			  "baishan.com", "0439.com", "ai.baipiaozhe.com", "belugasubs.com", // CDN/门户/资源/字幕组
+			  "white-rat.com", "bn.cq.cn", "bacaoo.com", "batuhu.com", // 安全团队/政府/比价/工具
 			];
