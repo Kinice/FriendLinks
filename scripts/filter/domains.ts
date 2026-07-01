@@ -122,6 +122,33 @@ export const NON_BLOG_DOMAINS: string[] = [
   "www.upyun.com",
   "qiniu.com",
   "www.qiniu.com",
+  // 互联网大厂
+  "alibaba.com", "alibabagroup.com", "tencent.com", "bytedance.com",
+  "netease.com", "meituan.com", "xiaomi.com", "oppo.com", "vivo.com",
+  "huawei.com", "lenovo.com", "microsoft.com", "amazon.com", "meta.com",
+  // 知名媒体/电视台
+  "cctv.com", "cctv.cn", "cntv.cn", "people.com.cn", "xinhuanet.com",
+  "ifeng.com", "huanqiu.com", "chinanews.com", "gmw.cn",
+  "huxiu.com", "36kr.com", "thepaper.cn", "jiemian.com",
+  // 知名品牌
+  "taobao.com", "tmall.com", "jd.com", "pinduoduo.com",
+  "xiaohongshu.com", "kuaishou.com", "suning.com", "dangdang.com",
+  "ctrip.com", "qunar.com", "didiglobal.com",
+  "nike.com", "adidas.com", "starbucks.com", "mcdonalds.com",
+  // 组件库/框架官网
+  "react.dev", "reactjs.org", "angular.io", "angularjs.org",
+  "nodejs.org", "npmjs.com", "typescriptlang.org", "deno.land",
+  "tailwindcss.com", "getbootstrap.com", "jquery.com",
+  "webpack.js.org", "vitejs.dev", "nextjs.org", "nuxt.com", "svelte.dev",
+  "electronjs.org", "flutter.dev", "dart.dev",
+  "python.org", "rust-lang.org", "golang.org", "go.dev",
+  "kotlinlang.org", "swift.org", "ruby-lang.org", "php.net",
+  // 开发工具/平台
+  "postman.com", "figma.com", "canva.com", "docker.com", "kubernetes.io",
+  "grafana.com", "prometheus.io", "elastic.co", "mongodb.com",
+  "redis.io", "mysql.com", "postgresql.org", "nginx.com", "nginx.org",
+  "apache.org", "jenkins.io", "git-scm.com",
+  // 不要排除的博客托管平台(netlify/vercel/github/wordpress等) — 已在上方显式排除
   "appinn.com",
   "www.appinn.com",
   "xhuama.cn",
