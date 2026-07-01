@@ -186,7 +186,7 @@ export function init3d(graphData: GraphData) {
       if (n.x == null) continue;
       const dx = n.x - camPos.x, dy = (n.y || 0) - camPos.y, dz = (n.z || 0) - camPos.z;
       const sqDist = dx * dx + dy * dy + dz * dz;
-      if (sqDist > 350 * 350) continue; // 只在 350 单位内才创建标签
+      if (sqDist > 200 * 200) continue; // 只在 200 单位内才创建标签
 
       labelsCreated.add(i);
       const name = n.name || n.id;
