@@ -868,7 +868,7 @@ export function init3d(graphData: GraphData) {
   if (labelScene) labelScene.add(labelGroup);
 
   const LABEL_MIN_DEGREE = 2;
-  const LABEL_MAX_DIST = 700;
+  const LABEL_MAX_DIST = 2000;
   let labelsCreated = false;
 
   function createLabels() {
@@ -878,15 +878,6 @@ export function init3d(graphData: GraphData) {
     if (gd.nodes[0].x == null) return;
 
     labelsCreated = true;
-
-    // DEBUG: 原点大号测试标签，验证 Sprite 渲染是否正常
-    const debugSprite = createTextSprite("DEBUG测试");
-    debugSprite.position.set(0, 50, 0);
-    debugSprite.scale.set(20, 5, 1);
-    labelGroup.add(debugSprite);
-    console.log("[labels] DEBUG sprite at origin (0,50,0) scale=(20,5,1)");
-
-    let total = 0;
     for (const node of gd.nodes) {
       const deg = degreeMap[node.id] || 0;
       if (deg < LABEL_MIN_DEGREE) continue;
@@ -897,9 +888,7 @@ export function init3d(graphData: GraphData) {
       sprite.position.set(node.x, node.y + 1.2, node.z);
       (sprite as any)._nodePos = { x: node.x, y: node.y, z: node.z };
       labelGroup.add(sprite);
-      total++;
     }
-    console.log(`[labels] created ${total} labels, labelGroup.children=${labelGroup.children.length}, first node pos=(${gd.nodes[0]?.x}, ${gd.nodes[0]?.y}, ${gd.nodes[0]?.z})`);
   }
 
   // ── 9. LOD 替换：将默认球体替换为多层级细节模型 ──────────
@@ -1061,10 +1050,6 @@ export function init3d(graphData: GraphData) {
     if (labelGroup.children.length > 0) {
       const cp = Graph.cameraPosition();
       const show = labelShow.value;
-      if (!(window as any).__lodLogOnce) {
-        (window as any).__lodLogOnce = true;
-        console.log(`[labels] LOD: ${labelGroup.children.length} children, show=${show}, camPos=(${cp.x.toFixed(0)},${cp.y.toFixed(0)},${cp.z.toFixed(0)})`);
-      }
       for (const child of labelGroup.children) {
         const sprite = child as THREE.Sprite;
         const np = (sprite as any)._nodePos;
@@ -1077,11 +1062,9 @@ export function init3d(graphData: GraphData) {
         const dy = np.y - cp.y;
         const dz = np.z - cp.z;
         const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-        const visible = dist < LABEL_MAX_DIST;
-        if (sprite.visible !== visible) sprite.visible = visible;
-        if (visible) {
-          sprite.material.opacity = Math.max(0.2, Math.min(1, 1 - (dist - 525) / LABEL_MAX_DIST));
-        }
+        // 仅淡出不隐藏，远距离标签订为最低透明度
+        sprite.visible = true;
+        sprite.material.opacity = Math.max(0.15, Math.min(1, 1 - (dist - 200) / LABEL_MAX_DIST));
       }
     }
 
