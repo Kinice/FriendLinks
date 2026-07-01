@@ -116,6 +116,9 @@ export function init3d(graphData: GraphData) {
   let pathStepIndex = -1; // 当前步进到的节点在 pathNodeIds 中的索引，-1 表示未步进
   let pathOverlayGroup: THREE.Group | null = null; // 路径管道 + 箭头的叠加组
 
+  // ── 5b. 相机位置缓存（避免空闲帧重复 LOD 更新） ──────────────
+  const _lastCamPos = { x: Infinity, y: Infinity, z: Infinity };
+
   // ── 6. Tooltip ──────────────────────────────────────────────────
   const tooltip = createTooltip();
 
@@ -934,8 +937,19 @@ export function init3d(graphData: GraphData) {
     if (lodsCreated && currentData.nodes) {
       const sceneCam = Graph.camera() as THREE.PerspectiveCamera;
       if (sceneCam) {
-        for (const node of currentData.nodes) {
-          if (node.__lod) (node.__lod as THREE.LOD).update(sceneCam);
+        // 相机位置缓存：没移动就不更新 LOD（节省 ~95% 空闲帧遍历）
+        const camPos = Graph.cameraPosition();
+        const camMoved =
+          Math.abs(camPos.x - _lastCamPos.x) > 0.1 ||
+          Math.abs(camPos.y - _lastCamPos.y) > 0.1 ||
+          Math.abs(camPos.z - _lastCamPos.z) > 0.1;
+        if (camMoved) {
+          _lastCamPos.x = camPos.x;
+          _lastCamPos.y = camPos.y;
+          _lastCamPos.z = camPos.z;
+          for (const node of currentData.nodes) {
+            if (node.__lod) (node.__lod as THREE.LOD).update(sceneCam);
+          }
         }
         // 飞船模式：自动悬停视野中央最近的星球
         if (isFlyMode) updateAutoHover(currentData.nodes, sceneCam);
