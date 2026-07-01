@@ -6,7 +6,5 @@
   'friends':
     - 'name': '搜狗搜索'
       'url': 'https://www.sogou.com'
-    - 'name': '今日头条'
-      'url': 'https://www.toutiao.com'
     - 'name': '老刘博客'
       'url': 'http://www.liublog.cn'

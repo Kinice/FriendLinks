@@ -6,13 +6,5 @@
   'friends':
     - 'name': 'Attend GitHub Universe'
       'url': 'https://githubuniverse.com/'
-    - 'name': 'Electron'
-      'url': 'https://www.electronjs.org/'
     - 'name': 'Community Forum'
       'url': 'https://github.community/'
-    - 'name': 'Instagram icon GitHub on Insta'
-      'url': 'https://www.instagram.com/github/'
-    - 'name': 'TikTok icon GitHub on TikTok'
-      'url': 'https://www.tiktok.com/@github'
-    - 'name': 'Twitch icon GitHub on Twitch'
-      'url': 'https://www.twitch.tv/github'

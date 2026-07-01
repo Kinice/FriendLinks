@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'ava’s blog'
       'url': 'http://blog.avas.space'
-    - 'name': '3ds Streetpass'
-      'url': 'https://whatsacomputer.com/posts/the-2025-streetpass-challenge'
     - 'name': 'null program'
       'url': 'https://nullprogram.com'
     - 'name': 'Julia Evans'

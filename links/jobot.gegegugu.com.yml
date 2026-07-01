@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '猛猛如玉'
-      'url': 'https://www.xiaohongshu.com/user/profile/647187ff000000000f005b38'
     - 'name': 'AI品牌设计'
       'url': 'https://www.ubrand.com/'
     - 'name': 'AI神器集'
@@ -14,5 +12,3 @@
       'url': 'https://deepseek.com'
     - 'name': 'SiliconFlow'
       'url': 'https://siliconflow.com/'
-    - 'name': '关于我们'
-      'url': 'https://about.amonxu.com'

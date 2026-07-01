@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': 'OurBlogs'
-      'url': 'https://ourblo.gs/blogs/11/'
     - 'name': 'D1gital_D3mon''s Blog'
       'url': 'https://egov.top/'
-    - 'name': 'linkkk的小屋'
-      'url': 'https://linkkk.top'
     - 'name': 'Minsp·隅'
       'url': 'https://www.minsp.org'
     - 'name': '微笔记'

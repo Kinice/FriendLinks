@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '加入 Discord 社区'
-      'url': 'https://discord.gg/XUzPDjvCgA'
     - 'name': 'i365.tech'
       'url': 'https://www.i365.tech/'

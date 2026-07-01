@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '点击购买'
-      'url': 'https://fk.wwkejishe.top/buy/13'
     - 'name': 'Blog'
       'url': 'https://www.wangdu.site/'

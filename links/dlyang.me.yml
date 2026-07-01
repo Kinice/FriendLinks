@@ -4,12 +4,6 @@
   'description': '友情链接'
   'links': '/about'
   'friends':
-    - 'name': 'INS'
-      'url': 'https://instagram.com/lantern_d'
-    - 'name': 'medieval-castles.org'
-      'url': 'http://www.medieval-castles.org/pictures/great_castle_drawing.htm'
-    - 'name': 'by candyworx'
-      'url': 'http://imgarcade.com/1/japanese-castle-drawing/'
     - 'name': 'Inoreader'
       'url': 'https://www.inoreader.com/'
     - 'name': 'BeiYuu'

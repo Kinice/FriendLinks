@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': 'Puresys puresys-纯净系统 软件下载'
-      'url': 'https://www.puresys.net/'
     - 'name': 'Makoto'' Blog MakotoArai的博客'
       'url': 'https://blog.ciy.cool/'
     - 'name': 'Bhao''s Blog 布好小姐姐的博客'
@@ -44,8 +42,6 @@
       'url': 'https://www.itxiaohui.top/'
     - 'name': 'Carm''s Home 热爱生活中的点滴美好，追寻万物中的无尽创造。'
       'url': 'https://www.carm.cc/'
-    - 'name': '《友人博客在线功德榜》'
-      'url': 'https://stats.uptimerobot.com/BmmcWGXDXv'
     - 'name': 'xreak'
       'url': 'http://blog.xreak.top/'
     - 'name': 'AsZero'

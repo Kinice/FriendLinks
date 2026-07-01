@@ -6,5 +6,3 @@
   'friends':
     - 'name': 'IP库查询'
       'url': 'https://www.ipip.net/'
-    - 'name': 'PING测速'
-      'url': 'https://www.aiboce.com/ping'

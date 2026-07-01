@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Bangumi'
-      'url': 'https://bangumi.tv/user/446828'
-    - 'name': 'Instgram'
-      'url': 'https://www.instagram.com/beixibaobao/'
     - 'name': '不明のNetWork OS Just a drop of water suffices'
       'url': 'https://networkos.club/'
     - 'name': '夜半观星 愿你成就自己的星空'
@@ -64,7 +60,5 @@
       'url': 'https://doge.uk/'
     - 'name': '寒寒 技术菜菜，梦想大大'
       'url': 'https://blog.alikia2x.com'
-    - 'name': '恶魔菌の记事簿 半文艺、半动漫的二次元美少女的涂鸦簿！'
-      'url': 'https://meow3.family.blog/'
     - 'name': '企鹅小屋 这个博主太懒了，懒得写简介！'
       'url': 'https://qieo.me/'

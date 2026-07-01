@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Z-Blog主机'
-      'url': 'https://zbloghost.cn/'
     - 'name': 'Z-BlogPHP'
       'url': 'https://www.zblogcn.com/'
     - 'name': '老白前端'

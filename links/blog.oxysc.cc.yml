@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '科影创趣描述就分享摄影之路'
-      'url': 'https://blog.lunarcn.top/'
     - 'name': '天翔TNXGの空间站明日尚未到来，希望凝于心上'
       'url': 'https://tnxg.top/'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Lunatic - Misc指路人@星盟安全团队'
-      'url': 'https://goodlunatic.github.io/'
     - 'name': 'A1ic3 - Crypto@V&N'
       'url': 'https://alic3-myth.github.io/'
     - 'name': 'PangBai - Reverse@W&M'
@@ -60,8 +58,6 @@
       'url': 'https://sun1028.top/'
     - 'name': 'YanHuoLG'
       'url': 'https://www.yanhuolg.com.cn/'
-    - 'name': 'Aura'
-      'url': 'https://jasmineaura.github.io/AuraBlog/'
     - 'name': '亮汪汪'
       'url': 'https://lwwww.top/'
     - 'name': 'sheep'

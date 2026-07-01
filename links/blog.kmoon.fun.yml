@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'this'
-      'url': 'https://my.feishu.cn/share/base/form/shrcnBEu9mmLeio3pbLasFJCH2b'
     - 'name': 'hellogithub.com Hello Github 月刊 ↗'
       'url': 'https://www.hellogithub.com/'
-    - 'name': 'www.ruanyifeng.com 阮一峰的网络日志 ↗'
-      'url': 'https://www.ruanyifeng.com/blog/'
     - 'name': 'www.v2ex.com V2EX ↗'
       'url': 'https://www.v2ex.com'
     - 'name': 'testerhome.com TesterHome ↗'

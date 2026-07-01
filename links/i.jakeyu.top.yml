@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '临时邮箱'
-      'url': 'https://email-once.com/'
     - 'name': '文件共享'
       'url': 'https://share-once.com/'
     - 'name': 'P2P共享'
@@ -18,5 +16,3 @@
       'url': 'https://diygod.cc/'
     - 'name': 'Sora'
       'url': 'https://sorai.world/'
-    - 'name': 'NexT.Pisces'
-      'url': 'https://theme-next.js.org/pisces/'

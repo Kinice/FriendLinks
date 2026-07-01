@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '米游社'
-      'url': 'https://www.miyoushe.com/sr/accountCenter/postList?id=344863494'
     - 'name': '个人网站'
       'url': 'https://ftz.cc.cd/'
     - 'name': '个人网站'
@@ -26,8 +24,6 @@
       'url': 'https://t.ftz.cc.cd/'
     - 'name': 'WebTooys'
       'url': 'https://tooys.pages.dev/'
-    - 'name': 'WebTooys'
-      'url': 'https://tools.forthezero.dpdns.org/'
     - 'name': 'WebTooys'
       'url': 'https://tooys.vercel.app/'
     - 'name': 'RhoPaper'

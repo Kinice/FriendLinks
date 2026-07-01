@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '阮一峰的网络日志阮一峰阮老师，知名博主，大佬中的大佬2024.01.29'
-      'url': 'https://www.ruanyifeng.com/blog/'
     - 'name': 'AntfuAntfuVue 核心成员2024.01.29'
       'url': 'https://antfu.me/'
-    - 'name': '青桔气球青桔气球分享网络安全与科技生活2024.01.29'
-      'url': 'https://blog.qjqq.cn/'
     - 'name': '爱吃肉的猫亦封有肉有猫有生活.2024.01.29'
       'url': 'https://meuicat.com/'
     - 'name': 'isYangsisYangs一个前端Bug构造师的博客2024.01.29'

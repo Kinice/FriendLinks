@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '作者的角色介绍页 二次元角色鉴赏'
-      'url': 'https://tutu.rinai.top/js'
     - 'name': '挽着红月缓缓走的个人小站 终会相聚，与你同在'
       'url': 'https://blog.rinai.top'
     - 'name': '来看看嘛 确定不来看看嘛'

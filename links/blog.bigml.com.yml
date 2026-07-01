@@ -4,11 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'NEWSLETTER: Machine Learning Digest'
-      'url': 'http://eepurl.com/bE0RAT'
-    - 'name': 'Create account'
-      'url': 'https://wordpress.com/start?ref=wplogin'
-    - 'name': 'Log in'
-      'url': 'https://littleml.wordpress.com/wp-login.php'
     - 'name': 'Manage subscriptions'
       'url': 'https://subscribe.wordpress.com/'

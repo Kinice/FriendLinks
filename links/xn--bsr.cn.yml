@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Puresys纯净系统-软件下载'
-      'url': 'https://www.puresys.net'
     - 'name': 'Razuritta''s Notebook'
       'url': 'https://blog.razuritta.me/'
     - 'name': 'TomyJan'

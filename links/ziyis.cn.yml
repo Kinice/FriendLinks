@@ -6,8 +6,6 @@
   'friends':
     - 'name': '小植同学 锦鲤相随，好运常伴'
       'url': 'https://blog.xiaoztx.top'
-    - 'name': '青桔气球 分享网络安全与科技生活'
-      'url': 'https://blog.qjqq.cn/'
     - 'name': '葱苓小筑 a small blog station.'
       'url': 'https://blog.ciraos.top/'
     - 'name': '极客日记 莫愁前路无知己，天下谁人不识君。'
@@ -44,5 +42,3 @@
       'url': 'https://www.hudi.space'
     - 'name': 'Lifeline 经世致用 自强不息'
       'url': 'https://lifelinest.github.io/'
-    - 'name': 'Wintel.''s blog~ 树在。山在。大地在。岁月在。我在。'
-      'url': 'https://mrwmw.github.io/blog'

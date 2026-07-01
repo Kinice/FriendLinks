@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'tidio'
-      'url': 'https://www.tidio.com/talk/lkoio9lytb0gwqgpmshjttlesibkxvjz'
     - 'name': 'guqing’s blog'
       'url': 'https://guqing.io'
     - 'name': '低调小熊猫'

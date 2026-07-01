@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': 'Upgrade Your Browser'
-      'url': 'http://browsehappy.com/'
     - 'name': 'Vian'
       'url': 'https://www.vian.top'
     - 'name': '团团生活志'
@@ -52,8 +50,6 @@
       'url': 'https://pwsz.com/'
     - 'name': '咕咚同学'
       'url': 'https://gudong.site'
-    - 'name': '爱情在线'
-      'url': 'https://aqzx.com'
     - 'name': '云晓晨 KaiQi.Wang'
       'url': 'https://blog.kaiqi.wang'
     - 'name': '风起志'
@@ -62,5 +58,3 @@
       'url': 'https://www.lybblog.cn'
     - 'name': '崔话记'
       'url': 'https://cuixiping.com/'
-    - 'name': 'Mirages'
-      'url': 'https://get233.com/archives/mirages-intro.html'

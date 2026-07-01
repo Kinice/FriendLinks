@@ -1,8 +1,0 @@
-'site':
-  'name': 'i.loli.link'
-  'url': 'https://i.loli.link/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'TsukiのBlog'
-      'url': 'https://i.loli.ly'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': '闲聊谈说'
-      'url': 'https://blog.lmb.blue/category/xlts/'
     - 'name': '云墨观窗'
       'url': 'https://mojue88.com/'
     - 'name': '李开开博客'

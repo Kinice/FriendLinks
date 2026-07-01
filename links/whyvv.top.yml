@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'snapshot'
-      'url': 'https://www.elastic.co/guide/en/elasticsearch/reference/5.5/modules-snapshots.html'
     - 'name': '幻凡SS'
       'url': 'https://hfanss.com/'
     - 'name': 'LinuxEA'

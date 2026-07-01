@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '小红书主页'
-      'url': 'https://www.xiaohongshu.com/user/profile/655c2968000000001103e4a6'
-    - 'name': 'ZMTU社区'
-      'url': 'https://zmtu.com/'
     - 'name': '欧阳淇淇的小屋'
       'url': 'https://ouyangqiqi.cn'
     - 'name': '瀚海星辰'

@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '即刻'
-      'url': 'https://okjk.co/fRHvV6'
-    - 'name': 'bilibili 哔哩哔哩'
-      'url': 'https://b23.tv/oZ1AIXL'
     - 'name': 'BlackCell'
       'url': 'https://next.blackcell.top'
     - 'name': 'yiwanbin'

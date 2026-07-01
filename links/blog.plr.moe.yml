@@ -1,8 +1,0 @@
-'site':
-  'name': 'blog.plr.moe'
-  'url': 'https://blog.plr.moe/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'Pixiv: 142463860'
-      'url': 'https://www.pixiv.net/artworks/142463860'

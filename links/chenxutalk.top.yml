@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Ricardo Ren 堂！堂！开！始！'
-      'url': 'https://rrricardo.top/blog/'
-    - 'name': 'HikariLan''s Blog 半栈工程师'
-      'url': 'https://blog.hikarilan.life'
     - 'name': 'Ichirinko 黑历史集合地，naive的代价'
       'url': 'https://ichirinko.top/'
     - 'name': 'Ming''s Blog 你是来找 Ming 学习的吗'

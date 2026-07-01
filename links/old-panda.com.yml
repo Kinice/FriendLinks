@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'mastodon'
-      'url': 'https://mastodon.social/@oldpanda'
-    - 'name': 'bluesky'
-      'url': 'https://bsky.app/profile/oldpanda.bsky.social'
     - 'name': 'wilbeibi'
       'url': 'https://wilbeibi.com/'
     - 'name': 'Emin.ink'

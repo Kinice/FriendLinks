@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Created with Fabric.js 3.6.6'
-      'url': 'http://www.coolapk.com/u/790851'
     - 'name': 'Blowfish'
       'url': 'https://blowfish.page/'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': '王晔''S Blog'
-      'url': 'https://wangye.org/blog/'
     - 'name': '运维进行时'
       'url': 'https://blog.liuts.com'
     - 'name': '追忆白'
@@ -26,5 +24,3 @@
       'url': 'https://usj.cc'
     - 'name': 'MoeShin'
       'url': 'https://moeshin.com'
-    - 'name': '安心选房'
-      'url': 'https://axxf.net'

@@ -6,11 +6,5 @@
   'friends':
     - 'name': 'Black Lives Matter movement'
       'url': 'https://blacklivesmatter.carrd.co/'
-    - 'name': 'Mastodon'
-      'url': 'https://a11y.info/@thea11yproject/'
-    - 'name': 'Open Collective'
-      'url': 'https://opencollective.com/the-a11y-project'
-    - 'name': 'APLv2'
-      'url': 'https://www.apache.org/licenses/LICENSE-2.0'
     - 'name': 'Eleventy'
       'url': 'https://www.11ty.io/'

@@ -4,12 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '静水流深'
-      'url': 'https://xtxcool.com/?from=b.ncii.cn'
-    - 'name': 'Grape 的博客'
-      'url': 'https://vgrape.com/?from=b.ncii.cn'
-    - 'name': '莎菲特'
-      'url': 'https://shuffit.com/?from=b.ncii.cn'
     - 'name': 'linowl – linowl 的博客'
       'url': 'https://www.linowl.com/'
     - 'name': 'Macro''s Blog - Macro 的博客～'

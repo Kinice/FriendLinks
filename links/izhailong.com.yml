@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '798VPS 798VPS'
-      'url': 'https://www.798vps.com/'
     - 'name': '君子不器'
       'url': 'https://www.colinjiang.com/'
     - 'name': '威言威语'

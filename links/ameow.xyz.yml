@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '开源项目'
-      'url': 'https://leslieleung.github.io/showcase/'
     - 'name': 'Song`s Blog 个人学习笔记分享'
       'url': 'https://songxwn.com'
     - 'name': '老胡的储物柜 编程、兴趣、生活 奇文共欣赏，疑义相与析'

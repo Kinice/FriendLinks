@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': 'ClaudeCode/CodeX API 代理「推荐」'
-      'url': 'https://bytepass.ai/zh'
     - 'name': 'Chaofa Yuan'
       'url': 'https://yuanchaofa.com'
     - 'name': '极客兔兔'

@@ -6,5 +6,3 @@
   'friends':
     - 'name': '$HOME'
       'url': 'https://julyphant.com/'
-    - 'name': 'Fantasy'
-      'url': 'https://www.krsay.com/typecho/fantasy.html'

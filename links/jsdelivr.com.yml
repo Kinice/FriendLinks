@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Newsletter'
-      'url': 'https://jsdelivr.us11.list-manage.com/subscribe?u=0c85fe2c9a60310df9a3d6751&id=283887f736'
     - 'name': 'Globalping'
       'url': 'https://globalping.io'
     - 'name': 'Dmitriy Akulov'

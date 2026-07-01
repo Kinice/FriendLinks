@@ -1,8 +1,0 @@
-'site':
-  'name': '9sb.net'
-  'url': 'https://9sb.net/'
-  'description': '友情链接'
-  'links': '/links.html'
-  'friends':
-    - 'name': '臻讯'
-      'url': 'https://zhenxun.cn/?ref=6CH5doAb'

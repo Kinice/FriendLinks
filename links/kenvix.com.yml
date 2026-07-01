@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '我在 V2EX 提出的这个问题'
-      'url': 'https://www.v2ex.com/t/1008720'
     - 'name': 'IX Network Studio'
       'url': 'https://blog.ixnet.work/'
     - 'name': '夜绫千裕'

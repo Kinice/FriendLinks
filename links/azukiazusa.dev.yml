@@ -1,8 +1,0 @@
-'site':
-  'name': 'azukiazusa.dev'
-  'url': 'https://azukiazusa.dev/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'フロントエンドの相手が変わった - AIが加わったWebの新しいインターフェース設計'
-      'url': 'https://speakerdeck.com/azukiazusa1/hurontoendonoxiang-shou-gabian-watuta-aigajia-watutawebnoxin-siiintahuesushe-ji'

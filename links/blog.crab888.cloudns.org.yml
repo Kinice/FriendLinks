@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': 'follow'
-      'url': 'https://app.follow.is/'
     - 'name': 'AI-1oo'
       'url': 'https://www.923828.xyz/'
     - 'name': 'lobe-chat'
@@ -38,8 +36,6 @@
       'url': 'https://blog.jerryz.com.cn/'
     - 'name': '星空故事·魔法小屋种下一颗有故事的种子，让它带着魔法和奇迹生根发芽'
       'url': 'https://blog.sinzmise.top/'
-    - 'name': 'LangchainAI 框架'
-      'url': 'https://python.langchain.com/'
     - 'name': 'Evan'
       'url': 'https://www.evan.xin'
     - 'name': '小城故事'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'English'
-      'url': 'https://cyp0633.com/en/links/'
     - 'name': 'Artalk'
       'url': 'https://artalk.js.org'
     - 'name': 'Jimmy'

@@ -1,8 +1,0 @@
-'site':
-  'name': 'iao.su'
-  'url': 'https://iao.su/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': '官网首页 🤗'
-      'url': 'https://iui.su/'

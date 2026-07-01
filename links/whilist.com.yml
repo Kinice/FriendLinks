@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'DizzyLab'
-      'url': 'https://www.dizzylab.net/l/%E6%97%B6%E8%90%BDSHIRO/'
     - 'name': 'Cloud09_Space'
       'url': 'https://cloud09.space'

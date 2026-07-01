@@ -1,8 +1,0 @@
-'site':
-  'name': 'blog.yihang.info'
-  'url': 'http://blog.yihang.info/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': '贰兔网'
-      'url': 'http://blog.yifun.cn/goto?url=aHR0cDovL2lpZXR3LmNvbQ=='

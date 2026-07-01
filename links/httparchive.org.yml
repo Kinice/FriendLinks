@@ -6,5 +6,3 @@
   'friends':
     - 'name': 'Docs'
       'url': 'https://har.fyi'
-    - 'name': 'Read more blog posts'
-      'url': 'https://dev.to/httparchive'

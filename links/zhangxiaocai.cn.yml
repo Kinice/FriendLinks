@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'Travellings'
-      'url': 'https://travellings.now.sh/'
     - 'name': '前去探索'
       'url': 'https://cak.moe/'
     - 'name': '前去探索'

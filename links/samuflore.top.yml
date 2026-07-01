@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Kamonto''s Little Planet'
-      'url': 'https://kamonto.github.io/Kamonto_blog/'
     - 'name': '钟鼓楼'
       'url': 'https://thysrael.github.io/'
-    - 'name': 'Font Awesome 4'
-      'url': 'https://fontawesome.com/v4/icons/'
     - 'name': '一言 Hitokoto'
       'url': 'https://hitokoto.cn/'
     - 'name': 'hsn''s blog'

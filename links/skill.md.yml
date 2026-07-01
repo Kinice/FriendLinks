@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Discord server'
-      'url': 'https://discord.gg/MKPE9g8aUy'
     - 'name': 'Anthropic'
       'url': 'https://www.anthropic.com/'

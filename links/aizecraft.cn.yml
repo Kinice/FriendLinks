@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '百妖岛'
-      'url': 'https://www.baiyaodao.com'
     - 'name': 'ENDsoft''s Blog'
       'url': 'https://www.r-ay.cn'
-    - 'name': '中文Advent of Ascension Wiki'
-      'url': 'https://adventofascension-zh.gamepedia.com'
     - 'name': 'MC服主网'
       'url': 'http://mcfuzhu.net'
     - 'name': '土豆MC'

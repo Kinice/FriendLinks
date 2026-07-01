@@ -4,13 +4,9 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'AI产品分享社区'
-      'url': 'https://0mo.com/'
     - 'name': 'AI吧'
       'url': 'https://ai8.net'
     - 'name': '呲哩呲哩'
       'url': 'https://clicli.com.cn'
     - 'name': '蛋壳物语'
       'url': 'https://dkwy.com/'
-    - 'name': '吉米资源网'
-      'url': 'http://jmzyw.top/'

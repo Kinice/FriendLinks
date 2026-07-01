@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '在 𝕏 上关注我'
-      'url': 'https://404.li/x'
-    - 'name': 'Sink⚡ A Simple / Speedy / Secure Link Shortener with Analytics, 100% run on Clou'
-      'url': 'https://Sink.Cool'
     - 'name': 'ssh-ai-chatChat with AI over SSH.'
       'url': 'https://chat.agi.li'
     - 'name': 'Willin Wang'

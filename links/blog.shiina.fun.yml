@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '免费空间在线率'
-      'url': 'https://u.6la.de/status/stage'
     - 'name': 'YxVM'
       'url': 'https://yxvm.com'
     - 'name': 'NodeSeek'

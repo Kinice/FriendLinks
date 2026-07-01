@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '今夕资源网'
-      'url': 'https://www.jxshn.com/'
     - 'name': 'CNLOVAU 自留地'
       'url': 'https://cn.lovau.cn'
     - 'name': '时光印记'
@@ -18,7 +16,5 @@
       'url': 'https://www.leepoet.cn'
     - 'name': '80后记忆'
       'url': 'https://www.80h.bj.cn'
-    - 'name': '歌曲《花儿为什么这样红》-1963年'
-      'url': 'https://blog.80h.bj.cn/index.php/post/159.html'
     - 'name': 'Creativ Themes'
       'url': 'http://creativthemes.com/'

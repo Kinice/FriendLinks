@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': 'API'
-      'url': 'https://documenter.getpostman.com/view/1837823/TVK5dMZ1'
     - 'name': 'Homeland'
       'url': 'https://homeland.ruby-china.org'

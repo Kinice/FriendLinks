@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'mastodon'
-      'url': 'https://jiong.us/@sun'
     - 'name': 'Keyle''s Blog在这里记录一些偶尔冒出来转眼就会忘的灵感。'
       'url': 'https://vrast.cn/'
     - 'name': '长街短梦此行山高路远，我只剩口袋玫瑰一片'

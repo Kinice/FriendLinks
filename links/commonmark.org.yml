@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'developed in 2004 by John Gruber in collaboration with Aaron Swartz'
-      'url': 'https://en.wikipedia.org/wiki/Markdown#History'
-    - 'name': 'canonical description of Markdown’s syntax'
-      'url': 'https://daringfireball.net/projects/markdown/syntax'
     - 'name': 'Babelmark 3'
       'url': 'https://babelmark.github.io/'
     - 'name': 'Discourse'

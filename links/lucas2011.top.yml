@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '@lucas2011wastaken'
-      'url': 'https://discord.gg/7nyXQz8B'
     - 'name': 'GGapa'
       'url': 'https://ggapa.net'
     - 'name': 'JustPureH₂O'

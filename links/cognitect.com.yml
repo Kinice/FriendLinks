@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'About Nu'
-      'url': 'https://international.nubank.com.br/about'
-    - 'name': 'Investor Relations'
-      'url': 'https://www.investidores.nu/en/'
     - 'name': 'Brazil'
       'url': 'https://nubank.com.br'
     - 'name': 'Mexico'

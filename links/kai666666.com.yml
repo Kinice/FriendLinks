@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '@ 阮一峰的网络日志'
-      'url': 'http://www.ruanyifeng.com/blog/archives.html'
-    - 'name': '@ 张鑫旭'
-      'url': 'https://www.zhangxinxu.com/wordpress/category/js/'
     - 'name': '@ 冴羽的博客'
       'url': 'https://yayujs.com/'
     - 'name': '@ Zgh'

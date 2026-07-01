@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'CLion'
-      'url': 'https://www.jetbrains.com/clion/'
     - 'name': 'VS Code'
       'url': 'https://code.visualstudio.com/'
     - 'name': 'Fish'

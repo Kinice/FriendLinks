@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '醉萝卜'
-      'url': 'http://www.chjtx.com/JRoll/'
     - 'name': 'Zhendong'
       'url': 'http://hzd.plus/'
     - 'name': 'xiaojun'
@@ -18,8 +16,6 @@
       'url': 'https://icoty.github.io/'
     - 'name': 'imOne'
       'url': 'https://im-one.github.io/'
-    - 'name': '林毅锋'
-      'url': 'https://breeze2.github.io/blog/'
     - 'name': '静かな森'
       'url': 'https://innei.in/'
     - 'name': '摩尔迦娜'

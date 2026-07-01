@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '云音乐 在线音乐'
-      'url': 'https://yy.anxay.com'
     - 'name': '暂无 暂无'
       'url': 'https://zyyo.cc'
     - 'name': '暂无 暂无'

@@ -4,11 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Instagram'
-      'url': 'https://www.instagram.com/another_dayu/'
-    - 'name': 'NeoDB'
-      'url': 'https://neodb.social/users/anotherdayu/'
-    - 'name': 'Newsletter'
-      'url': 'https://buttondown.com/Dayu'
     - 'name': 'Bear ʕ•ᴥ•ʔ'
       'url': 'https://bearblog.dev'

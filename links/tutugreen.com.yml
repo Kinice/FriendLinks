@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Cloud'
-      'url': 'https://prpr.cloud/h/'
     - 'name': 'AS139073'
       'url': 'https://as139073.tutu.green/'
-    - 'name': 'VRChat'
-      'url': 'https://vrchat.com/home/user/usr_ae1ec5b9-0f4a-4972-9ede-1a8dbf6c58c2'
     - 'name': 'HTML5 UP'
       'url': 'http://html5up.net'
     - 'name': 'Dendrobium'

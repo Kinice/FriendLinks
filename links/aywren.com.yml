@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Simon Potter''s InComplete Furcadian Guide'
-      'url': 'https://www.angelfire.com/my/furcadia/'
-    - 'name': 'Living Worlds in HTML5'
-      'url': 'http://www.effectgames.com/demos/worlds/'
     - 'name': 'Flea Plucker'
       'url': 'https://fleaplucker.weebly.com/'
     - 'name': 'Got a Ukulele'
@@ -22,5 +18,3 @@
       'url': 'http://ukulelehunt.com/'
     - 'name': 'Uke Like the Pros'
       'url': 'https://blog.ukelikethepros.com/'
-    - 'name': 'Ukulele Underground'
-      'url': 'https://ukuleleunderground.com/blog/'

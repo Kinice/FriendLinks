@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '美团技术团队'
-      'url': 'https://tech.meituan.com/'
     - 'name': 'Java攻城狮'
       'url': 'https://www.27wy.cn/'
     - 'name': '牛牛技术客栈'

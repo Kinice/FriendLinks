@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'Outpost 202202生信·IT·观察'
-      'url': 'https://blog.tabitabi.top/'
     - 'name': '零狼の小窝ZeroWolf为了前行而努力，即使前方不一定有光'
       'url': 'https://zerowolf.cn/'
     - 'name': '初之音MIKUSA聆听心中最初的声音'

@@ -6,7 +6,3 @@
   'friends':
     - 'name': 'Try a Demo'
       'url': 'https://docusaurus.new'
-    - 'name': 'Stack Overflow'
-      'url': 'https://stackoverflow.com/questions/tagged/docusaurus'
-    - 'name': 'Discord'
-      'url': 'https://discordapp.com/invite/docusaurus'

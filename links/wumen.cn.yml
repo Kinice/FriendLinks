@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': '饭饭’s Blog'
-      'url': 'https://0190.com/blog/'
     - 'name': '糖果屋'
       'url': 'https://zzwo.com/'
     - 'name': '惆怅而又凄凉'
@@ -22,8 +20,6 @@
       'url': 'https://anze.love/'
     - 'name': '网站博物馆💻'
       'url': 'https://web.archive.org'
-    - 'name': '肥鱼音乐☁️'
-      'url': 'https://chujun.vip'
     - 'name': '秘密花园🌱'
       'url': 'http://www.yini.org'
     - 'name': '活人'

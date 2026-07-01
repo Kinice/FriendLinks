@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': '请点击这里提交'
-      'url': 'https://www.wjx.cn/vm/en9j6tm.aspx#'
     - 'name': 'AcoFork Blog Protect What You Love!'
       'url': 'https://blog.acofork.com/'
     - 'name': 'Dmocken Phira Dmocken''s Phira Site'

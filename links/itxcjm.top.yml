@@ -6,12 +6,6 @@
   'friends':
     - 'name': 'AS137908'
       'url': 'https://www.moefire.net'
-    - 'name': 'php 7.3.31'
-      'url': 'https://www.php.net'
-    - 'name': 'nginx/1.24.0'
-      'url': 'https://www.apache.org'
-    - 'name': 'Mysql 5.7.44'
-      'url': 'https://www.mysql.com'
     - 'name': 'Moedog'
       'url': 'https://moedog.org'
     - 'name': 'Vtrois'

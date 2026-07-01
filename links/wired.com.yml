@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'WIRED Education'
       'url': 'https://www.wirededucation.com/'
-    - 'name': 'User Agreement'
-      'url': 'https://www.condenast.com/user-agreement/'
     - 'name': 'Condé Nast Store'
       'url': 'https://condenaststore.com/'
     - 'name': 'Ad Choices'
@@ -18,7 +16,3 @@
       'url': 'https://wired.jp/'
     - 'name': 'Czech Republic & Slovakia'
       'url': 'https://www.wired.cz/'
-    - 'name': 'Instagram'
-      'url': 'https://instagram.com/wired/'
-    - 'name': 'Tiktok'
-      'url': 'https://www.tiktok.com/@wired?lang=en'

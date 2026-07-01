@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friend'
   'friends':
-    - 'name': '上海违法信息举报'
-      'url': 'https://www.shjbzx.cn/'
     - 'name': '鹰角网络'
       'url': 'https://www.hypergryph.com/'
     - 'name': '明日方舟'
@@ -18,5 +16,3 @@
       'url': 'https://popucom.hypergryph.com/'
     - 'name': '开拓芯'
       'url': 'https://www.coreblazer.com/'
-    - 'name': '“更新概要”'
-      'url': 'https://user.hypergryph.com/protocol/overview_of_changes'

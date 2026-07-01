@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'buymeacoffee.com'
-      'url': 'https://www.buymeacoffee.com/wangye'
     - 'name': '威言威语'
       'url': 'https://www.weisay.com/'
     - 'name': '未来往事'

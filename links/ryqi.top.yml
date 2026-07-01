@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'haohao的个人博客 -爱好听音乐, 写文章, 看散文'
-      'url': 'https://hhj520.top/'
     - 'name': '西瓜猜字谜 记录西瓜猜字谜的日常'
       'url': 'https://www.xiguacaizimi.top'
     - 'name': '蓝莓奥利奥 一个深度、自主且真实的小世界。来喝杯茶吧！'
@@ -22,8 +20,6 @@
       'url': 'https://blog.liseezn.top'
     - 'name': '张洪Heo 分享设计与科技生活'
       'url': 'https://blog.zhheo.com/'
-    - 'name': '友链出租哦~ 有没有心动呢~'
-      'url': 'https://example.com/xeu'
     - 'name': 'Xalaok''s Blog 像考拉一样无忧😉'
       'url': 'https://www.xalaok.top/'
     - 'name': '第三夏尔 认真生活，积极摸鱼'

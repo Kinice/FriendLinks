@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Instagram'
-      'url': 'https://www.instagram.com/ioi_social/'
     - 'name': 'Website'
       'url': 'https://ioi2026.uz/'
     - 'name': 'IOI 2023 was held in Hungary'

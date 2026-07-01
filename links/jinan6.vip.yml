@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Fluid文档Fluid文档'
-      'url': 'https://hexo.fluid-dev.com/docs/'
     - 'name': '潘高的小站IT套路深，必须瞎折腾'
       'url': 'https://blog.pangao.vip/'
     - 'name': 'Bei’s BlogDebug the world'

@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Support Carbon Reduction'
-      'url': 'https://climate.stripe.com/vqCSfr'
-    - 'name': 'AI Tools'
-      'url': 'https://aitools.inc/tools/ppt-ai'
     - 'name': 'SegmentFault'
       'url': 'https://segmentfault.com/'
     - 'name': 'Arrfounder'
@@ -16,5 +12,3 @@
       'url': 'https://geddle.com'
     - 'name': 'HeyVid'
       'url': 'https://heyvid.ai'
-    - 'name': 'PPT.AI''s Story'
-      'url': 'https://share.evernote.com/note/ae582dd8-2755-f9db-d158-a633a63945de'

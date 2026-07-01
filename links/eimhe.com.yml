@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Linux��ά����'
-      'url': 'http://www.178linux.com/'
-    - 'name': '����վ������'
-      'url': 'https://www.imydl.com/'
     - 'name': 'Discuz!'
       'url': 'https://www.discuz.vip/'
     - 'name': 'Discuz! Team'

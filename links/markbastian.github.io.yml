@@ -6,7 +6,5 @@
   'friends':
     - 'name': 'fn-code'
       'url': 'https://fn-code.blogspot.com'
-    - 'name': 'tetrominos'
-      'url': 'https://en.wikipedia.org/wiki/Tetromino'
     - 'name': 'Cryogen'
       'url': 'https://cryogenweb.org'

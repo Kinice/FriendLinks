@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'List: Some of the books and movies I have seen, occasionally I will write some s'
-      'url': 'https://moreality.notion.site/1421d177c6ed4513ab692fd223863a7e?v=24dfebddf9ee4db388aee16bed85695d&pvs=4'
     - 'name': 'WebNote: An instantly saved, concise and easy-to-share web notebook.'
       'url': 'https://mmmm.tech'

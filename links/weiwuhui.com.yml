@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Instagram'
-      'url': 'https://www.instagram.com/weiwuhui'
-    - 'name': 'Website'
-      'url': 'http://skychee.com/index.html'
     - 'name': '老爸的Blog'
       'url': 'http://yongzhengwei.com/'
     - 'name': 'Lumevoy'

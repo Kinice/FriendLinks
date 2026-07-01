@@ -6,7 +6,3 @@
   'friends':
     - 'name': '英文博客'
       'url': 'https://focuschen.com'
-    - 'name': 'MDN'
-      'url': 'https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content'
-    - 'name': 'Extremism'
-      'url': 'https://en.wikipedia.org/wiki/Extremism'

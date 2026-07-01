@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'NCSE Network'
       'url': 'https://ncse.tw'
-    - 'name': '個人 Discord 伺服器'
-      'url': 'https://discord.gg/RMpeHxqQB4'
     - 'name': 'SCINT 北臺灣學生資訊社群'
       'url': 'https://scint.org'
     - 'name': 'OsGa'
@@ -16,5 +14,3 @@
       'url': 'https://elvismao.com'
     - 'name': 'Jiang'
       'url': 'https://longtai.org'
-    - 'name': 'Instagram / yuan_net'
-      'url': 'https://instagram.com/yuan_net'

@@ -4,9 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'APP下载'
-      'url': 'https://pan.quark.cn/s/b04f9b658c4f'
     - 'name': '防迷路，请收藏永久发布网址 jgwav.de'
       'url': 'http://www.jgwav.de/'
-    - 'name': '免费领取夸克1TB空间'
-      'url': 'https://www.jgwav.com/get1t.html'

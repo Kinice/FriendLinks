@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': '瘦清泉 君子欲讷于言而敏于行 总之就是很酷的清泉老师。超多学术分享 & 生活记录！'
-      'url': 'https://www.caulei.cn/'
     - 'name': 'new 精致的生活 心可以碎，手不能停。 现代简约的 Astro 博客，一些生活记录与技术分享，是年纪轻轻就有猫的 Tony。'
       'url': 'https://itangqiao.top'
     - 'name': '一二 随缘写写 是步履不停的刘老师。他的文字蕴含着独特的自我探索，思绪如风般轻盈地穿梭在字里行间。'
@@ -14,5 +12,3 @@
       'url': 'https://blog.hzchu.top/'
     - 'name': '星日语 星语日点灯 是我的建站首席顾问语佬，感谢他。他的博客超级好看，书写着他的经验与生活。'
       'url': 'https://weekdaycare.cn'
-    - 'name': 'Harry Chen''s Blog 随缘更新 是很厉害的 Harry，他在做一些很酷的事。'
-      'url': 'https://harrychen.xyz'

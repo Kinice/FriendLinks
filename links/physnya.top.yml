@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'revkiru''s Blog'
       'url': 'https://arckive.link'
-    - 'name': '自习室'
-      'url': 'https://bgm.tv/group/zixi'
     - 'name': 'Imken 发电厂'
       'url': 'https://blog.imken.moe/'
     - 'name': '北河天文台'
@@ -28,8 +26,6 @@
       'url': 'https://blog.weichky.com'
     - 'name': '記緒漂流'
       'url': 'https://ttio.cc/'
-    - 'name': 'Homeward Sky'
-      'url': 'https://pxwg.github.io/blog/'
     - 'name': '樟庭徊路'
       'url': 'https://vilstia.pages.dev/'
     - 'name': 'vuepress-theme-plume'

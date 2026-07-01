@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Pathos Page哲学片段与学术之路'
-      'url': 'https://pathos.page/'
     - 'name': '停云馆博学之，审问之，慎思之，明辨之，笃行之'
       'url': 'https://blog.yizhou.ac.cn/'
     - 'name': '理论派谈谈史，说说道'

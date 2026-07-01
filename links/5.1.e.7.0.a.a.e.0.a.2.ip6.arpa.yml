@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'draft-thain-ipv8-01'
-      'url': 'https://www.ietf.org/archive/id/draft-thain-ipv8-01.txt'
-    - 'name': 'crt.sh'
-      'url': 'https://crt.sh/?id=22144216435'
     - 'name': 'XMSL Infrastructure'
       'url': 'https://xmsl.im'
     - 'name': 'CA/Browser Forum'

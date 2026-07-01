@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': 'DockerHub'
-      'url': 'https://hub.docker.com/u/quchaonet'
     - 'name': '仙界博客'
       'url': 'https://www.xianjieo.com'
     - 'name': 'ZAERA'
@@ -20,8 +18,6 @@
       'url': 'https://www.nnjskz.cn/'
     - 'name': 'wsb'
       'url': 'https://wsbblog.github.io'
-    - 'name': '中国好码农'
-      'url': 'https://blogs.chencong.fun'
     - 'name': '迷恋自留地'
       'url': 'https://hunji.xyz'
     - 'name': 'Action'
@@ -60,5 +56,3 @@
       'url': 'https://blog.vay1314.top'
     - 'name': '星知苑 网络设备大神'
       'url': 'https://www.myxzy.com/'
-    - 'name': 'Bootstrap'
-      'url': 'http://v3.bootcss.com/components/'

@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'TypeScript在线练习'
-      'url': 'https://www.tslang.cn/play/index.html'
-    - 'name': '度分秒 转 经纬度'
-      'url': 'http://www.minigps.net/fc.html'
     - 'name': '剑客自媒体'
       'url': 'http://jiankeweb.com/'
     - 'name': 'Mr. Ma''s Blog'

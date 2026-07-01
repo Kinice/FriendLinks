@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '大海资源网'
-      'url': 'https://www.dhzyw.com/'
     - 'name': '陶小桃Blog'
       'url': 'https://www.52txr.cn/'
     - 'name': '汇维网'

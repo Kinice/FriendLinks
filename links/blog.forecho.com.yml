@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friendship-links/'
   'friends':
-    - 'name': '美股社区'
-      'url': 'https://link.3li3.com/richcalls'
     - 'name': 'Jason'
       'url': 'https://atjason.com/'
     - 'name': '把酒诗代码'
@@ -64,8 +62,6 @@
       'url': 'https://wmdpd.com/'
     - 'name': 'DHTalk''s Blog'
       'url': 'https://zhangdinghao.cn/'
-    - 'name': 'Kingram'
-      'url': 'http://kingram.top/posts/'
     - 'name': '王小嗨的不老歌'
       'url': 'https://sogola.com/'
     - 'name': '莫尔索'

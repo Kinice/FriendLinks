@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '谷歌机器学习教程Clustering in Machine Learning-PrepareData'
-      'url': 'https://developers.google.cn/machine-learning/clustering/prepare-data'
     - 'name': 'Alliot'
       'url': 'https://www.iots.vip/'
     - 'name': 'PRIN BLOG'

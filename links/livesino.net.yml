@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '微软官方商店'
-      'url': 'https://c.duomai.com/track.php?site_id=264191&aid=2649&euid=&t=https%3A%2F%2Fwww.microsoftstore.com.cn&dm_fid=16052'
     - 'name': 'Devices.css'
       'url': 'https://devicescss.xyz/'
-    - 'name': 'Leica中文摄影杂志'
-      'url': 'http://www.leica.org.cn/'
     - 'name': 'Weibusi.net'
       'url': 'http://weibusi.net/'
     - 'name': '搜索引擎周边'

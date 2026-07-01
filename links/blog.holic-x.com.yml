@@ -6,7 +6,3 @@
   'friends':
     - 'name': 'PHPnow.org'
       'url': 'http://phpnow.org'
-    - 'name': 'Valid XHTML 1.0 Strict'
-      'url': 'http://validator.w3.org/check?uri=referer'
-    - 'name': 'Copyleft'
-      'url': 'http://zh.wikipedia.org/wiki/Copyleft'

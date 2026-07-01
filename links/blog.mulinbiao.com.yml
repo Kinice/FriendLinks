@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'English'
-      'url': 'https://arturiamu.github.io/en/links/'
     - 'name': 'Shimoko'
       'url': 'https://www.shimoko.com'
     - 'name': 'LXGW 落'

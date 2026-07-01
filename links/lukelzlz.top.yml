@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '西部数码站长自用的域名商'
-      'url': 'https://www.west.cn/active/freetc/?ReferenceID=1909962'
     - 'name': '社团官网数字绿洲社团官网'
       'url': 'https://dgtoas.top'

@@ -4,12 +4,6 @@
   'description': '友情链接'
   'links': '/link/'
   'friends':
-    - 'name': '漢字辞典 漢字辞典'
-      'url': 'https://kanji.jitenon.jp/'
-    - 'name': '文屋ayaya 偽春菜SHIORI'
-      'url': 'https://emily.shillest.net/ayaya/'
-    - 'name': '七碳的博客 工程师猫娘'
-      'url': 'https://blog.cascade.moe/'
     - 'name': '张洪Heo 分享设计与科技生活'
       'url': 'https://blog.zhheo.com/'
     - 'name': '汐塔魔法屋 种下一颗有故事的种子，让它带着魔法和奇迹生根发芽'

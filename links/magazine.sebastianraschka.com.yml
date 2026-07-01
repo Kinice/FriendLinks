@@ -4,9 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Terms of Use'
-      'url': 'https://substack.com/tos'
-    - 'name': 'The Gradient'
-      'url': 'https://thegradientpub.substack.com'
     - 'name': 'Gradient Ascent'
       'url': 'https://newsletter.artofsaience.com'

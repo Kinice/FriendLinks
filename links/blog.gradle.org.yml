@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'DPE University'
       'url': 'https://dpeuniversity.gradle.com/'
-    - 'name': 'Events and Webinar'
-      'url': 'https://gradle.com/training/'
     - 'name': 'Build Scan®'
       'url': 'https://scans.gradle.com/'
     - 'name': 'DPE.org'

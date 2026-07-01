@@ -6,12 +6,6 @@
   'friends':
     - 'name': 'EUC World'
       'url': 'https://euc.world/'
-    - 'name': 'secret service API'
-      'url': 'https://specifications.freedesktop.org/secret-service-spec/0.2/org.freedesktop.Secret.Service.html'
-    - 'name': 'KDE Wallet Manager'
-      'url': 'https://apps.kde.org/kwalletmanager5/'
-    - 'name': '@Nundrum on Mastodon'
-      'url': 'https://theatl.social/@Nundrum'
     - 'name': 'Clojurians Slack'
       'url': 'https://clojurians.slack.com/'
     - 'name': 'Cryogen'

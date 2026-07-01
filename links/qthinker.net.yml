@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '我的推荐链接'
-      'url': 'https://opencode.ai/go?ref=899WEQZJW0'
     - 'name': '博客之家'
       'url': 'https://www.perass.com/'
     - 'name': '自媒体博客'

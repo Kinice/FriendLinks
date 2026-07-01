@@ -4,11 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Wikipedia'
-      'url': 'https://nn.wikipedia.org/wiki/Brukar:Bep'
     - 'name': 'staticbattery.com'
       'url': 'https://staticbattery.com/'
-    - 'name': 'bepsays.com'
-      'url': 'http://bepsays.com/en/'
-    - 'name': 'keybase.io/bep'
-      'url': 'https://keybase.io/bep'

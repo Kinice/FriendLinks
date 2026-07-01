@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '晴川云（qcidc.com）'
-      'url': 'https://www.qcidc.com/aff/GRHWFJCA'
     - 'name': '静鱼客栈'
       'url': 'https://52jyu.cn'
     - 'name': '彬红茶博客'

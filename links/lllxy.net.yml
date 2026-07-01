@@ -6,8 +6,6 @@
   'friends':
     - 'name': '立即访问'
       'url': 'https://resvrl.com'
-    - 'name': 'Read DeepWiki'
-      'url': 'https://deepwiki.com/lixinyang123/CoreHome'
     - 'name': 'ConchBrain'
       'url': 'https://www.conchbrain.club/'
     - 'name': 'KarenCloud'
@@ -16,5 +14,3 @@
       'url': 'https://blog.lindexi.com/'
     - 'name': 'Assistant'
       'url': 'https://assistant.conchbrain.club/'
-    - 'name': '.NET'
-      'url': 'https://dotnet.microsoft.com/'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'hiRipple -Ripple‘s blogA blog created by Ripple, GAMER 2025.游戏像素'
-      'url': 'https://hiripple.com/'
     - 'name': 'leungsekyuleungsekyu 的个人博客主页新粗犷主义'
       'url': 'https://leungsekyu.com/'
     - 'name': '森雨 - RainMorime森雨(RainMorime)的个人网站科技'

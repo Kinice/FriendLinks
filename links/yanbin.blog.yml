@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Build a Large Language Model (From Scratch)'
-      'url': 'https://www.manning.com/books/build-a-large-language-model-from-scratch'
     - 'name': '卡瓦邦噶！'
       'url': 'https://www.kawabangga.com/'
     - 'name': '刘悦的技术博客'

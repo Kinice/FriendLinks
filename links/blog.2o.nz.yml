@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': 'Astro 博客框架 Astro 快速的内容驱动型网站框架 2024-02-01 AstroVercel'
-      'url': 'https://astro.build'
     - 'name': 'Ad_closeNN Ad_closeNN的小站 Ad_closeNN 永远相信美好的事情即将发生 2026-01-19 AstroFuwari'
       'url': 'https://adclosenn.top/'
     - 'name': 'Kaze943 Kaze943の小站 Kaze943 明台高净，得见天光 2026-01-06 HaloAliyun'

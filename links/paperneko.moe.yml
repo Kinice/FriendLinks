@@ -4,11 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'MRC Offical'
-      'url': 'http://meowtain.edu.pl'
-    - 'name': '阿姆达尔定律'
-      'url': 'https://zh.wikipedia.org/wiki/阿姆达尔定律'
-    - 'name': '看了看感觉很有意思'
-      'url': 'https://cred.sourcecred.io/timeline/@sourcecred/'
     - 'name': 'Email'
       'url': 'http://iorioikawa@yahoo.co.jp'

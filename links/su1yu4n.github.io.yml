@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Ziyang ZHU'
-      'url': 'https://ziyangzhu.github.io/home/'
     - 'name': 'shallow'
       'url': 'https://shal10w.github.io/'
     - 'name': 'deebato'
@@ -26,5 +24,3 @@
       'url': 'https://www.scraft.top/'
     - 'name': '社会易姐QwQ'
       'url': 'https://shakaianee.top/'
-    - 'name': 'LadderLeak: Breaking ECDSA With Less Than One Bit Of Nonce Leakage'
-      'url': 'https://eprint.iacr.org/2020/615'

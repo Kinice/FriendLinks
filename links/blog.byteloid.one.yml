@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'DN42'
-      'url': 'https://dn42.baka.pub/peering-request/bingxin-network.html'
     - 'name': 'Baka.AC 笨蛋的实验室'
       'url': 'https://baka.ac.cn'
     - 'name': '动车组担当查询 RailGo附属项目'
@@ -70,8 +68,6 @@
       'url': 'https://ski.ink/'
     - 'name': 'damesck的小屋 致不完美的明天_'
       'url': 'https://damesck.net'
-    - 'name': '三河の小窝 在这里分享有趣的资源'
-      'url': 'https://blog.17347417.xyz/'
     - 'name': '听风小屋 近水楼台先得月，向阳花木易为春'
       'url': 'https://blog.ifeng.asia/'
     - 'name': '洛雨の小站 历史终将证明一切'

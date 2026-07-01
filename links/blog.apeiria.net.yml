@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'scientificworld'
-      'url': 'https://blog.koishi514.moe/archive/'
     - 'name': '雨宮 澪音'
       'url': 'https://amamiyamion.github.io'
     - 'name': 'Piggy'

@@ -1,8 +1,0 @@
-'site':
-  'name': 'trademark.io'
-  'url': 'https://trademark.io/'
-  'description': '友情链接'
-  'links': '/link/'
-  'friends':
-    - 'name': 'Premium Domain Marketplace'
-      'url': 'https://www.atom.com/premium-domains-for-sale'

@@ -4,9 +4,5 @@
   'description': '友情链接'
   'links': '/about'
   'friends':
-    - 'name': 'hex-grid interface'
-      'url': 'https://clojurecivitas.github.io/civitas/explorer.html'
     - 'name': 'Clojure Civitas Analytics Dashboard'
       'url': 'https://clojurecivitas.goatcounter.com/'
-    - 'name': 'Clay'
-      'url': 'https://scicloj.github.io/clay/'

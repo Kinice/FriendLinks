@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': 'MIKUTAP'
-      'url': 'https://aidn.jp/mikutap/'
     - 'name': 'DaXue''s Blog'
       'url': 'http://www.hotsnow.club'
     - 'name': 'Fgaoxing'
@@ -30,8 +28,6 @@
       'url': 'https://blog.xhxx.cc'
     - 'name': '无梦梦游记'
       'url': 'http://bkryofu.cn'
-    - 'name': '樱川家::浅羽'
-      'url': 'https://asaba.sakuragawa.moe/links'
     - 'name': '祈星海'
       'url': 'https://www.zzzzhi.com'
     - 'name': '紗夕里'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friend/link'
   'friends':
-    - 'name': '阮一峰的网络日志'
-      'url': 'https://www.ruanyifeng.com/blog/'
     - 'name': '春水煎茶'
       'url': 'https://writings.sh/'
     - 'name': 'Aurielの小破站'

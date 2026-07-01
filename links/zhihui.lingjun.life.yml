@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '如何自制一块“树莓派”–DIY ARM-Linux卡片电脑'
-      'url': 'http://www.pengzhihui.xyz/2018/04/08/minipi/'
-    - 'name': '创友老陈'
-      'url': 'http://www.csksoft.net/blog/'
     - 'name': '同门师弟'
       'url': 'https://vkwk.space/'
     - 'name': '马攀博客'

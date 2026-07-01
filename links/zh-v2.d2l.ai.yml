@@ -10,5 +10,3 @@
       'url': 'http://zacklipton.com/'
     - 'name': '亚历山大 J. 斯莫拉'
       'url': 'https://alex.smola.org/'
-    - 'name': '亚马逊 SageMakerStudio Lab'
-      'url': 'https://studiolab.sagemaker.aws/import/github/d2l-ai/d2l-pytorch-sagemaker-studio-lab/blob/main/GettingStarted-D2L.ipynb'

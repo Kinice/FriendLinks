@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'chanper'
       'url': 'https://xchanper.github.io/'
-    - 'name': '阮一峰'
-      'url': 'https://www.ruanyifeng.com/blog/'
     - 'name': '张洪Heo'
       'url': 'https://blog.zhheo.com/'
     - 'name': 'Shiro'

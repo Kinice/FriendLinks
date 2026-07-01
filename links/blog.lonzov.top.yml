@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': '茶洞 易往'
-      'url': 'https://icp.redcha.cn/go'
     - 'name': 'www.theelyj.com'
       'url': 'https://www.theelyj.com'
     - 'name': 'blog.yeqing.net'

@@ -4,13 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'I suppose we all thought that,one way or another.'
-      'url': 'https://en.wikipedia.org/wiki/J._Robert_Oppenheimer#Trinity'
-    - 'name': 'Bangumi'
-      'url': 'https://bangumi.tv/user/h3arn'
-    - 'name': 'NeoDB'
-      'url': 'https://neodb.social/users/H3arn'
     - 'name': 'Hugo'
       'url': 'https://gohugo.io/'
-    - 'name': 'PaperMod'
-      'url': 'https://github.com/adityatelange/hugo-PaperMod/'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'grain MDUI图标库'
-      'url': 'https://www.mdui.org/docs/material_icon'
     - 'name': 'a small online lab'
       'url': 'https://blog.xzadudu179.top'
     - 'name': 'GTX690战术核显卡导弹的猫窝'
@@ -64,8 +62,6 @@
       'url': 'https://zebwq.top'
     - 'name': 'OhWNF'
       'url': 'https://www.ohwmf.cn'
-    - 'name': '点我查看'
-      'url': 'https://zebwq.site/xiaok'
     - 'name': 'White_mu'
       'url': 'https://muspace.top/'
     - 'name': 'ye土土'

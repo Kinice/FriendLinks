@@ -6,5 +6,3 @@
   'friends':
     - 'name': 'GraalVM'
       'url': 'https://www.graalvm.org/'
-    - 'name': 'Salesforce REST API'
-      'url': 'https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/'

@@ -4,9 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '👏 GPT Plus'
-      'url': 'https://gpt5plus.com/?ref=howie6879_weekly'
     - 'name': 'FRE123-Free Resource for Everyone'
       'url': 'https://www.fre123.com/'
-    - 'name': 'Material for MkDocs'
-      'url': 'https://squidfunk.github.io/mkdocs-material/'

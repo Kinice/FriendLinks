@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': 'Android Open Source Project'
-      'url': 'https://android.googlesource.com/platform/frameworks/'
     - 'name': 'Trinea'
       'url': 'http://www.trinea.cn/'
     - 'name': 'CaMnter'

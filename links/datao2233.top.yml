@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friend'
   'friends':
-    - 'name': '友链申请页面'
-      'url': 'https://datao2233.mysxl.cn/'
     - 'name': '以图搜番'
       'url': 'https://trace.moe/'
     - 'name': '优选CNAME'

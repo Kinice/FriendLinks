@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '0psu3 0psu3 Team'
-      'url': 'https://0psu3.team/'
     - 'name': 'MistyOvO 很厉害的pwn✌'
       'url': 'https://blog.mistyovo.xyz/'
-    - 'name': 'FOXDOG 简直就是Misc神!'
-      'url': 'https://example.com/inkey'
     - 'name': 'Inkey 校队pwn✌，公大双子星之一'
       'url': 'https://blog.inkey.top/'
     - 'name': 'W36 Web的神，无需多言!'

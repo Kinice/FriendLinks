@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Instagram'
-      'url': 'https://www.instagram.com/jiefei_30'
-    - 'name': 'Pixiv'
-      'url': 'https://www.pixiv.net/users/64929542'
     - 'name': 'Aloudata'
       'url': 'https://www.aloudata.com/'
     - 'name': 'Jeffrey Wang'

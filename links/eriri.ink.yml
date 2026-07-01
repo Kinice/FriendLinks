@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends.html'
   'friends':
-    - 'name': 'Typecho开发者社区'
-      'url': 'https://www.typechodev.com/'
     - 'name': 'Mashiro'
       'url': 'https://2heng.xin/'
     - 'name': 'j0ck1e'

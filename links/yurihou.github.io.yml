@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'QRZ.com'
-      'url': 'https://www.qrz.com/db/BH9DWE/'
     - 'name': '涵无 Kannmu'
       'url': 'https://kannmu.github.io/'
     - 'name': 'Doublehan07, BI1NWO'

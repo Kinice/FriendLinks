@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'APQA论坛'
-      'url': 'https://www.apqa.cn'
     - 'name': '蔚然小站'
       'url': 'http://gpu.kkk.rs'
     - 'name': 'vhdpve'

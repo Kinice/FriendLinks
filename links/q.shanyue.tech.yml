@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '一纸简历'
-      'url': 'https://cv.devtool.tech'
     - 'name': '码途编辑器'
       'url': 'https://markdown.devtool.tech'

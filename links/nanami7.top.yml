@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'mindu101'
-      'url': 'https://www.luogu.com.cn/user/1920981'
     - 'name': '前往做客'
       'url': 'https://bandierarosa.github.io/'
     - 'name': '前往做客'

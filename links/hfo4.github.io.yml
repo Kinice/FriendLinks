@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Ailoli'
-      'url': 'https://www.ailoli.org/'
     - 'name': 'Anotherhome'
       'url': 'https://diygod.me/'
     - 'name': 'FCZBL'

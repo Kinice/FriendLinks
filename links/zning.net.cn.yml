@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '在 CentOS 7.3 中配置基本 LAMP 环境 – lyic''s'
-      'url': 'http://lyic.ecy.ren/archives/212/install-lamp-on-centos-7-3/'
-    - 'name': '世界，您好！ | Zheng Bang bo'
-      'url': 'http://zhengbangbo.xyz/?p=1'
     - 'name': '.张宁网新版网站.'
       'url': 'https://zning.net'
     - 'name': '90ITer'

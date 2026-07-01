@@ -4,11 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'webring'
-      'url': 'https://en.wikipedia.org/wiki/Webring'
-    - 'name': 'IndieWeb building blocks'
-      'url': 'https://indieweb.org/building-blocks'
     - 'name': 'Marty McGuire'
       'url': 'https://martymcgui.re/'
-    - 'name': 'on Glitch'
-      'url': 'https://glitch.com/edit/#!/steady-sundial'

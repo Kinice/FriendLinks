@@ -6,7 +6,3 @@
   'friends':
     - 'name': 'Mistral'
       'url': 'https://mistral.ai'
-    - 'name': 'docs'
-      'url': 'https://jsfiddle.gitbook.io/help/async-requests'
-    - 'name': 'API Keys'
-      'url': 'https://console.mistral.ai/api-keys'

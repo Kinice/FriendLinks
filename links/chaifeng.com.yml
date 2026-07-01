@@ -1,8 +1,0 @@
-'site':
-  'name': '柴锋'
-  'url': 'https://chaifeng.com/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': 'opensource'
-      'url': 'http://del.icio.us/chaifeng/opensource'

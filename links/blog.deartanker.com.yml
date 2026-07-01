@@ -6,12 +6,6 @@
   'friends':
     - 'name': '1升的迷你小钢炮'
       'url': 'https://www.hacktiny.com/'
-    - 'name': '创意工作者们的社区'
-      'url': 'https://www.v2ex.com/?r=DearTanker'
-    - 'name': '🐶 狗云'
-      'url': 'https://www.dogyun.com/?ref=deartanker'
-    - 'name': '🐧 腾讯云'
-      'url': 'https://curl.qcloud.com/QHmVCPCM'
     - 'name': 'Fatesinger'
       'url': 'https://fatesinger.com/'
     - 'name': 'Rat’s Blog'
@@ -30,5 +24,3 @@
       'url': 'http://wabcw.info/'
     - 'name': '爱折腾的aRAY'
       'url': 'http://aray.cn/'
-    - 'name': 'Bandwagon'
-      'url': 'https://bwh89.net/aff.php?aff=989&pid=94'

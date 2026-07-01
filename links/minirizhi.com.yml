@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '傻猫网络日志'
-      'url': 'https://www.samool.com'
     - 'name': '阵雨兄'
       'url': 'https://blog.alttt.com'
     - 'name': '忆往事'

@@ -6,7 +6,5 @@
   'friends':
     - 'name': '利用規約'
       'url': 'https://policies.pixiv.net/'
-    - 'name': 'お問い合わせ'
-      'url': 'https://www.pixiv.net/support?mode=inquiry&type=6&service=pixivision'
     - 'name': '運営会社'
       'url': 'https://www.pixiv.co.jp/'

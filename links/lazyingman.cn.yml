@@ -4,8 +4,6 @@
   'url': 'https://lazyingman.cn/'
   'links': '/link'
   'friends':
-    - 'name': '流体模拟器'
-      'url': 'http://lazyingman.gitee.io/fluideffects'
     - 'name': '安知鱼'
       'url': 'https://blog.anheyu.com/'
     - 'name': '铭心石刻'
@@ -18,8 +16,6 @@
       'url': 'https://manamn.space/'
     - 'name': 'Ethan.Tzy'
       'url': 'https://fe32.top/'
-    - 'name': '阮一峰'
-      'url': 'https://www.ruanyifeng.com/blog/'
     - 'name': '山岳库博'
       'url': 'https://kmar.top/'
     - 'name': '包子哟'

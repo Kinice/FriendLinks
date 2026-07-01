@@ -6,7 +6,3 @@
   'friends':
     - 'name': 'iiit-b'
       'url': 'https://www.iiitb.ac.in/'
-    - 'name': 'Threads'
-      'url': 'https://www.threads.net/@sidsr'
-    - 'name': 'Mastodon'
-      'url': 'https://mstdn.social/@sids'

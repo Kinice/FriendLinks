@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '🚇开往'
-      'url': 'https://travellings.link'
-    - 'name': 'AdlerED'
-      'url': 'https://www.stackoverflow.wiki/blog'
     - 'name': 'Aizecraft'
       'url': 'http://www.aizecraft.cn/'
     - 'name': 'bangbang93'
@@ -54,7 +50,5 @@
       'url': 'https://yuzhang.wang/'
     - 'name': 'Zuo_long'
       'url': 'http://zuolong233.github.io/'
-    - 'name': '一年又一年'
-      'url': 'https://iyn.me/i/'
     - 'name': '孤影墨香'
       'url': 'https://www.gymxbl.com/'

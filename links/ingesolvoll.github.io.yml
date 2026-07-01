@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'this excellent blog solution'
-      'url': 'https://slipset.github.io/posts/deploying-to-clojars'
     - 'name': 'keechma'
       'url': 'https://keechma.com/'
     - 'name': 'Cryogen'

@@ -4,8 +4,6 @@
   'url': 'https://wang618.cn/'
   'links': '/links'
   'friends':
-    - 'name': '希米日志'
-      'url': 'https://www.ximi.me/'
     - 'name': '尘の个人博客'
       'url': 'https://blog.mcxiaochen.top'
     - 'name': '爱吃猫的鱼BLOG'
@@ -78,8 +76,6 @@
       'url': 'https://www.golangblog.com'
     - 'name': '洛卡日记'
       'url': 'https://luoca.cn'
-    - 'name': '李的日志'
-      'url': 'https://lilog.cn'
     - 'name': 'ZLA 小站'
       'url': 'https://www.zla.pub'
     - 'name': '清羽飞扬'

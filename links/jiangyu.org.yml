@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '台北故宫博物院'
-      'url': 'https://digitalarchive.npm.gov.tw/Painting/Content?pid=14279&Dept=P'
     - 'name': '旅行漫记'
       'url': 'https://synyan.cn/'
     - 'name': '花開未央'
@@ -36,7 +34,5 @@
       'url': 'https://wangdongxing.com/'
     - 'name': 'radishzz’s blog'
       'url': 'https://radishzz.cc/'
-    - 'name': '康丰日志'
-      'url': 'https://www.okang.top/'
     - 'name': 'Page status'
       'url': 'https://ping.onewater.run'

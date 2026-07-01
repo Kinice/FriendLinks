@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'jyy 老师的讲义'
-      'url': 'https://jyywiki.cn/OS/2025/lect10.md'
     - 'name': 'Acorn'
       'url': 'https://acorn.imaging.xin/'
     - 'name': 'To Base64'

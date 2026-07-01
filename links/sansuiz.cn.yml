@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': '安大略'
-      'url': 'http://www.anandalue.com/'
     - 'name': '曼亚灿'
       'url': 'https://manyacan.com/'
     - 'name': '于长野'

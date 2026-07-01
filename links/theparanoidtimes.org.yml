@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'sourcehut'
-      'url': 'https://sr.ht/~tpt/'
     - 'name': 'IGT'
       'url': 'https://www.igt.com/'

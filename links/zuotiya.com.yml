@@ -6,8 +6,6 @@
   'friends':
     - 'name': '芒果TV'
       'url': 'https://www.mgtv.com/'
-    - 'name': '爱奇艺'
-      'url': 'https://www.iqiyi.com/'
     - 'name': '优酷视频'
       'url': 'https://www.youku.com/'
     - 'name': 'Mtime时光网'

@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'Roq'
       'url': 'https://iamroq.com/'
-    - 'name': 'Submit a bug'
-      'url': 'https://issues.redhat.com/browse/WFLY'
     - 'name': 'Join Zulip Chat'
       'url': 'https://wildfly.zulipchat.com/'
     - 'name': 'Arquillian'
@@ -38,9 +36,5 @@
       'url': 'https://undertow.io/'
     - 'name': 'Weld'
       'url': 'https://weld.cdi-spec.org/'
-    - 'name': 'WildFly Elytron'
-      'url': 'https://wildfly-security.github.io/wildfly-elytron/'
     - 'name': 'XNIO'
       'url': 'https://xnio.jboss.org/'
-    - 'name': 'Trademark List'
-      'url': 'https://www.commonhaus.org/trademarks/'

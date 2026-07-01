@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'pdf扫描'
-      'url': 'https://zh.lookscanned.io/scan'
     - 'name': '阿狸鹿丫 业余瞎折腾的阿狸鹿丫'
       'url': 'https://www.aliluya.com/'
     - 'name': 'Jiewen’s Blog 行动起来，活在当下'

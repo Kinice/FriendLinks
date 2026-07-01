@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'astro.js - Website Framework'
       'url': 'https://astro.build'
-    - 'name': 'tailwindcss - Styling Library'
-      'url': 'https://tailwindcss.com'
     - 'name': 'katex - Mathematical Formulas'
       'url': 'https://katex.org'
     - 'name': 'unifiedjs - Markdown Rendering'

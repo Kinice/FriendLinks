@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '88影视网'
-      'url': 'https://www.88kan.org'
     - 'name': '耐看点播'
       'url': 'https://www.nkdb.cc/'
     - 'name': '可达影视'

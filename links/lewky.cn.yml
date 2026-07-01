@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'SEO查询'
       'url': 'https://seo.chinaz.com'
-    - 'name': 'Hugo文档'
-      'url': 'https://gohugo.io/documentation/'
     - 'name': '一只会飞的旺旺"爱分享的Java程序猿"'
       'url': 'https://www.wangwangit.com/'
     - 'name': '肥子的Web Tools"高级搬砖工 · Geek肥"'
@@ -38,8 +36,6 @@
       'url': 'http://ziyue.tech/'
     - 'name': 'hao同学的技术博客"一个痴迷于技术的厨艺爱好者"'
       'url': 'https://www.hreshhao.com/'
-    - 'name': 'FireGuo论坛"FireGuo论坛-一个免费的讨论论坛，尽情发表言论吧！"'
-      'url': 'http://www.flweb.tk'
     - 'name': 'FireGuo博客"一个普通初中生的普通博客，为了分享普通的技术知识"'
       'url': 'http://blog.flweb.tk'
     - 'name': '企鹅小屋"企鹅的小屋"'

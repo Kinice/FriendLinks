@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '爱发电'
-      'url': 'https://afdian.net/dashboard/stats'
     - 'name': '老🦊的博客'
       'url': 'https://www.olderfox.com/'
-    - 'name': 'Alita'
-      'url': 'https://drphilip425.github.io/CuteFox_Home.github.io/'
     - 'name': 'MWX的花田'
       'url': 'https://dkrain.com/'
     - 'name': 'serinanya的日常'

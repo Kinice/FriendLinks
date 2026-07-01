@@ -4,8 +4,6 @@
   'url': 'https://www.wubase.com'
   'links': '/links'
   'friends':
-    - 'name': '易网盟'
-      'url': 'https://yiwangmeng.cn/action-hexo/'
     - 'name': '一网盟'
       'url': 'https://www.yiwangmeng.com/'
     - 'name': '开心屋发卡'

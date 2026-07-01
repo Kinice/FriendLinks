@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'EvanNotFound''s Blog 用香港记者的速度更新文章'
-      'url': 'https://ohevan.com'
     - 'name': '安知鱼 生活明朗，万物可爱'
       'url': 'https://blog.anheyu.com/'
     - 'name': '神经蛙'

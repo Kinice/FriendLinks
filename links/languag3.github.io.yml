@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'shin'
-      'url': 'https://shinichicun.top/about//'
     - 'name': 'y7syeu'
       'url': 'https://y7syeu.github.io/'
     - 'name': 'Triode'
@@ -44,5 +42,3 @@
       'url': 'https://blog.1ces1amese.cn/'
     - 'name': 'oSthing'
       'url': 'https://osthing.github.io/'
-    - 'name': 'NexT.Muse'
-      'url': 'https://theme-next.js.org/muse/'

@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Behance'
-      'url': 'https://www.behance.net/vistaing'
     - 'name': 'Just Good Themes'
       'url': 'https://justgoodthemes.com/'

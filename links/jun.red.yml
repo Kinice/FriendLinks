@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Home | 首页'
-      'url': 'https://www.dracoum.com/'
     - 'name': 'Bean SkyNet'
       'url': 'http://www.xbean.net'
     - 'name': 'Nuts Digital'

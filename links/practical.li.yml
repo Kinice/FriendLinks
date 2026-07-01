@@ -6,5 +6,3 @@
   'friends':
     - 'name': 'Nubank'
       'url': 'https://nubank.com.br/'
-    - 'name': 'Material for MkDocs'
-      'url': 'https://squidfunk.github.io/mkdocs-material/'

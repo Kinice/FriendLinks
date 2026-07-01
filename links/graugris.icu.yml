@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': '蝴蝶曾在此处'
-      'url': 'https://write.c7.io/tyou/'
     - 'name': '谢谢所有的鱼'
       'url': 'https://gregueria.icu/'
     - 'name': '东俄勒冈群山'

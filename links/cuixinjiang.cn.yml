@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '163邮箱'
-      'url': 'https://mail.163.com/'
     - 'name': '阿锦在线 记录生活点滴！'
       'url': 'https://www.ajinol.com'
     - 'name': '月光海岸 用心创造快乐！'
@@ -14,7 +12,3 @@
       'url': 'https://zxalive.com/'
     - 'name': '极客日记 莫愁前路无知己，天下谁人不识君。'
       'url': 'https://www.explorexd.com'
-    - 'name': 'Zeroni 影像构建生活'
-      'url': 'https://www.zeroni.top/'
-    - 'name': 'deepseek'
-      'url': 'https://chat.deepseek.com/sign_in'

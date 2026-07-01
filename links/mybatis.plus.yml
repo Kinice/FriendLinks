@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '2.X 文档'
-      'url': 'https://baomidou.gitee.io/mybatis-plus-doc/#/'
     - 'name': '对象关系映射的核心理念'
       'url': 'https://hibernate.org'
     - 'name': 'Zeto'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Wikipedia'
-      'url': 'https://en.wikipedia.org/wiki/Anna%27s_Archive'
     - 'name': 'Matrix ↗'
       'url': 'https://matrix.to/#/#annas:archivecommunication.org'
     - 'name': 'annas-archive.pk ↗'

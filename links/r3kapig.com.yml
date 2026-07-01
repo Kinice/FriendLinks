@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'CTFTime'
-      'url': 'https://ctftime.org/team/58979'
     - 'name': 'tangcuxiaojikuai'
       'url': 'https://tangcuxiaojikuai.xyz/'
     - 'name': 'JANlittle'

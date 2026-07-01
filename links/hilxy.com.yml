@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'ZLX STUDIO 为音乐创作发电！'
-      'url': 'https://blog.iooioio.com/'
     - 'name': '阿锦在线 记录生活点滴！'
       'url': 'https://www.ajinol.com'
     - 'name': '我剑也未尝不利 对所有的烦恼说拜拜，对所有的快乐说嗨嗨~'
@@ -20,5 +18,3 @@
       'url': 'https://www.nancc.com/'
     - 'name': '街头极限健身网 街头极限健身网是国内最具个性的健身网站，提供各种健身训练方法教程'
       'url': 'https://www.zizhongjianshen.com/'
-    - 'name': '我的日志 一个记录生活的博客网站'
-      'url': 'https://ilogs.cn/'

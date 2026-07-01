@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'Friends of Good Software'
       'url': 'https://frogsconf.nl/'
-    - 'name': 'Mastodon'
-      'url': 'https://chaos.social/@joeposaurus'
     - 'name': 'Nikola'
       'url': 'https://getnikola.com'
     - 'name': 'Plausible'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': '北京科技大学「勤敏轩」学生创新实验室'
-      'url': 'https://ustb-806.github.io/'
     - 'name': 'Qodicat'
       'url': 'https://qodicat.top/'
     - 'name': 'Soulter'
@@ -14,8 +12,6 @@
       'url': 'https://blog.bosswnx.xyz/'
     - 'name': 'Boss’s Bl'
       'url': 'https://nelsonboss.ink/'
-    - 'name': 'Kevin Wong'
-      'url': 'https://kevin56348.github.io/blog/'
     - 'name': 'SoloMaple'
       'url': 'https://solomaple.github.io/'
     - 'name': 'Sazikk'

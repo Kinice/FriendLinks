@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '立即免费下载'
-      'url': 'https://www.sqlark.com?s=eco-banner'
     - 'name': '达梦技术'
       'url': 'https://www.dmdatatech.com/'
     - 'name': '蜀天梦图'

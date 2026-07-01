@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '应用中心'
-      'url': 'https://app.zblogcn.com/?auth=4d270ee9-ba8a-4d63-9a5c-2d28c970a896'
-    - 'name': 'Z-BlogPHP'
-      'url': 'https://app.zblogphp.com/'
     - 'name': '拓源网'
       'url': 'https://www.toyean.com/'
     - 'name': '鸟儿博客'

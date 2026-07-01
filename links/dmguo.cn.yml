@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': '夏天屋 访问失败专注于优质资源收集与分享!'
-      'url': 'https://xtwo.cn/'
-    - 'name': '康丰日志 访问正常简单的blog'
-      'url': 'https://www.okang.top'
     - 'name': '旺仔萌屋 访问失败旺仔萌屋-打造二次元领导者'
       'url': 'http://www.ayuaa.com'
     - 'name': '樊不烦 访问失败樊不烦(FanBu.Fan)是川渝知名的个人分享平台。从现在开始认识樊不烦,加入樊不烦,成为樊不烦,超越樊不烦。'
@@ -16,7 +12,3 @@
       'url': 'https://www.huijuf.com/'
     - 'name': '筱信の主页 访问正常个人引导页'
       'url': 'https://www.hxino.com/'
-    - 'name': '纯欲Mvp 访问失败纯欲Mvp(cymvp.cn)樊不烦博客-又纯又欲的纯欲日记，川渝知名资源分享博客之一。'
-      'url': 'https://www.cymvp.cn'
-    - 'name': '茉莉小栈 访问正常分享全网优质资源'
-      'url': 'https://www.5iml.com/'

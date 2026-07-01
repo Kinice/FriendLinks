@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'TCPing'
-      'url': 'https://www.itdog.cn/tcping/www.visa.cn:443'
     - 'name': 'NB 优选服务'
       'url': 'https://www.byoip.top/'
     - 'name': '秋名山'

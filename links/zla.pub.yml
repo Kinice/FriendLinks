@@ -4,12 +4,8 @@
   'url': 'https://zla.pub/'
   'links': '/friends'
   'friends':
-    - 'name': '白鲸字幕组'
-      'url': 'https://www.belugasubs.com/'
     - 'name': 'SuzuBlog'
       'url': 'https://suzu.zla.app/'
-    - 'name': '个人学术网站'
-      'url': 'https://elaraliu.com/'
     - 'name': 'FGHRSH'
       'url': 'https://www.fghrsh.net/'
     - 'name': 'DIYGod'

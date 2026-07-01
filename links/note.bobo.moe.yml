@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Galeries'
-      'url': 'http://www.offset.com/photos/291882'
     - 'name': '吐槽大王部落格'
       'url': 'https://www.tcdw.net/'
     - 'name': '不老传说のSoha Jin'

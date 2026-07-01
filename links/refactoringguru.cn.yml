@@ -6,8 +6,6 @@
   'friends':
     - 'name': '瞅瞅我的新 Git 课！ 嘿！瞅瞅我的新 Git 课！ 嘿！GitByBit.com 上有我的新'
       'url': 'https://gitbybit.com/'
-    - 'name': 'English'
-      'url': 'https://refactoring.guru'
     - 'name': '联系我们'
       'url': 'https://refactoring.userecho.com/'
     - 'name': 'Dmitry Zhart'

@@ -6,7 +6,5 @@
   'friends':
     - 'name': 'IT老李'
       'url': 'https://www.itlaoli.com/'
-    - 'name': '中国博客联盟'
-      'url': 'https://zgboke.org/'
     - 'name': '卢松松博客'
       'url': 'http://www.lusongsong.com/'

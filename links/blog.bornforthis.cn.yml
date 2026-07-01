@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '思否'
-      'url': 'https://segmentfault.com/u/bornforthis'
     - 'name': '私教主页'
       'url': 'https://www.class1v1.com/'
     - 'name': 'Medium'

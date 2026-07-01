@@ -4,13 +4,5 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'ClawCloud Run 服务要下线'
-      'url': 'https://question.run.claw.cloud/questions/10010000000003261'
-    - 'name': '登录 ClawCloud Run 后台'
-      'url': 'https://ap-northeast-1.run.claw.cloud/signin'
-    - 'name': 'Invalidate Reports'
-      'url': 'https://plugins.matomo.org/InvalidateReports'
-    - 'name': 'Twenty Twelve'
-      'url': 'https://cn.wordpress.org/themes/twentytwelve/'
     - 'name': 'Web hosting by'
       'url': 'https://www.serverspan.com/'

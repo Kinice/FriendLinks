@@ -6,13 +6,5 @@
   'friends':
     - 'name': 'Continue'
       'url': 'https://www.nvidia.com'
-    - 'name': 'NGC 目录 探索 GPU 优化的 AI、HPC 和'
-      'url': 'https://catalog.ngc.nvidia.com/'
-    - 'name': '立即报名'
-      'url': 'https://www.bagevent.com/event/8359360'
-    - 'name': 'profile.api.courses.nvidia.com'
-      'url': 'https://profile.api.courses.nvidia.com/prod/2/dp-enroll-benefit-v1/intent'
     - 'name': 'Venture Capital (NVentures)'
       'url': 'https://www.nventures.ai/'
-    - 'name': '面向 IT 专业人员的培训和认证'
-      'url': 'https://academy.nvidia.com/en/'

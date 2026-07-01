@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/flink'
   'friends':
-    - 'name': 'True my world eye Open your mind to the possibilities.'
-      'url': 'http://blog.hellozhw.cn'
     - 'name': 'PK we need a real revolution for ourselves'
       'url': 'https://rustlove.cn'
-    - 'name': 'MarkBai 一个IT&DIY爱好者的折腾日志'
-      'url': 'https://blog.051088.xyz'
     - 'name': 'jeanhua jeanhua的个人博客'
       'url': 'https://www.blog.jeanhua.cn'
     - 'name': '深翼cclmsy never forget nor regret'

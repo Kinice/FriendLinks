@@ -1,8 +1,0 @@
-'site':
-  'name': 'qwq.moe'
-  'url': 'https://qwq.moe/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': '2026年1月2日 技术 水'
-      'url': 'https://mozz.ie/posts/add-face-id-to-imac-with-a-raspberry-pi/'

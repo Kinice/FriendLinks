@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '社交主页'
-      'url': 'https://biofy.cn/Zyx_2012'
     - 'name': '星尘客栈 - 宇宙尺度的知识驿站 宇宙尺度的知识驿站'
       'url': 'https://www.ruibin-ningh.top/'
     - 'name': '辰渊尘の个人博客 - 「小尘」の个人博客 05后，高中生，喜欢什么就做什么，内容'
@@ -28,8 +26,6 @@
       'url': 'https://blog.fryfries13.cn'
     - 'name': '企鹅的博客 努力学习新的知识'
       'url': 'https://www.lydqe.com.cn'
-    - 'name': 'ElysiumStack 不会摄影的设计师不是优秀的旅行家'
-      'url': 'https://blog.elysium-stack.cn'
     - 'name': 'Halo, My Love 这里是一座用文字堆砌的“记忆岛屿”——心屿。 它诞生'
       'url': 'https://loveschumann.com'
     - 'name': '小郑 Blog 一个热爱技术、喜欢折腾的小佬。 专注于后端开发。 记录生活，分享'

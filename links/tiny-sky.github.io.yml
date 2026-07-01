@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '元芳元芳琼楼挂月钓流云，梦里瑶台暂借春'
-      'url': 'https://yuanfang.thisis.host//'
     - 'name': '纸鹿纸鹿纸鹿至麓不知路，支炉制露不止漉'
       'url': 'https://blog.zhilu.cyou/'
     - 'name': 'futurefutureHang on to your dreams !'
@@ -20,8 +18,6 @@
       'url': 'https://csdiy.wiki/'
     - 'name': '小林Coding'
       'url': 'https://xiaolincoding.com/'
-    - 'name': '爱编程的大丙'
-      'url': 'https://subingwen.cn/'
     - 'name': 'LeetCode'
       'url': 'https://leetcode.cn/'
     - 'name': 'ChatGPT'

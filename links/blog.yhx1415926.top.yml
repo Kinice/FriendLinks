@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'Pixiv - Sally / サリー'
-      'url': 'https://www.pixiv.net/artworks/125256814'
     - 'name': '夏夜流萤 飞萤之火自无梦的长夜亮起，绽放在终竟的明天。 Blog'
       'url': 'https://blog.cuteleaf.cn'
     - 'name': 'THW''s Blog 前途似海，来日方长 Blog'
@@ -22,5 +20,3 @@
       'url': 'https://blog.elykia.cn/'
     - 'name': 'Zero - 浮生 浮生一刹万般皆舍 Blog'
       'url': 'https://vtdd.vip/'
-    - 'name': '周子衡''s 洛谷专栏 Shadow is the light! Blog'
-      'url': 'https://www.luogu.com.cn/user/112794/article'

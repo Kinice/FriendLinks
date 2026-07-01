@@ -6,7 +6,5 @@
   'friends':
     - 'name': 'Hoplon'
       'url': 'http://hoplon.io/'
-    - 'name': 'add-watch'
-      'url': 'http://clojuredocs.org/clojure_core/clojure.core/add-watch'
     - 'name': 'Octopress'
       'url': 'http://octopress.org'

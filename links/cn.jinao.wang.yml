@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '优质号卡专区-广告 一个提供优质号卡办理的平台，为您带来优质的体验'
-      'url': 'https://h5.gantanhao.com/home2?timestamp=1748963114018&from=3%40C%40%40s%3Fqs%3EFop%3B%3EBrD%3BBCAB%3Bp%3FFp%3B%3ErsoBGoF%3EsB%3E3%40C%40%40'
-    - 'name': '小原blog 小原blog - 专注于技术实践与学习资源的个人博客。小原blo'
-      'url': 'https://blog.meowhead.cn/'
     - 'name': '圆弧派博客 圆弧派博客,是一个专注于网络技术分享的个人博客,包括但不止记录与分享'
       'url': 'https://www.iarc.top/'
     - 'name': 'Anyeの小站 Anyeの小站 (Anye.xyz) - 开放，技术性的个人博客'

@@ -1,8 +1,0 @@
-'site':
-  'name': 'shiro.team'
-  'url': 'https://www.shiro.team/'
-  'description': '友情链接'
-  'links': '/friends/'
-  'friends':
-    - 'name': 'Viki 写东西的地方 / 2026/06/14 江城短歇，和猫猫一起游武汉 路途原因，带猫猫坐顺风车回成都，沿途在武汉停靠两天两夜，顺便在这里玩玩。'
-      'url': 'https://blog.viki.moe/wuhan-journey'

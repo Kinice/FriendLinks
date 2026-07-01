@@ -6,8 +6,6 @@
   'friends':
     - 'name': '陕西毅杰'
       'url': 'http://www.shaanxiyijie.com'
-    - 'name': '智慧云选'
-      'url': 'http://wisdom.chem-site.com'
     - 'name': 'Junhua''s Blog'
       'url': 'https://blog.searchinfogo.com'
     - 'name': '卟败灬筱龙'
@@ -26,5 +24,3 @@
       'url': 'https://sunbufu.github.io'
     - 'name': 'Chen Lixiang'
       'url': 'https://imroot.cn'
-    - 'name': 'Jekyll'
-      'url': 'https://jekyllcn.com/docs/home/'

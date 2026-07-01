@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friend'
   'friends':
-    - 'name': '48 文章'
-      'url': 'https://0w0.in/archive/'
     - 'name': '131''s Blog'
       'url': 'https://blog.yuzu.im'
     - 'name': 'Avimitin''s Blog'
@@ -26,8 +24,6 @@
       'url': 'https://blog.asec01.net/'
     - 'name': '天空之边'
       'url': 'https://liyin.date/'
-    - 'name': '寒泥的无聊日志'
-      'url': 'http://www.imhan.com/'
     - 'name': '幻杀博客'
       'url': 'https://ihuan.me/'
     - 'name': '惶心博客'

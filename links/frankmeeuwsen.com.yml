@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Mastodon'
-      'url': 'https://indieweb.social/@frank'
     - 'name': 'Coachify'
       'url': 'https://wpcoachify.com'

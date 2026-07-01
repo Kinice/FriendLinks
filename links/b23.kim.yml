@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/link/'
   'friends':
-    - 'name': 'Bilibili Bilibili 你的下一个云服务商，何必是云服务商'
-      'url': 'https://i0.hdslb.com/'
     - 'name': '清羽飞扬 清羽飞扬 柳影曳曳，清酒孤灯，扬笔撒墨，心境如霜'
       'url': 'https://blog.liushen.fun/'
     - 'name': 'Suffine Hub Suffine Hub 分享学习路程，表态生活。'

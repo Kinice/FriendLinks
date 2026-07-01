@@ -6,12 +6,6 @@
   'friends':
     - 'name': 'moonshotAI'
       'url': 'https://www.moonshot.ai/'
-    - 'name': 'Web Worker'
-      'url': 'https://www.xiaoyuzhoufm.com/podcast/613753ef23c82a9a1ccfdf35'
-    - 'name': 'Microsoft'
-      'url': 'https://www.microsoft.com/'
-    - 'name': 'ByteDance'
-      'url': 'https://www.bytedance.com/en/'
     - 'name': 'HULU(Disney Streaming)'
       'url': 'https://hulu.com/'
     - 'name': 'Ke Holdings'

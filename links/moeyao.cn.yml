@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'ZY 知识库 一个技术探索与分享的平台'
-      'url': 'https://blog.pljzy.top/'
     - 'name': 'SokiのBlog 月下彼岸花'
       'url': 'https://www.soki.moe'
     - 'name': '城子的小屋 小城子的博客'
@@ -32,8 +30,6 @@
       'url': 'https://sakurain.net'
     - 'name': 'CcoMm 你要吃C4吗？'
       'url': 'https://blog.ccomm.top'
-    - 'name': '小元博客 一个技术分享和娱乐性的趣味网站。'
-      'url': 'https://reblog.cn/'
     - 'name': '轻雅阁 新时代教师的日常'
       'url': 'https://www.puresky.top'
     - 'name': '天仙子 我正通过与你的对话确立我自己'

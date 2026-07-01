@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Medium'
-      'url': 'https://amonxu.medium.com/'
-    - 'name': 'S.O.'
-      'url': 'https://stackoverflow.com/users/3090339/amonxu'
     - 'name': 'GeekPlux'
       'url': 'http://geekplux.com/'
     - 'name': '完美的胖达'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '升级你的浏览器'
-      'url': 'http://browsehappy.com/'
     - 'name': '2B铅笔'
       'url': 'http://www.idongu.com/'
     - 'name': 'adaptの博客'
@@ -46,7 +44,3 @@
       'url': 'http://hjc.im/'
     - 'name': '魔王的傻逼主页'
       'url': 'http://www.500efuma.com'
-    - 'name': 'Hi, FUСК ME RIGHT NOW → graph.org/The-Best-AI-Sex-Girlfriend-05-11?hs=92ccb1cba1'
-      'url': 'https://graph.org/The-Best-AI-Sex-Girlfriend-05-11'
-    - 'name': 'TRON Compensation Released Withdraw Compensation ⚡⚡ telegra.ph/COMPENSATION-05-1'
-      'url': 'https://telegra.ph/COMPENSATION-05-12-9'

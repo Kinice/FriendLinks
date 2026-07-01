@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'API 文档'
-      'url': 'https://lty.vc/docs'
     - 'name': 'Jimmy''s Blog'
       'url': 'https://blog.jimmyho.net/'
     - 'name': '皮皮凛の小窝'
@@ -44,5 +42,3 @@
       'url': 'https://a-moment096.github.io/'
     - 'name': '凝眸绘晴空'
       'url': 'https://mahiro.ink/'
-    - 'name': 'TID'
-      'url': 'https://www.pixiv.net/users/418969'

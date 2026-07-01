@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '黑客派'
-      'url': 'https://ld246.com/tag/hacpai'
     - 'name': '邯城往事'
       'url': 'https://www.cjzshilong.cn/'
     - 'name': '梁天的博客'

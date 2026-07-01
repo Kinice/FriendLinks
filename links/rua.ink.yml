@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends.html'
   'friends':
-    - 'name': '使用邮件'
-      'url': 'https://mailchi.mp/9c69c32ea91b/mello'
     - 'name': '圆周率的博客My Blog!'
       'url': 'https://www.yuanzj.top'
     - 'name': '搅局''s blog我寄愁心与明月，随君直到夜郎西'
@@ -42,8 +40,6 @@
       'url': 'https://hulatu.com'
     - 'name': '小竹の笔记本这里是编程宇宙中一颗璀璨的星辰，照亮你探索知识的旅程。'
       'url': 'https://notes.smallbamboo.cn'
-    - 'name': 'FurLibraryFurLibrary兽圈论坛'
-      'url': 'https://www.furlary.com'
     - 'name': 'BlogFinder'
       'url': 'https://bf.zzxworld.com/'
     - 'name': 'SkyWT'

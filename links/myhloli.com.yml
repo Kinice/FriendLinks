@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '超能小紫 资深全沾工程师'
-      'url': 'https://mok.moe/'
     - 'name': 'diygod 写代码是热爱，写到世界充满爱！'
       'url': 'https://diygod.me'
     - 'name': 'Min''s Never frown, even when you are sad, because you never know'

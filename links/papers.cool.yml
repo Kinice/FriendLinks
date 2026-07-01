@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'tantivy'
-      'url': 'https://tantivy-py.readthedocs.io/en/latest/'
     - 'name': 'kexue.fm'
       'url': 'https://kexue.fm/'

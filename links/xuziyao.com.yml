@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '打赏作者'
-      'url': 'https://afdian.com/a/dason'
     - 'name': 'Milracle'
       'url': 'https://milracle.xhsr.org.cn'
     - 'name': 'PhiZone'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/about'
   'friends':
-    - 'name': 'AS200959'
-      'url': 'https://bgp.he.net/AS200959'
     - 'name': 'CrazyForCode'
       'url': 'https://www.crazyforcode.org'
     - 'name': 'Zero'

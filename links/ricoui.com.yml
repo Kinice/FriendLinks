@@ -4,13 +4,9 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '🎨 渐变资源'
-      'url': 'https://gradientshub.com/'
     - 'name': '💡 OG 灵感'
       'url': 'https://ricoog.com/'
     - 'name': '✨ 网页灵感'
       'url': 'https://inspoweb.com/'
-    - 'name': '🗂 设计资源'
-      'url': 'https://uiuxdeck.com/'
     - 'name': '推荐 设计师的个人网站'
       'url': 'https://www.ricocc.com/'

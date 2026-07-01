@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '孟坤博客 随缘更新一点点'
-      'url': 'https://mkblog.cn'
     - 'name': '微风忆夏 微风轻轻起 夏日不再来'
       'url': 'https://sumiler.com'
     - 'name': '森木志 用你的手去写你的心'

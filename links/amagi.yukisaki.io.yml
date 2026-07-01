@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends/'
   'friends':
-    - 'name': '洛谷水题解'
-      'url': 'https://www.luogu.com.cn/blog/cmd2001/'
     - 'name': 'Gekoo'
       'url': 'https://gekoo.top/'
     - 'name': 'redJgray'

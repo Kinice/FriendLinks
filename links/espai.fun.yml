@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': '开放平台'
-      'url': 'https://dev.espai2.fun/'
     - 'name': '小明IO'
       'url': 'https://xiaomingio.top'
     - 'name': '海豚配音'

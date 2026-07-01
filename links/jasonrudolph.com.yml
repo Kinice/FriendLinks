@@ -6,7 +6,5 @@
   'friends':
     - 'name': 'BuildPulse'
       'url': 'https://buildpulse.io'
-    - 'name': 'github.com'
-      'url': 'https://github.blog/author/jasonrudolph/'
     - 'name': 'Relevance'
       'url': 'http://thinkrelevance.com'

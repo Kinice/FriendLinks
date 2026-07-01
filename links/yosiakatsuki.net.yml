@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'LINEで問い合わせ'
-      'url': 'https://lin.ee/E080yMx'
     - 'name': 'wp-ystandard.com'
       'url': 'https://wp-ystandard.com'

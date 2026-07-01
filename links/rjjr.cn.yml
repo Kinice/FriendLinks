@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': 'Instagram'
-      'url': 'https://www.instagram.com/yuazhi2008/'
     - 'name': '彬红茶博客(原顶茶社)'
       'url': 'https://blog.redcha.cn'
     - 'name': '龙星划空'

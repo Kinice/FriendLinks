@@ -12,7 +12,5 @@
       'url': 'https://pixelfed.org'
     - 'name': 'Mastodon'
       'url': 'https://joinmastodon.org'
-    - 'name': '这个视频'
-      'url': 'https://video.writeas.org/videos/watch/cc55e615-d204-417c-9575-7b57674cc6f3'
     - 'name': '开发者'
       'url': 'https://developers.write.as/'

@@ -6,7 +6,5 @@
   'friends':
     - 'name': '此链接'
       'url': 'https://waline-chat-seven.vercel.app'
-    - 'name': '必看！telegram使用教程'
-      'url': 'https://www.ermao.net/blog/telegram/'
     - 'name': 'Viggo'
       'url': 'https://www.viggoz.com'

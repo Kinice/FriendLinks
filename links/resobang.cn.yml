@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '免费算命'
-      'url': 'https://www.tiatiatoutiao.com'
     - 'name': '扁平吊装带'
       'url': 'https://www.jslift.com'
     - 'name': '钢卷吊具'

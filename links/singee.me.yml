@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '我的知识库 kb.singee.site'
-      'url': 'https://kb.singee.site'
     - 'name': 'auv.tools a collection of useful tools'
       'url': 'https://auv.tools'
     - 'name': 'SurfingKit surfingkit.app'

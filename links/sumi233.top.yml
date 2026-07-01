@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': '酥米阁App'
-      'url': 'https://www.123684.com/s/mIXlVv-LIrB?pwd=sumi#'
-    - 'name': 'BlogFinder'
-      'url': 'https://bf.zzxworld.com/s/1662'
     - 'name': 'Feng的小屋'
       'url': 'https://bkfeng.vvvv.ee'
     - 'name': '筱序二十'

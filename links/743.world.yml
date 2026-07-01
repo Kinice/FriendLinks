@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends.html'
   'friends':
-    - 'name': 'Robin'
-      'url': 'https://www.ccw.site/student/62d8b85cc716c6080a1f00a6'
     - 'name': 'bddjr'
       'url': 'https://bddjr.cn'
     - 'name': '紫云PE_CD'

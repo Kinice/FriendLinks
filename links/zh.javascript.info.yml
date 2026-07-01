@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'RUРусский'
       'url': 'https://learn.javascript.ru/'
-    - 'name': 'plnkr'
-      'url': 'https://plnkr.co/edit/?p=preview'
     - 'name': 'JSBin'
       'url': 'https://jsbin.com'
     - 'name': 'codepen'

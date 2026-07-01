@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'Light Table'
       'url': 'http://www.lighttable.com'
-    - 'name': 'String Calculator'
-      'url': 'http://osherove.com/tdd-kata-1/'
     - 'name': 'Coderetreat'
       'url': 'http://coderetreat.org'
     - 'name': 'Czech Republic'

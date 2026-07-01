@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friend'
   'friends':
-    - 'name': '（GitHub 头像）'
-      'url': 'https://avatars.githubusercontent.com/u/47057319?s=128'
     - 'name': 'wsrv.nl'
       'url': 'https://wsrv.nl/'
     - 'name': 'Will.K''s Blog 一个似乎不存在的地方'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Puresys纯净系统-软件下载'
-      'url': 'https://www.puresys.net'
     - 'name': 'iVampireSP 的物语 – 与所有美好的存在又多了一年的物语。'
       'url': 'https://ivampiresp.com'
     - 'name': 'Lazy''s Blog'
@@ -36,8 +34,6 @@
       'url': 'https://kizumi.site'
     - 'name': 'StarryMiku'
       'url': 'https://starrymiku.com'
-    - 'name': 'MtF.wiki'
-      'url': 'https://mtf.wiki'
     - 'name': 'Nekro''s SEKAI'
       'url': 'https://www.nekro.top/'
     - 'name': '洛雨の小站'

@@ -4,8 +4,6 @@
   'url': 'https://blog.hslzz.cn/'
   'links': '/link'
   'friends':
-    - 'name': 'Node.js在任何地方运行 JavaScript'
-      'url': 'https://nodejs.org/'
     - 'name': '渝心里の个人博客勇敢一点，风华正茂当然要落落大方'
       'url': 'https://blog.shinyli.cn/'
     - 'name': '桉南的小窝如果我真的存在，也是因为你需要我'
@@ -54,5 +52,3 @@
       'url': 'https://www.dao.js.cn'
     - 'name': 'WeAvatar头像系统'
       'url': 'https://weavatar.com/'
-    - 'name': '初七云'
-      'url': 'https://chuqiyun.com/aff/KXCIIBKT'

@@ -1,8 +1,0 @@
-'site':
-  'name': 'zhenxun.cn'
-  'url': 'https://zhenxun.cn/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': '专家服务'
-      'url': 'https://www.ctyun.cn/more/supportplans'

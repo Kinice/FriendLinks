@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friend'
   'friends':
-    - 'name': '点击查看'
-      'url': 'https://www.kdocs.cn/l/cv3f2MxwGmgy'
     - 'name': 'Abyss-博客 Stay Hungry Stay Foolish'
       'url': 'https://www.rsnocsi.cn/'
     - 'name': '鱼大大博客 专注网络小众技术分享'
@@ -30,8 +28,6 @@
       'url': 'https://xiangming.site'
     - 'name': '云晓晨 KaiQi.Wang 未来路远 • 勿忘初心'
       'url': 'https://blog.kaiqi.wang'
-    - 'name': 'BlogFinder 发现优秀的个人博客'
-      'url': 'https://bf.zzxworld.com/s'
     - 'name': '彬红茶日记 我的个人笔记📒'
       'url': 'https://note.redcha.cn'
     - 'name': 'Qkairo'

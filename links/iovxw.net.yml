@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'szszss'' blog'
-      'url': 'http://www.hakugyokurou.net/wordpress'
     - 'name': 'Kuludu的博客'
       'url': 'http://kuludu.net'
     - 'name': '小竹''s blog'

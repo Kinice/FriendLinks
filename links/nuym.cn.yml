@@ -5,8 +5,4 @@
   'links': '/friends'
   'friends':
     - 'name': '前往做客'
-      'url': 'https://saro.pub/me'
-    - 'name': '前往做客'
       'url': 'https://www.leehenry.top'
-    - 'name': 'Discord'
-      'url': 'https://discord.com/users/.nuym'

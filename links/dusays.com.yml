@@ -4,8 +4,6 @@
   'url': 'https://dusays.com/'
   'links': '/friends'
   'friends':
-    - 'name': '辛未羊的网络日志'
-      'url': 'https://panqiincs.me'
     - 'name': 'obaby@mars'
       'url': 'https://zhongxiaojie.com'
     - 'name': 'codeqihan的博客'
@@ -68,8 +66,6 @@
       'url': 'https://blog.musnow.top'
     - 'name': '小新笔记坊'
       'url': 'https://xxbjf.com'
-    - 'name': '和和日志'
-      'url': 'https://blog.yhehe.com'
     - 'name': '清羽飞扬'
       'url': 'https://blog.liushen.fun'
     - 'name': '刘郎阁'

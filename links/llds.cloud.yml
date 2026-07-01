@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': '小红书'
-      'url': 'https://xhslink.com/m/5JytLN7BECg'
     - 'name': 'LsAng me https://lsang.me学习、探索中'
       'url': 'https://lsang.me'
     - 'name': 'Liseezn''bloghttps://blog.liseezn.top分享个人学习，项目，教程'

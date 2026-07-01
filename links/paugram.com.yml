@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': '保罗的小窝 我的日常 / 相册 / 歌单 / 项目'
-      'url': 'https://paul.ren'
     - 'name': '缤奇团队 原创二次元兴趣社团'
       'url': 'https://www.binkic.com'
     - 'name': '新科社团 技术宅划水社团'
@@ -52,8 +50,6 @@
       'url': 'https://blog.853lab.com'
     - 'name': '木先森'
       'url': 'https://www.meizg.cn'
-    - 'name': '爱萝莉'
-      'url': 'https://www.ailoli.org'
     - 'name': 'Mashiro'
       'url': 'https://2heng.xin'
     - 'name': '艾超博客'

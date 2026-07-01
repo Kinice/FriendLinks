@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'Pil0tXia - 浮笙事记 不会摄影的白帽子不是好机长！'
-      'url': 'https://www.pil0txia.com'
     - 'name': 'TuboHsu 这是一只普通的Geek，应该不是一只猫。'
       'url': 'https://owow.cc/'
     - 'name': 'ykiko understand the trade-offs'

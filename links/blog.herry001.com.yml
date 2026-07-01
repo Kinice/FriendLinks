@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'NASA'
-      'url': 'https://unsplash.com/photos/1lfI7wkGWZ4?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'
     - 'name': 'CHF''s Blog'
       'url': 'https://www.saiita.com.cn'
     - 'name': 'Bersella AI'
@@ -16,8 +14,6 @@
       'url': 'https://blog.phoenixlzx.com/'
     - 'name': '吐槽大王部落格'
       'url': 'https://www.tcdw.net/'
-    - 'name': 'DWCarrot''s 小站'
-      'url': 'https://dwcarrot.github.io/blog/'
     - 'name': '溪曳丶 Zax'
       'url': 'https://xyzax.xyz/'
     - 'name': 'rsj的blog'

@@ -1,8 +1,0 @@
-'site':
-  'name': 'broker.einverne.info'
-  'url': 'https://broker.einverne.info/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'gtk.pw'
-      'url': 'https://gtk.pw/futu'

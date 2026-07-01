@@ -4,11 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '9eSIM'
-      'url': 'https://www.9esim.com/shop?coupon=naixi'
-    - 'name': 'NekokoTel'
-      'url': 'https://esim.gg/e/naixi'
-    - 'name': 'RedteaGO'
-      'url': 'https://app.redteago.com/invite/index.html?id=SUJI0003'
     - 'name': 'Naixi Networks'
       'url': 'https://about.naixi.org/'

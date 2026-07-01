@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Discord'
-      'url': 'https://discord.com/invite/4K427QR5GP'
     - 'name': 'Tencent RTC'
       'url': 'https://trtc.io/'
     - 'name': 'Tencent MPS'
@@ -14,5 +12,3 @@
       'url': 'https://voovmeeting.com/'
     - 'name': 'Tencent DNSPOD'
       'url': 'https://www.dnspod.com/'
-    - 'name': 'WeSurvery'
-      'url': 'https://wesurvey.com/?utm_source=yl&utm_medium=edgeone/'

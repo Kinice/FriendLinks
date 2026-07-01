@@ -6,7 +6,5 @@
   'friends':
     - 'name': 'REPLWARE'
       'url': 'https://replware.dev'
-    - 'name': 'REPLWARE blog (Chinese)'
-      'url': 'https://replware.substack.com/'
     - 'name': 'Cryogen'
       'url': 'http://cryogenweb.org'

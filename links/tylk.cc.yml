@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'QRZ.com页面'
-      'url': 'https://www.qrz.com/db/BG6HFD'
     - 'name': '洛卡日记'
       'url': 'https://luoca.cn/'
     - 'name': 'Mimosa 的小屋'

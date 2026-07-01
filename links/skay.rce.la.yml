@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'TonghuaRoot’s BloG.'
-      'url': 'https://tonghuaroot.com/about/'
     - 'name': 'Y4ph3tS blog'
       'url': 'https://yaphetszz.github.io'
     - 'name': 'Ricter Z'

@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'brucedawson - frendguo''s blogs'
-      'url': 'http://hello-wordpress-d4a09c-62-72-7-19.traefik.me/tag/brucedawson/'
     - 'name': 'WinDbg.IO'
       'url': 'https://windbg.io'

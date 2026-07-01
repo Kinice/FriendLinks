@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '[Linux Kernel Exploitation 0x0] Debugging the Kernel with QEMU'
-      'url': 'https://blog.k3170makan.com/2020/11/linux-kernel-exploitation-0x0-debugging.html'
     - 'name': '海天博客'
       'url': 'https://soha.moe/'
     - 'name': '属于CYY自己的世界'

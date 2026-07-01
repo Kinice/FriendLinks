@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '上傳漫畫'
-      'url': 'https://kzo.moe/mycomic.php'
     - 'name': 'kxx.moe'
       'url': 'https://kxx.moe'
     - 'name': 'kzz.moe'

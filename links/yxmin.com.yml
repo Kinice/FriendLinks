@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '电子书'
-      'url': 'https://www.okbook.net/'
     - 'name': '找查网'
       'url': 'https://www.zaoseo.com/'
     - 'name': 'IP查询'

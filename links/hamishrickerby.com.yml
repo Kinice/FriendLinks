@@ -6,5 +6,3 @@
   'friends':
     - 'name': 'Simple Machines'
       'url': 'https://simplemachines.com.au'
-    - 'name': '@rickerbh@mastodon.nz'
-      'url': 'https://mastodon.nz/@rickerbh'

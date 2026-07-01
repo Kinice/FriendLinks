@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'Coxxshttps://dev.moe/'
-      'url': 'https://dev.moe/'
     - 'name': '赵 - 初心https://www.zhaoj.in/'
       'url': 'https://www.zhaoj.in/'
     - 'name': '晨鹤部落格https://chenhe.me/'

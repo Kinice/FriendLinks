@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Snapic+v5'
-      'url': 'http://www.lopwon.com/snapic.html'
     - 'name': '陌子夕生活录'
       'url': 'https://mozixi.com'

@@ -6,7 +6,5 @@
   'friends':
     - 'name': 'notion'
       'url': 'https://developers.notion.com'
-    - 'name': 'nextdotjs'
-      'url': 'https://nextjs.org'
     - 'name': 'windicss'
       'url': 'https://windicss.org'

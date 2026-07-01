@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': '阮一峰的网络日志'
-      'url': 'https://www.ruanyifeng.com/blog'
     - 'name': '无垠 - 飞翔的天空无限大'
       'url': 'https://flyhigher.top'
     - 'name': '王登科-DK博客'

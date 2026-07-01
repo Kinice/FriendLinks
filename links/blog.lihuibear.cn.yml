@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': 'WangAI'
-      'url': 'https://gpt.wmhwiki.cn?utm_source=lihuibear'
     - 'name': '安知鱼生活明朗，万物可爱'
       'url': 'https://blog.anheyu.com/'
-    - 'name': 'wmh’s wiki鸟要高飞先振翅，人求上进先读书。'
-      'url': 'https://wmhwiki.cn/'
     - 'name': '伊伊得一从不隐藏自己的野心'
       'url': 'https://forxuan.cn/'
     - 'name': 'TechXu''s Blog嘎嘎嘎嘎嘎嘎嘎嘎嘎嘎嘎'

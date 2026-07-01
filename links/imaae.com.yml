@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '比邻素舍'
-      'url': 'https://i.oknow.me/links/'
     - 'name': '玩物▸'
       'url': 'https://sirtoy.com'
     - 'name': '下一个'

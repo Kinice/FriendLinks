@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': '网联基地主机测评,云服务器评测,分享国内外VPS,网站服务器等最新信息'
-      'url': 'https://www.wubase.com/'
     - 'name': '杜老师说师者，传道，授业，解惑！'
       'url': 'https://dusays.com/'
     - 'name': 'Colsrch愿多年以后，我可以酌一杯清酒，烂醉如泥，梦中回到我们的曾经。'
@@ -18,8 +16,6 @@
       'url': 'https://vv1234.cn/'
     - 'name': 'Efu愿世界安康，愿你我皆好！'
       'url': 'https://www.efu.me/'
-    - 'name': '青桔气球分享网络安全与科技生活'
-      'url': 'https://blog.qjqq.cn/'
     - 'name': '你好可爱山水一程，三生有幸✨'
       'url': 'https://wjldarling.top/'
     - 'name': 'MC-Sep人生能有几回搏，天涯何处无芳草🌟'

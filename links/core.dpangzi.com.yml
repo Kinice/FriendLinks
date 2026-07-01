@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends.html'
   'friends':
-    - 'name': '随遇而安生活吐槽 & 学习记录'
-      'url': 'https://www.iszy.cc/links/'
     - 'name': '弋钓草野 博客地如野草般一岁一枯荣'
       'url': 'https://www.aliuying.com'
     - 'name': '小钧博客愿你出走半生，归来仍是少年～'

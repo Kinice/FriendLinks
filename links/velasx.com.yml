@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Phower 失联中'
-      'url': 'https://phower.me'
     - 'name': 'Cysime Moflu'
       'url': 'https://blog.cysi.me'
     - 'name': '初之音'

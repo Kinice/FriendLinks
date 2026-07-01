@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '.cls-1{fill:#c62535}.cls-3{fill:#ffd313}.cls-6{fill:#0051ba}'
-      'url': 'https://www.worldcubeassociation.org/persons/2017LIAN26'
     - 'name': 'EthanDon’t stay awake for too long.'
       'url': 'https://hanlife02.com'
     - 'name': 'CWorld Site求知若愚，虚怀若谷'
@@ -22,5 +20,3 @@
       'url': 'https://astro.build/'
     - 'name': 'Comment System Waline'
       'url': 'https://waline.js.org/'
-    - 'name': 'Visits and Comments Database Supabase'
-      'url': 'https://supabase.com/'

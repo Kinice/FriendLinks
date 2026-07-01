@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '学霸资源网'
-      'url': 'https://www.sosocom.cn'
     - 'name': 'Dabenshi'
       'url': 'https://dabenshi.cn'
-    - 'name': '少林文武学校招生'
-      'url': 'https://www.shaolinwushuxuexiao.cn'
     - 'name': '守望轩'
       'url': 'https://www.watch-life.net'
     - 'name': '6262牛娃圈'

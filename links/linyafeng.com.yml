@@ -4,13 +4,9 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': '因为很想念'
-      'url': 'https://ltmltm.cn/bk/'
     - 'name': '阿锋的小宇宙'
       'url': 'https://feng.pub'
     - 'name': 'Cikian'
       'url': 'https://www.cikian.cn/'
     - 'name': 'China Travel Guide'
       'url': 'https://chinatravelinformation.com/'
-    - 'name': '周公解梦'
-      'url': 'https://minglizhijia.com/category/jiemeng'

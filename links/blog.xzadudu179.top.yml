@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '投喂九九'
-      'url': 'https://afdian.com/a/xzadudu179'
     - 'name': 'a small online lab 致敬想象和创造力！'
       'url': 'https://invert-viewer.github.io/'
     - 'name': 'Hello I''m 0o酱 光阴如梦，昨日随风'

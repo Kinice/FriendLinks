@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': 'BlogFinder 每个博客都是一座宝藏'
-      'url': 'https://bf.zzxworld.com/s/1084'
     - 'name': '壹個博客 致敬还在写博客的我们'
       'url': 'https://oneblog.net/'

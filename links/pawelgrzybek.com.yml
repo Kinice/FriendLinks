@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Mastodon'
-      'url': 'https://mastodon.social/@pawelgrzybek'
     - 'name': 'Northamptonshire Dev Club'
       'url': 'https://nn1.dev'

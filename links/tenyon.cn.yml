@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '破碎云计算 云服务器我就用破碎云！'
-      'url': 'https://www.crash.work/aff/JHLOEWDC'
     - 'name': '小张同学 小张的进步记录'
       'url': 'https://blog.xiaozhangstu.com/'
     - 'name': '银河星港 你我皆是生活银河中的闪耀星辰'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': 'Hpoi手办维基'
-      'url': 'https://www.hpoi.net'
     - 'name': 'civitai'
       'url': 'https://civitai.com'
     - 'name': '蒸汽中国'

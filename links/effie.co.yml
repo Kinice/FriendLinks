@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Better 365'
-      'url': 'https://www.better365.cn/apps.html?statId=19'
     - 'name': '不死鸟'
       'url': 'https://iao.su/'
     - 'name': '北岛林屿'

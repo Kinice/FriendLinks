@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '使用文档'
-      'url': 'https://xz7po882e4.k.topthink.com/@yzncms2'
     - 'name': '两双筷子博客'
       'url': 'https://www.dbkuaizi.com/'
     - 'name': '韩小韩博客'

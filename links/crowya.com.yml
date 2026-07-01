@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friend'
   'friends':
-    - 'name': 'flomo（送42天会员）'
-      'url': 'https://flomoapp.com/register2/?MzE3Ng'
     - 'name': 'ftyhub'
       'url': 'http://www.ftyhub.com/'
     - 'name': '浮云翩迁之间'

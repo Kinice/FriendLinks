@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '11ty'
-      'url': 'https://11ty.dev'
-    - 'name': 'Tailwind'
-      'url': 'https://tailwindcss.com/'
     - 'name': 'Onion Service'
       'url': 'http://outvimf2zjmkczje3as6rivncgfvqk5lmreywezwmufwdkoq5vkhmzid.onion/'
     - 'name': 'dn42'

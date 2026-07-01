@@ -4,12 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '全景主页 带你360°全景看世界'
-      'url': 'https://720yun.com/u/6a025wrdu1g'
-    - 'name': '深圳农商银行 深圳农商银行是深圳市的本土地方性法人银行，致力于成就深圳居民美好生活'
-      'url': 'https://www.720yun.com/vr/5822barkm16'
-    - 'name': '余华 国家地理资深摄影师'
-      'url': 'http://yuhua.hk'
     - 'name': 'Ryan Wang Halo开源团队首席打杂工'
       'url': 'https://ryanc.cc'
     - 'name': 'guqing''s blog Halo开源团队核心成员'

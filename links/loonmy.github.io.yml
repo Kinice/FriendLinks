@@ -1,8 +1,0 @@
-'site':
-  'name': 'loonmy.github.io'
-  'description': '友情链接'
-  'url': 'https://loonmy.github.io/'
-  'links': '/link'
-  'friends':
-    - 'name': '国科大SEP国科大SEPSEP系统——信息门户，电子邮件，校园网'
-      'url': 'https://sep.ucas.ac.cn/'

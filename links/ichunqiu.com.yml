@@ -6,5 +6,3 @@
   'friends':
     - 'name': 'Firefox'
       'url': 'http://www.firefox.com.cn/'
-    - 'name': 'Chrome'
-      'url': 'https://www.google.cn/chrome/'

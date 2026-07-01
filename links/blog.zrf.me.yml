@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Solitude'
-      'url': 'https://solitude.js.org/cn'
     - 'name': 'CM'
       'url': 'https://blog.cmliussss.com/'
     - 'name': '安知鱼'
@@ -16,8 +14,6 @@
       'url': 'https://blog.imsyy.top/'
     - 'name': '张洪Heo'
       'url': 'https://blog.zhheo.com/'
-    - 'name': '面条'
-      'url': 'https://mt.ci/blog/'
     - 'name': '梦爱吃鱼'
       'url': 'https://blog.bsgun.cn/'
     - 'name': '清羽飞扬'

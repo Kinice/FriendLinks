@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'TIMEGG'
-      'url': 'https://cbhua.github.io/blog/'
     - 'name': 'Ganxiaozhe''s Values'
       'url': 'https://gxzv.com'
     - 'name': '思宁 HERE'
@@ -22,8 +20,6 @@
       'url': 'https://imakashi.com/'
     - 'name': '若志随笔'
       'url': 'https://www.rz.sb'
-    - 'name': 'Yunyi''s Blog'
-      'url': 'https://www.yunyitang.me/zh/'
     - 'name': 'Vian'
       'url': 'https://www.vian.top/'
     - 'name': '轻风记'

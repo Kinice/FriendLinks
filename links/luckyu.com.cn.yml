@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': 'DeepL DeepL 全世界最准确的翻译'
-      'url': 'https://www.deepl.com/zh/translator'
     - 'name': '没有用的网站 没有用的网站 每次点击按钮都会跳到一个无用网站'
       'url': 'https://theuselessweb.com/'
-    - 'name': '日本的VOCALOID P(创作おみくじ的人) 日本的VOCALOID P(创作おみくじ的人) 自制浏览器游戏合集'
-      'url': 'https://aidn.jp/contents/'
     - 'name': '御宅男の博客 御宅男の博客 分享一些技术文章，记录一些程序学习生涯中的问题，一同和您学习进步，来自御宅男的原创博客'
       'url': 'http://blog.yzncms.com/'
     - 'name': 'Sulv’s Blog Sulv’s Blog 一个记录技术、阅读、生活的博客'

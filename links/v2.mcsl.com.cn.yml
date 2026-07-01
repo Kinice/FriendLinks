@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '波比网络'
-      'url': 'https://www.blbi.cn/'
     - 'name': '玖壹云互联 - 简约而不简单'
       'url': 'https://idc.jyywl.com/'
     - 'name': 'Frp 内网穿透联盟'
@@ -26,7 +24,3 @@
       'url': 'http://mavis01.top:88/'
     - 'name': 'Z_Tsin''s Home'
       'url': 'https://ztsin.cn/'
-    - 'name': '裕米云计算 - 提供特惠的云服务器产品，全套技术解决方案'
-      'url': 'https://comcorn.cn/'
-    - 'name': '2024SR0343868'
-      'url': 'https://www.ccopyright.com.cn/'

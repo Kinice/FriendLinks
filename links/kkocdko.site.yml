@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/about'
   'friends':
-    - 'name': 'kkocdko - V2EX'
-      'url': 'https://v2ex.com/member/kkocdko'
-    - 'name': 'kkocdko - Stack Overflow'
-      'url': 'https://stackoverflow.com/u/11338291'
     - 'name': '苏瑞辅 RuifuSu'
       'url': 'https://www.suruifu.com'
     - 'name': 'Mzdyl''s Blog'

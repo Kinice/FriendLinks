@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '500px'
-      'url': 'https://500px.com.cn/wang2024'
     - 'name': 'Free weather widget for website'
       'url': 'https://weatherwidget.org/'

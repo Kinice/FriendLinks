@@ -6,5 +6,3 @@
   'friends':
     - 'name': 'Chat'
       'url': 'https://matrix.to/#/#flathub:matrix.org'
-    - 'name': 'Mastodon'
-      'url': 'https://floss.social/@flathub'

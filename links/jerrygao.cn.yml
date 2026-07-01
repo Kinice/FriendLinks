@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': '拾光小记danchengjie.cn主要分享网络安全、Linux 运维、Web 开发、渗透测试、CTF 经验等学习笔记与实战心得，偶尔也记录生活、思考与成长。0'
-      'url': 'http://danchengjie.cn/'
     - 'name': 'ren517''s Blogren517.xyz码农矿工02'
       'url': 'https://ren517.xyz'
     - 'name': '韶光的个人博客shaoguang369.top分享跨境电商学习日常 · 记录生活中的美好03'
@@ -16,8 +14,6 @@
       'url': 'https://blog.xiaow.qzz.io'
     - 'name': 'I Am I5ime.cn永远相信美好的事情即将发生03'
       'url': 'https://5ime.cn'
-    - 'name': 'ObsiBlogblog.hiyun.topby Obsidian · 后端 / 逆向 / 自托管技术日志04'
-      'url': 'https://blog.hiyun.top/'
     - 'name': 'Haoyu的博客g-haoyu.top恭喜，你发现了宝藏05'
       'url': 'https://g-haoyu.top/'
     - 'name': '星河避难所hejunjie.life写代码，也写自己06'

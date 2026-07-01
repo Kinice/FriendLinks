@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'NB 优选服务 大厂cdn优选 https://www.byoip.top/'
-      'url': 'https://www.byoip.top/'
     - 'name': '云洛の小屋 或许可以在这里找到云洛? https://ylyq.site/'
       'url': 'https://ylyq.site/'
     - 'name': 'ideafox的经验分享 https://ideafox.top/'

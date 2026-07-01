@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Android'
-      'url': 'https://bbk.endyun.ltd/main'
     - 'name': 'Minecraft for Windows'
       'url': 'https://www.mcappx.com'
     - 'name': 'Puresys'
@@ -32,8 +30,6 @@
       'url': 'https://raxxt.top'
     - 'name': 'Royの主页'
       'url': 'http://royofficial.com'
-    - 'name': 'BZDJSM资源分享站'
-      'url': 'https://www.bzdjsm.com'
     - 'name': '听书先生个人博客-书香静雅'
       'url': 'https://tingshuxiansheng.cn'
     - 'name': '依优酱'

@@ -1,8 +1,0 @@
-'site':
-  'name': 'bitsaboutmoney.com'
-  'url': 'https://www.bitsaboutmoney.com/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'Kalzumeus Software, LLC'
-      'url': 'https://www.kalzumeus.com'

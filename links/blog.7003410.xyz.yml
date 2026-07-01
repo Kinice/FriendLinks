@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'DeepWiki'
-      'url': 'https://deepwiki.com/0x6768/fuwari-blog'
     - 'name': 'THW’s Blog 前途似海，来日方长'
       'url': 'https://tianhw.top'
     - 'name': 'AcoFork Blog Protect What You Love.'

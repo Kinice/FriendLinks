@@ -4,12 +4,6 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': 'EMLOG EMLOG 是一款轻量级开源博客和CMS建站系统，速度快、省'
-      'url': 'https://www.emlog.net/?ic=e5icW1lo'
-    - 'name': '宝塔面板 宝塔，安全高效的服务器运维面板'
-      'url': 'https://www.bt.cn/u/b7ZGJk'
-    - 'name': 'CodeBuddy 全景装备开发全流程'
-      'url': 'https://copilot.tencent.com/'
     - 'name': 'Oyiso''s Blog 让美好持续发生'
       'url': 'https://oyiso.cn/'
     - 'name': 'Hyde Blog 人心中的成见是一座大山'

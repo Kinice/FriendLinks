@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '搜狗搜索'
-      'url': 'http://sogou.com/web?query=%E8%9B%99%E8%A8%80%E7%BD%91'
     - 'name': '张洪Heo'
       'url': 'https://blog.zhheo.com/'
     - 'name': '苏晨拾光'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Jerry Wang'
-      'url': 'https://unsplash.com/photos/city-skyline-during-night-time-x5DbmzUBg4g'
     - 'name': '小林の小站'
       'url': 'https://dylanlynn.top/'
     - 'name': '绫依的肉包砸'

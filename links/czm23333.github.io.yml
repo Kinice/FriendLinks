@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '题目传送门'
-      'url': 'https://www.luogu.com.cn/problem/U201758'
     - 'name': 'tdiant'
       'url': 'https://nyan.best/'
     - 'name': 'NexT.Gemini'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '云言AI'
-      'url': 'https://ai.yum9.icu/pastel#/register?i=1688'
     - 'name': '彩虹博客'
       'url': 'https://blog.cccyun.cn/'
     - 'name': '飞跃云端'

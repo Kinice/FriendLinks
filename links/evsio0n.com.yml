@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': 'Upgrade Your Browser'
-      'url': 'http://browsehappy.com/'
     - 'name': 'Helo''s Blog'
       'url': 'https://www.ishelo.com/'
     - 'name': 'RBQ.AI'
@@ -30,5 +28,3 @@
       'url': 'https://baka.link/'
     - 'name': 'boNote'
       'url': 'https://note.bobo.moe/'
-    - 'name': 'Mirages'
-      'url': 'https://get233.com/archives/mirages-intro.html'

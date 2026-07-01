@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'find out more about IPv6 transit at Hurricane Electric'
-      'url': 'http://he.net/ip_transit.html'
-    - 'name': 'Certification'
-      'url': 'https://ipv6.he.net/certification/'
     - 'name': 'Free DNS'
       'url': 'https://dns.he.net/'
     - 'name': 'BGP Toolkit'

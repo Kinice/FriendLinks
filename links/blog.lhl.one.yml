@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'MZRME''s'
       'url': 'https://mzrme.com'
-    - 'name': '七云''s Blog'
-      'url': 'https://www.zets.cn/page/links'
     - 'name': '深海小涛'
       'url': 'https://blog.xtao.de/'
     - 'name': 'peachRL的小站'
@@ -58,7 +56,5 @@
       'url': 'https://blog.catvb.com'
     - 'name': '语初博客'
       'url': 'https://www.yc520.top'
-    - 'name': '日志 (摆渡人)'
-      'url': 'https://log.show'
     - 'name': 'FlowerInFire「火中花」'
       'url': 'https://flowerinfire.com'

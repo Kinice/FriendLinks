@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Features'
-      'url': 'https://wordpress.com/features/'
     - 'name': 'Developer Resources'
       'url': 'https://developer.wordpress.com/'
     - 'name': 'Automattic'

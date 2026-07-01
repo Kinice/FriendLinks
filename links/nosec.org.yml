@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'FOFA'
       'url': 'https://fofa.info'
-    - 'name': 'FOEYE'
-      'url': 'http://www.baimaohui.net/foeye'
     - 'name': 'BAIMAOHUI'
       'url': 'http://baimaohui.net'
     - 'name': '安全客'
@@ -16,5 +14,3 @@
       'url': 'https://www.ichunqiu.com'
     - 'name': '指尖安全'
       'url': 'https://www.secfree.com'
-    - 'name': '2021上海网络安全博览会'
-      'url': 'http://www.sins-expo.com'

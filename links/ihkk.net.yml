@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '网页键盘'
-      'url': 'https://ihkk.github.io/XiaoShi-Eboard/'
     - 'name': 'ASS查看器'
       'url': 'https://ass.h0.work/'
     - 'name': '圣地巡礼比对图'

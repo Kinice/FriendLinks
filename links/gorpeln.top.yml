@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '王乐园个人博客 王乐园的个人博客，记录我的青春时光，在这青春岁月里留下这美好一刻的草根站长。'
-      'url': 'https://blogs.kongjz.com/'
     - 'name': '会打篮球的程序猿 Talk is cheap, show me the code.'
       'url': 'http://www.lzhpo.com/'
     - 'name': 'UsubeniFantasy Write like you''re running out of time.'
@@ -38,5 +36,3 @@
       'url': 'https://www.4min.top/'
     - 'name': 'Highlight 记录生活点滴！'
       'url': 'https://wanglin.blog/'
-    - 'name': 'BlogFinder 每个博客都是一座宝藏！'
-      'url': 'https://bf.zzxworld.com/s/1187'

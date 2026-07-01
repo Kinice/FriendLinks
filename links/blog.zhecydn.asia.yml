@@ -1,8 +1,0 @@
-'site':
-  'name': 'blog.zhecydn.asia'
-  'description': '友情链接'
-  'url': 'https://blog.zhecydn.asia/'
-  'links': '/friends'
-  'friends':
-    - 'name': '听音乐'
-      'url': 'https://dnmusic.qzxwzcj.tk/'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'FIMM'
-      'url': 'https://www.helsinki.fi/en/hilife-helsinki-institute-life-science/units/fimm'
     - 'name': 'YEVPT'
       'url': 'https://www.yevpt.com/'
     - 'name': '雨落泪尽'

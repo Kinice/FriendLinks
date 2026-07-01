@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Instagram'
-      'url': 'https://instagram.com/laozhang'
     - 'name': 'Minuo.ST'
       'url': 'https://minuo.org'
     - 'name': 'w4j1e'
@@ -34,5 +32,3 @@
       'url': 'https://www.feinews.com/'
     - 'name': '龙G笔记'
       'url': 'https://www.izhailong.com/'
-    - 'name': 'Riven'
-      'url': 'https://zhoutian.com/374.html'

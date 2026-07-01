@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'tools.miku.ac'
-      'url': 'https://tools.miku.ac/'
     - 'name': 'akarin.moe'
       'url': 'https://akarin.moe/'
     - 'name': 'idealclover.top'
@@ -34,8 +32,6 @@
       'url': 'https://xiaomo.info'
     - 'name': 'meow3.family.blog'
       'url': 'http://meow3.family.blog'
-    - 'name': 'xtaolink.cn'
-      'url': 'https://xtaolink.cn'
     - 'name': 'blog.xuelg.com'
       'url': 'https://blog.xuelg.com/'
     - 'name': 'qwq.moe'

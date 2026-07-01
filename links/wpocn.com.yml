@@ -6,8 +6,6 @@
   'friends':
     - 'name': '张洪Heo 分享设计与科技生活'
       'url': 'https://blog.zhheo.com/'
-    - 'name': '大海资源库 专注分享全网优质资源'
-      'url': 'https://vip.lzzcc.cn/'
     - 'name': '国内延迟测试 测试全国各地访问网站的延迟'
       'url': 'https://www.boce.com/'
     - 'name': '网速测试 5G用户装杯必备'
@@ -20,7 +18,3 @@
       'url': 'https://notepad-plus-plus.org'
     - 'name': 'FileZilla 一个免费开源的FTP软件'
       'url': 'https://filezilla-project.org/'
-    - 'name': '图压 简单易用的图片压缩软件。'
-      'url': 'https://tuya.xinxiao.tech/'
-    - 'name': '在线制作ico图标 在线制作头像或图像的圆角图片'
-      'url': 'https://www.bitbug.net/'

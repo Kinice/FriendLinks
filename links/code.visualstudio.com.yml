@@ -4,11 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Your Privacy Choices'
-      'url': 'https://aka.ms/YourCaliforniaPrivacyChoices'
     - 'name': 'Web'
       'url': 'https://vscode.dev/'
-    - 'name': 'privacy statement'
-      'url': 'https://go.microsoft.com/fwlink/?LinkId=521839'
-    - 'name': 'Terms of Use'
-      'url': 'https://www.microsoft.com/legal/terms-of-use'

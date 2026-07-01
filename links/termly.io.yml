@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Careers'
-      'url': 'https://apply.workable.com/termly-io/'
-    - 'name': 'Read Patrick’s review'
-      'url': 'https://www.trustpilot.com/reviews/65bb85054bba4cca08ad3c78'
     - 'name': 'WP Rocket'
       'url': 'https://wp-rocket.me/'
     - 'name': 'Imagify'

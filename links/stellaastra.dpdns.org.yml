@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'Pixiv - 晚晚喵'
-      'url': 'https://www.pixiv.net/users/108801776'
-    - 'name': 'Talk Artist TA交流的小天地 个人链接'
-      'url': 'https://talkartist.cn/user/1942558720317259776'
     - 'name': 'Fox_dream的博客 Fox_dream の 小站 Blog'
       'url': 'https://moretoil.github.io/'
     - 'name': 'yousen的博客 机械结构设计师 Blog'

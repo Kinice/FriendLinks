@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Login'
-      'url': 'https://www.atom.com/login'
     - 'name': 'Help Desk'
       'url': 'https://helpdesk.atom.com'
     - 'name': 'Free Trademark Search'

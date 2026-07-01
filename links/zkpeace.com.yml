@@ -1,8 +1,0 @@
-'site':
-  'name': 'zkpeace.com'
-  'url': 'https://zkpeace.com/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'INDEX'
-      'url': 'https://kp-z.github.io/blog-cn/home/index.html'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': '橡木云 超超超……便宜的服务器，品质有保障！(我自己也在用)'
-      'url': 'https://www.xmyvps.cn'
     - 'name': 'yCENzh 爱你所爱！'
       'url': 'https://fuwari.oh1.top/'
     - 'name': '二叉树树 爱你所爱！'
@@ -14,5 +12,3 @@
       'url': 'https://blog.tianhw.top'
     - 'name': '晓正杨博客 让代码更有价值，让学生生活不再枯燥'
       'url': 'https://blog.7003410.xyz/'
-    - 'name': 'CXYBBS 欢迎来到CXYBBS~'
-      'url': 'https://cxybbs.top/'

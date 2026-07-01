@@ -6,5 +6,3 @@
   'friends':
     - 'name': 'Pelican'
       'url': 'http://getpelican.com/'
-    - 'name': 'Python'
-      'url': 'http://python.org'

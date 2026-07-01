@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': 'Flash Player'
-      'url': 'http://www.macromedia.com/go/getflashplayer'
     - 'name': '卢松松博客'
       'url': 'http://daohang.lusongsong.com/'
     - 'name': '张戈博客'

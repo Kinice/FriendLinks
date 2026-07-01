@@ -4,9 +4,5 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '技术支持：Svelte'
-      'url': 'https://svelte.dev'
-    - 'name': '凌霞软件'
-      'url': 'https://www.lxware.cn?code=tasaed'
     - 'name': '博客：Astro'
       'url': 'https://astro.build'

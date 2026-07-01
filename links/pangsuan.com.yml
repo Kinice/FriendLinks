@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '虎皮椒个人支付'
-      'url': 'https://www.xunhupay.com/'
     - 'name': '我不是矿神'
       'url': 'https://imnks.com/'
     - 'name': 'Payjs'

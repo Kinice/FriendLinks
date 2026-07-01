@@ -4,11 +4,5 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '小红书'
-      'url': 'https://www.xiaohongshu.com/user/profile/628722af0000000021028d5e'
-    - 'name': '500px'
-      'url': 'https://500px.com.cn/atxinyuu'
-    - 'name': '蒸汽平台'
-      'url': 'https://my.steamchina.com/id/xinyuu'
     - 'name': 'Docusaurus'
       'url': 'https://docusaurus.io'

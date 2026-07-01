@@ -4,8 +4,6 @@
   'url': 'https://sszsj.com/'
   'links': '/link'
   'friends':
-    - 'name': '摸鱼派 专为程序员打造的摸鱼社区'
-      'url': 'https://fishpi.cn'
     - 'name': '贼拉正经的技术博客 死钻技术 | 绝不抄袭'
       'url': 'https://www.stackoverflow.wiki'
     - 'name': '顾阑的的技术小站 凡打不倒我的，必使我强大！！！'
@@ -44,8 +42,6 @@
       'url': 'https://kacper.fun'
     - 'name': '雾林博客 首听未闻曲中意，再听已是曲中人'
       'url': 'https://www.baiwulin.com'
-    - 'name': '🌹Dominic·KK🌹 写文档使我快乐🍺'
-      'url': 'https://blog.dominickk.top/'
     - 'name': '张文保的博客 功不唐捐，玉汝于成'
       'url': 'https://zhangwenbao.com'
     - 'name': '晨曦映露 道阻且长，行则将至。'
@@ -54,5 +50,3 @@
       'url': 'https://blog.ccomm.top'
     - 'name': '雷顿 他睡觉时真的不打雷'
       'url': 'https://leidun.pp.ua'
-    - 'name': '免费免版税图片库pixabay'
-      'url': 'https://pixabay.com/'

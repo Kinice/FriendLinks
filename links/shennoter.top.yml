@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'CTF Wiki'
-      'url': 'https://ctf-wiki.org/'
-    - 'name': '背景图'
-      'url': 'https://www.pixiv.net/artworks/77812945'
     - 'name': 'ccbbp'
       'url': 'https://www.ccbbp.com'
     - 'name': 'Jobove'

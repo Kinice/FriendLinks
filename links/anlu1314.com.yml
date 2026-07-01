@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '备用站点安鹿轩'
-      'url': 'https://www.anlubk.com/'
     - 'name': '村少博客'
       'url': 'https://www.cunshao.com'
     - 'name': '轻刻年轮'
@@ -24,5 +22,3 @@
       'url': 'https://zhinianboke.com'
     - 'name': '阿影博客'
       'url': 'https://www.aybk.cn/'
-    - 'name': '防止失联'
-      'url': 'https://link3.cc/alxfx'

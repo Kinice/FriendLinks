@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/about'
   'friends':
-    - 'name': '点我前往官网下载'
-      'url': 'https://delta.chat/zh_CN/'
     - 'name': '莫比乌斯'
       'url': 'https://onojyun.com/'
     - 'name': '尘世の歌'

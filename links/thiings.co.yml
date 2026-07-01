@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/about'
   'friends':
-    - 'name': 'Liinks.co'
-      'url': 'https://liinks.co?ref=thiings-about'
     - 'name': 'Charlie'
       'url': 'https://charlieclark.co'

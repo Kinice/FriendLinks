@@ -6,7 +6,5 @@
   'friends':
     - 'name': 'MDUI'
       'url': 'https://www.mdui.org/'
-    - 'name': 'ChatGPT'
-      'url': 'https://openai.com/blog/chatgpt'
     - 'name': '智谱清言'
       'url': 'https://www.chatglm.cn/'

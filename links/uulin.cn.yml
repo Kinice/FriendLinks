@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': '思柔之乡-ThroughHome没错这是一个公益的我的世界服务器'
-      'url': 'https://th-mc.cn/'
     - 'name': '椹纭的博客とある平凡の大学生'
       'url': 'https://blog.schenfune.top/'
     - 'name': '江のHOME浪漫至死不渝'

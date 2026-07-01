@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '壁纸湖'
-      'url': 'http://bizihu.com'
     - 'name': '低速快感'
       'url': 'http://disu.fun'

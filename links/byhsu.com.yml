@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': '「 薰 河 」'
-      'url': 'http://xh.imlol.cn//'
     - 'name': '「 winegrower 」'
       'url': 'http://www.winegrower.cn/'
     - 'name': '「 印 纪 」'
@@ -26,7 +24,5 @@
       'url': 'https://meng.ee/'
     - 'name': '「 星 辰 茶 話 」'
       'url': 'https://xinsenz.com/'
-    - 'name': '「 风 清 依 然 」'
-      'url': 'https://wind.ink//'
     - 'name': '臭袜子'
       'url': 'http://cbu.cc'

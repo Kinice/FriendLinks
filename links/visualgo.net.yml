@@ -4,13 +4,7 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Associate Professor Steven Halim'
-      'url': 'https://www.comp.nus.edu.sg/~stevenha/'
     - 'name': 'VisuAlgo project continues to be funded by Optiver (started mid 2023, to continu'
       'url': 'https://optiver.com/'
     - 'name': 'Rose Marie Tan Zhao Yun'
       'url': 'https://www.rosemarietan.com/'
-    - 'name': 'CDTL'
-      'url': 'https://nus.edu.sg/cdtl'
-    - 'name': 'this link'
-      'url': 'https://ioinformatics.org/journal/INFOL099.pdf'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'OWASP LLM Top 10'
-      'url': 'https://owasp.org/www-project-top-10-for-large-language-model-applications/'
     - 'name': 'chat.nvim'
       'url': 'https://nvim.chat'
     - 'name': 'F-Droid'

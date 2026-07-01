@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '乌克兰提供捐助'
-      'url': 'https://redcross.org.ua/en/donate/'
     - 'name': 'Lavande'
       'url': 'http://www.5dimn.com'
     - 'name': 'Dorole'
@@ -26,8 +24,6 @@
       'url': 'https://brilliant.run/'
     - 'name': 'Greensea'
       'url': 'https://blog.greensea.org/'
-    - 'name': 'UTL_1138'
-      'url': 'https://www.behance.net/coptimer/projects'
     - 'name': 'Pockies Wili'
       'url': 'https://pockies.github.io/'
     - 'name': 'abc1763613206'

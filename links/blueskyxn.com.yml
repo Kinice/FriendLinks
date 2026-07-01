@@ -1,8 +1,0 @@
-'site':
-  'name': 'blueskyxn.com'
-  'url': 'https://www.blueskyxn.com/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'PM·BOT'
-      'url': 'https://go.000714.xyz/pm'

@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'huige'
-      'url': 'https://huige233.github.io/vuepress-theme/friends/'
     - 'name': 'Aidenpers'
       'url': 'https://aidenpers.xyz/'

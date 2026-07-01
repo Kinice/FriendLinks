@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/about'
   'friends':
-    - 'name': 'OpenDota'
-      'url': 'https://www.opendota.com/players/289470838'
     - 'name': 'Hran'
       'url': 'https://get233.com/'
     - 'name': 'Troy'

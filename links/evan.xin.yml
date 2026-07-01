@@ -4,13 +4,5 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '播客'
-      'url': 'https://boboji.org'
-    - 'name': '生辰八字算命'
-      'url': 'https://www.tiatiatoutiao.com'
-    - 'name': '免费算命'
-      'url': 'https://www.resobang.cn/'
     - 'name': '崔话记'
       'url': 'https://cuixiping.com/'
-    - 'name': '©EVAN'
-      'url': 'https://us.umami.is/websites/3393047a-5c40-4822-93ca-a4c92c0c475c'

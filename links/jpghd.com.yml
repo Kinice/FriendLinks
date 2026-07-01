@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Android App'
-      'url': 'https://app.yesjpg.com/app/jpghd.apk'
-    - 'name': 'You can download the original images used on our website here.'
-      'url': 'https://app.resd.idjpg.com/jpghd-demo.zip'
     - 'name': 'AI Magic Photo RestorationNew'
       'url': 'https://idjpg.com'
     - 'name': 'AI Magic UpscalerNew'

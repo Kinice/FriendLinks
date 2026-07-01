@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '代理 IP 资源推荐'
-      'url': 'https://www.kuaidaili.com/?ref=rg3jlsko0ymg'
     - 'name': '拓源网'
       'url': 'https://www.toyean.com'
     - 'name': '可风网'
@@ -18,8 +16,6 @@
       'url': 'https://yeelz.com'
     - 'name': '豫唐网络'
       'url': 'https://www.ytecn.com'
-    - 'name': '需求定制'
-      'url': 'https://www.wenjuan.com/s/UZBZJv3Kso/'
     - 'name': 'Z-BlogPHP'
       'url': 'http://www.zblogcn.com'
     - 'name': 'Hipaper'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'SnapDrop'
-      'url': 'https://s.uidx.cn/'
     - 'name': '困困鱼 喜欢捣鼓的博主'
       'url': 'https://kunkunyu.com/'
     - 'name': '张洪HEO 分享设计与科技生活'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '查看详情'
-      'url': 'https://cloveryan.com/pgp'
     - 'name': 'NullPointerException 唯爱与科技不可辜负'
       'url': 'https://omn.cc'
     - 'name': '𝒮𝒶𝓀𝓊𝓇𝒶𝒞𝒶𝓉 【目前无法访问】It''s just a small blog for recording and sharing.'
@@ -34,8 +32,6 @@
       'url': 'https://blog.nekro.top/'
     - 'name': '蚊帐 幸福往往是摸得透彻，而堇业的心却常常隐藏'
       'url': 'https://mozz.ie/'
-    - 'name': 'Fragmenta Iridis It is unlikely that there will be many posts here.'
-      'url': 'https://blog.owo.li/'
     - 'name': 'noxylva For the world''s more full of weeping than you can understand.'
       'url': 'https://noxylva.org/'
     - 'name': '洛樱 Luoingly 交错于虚拟与现实之间'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'AAA调试(非友链，发布页)awa，发布页，测试'
-      'url': 'https://fabu.977958.xyz'
     - 'name': 'AdproのBlogAdpro的Blog，可能有有用的东西？'
       'url': 'https://blog.adproqwq.top/'
     - 'name': 'Fishの秘密基地这家伙好懒╮(╯▽╰)╭'
@@ -34,8 +32,6 @@
       'url': 'http://blog.qmiao.top/'
     - 'name': '老卡尔的旧纸箱这里存着卡尔白的过去、现在和未来'
       'url': 'https://Karlbaey.top'
-    - 'name': '萌哩 - 萌萌的二次元美图全网精选二次元美图，提供高质量原图下载'
-      'url': 'https://www.moely.link/'
     - 'name': '速溶理查的博客人与人之间的社交无过于对彼此世界的入侵'
       'url': 'https://blog.whysoserious.dpdns.org/'
     - 'name': '雨间星辰一起去看烁雨繁星！'

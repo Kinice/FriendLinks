@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Blog(主站)'
-      'url': 'https://ximin.top/blog/'
     - 'name': '地图(测试)'
       'url': 'https://map.ximin.top/'

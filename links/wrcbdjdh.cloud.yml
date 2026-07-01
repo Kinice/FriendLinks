@@ -4,9 +4,5 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'UUpxuu友情链接'
-      'url': 'https://upxuu.com/'
-    - 'name': '他他说友情链接'
-      'url': 'https://090909.top'
     - 'name': 'yfblog随手笔记，技术心得分享'
       'url': 'https://yfblog.asia'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Ikyozi Share 分享资源专用'
-      'url': 'https://sy.6cp.top/'
     - 'name': '有趣的无聊小站'
       'url': 'https://tengxiao.wang'
     - 'name': '日下部 詩'

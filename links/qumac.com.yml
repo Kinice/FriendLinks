@@ -6,12 +6,8 @@
   'friends':
     - 'name': '一介大叔'
       'url': 'http://www.winature.com/'
-    - 'name': '阮一峰'
-      'url': 'http://www.ruanyifeng.com/blog/'
     - 'name': '佐仔志'
       'url': 'https://www.jinbo123.com/'
-    - 'name': '王孟源'
-      'url': 'https://blog.udn.com/MengyuanWang/article'
     - 'name': '狡猫三窝'
       'url': 'https://slykiten.com/'
     - 'name': '生活在别处'

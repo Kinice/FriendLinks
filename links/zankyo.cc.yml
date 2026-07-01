@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '251 aka 电酱！Don''t even think about it.'
-      'url': 'https://251.sh'
     - 'name': 'AceSheep我是一个萌新'
       'url': 'https://blog.acesheep.com/'
     - 'name': 'ACG喵Everything just for fun.'

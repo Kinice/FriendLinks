@@ -4,12 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '推荐HKGCloud'
-      'url': 'https://www.hkgserver.com/aff/CDLSNRTL'
-    - 'name': '推荐嘉惟云服务器'
-      'url': 'https://www.vpsf.net'
-    - 'name': 'QQ机器人软件'
-      'url': 'https://xfzy2020.lanzoul.com/b01bdlrod'
     - 'name': '枫瑞博客网'
       'url': 'https://www.frbkw.com'
     - 'name': '雨沐凌枫'

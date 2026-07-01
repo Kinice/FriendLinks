@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'TomyJan 一只菜的要死还每天不努力只知道 bbll 娱乐至死的废柴'
-      'url': 'https://blog.tomys.top/'
     - 'name': '柠檬不酸 Write something for my love.'
       'url': 'https://iyujie.cn'
     - 'name': '语络 互联网分享'

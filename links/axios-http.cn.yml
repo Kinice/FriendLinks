@@ -6,8 +6,6 @@
   'friends':
     - 'name': '英文官网'
       'url': 'https://axios-http.com/'
-    - 'name': 'Become a sponsor'
-      'url': 'https://opencollective.com/axios/contribute'
     - 'name': 'Bootstrap'
       'url': 'https://www.getbootstrap.cn/'
     - 'name': 'TailwindCSS'
@@ -72,5 +70,3 @@
       'url': 'https://www.sqlite.cn/'
     - 'name': '7-zip'
       'url': 'https://www.7-zip.cn/'
-    - 'name': 'MIT License'
-      'url': 'https://opensource.org/licenses/MIT'

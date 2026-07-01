@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'YuanYuan'
-      'url': 'https://afdian.net/u/a099a33431ae11eebcfe52540025c377'
     - 'name': '张洪 Heo'
       'url': 'https://blog.zhheo.com/'
     - 'name': '墨水记忆'

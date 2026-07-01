@@ -6,11 +6,5 @@
   'friends':
     - 'name': 'Community'
       'url': 'https://replit.discourse.group/'
-    - 'name': 'Expert Network'
-      'url': 'https://contra.com/replit'
     - 'name': 'Vibecon'
       'url': 'https://vibecon.ai'
-    - 'name': 'TikTok'
-      'url': 'https://www.tiktok.com/@replit'
-    - 'name': 'Instagram'
-      'url': 'https://instagram.com/repl.it'

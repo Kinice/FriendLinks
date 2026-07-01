@@ -6,10 +6,6 @@
   'friends':
     - 'name': '方程的博客 一个帮助你成长的网站'
       'url': 'https://www.chuckfang.com/'
-    - 'name': 'Meow 一款通知你关心的鸿蒙App'
-      'url': 'https://appgallery.huawei.com/app/detail?id=com.chuckfang.meow&channelId=SHARE&source=appshare'
-    - 'name': '鸿蒙应用看板 鸿蒙应用市场看板网站'
-      'url': 'http://shenjack.top:10003/dashboard'
     - 'name': '星辰博客 以热爱之名，点亮技术探索者的漫长岁月！'
       'url': 'https://blog.starchen.top'
     - 'name': '陵长镜 Everything collapses, but you rise.'

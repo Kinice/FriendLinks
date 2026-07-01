@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'custom elements'
-      'url': 'https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements'
-    - 'name': 'number of books'
-      'url': 'https://www.smashingmagazine.com/2019/11/inclusive-components-prerelease/'
     - 'name': 'online gallery'
       'url': 'https://mutable.gallery'
     - 'name': 'Set Studio'

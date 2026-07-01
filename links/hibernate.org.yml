@@ -6,9 +6,5 @@
   'friends':
     - 'name': 'Submit a bug'
       'url': 'https://hibernate.atlassian.net/'
-    - 'name': 'Wiki'
-      'url': 'https://community.jboss.org/en/hibernate/search'
     - 'name': 'Blog'
       'url': 'https://in.relation.to/'
-    - 'name': 'Trademark List.'
-      'url': 'https://www.commonhaus.org/trademarks/'

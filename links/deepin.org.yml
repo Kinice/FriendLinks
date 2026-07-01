@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '国际排名'
-      'url': 'https://distrowatch.com/table.php?distribution=deepin'
     - 'name': 'Matrix'
       'url': 'https://matrix.to/#/#deepin-community:matrix.org'
     - 'name': '西班牙语'
@@ -18,8 +16,6 @@
       'url': 'https://mydeepin.ru/'
     - 'name': '厄瓜多尔'
       'url': 'https://deepin.lat/'
-    - 'name': '玻利维亚'
-      'url': 'https://deepinbolivia.com/'
     - 'name': '沙特阿拉伯'
       'url': 'https://deepin.mydeom.com/'
     - 'name': '印度尼西亚'

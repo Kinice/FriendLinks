@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'RackNerd'
-      'url': 'https://my.racknerd.com/aff.php?aff=13161'
     - 'name': '韩红基金会'
       'url': 'https://www.hhax.org/'
     - 'name': '老谢博客'

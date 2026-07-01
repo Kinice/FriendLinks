@@ -6,5 +6,3 @@
   'friends':
     - 'name': '博客 记录日常...'
       'url': 'https://blog.bleaz.net'
-    - 'name': '户xx设备检测 已去除WebGT渲染'
-      'url': 'https://www.bleaz.net/project/hcf'

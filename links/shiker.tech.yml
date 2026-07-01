@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '恐怖屋 专注于恐怖故事内容的专业门户平台。'
-      'url': 'https://www.kongbuwu.com/'
     - 'name': '左手平凡 程序猿、垃圾佬的个人博客。'
       'url': 'https://blog.perass.com/'
     - 'name': '熊猫实验室 在Jupyter Lab做实验的Pandas'

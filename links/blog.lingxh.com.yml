@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '倾丞の小窝 这里是倾丞の小窝，记录倾丞的个人生活感触，这里是一个温馨的港湾，你可以与我进行心灵的交流，心随我意，'
-      'url': 'https://blog.qcmoe.com/'
     - 'name': 'Recopec 喵'
       'url': 'https://blog.irec.moe/'
     - 'name': 'Toka''s Blog Nonamev''s Blog'
@@ -14,8 +12,6 @@
       'url': 'https://me.OwO.today/'
     - 'name': '柯罗krau的博客 年轻，就要折腾'
       'url': 'https://krau.top/'
-    - 'name': '艾登的个人网站 艾登是一个什么都不会的FW! 喜欢二次元，打游戏，还有可爱的东西 艾登很喜欢交朋友！ 希望有人能'
-      'url': 'https://aidenpers.xyz/'
     - 'name': '酷丁的主页 听lingxh说是个笨蛋弄的主页'
       'url': 'https://coldin.top/'
     - 'name': 'LeZi的猫窝 世界上本没有博客，直到有了程序员'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '生活存档'
-      'url': 'https://blog.shikangsi.cn/s/sheng-huo-cun-dang'
     - 'name': 'BBiMax的晒鱼厂'
       'url': 'https://www.bbimax.com/'
     - 'name': 'jerryliang'
@@ -58,5 +56,3 @@
       'url': 'https://funnywii.com'
     - 'name': 'JunBlog'
       'url': 'https://blog.mo60.cn/'
-    - 'name': 'CS音乐论坛'
-      'url': 'https://www.csforum.cn/'

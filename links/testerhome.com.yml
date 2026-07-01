@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '中国移动互联网测试技术大会'
-      'url': 'https://www.bagevent.com/event/7689076?bag_track=sqznpt'
     - 'name': 'SegmentFault'
       'url': 'https://segmentfault.com/'
     - 'name': '测试窝'

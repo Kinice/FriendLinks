@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '金石机器人常州股份有限公司'
-      'url': 'http://www.stonrobot.com'
-    - 'name': '博客巢'
-      'url': 'https://blog.yingmiwo.me'
     - 'name': 'eday个人博客'
       'url': 'https://www.edaylogy.com/'
     - 'name': '刘俊辉个人博客'
@@ -28,7 +24,5 @@
       'url': 'https://www.ajinol.com'
     - 'name': 'Linzepore''s Blog'
       'url': 'https://zepo.re'
-    - 'name': '雅幽资源网'
-      'url': 'https://blog.beicb.top'
     - 'name': '张天赐的小世界'
       'url': 'https://www.zhangtianci.cn'

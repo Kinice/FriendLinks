@@ -4,8 +4,6 @@
   'url': 'https://xaoxuu.com'
   'links': '/friends/'
   'friends':
-    - 'name': 'Jake Blog'
-      'url': 'https://jaketao.com/blog/'
     - 'name': 'W4J1e''s blog'
       'url': 'https://hin.cool'
     - 'name': '1900''Blog'
@@ -42,8 +40,6 @@
       'url': 'https://blog.ohdragonboi.cn/'
     - 'name': '一蓑烟雨的博客'
       'url': 'https://easyf12.top/'
-    - 'name': 'MicDZ''s blog'
-      'url': 'https://www.micdz.cn/cn/'
     - 'name': 'sumorio'
       'url': 'https://cn.5mg.fun/'
     - 'name': 'Felix Chen'

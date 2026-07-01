@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': '→点我申请友链←'
-      'url': 'https://www.wjx.top/vm/mHmysJK.aspx'
     - 'name': 'BugWriter'
       'url': 'https://www.bugwriter.icu/'
     - 'name': '逆行的狗'

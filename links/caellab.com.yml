@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '编程社区'
-      'url': 'https://codingcommunity.xmuer.online'
-    - 'name': 'xuzhoulab.cn'
-      'url': 'https://www.xuzhoulab.cn/o/'
     - 'name': 'xmuur.online'
       'url': 'https://xmuer.online/'
     - 'name': 'Saobby的主页'

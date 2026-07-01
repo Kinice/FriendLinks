@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '友链 | 卖烤肉'
-      'url': 'https://b.ncii.cn'
     - 'name': 'Hscool 48'
       'url': 'https://www.tyn48.cn/'
     - 'name': '静水流深'

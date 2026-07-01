@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Mastodon'
-      'url': 'https://mastodon.social/@camdez'
-    - 'name': 'Austin Clojure Meetup'
-      'url': 'https://www.meetup.com/austin-clojure-meetup/'
     - 'name': 'Clojure Diary'
       'url': 'https://clojure-diary.gitlab.io/'
     - 'name': 'Clojure/conj'

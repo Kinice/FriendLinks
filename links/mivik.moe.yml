@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '蒼 -depressive & emotional compilation-'
-      'url': 'https://www.dizzylab.net/d/THGO-005/'
     - 'name': 'sjfhsjfhsjfh.top'
       'url': 'https://sjfh.top'
     - 'name': 'hashland.hash.moe'

@@ -34,7 +34,5 @@
       'url': 'https://hutusi.com/'
     - 'name': '咕咚同学'
       'url': 'http://gudong.site'
-    - 'name': 'comments powered by Disqus.'
-      'url': 'https://disqus.com/?ref_noscript'
     - 'name': 'Toolinbox'
       'url': 'http://toolinbox.net/'

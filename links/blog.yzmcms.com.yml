@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '官方社区'
-      'url': 'https://www.yzmask.com'
     - 'name': '多骨鱼'
       'url': 'https://www.duoguyu.com/'
     - 'name': '叶子博客'

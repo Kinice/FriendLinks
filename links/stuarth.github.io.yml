@@ -6,5 +6,3 @@
   'friends':
     - 'name': 'Jekyll'
       'url': 'http://jekyllrb.com'
-    - 'name': 'Minimal Mistakes'
-      'url': 'http://mademistakes.com/minimal-mistakes/'

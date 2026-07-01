@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': '更多大佬…'
-      'url': 'https://mok.moe/friends'
     - 'name': 'Chihiro Yoruka 最糟糕的不在于不够自由，而在于忘记自由。'
       'url': 'https://yecl.net/'
     - 'name': 'NEVER迷の小窝 好耶， 是 Never 喵 (<ゝω·) ~☆'
@@ -14,8 +12,6 @@
       'url': 'https://sinofine.me'
     - 'name': 'HydricAcid Observation to the world line'
       'url': 'https://blog.hcl.moe/'
-    - 'name': '烧饼博客 是专注于服务器教程，专业域名投资和见解的博客'
-      'url': 'https://u.sb'
     - 'name': '云游君的小站 希望能成为一个有趣的人'
       'url': 'https://www.yunyoujun.cn'
     - 'name': 'FGHRSH FGHRSH 的博客'
@@ -78,5 +74,3 @@
       'url': 'https://mikublog.com/'
     - 'name': 'Laravel'
       'url': 'https://laravel.com/'
-    - 'name': 'Tailwindcss'
-      'url': 'https://tailwindcss.com/'

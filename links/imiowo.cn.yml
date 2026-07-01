@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friend'
   'friends':
-    - 'name': '绅士领域'
-      'url': 'https://www.imiowo.com/acgn'
     - 'name': 'FSpark'
       'url': 'https://fspark.me'
     - 'name': 'I Am I'
@@ -18,8 +16,6 @@
       'url': 'https://iyyz.org'
     - 'name': '心作乱象'
       'url': 'https://www.souletter.com'
-    - 'name': '时间回廊'
-      'url': 'https://xbtzone.com/blog/'
     - 'name': '杜老师说'
       'url': 'https://dusays.com'
     - 'name': '林羽凡'

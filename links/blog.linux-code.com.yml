@@ -4,11 +4,7 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '月光RSS'
-      'url': 'https://www.williamlong.info/'
     - 'name': '奇客Solidot–传递最新科技情报'
       'url': 'https://www.solidot.org/'
-    - 'name': '【新思想引领新征程】高水平开放提速加力 与世界共享发展机遇'
-      'url': 'http://politics.people.com.cn/n1/2025/0605/c1001-40494466.html'
     - 'name': '二丫讲梵'
       'url': 'https://www.eryajf.net/'

@@ -4,13 +4,7 @@
   'description': '友情链接'
   'links': '/about'
   'friends':
-    - 'name': 'AWS LightSail'
-      'url': 'https://jingine.com/aws-lightsail'
     - 'name': '他乡2.0'
       'url': 'https://taxiang.app'
-    - 'name': 'CCTV报道'
-      'url': 'https://blog.jing.do/6164'
     - 'name': 'HelloGWU'
       'url': 'https://hellogwu.com'
-    - 'name': 'psnprofiles.com'
-      'url': 'https://psnprofiles.com/jingeniuz'

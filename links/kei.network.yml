@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/about'
   'friends':
-    - 'name': '斑马网络'
-      'url': 'https://www.ebanma.com'
-    - 'name': '安全态势感知'
-      'url': 'https://www.sangfor.com.cn/knowledge/sip'
     - 'name': '烟花易冷'
       'url': 'https://www.zzfly.net'
     - 'name': 'VirgilG72'

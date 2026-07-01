@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'XiaoHuang的洛谷博客 我的洛谷博客'
-      'url': 'https://www.luogu.com.cn/blog/xiaohuang/'
     - 'name': 'memset0 memset0'
       'url': 'https://memset0.cn/'
     - 'name': 'Dreamwings Dreamwings'

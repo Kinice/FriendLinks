@@ -4,13 +4,7 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Need to edit a video instead?'
-      'url': 'https://edit.video/?ref=editphoto'
-    - 'name': 'new.photo/1024/768/white'
-      'url': 'https://new.photo/1024/768/white'
     - 'name': 'Feather'
       'url': 'https://feathericons.com/'
-    - 'name': 'Pintura Labs'
-      'url': 'https://pqina.nl/pintura/'
     - 'name': '@rikschennink'
       'url': 'https://rik.schenn.ink/'

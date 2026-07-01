@@ -6,9 +6,5 @@
   'friends':
     - 'name': 'Рег.ру'
       'url': 'https://reg.ru'
-    - 'name': 'Заказать'
-      'url': 'https://www.reg.ru/sozdanie-saita/'
     - 'name': 'Новости компаний'
       'url': 'https://companies.rbc.ru/'
-    - 'name': 'Новости технологий и медиа'
-      'url': 'https://www.rbc.ru/technology_and_media/'

@@ -4,8 +4,6 @@
   'url': 'https://snow.js.org/'
   'links': '/friends'
   'friends':
-    - 'name': '小嘉的部落格 一个爱折腾的Java开发工程师'
-      'url': 'https://blog.imzjw.cn'
     - 'name': 'Lete乐特 人生只有一次，大胆的生活！！'
       'url': 'https://blog.imlete.cn'
     - 'name': 'Heo 爱折腾的设计师'
@@ -40,8 +38,6 @@
       'url': 'https://blog.happyking.top/'
     - 'name': 'Shine “Let’s go! Target: The Vast Stars!”'
       'url': 'https://blog.shineyu.cn/'
-    - 'name': '曦秋的小屋 西交的学术小垃圾'
-      'url': 'https://atdanliu.cn/'
     - 'name': '猫羽のブログす 欢迎来到猫羽のブログす~分享技术，享受生活，体会成长，感受乐趣！'
       'url': 'https://www.maoyv.cn/'
     - 'name': 'Dribbble'

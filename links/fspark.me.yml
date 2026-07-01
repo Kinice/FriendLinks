@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends.html'
   'friends':
-    - 'name': '升级你的浏览器'
-      'url': 'http://browsehappy.com/'
     - 'name': '桜庭夜'
       'url': 'https://yuuikic.com'
     - 'name': '夜海行舟'
@@ -20,8 +18,6 @@
       'url': 'https://chengpengzhao.com'
     - 'name': 'Eltrac'
       'url': 'https://guhub.cn'
-    - 'name': '时间回廊'
-      'url': 'https://xbtzone.com/blog'
     - 'name': '无梦梦游记'
       'url': 'https://bkryofu.cn/'
     - 'name': 'shenmo'
@@ -52,5 +48,3 @@
       'url': 'https://yuuiki.cn'
     - 'name': '• Typecho'
       'url': 'http:\/\/www.typecho.org'
-    - 'name': '• Aria'
-      'url': 'https:\/\/eriri.ink/archives/Typecho-Theme-Aria.html'

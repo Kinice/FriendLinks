@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '推荐一个好用的AI站点'
-      'url': 'https://www.leorain.cn/article/recommend-a-good-ai-website'
     - 'name': '阿珏 -1 周前'
       'url': 'https://moejue.cn'
     - 'name': '佛系猫 -2 周前'

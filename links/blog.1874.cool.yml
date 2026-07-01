@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'PRIN BLOG 的友链页面'
-      'url': 'https://printempw.github.io/friends/'
     - 'name': 'Tangly'
       'url': 'https://tangly1024.com/'
     - 'name': '不才的博客'

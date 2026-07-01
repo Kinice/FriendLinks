@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '评论管理系统'
-      'url': 'https://comments.xujiayao.com/ui'
     - 'name': 'Tmzncty 题目自拟的盒子'
       'url': 'https://tmzncty.cn/'
     - 'name': 'Hydroxide 回声与月光'

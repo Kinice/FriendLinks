@@ -10,7 +10,5 @@
       'url': 'https://cha.yisuan.net'
     - 'name': '手机号码测吉凶'
       'url': 'https://haoma.yisuan.net'
-    - 'name': '结婚吉日查询'
-      'url': 'https://yisuan.net/app/zejiri-jiehun'
     - 'name': '身份证验证'
       'url': 'https://verify.yisuan.net/'

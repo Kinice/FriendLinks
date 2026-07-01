@@ -6,8 +6,6 @@
   'friends':
     - 'name': '我是王掌柜'
       'url': 'https://wzzgg.com/'
-    - 'name': '比特币'
-      'url': 'https://3.y66m.bid/'
     - 'name': 'forece.net'
       'url': 'http://forece.net'
     - 'name': 'newlearner.site'
@@ -26,7 +24,3 @@
       'url': 'http://aihoom.com'
     - 'name': '土木坛子'
       'url': 'https://tumutanzi.com'
-    - 'name': '88eSIM eUICC card'
-      'url': 'https://88esim.com'
-    - 'name': 'Cenote'
-      'url': 'https://themegrill.com/themes/cenote/'

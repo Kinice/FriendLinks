@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '思否'
-      'url': 'https://segmentfault.com/u/guizimo'
     - 'name': '困困鱼'
       'url': 'https://kunkunyu.com/'
     - 'name': '张洪Heo'

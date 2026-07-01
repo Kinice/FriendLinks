@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'Font Awesome'
       'url': 'https://fontawesome.com/'
-    - 'name': 'Eleventy (11ty)'
-      'url': 'https://www.11ty.dev'
     - 'name': 'CloudCannon'
       'url': 'https://cloudcannon.com/'
     - 'name': 'Filament Group'

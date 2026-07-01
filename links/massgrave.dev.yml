@@ -6,5 +6,3 @@
   'friends':
     - 'name': 'Cloudflare WARP'
       'url': 'https://one.one.one.one'
-    - 'name': 'Azure DevOps'
-      'url': 'https://dev.azure.com/massgrave/_git/Microsoft-Activation-Scripts'

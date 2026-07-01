@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Kuaishou'
-      'url': 'https://www.kuaishou.com/profile/3xuma38fija43n6'
     - 'name': 'Blowfish'
       'url': 'https://blowfish.page/'

@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '报名在线网'
-      'url': 'https://www.edu84.com/'
     - 'name': '雅思培训'
       'url': 'http://beijing.gedu.org/'

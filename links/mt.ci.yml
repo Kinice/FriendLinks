@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '在 𝕏 上关注我'
-      'url': 'https://404.li/x'
-    - 'name': 'Sink⚡ A Simple / Speedy / Secure Link Shortener with Analytics, 100% run on Clou'
-      'url': 'https://Sink.Cool'
     - 'name': 'BroadcastChannelTurn your Telegram Channel into a MicroBlog.'
       'url': 'https://memo.miantiao.me'
     - 'name': 'awesome-homelabCurating Top Open Source Apps for Homelab Enthusiasts'

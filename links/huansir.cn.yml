@@ -6,5 +6,3 @@
   'friends':
     - 'name': 'memset0'
       'url': 'https://mem.ac/ '
-    - 'name': 'Material for MkDocs'
-      'url': 'https://squidfunk.github.io/mkdocs-material/'

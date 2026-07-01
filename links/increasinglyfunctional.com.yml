@@ -6,7 +6,5 @@
   'friends':
     - 'name': 'passkeys'
       'url': 'https://passkeys.dev'
-    - 'name': 'Meta’s Hermes became the default JavaScript engine for React Native'
-      'url': 'https://reactnative.dev/blog/2022/07/08/hermes-as-the-default'
     - 'name': 'Jekyll'
       'url': 'https://jekyllrb.com/'

@@ -4,9 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '2589 45E5 C556 7B4D B36C 3E28 A64B 5235 356E 16D1'
-      'url': 'https://keys.openpgp.org/vks/v1/by-fingerprint/258945E5C5567B4DB36C3E28A64B5235356E16D1'
     - 'name': 'Matrix'
       'url': 'https://matrix.to/#/@prince213:matrix.org'
-    - 'name': 'Material for MkDocs'
-      'url': 'https://squidfunk.github.io/mkdocs-material/'

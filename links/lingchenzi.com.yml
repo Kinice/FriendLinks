@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Vultr：：512MB内存VPS，最低$2.5/月，支持支付宝PayPal、信用卡，注册送100美金。'
-      'url': 'https://bit.ly/3wFiCdV'
     - 'name': 'xinsenz'
       'url': 'http://www.xinsenz.com/'
     - 'name': 'NoteSth'
@@ -18,5 +16,3 @@
       'url': 'https://springwood.me/'
     - 'name': 'FinalSee'
       'url': 'https://finalsee.com/'
-    - 'name': 'Hetzner Cloud'
-      'url': 'https://hetzner.cloud/?ref=giJ6rmWFn1rD'

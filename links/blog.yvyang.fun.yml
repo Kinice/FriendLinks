@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friend'
   'friends':
-    - 'name': '友链检测'
-      'url': 'https://linkcheck.yvyang.top'
     - 'name': '在线会议'
       'url': 'https://chat.yvyang.dpdns.org'
     - 'name': '朋友圈部署'

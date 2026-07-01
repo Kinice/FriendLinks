@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': '抹茶酱の日常 风云瞬息，气候恒驻。'
-      'url': 'https://matce.cn/i'
     - 'name': 'ShellBin''s World きらめきらぃ (<ゝω·)☆'
       'url': 'https://blog.shellbin.me/'
     - 'name': 'Deep Science Lab 业余整整，随便说说'

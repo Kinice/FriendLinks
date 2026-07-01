@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Design Patterns'
-      'url': 'http://en.wikipedia.org/wiki/Design_Patterns'
     - 'name': 'Mark Reid'
       'url': 'http://mark.reid.name/'

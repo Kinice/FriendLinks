@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Application catalogDeploy open-source apps in seconds'
-      'url': 'https://www.hostinger.com/applications'
     - 'name': 'Product updatesLatest releases and upcoming features'
       'url': 'https://roadmap.hostinger.com/'
-    - 'name': 'Start for free'
-      'url': 'https://auth.hostinger.com/register?redirectUrl=https%3A%2F%2Fbuilder.hostinger.com%2Fai-builder&promo=ai-website-builder'
     - 'name': 'Hostinger API'
       'url': 'https://developers.hostinger.com/'
     - 'name': 'System status'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '站点地图'
-      'url': 'https://leziblog.cn/sitemap.rss'
     - 'name': 'CynosuraTrying to light up the dark.'
       'url': 'https://cynosura.one'
     - 'name': 'deemoe''s blog眼见何事，情系何处，身在何方，心思何人'
@@ -56,8 +54,6 @@
       'url': 'https://blog.lie-kong.top'
     - 'name': '王鑫的小站活着就是为了折腾！'
       'url': 'https://wxweb.xyz'
-    - 'name': '追梦人博客软件工程专业大师的博客'
-      'url': 'https://dream.ren/'
     - 'name': '酷丁的主页一个羞涩的小朋友的自我介绍页面'
       'url': 'https://coldin.top'
     - 'name': 'Mashiro'

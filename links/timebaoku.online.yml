@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': '喵喵小站・博客志'
-      'url': 'https://www.mmbkz.cn/'
     - 'name': 'blog.yebken.cn'
       'url': 'https://blog.yebken.cn'
     - 'name': 'www.bufanz.com'

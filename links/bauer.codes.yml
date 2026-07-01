@@ -6,9 +6,5 @@
   'friends':
     - 'name': 'Datadog'
       'url': 'https://datadoghq.com'
-    - 'name': 'Datadog metric timeseries DB'
-      'url': 'https://www.datadoghq.com/blog/engineering/rust-timeseries-engine/'
-    - 'name': '@hachyderm.io@pmbauer'
-      'url': 'https://hachyderm.io/@pmbauer'
     - 'name': 'Mastodon'
       'url': 'https://joinmastodon.org'

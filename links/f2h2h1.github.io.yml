@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '中文博客集锦'
-      'url': 'https://nobodxbodon.github.io'
     - 'name': 'I Am I'
       'url': 'https://5ime.cn/'
     - 'name': 'FlyingSky''s Blog'

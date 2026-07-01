@@ -4,8 +4,6 @@
   'url': 'https://amiracle.site/'
   'links': '/link'
   'friends':
-    - 'name': 'codeforces'
-      'url': 'https://codeforces.com/profile/AmiracleTa'
     - 'name': 'dogecloud'
       'url': 'https://www.dogecloud.com'
     - 'name': '张洪Heo'

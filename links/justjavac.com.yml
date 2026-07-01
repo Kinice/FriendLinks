@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'SegmentFault'
-      'url': 'https://segmentfault.com/u/justjavac'
-    - 'name': 'StackOverFlow'
-      'url': 'https://stackoverflow.com/users/343194/justjavac'
     - 'name': 'Flarum'
       'url': 'https://flarum.org.cn'
     - 'name': 'deno'
@@ -18,5 +14,3 @@
       'url': 'https://yanhaijing.com'
     - 'name': 'Jekyll Bootstrap'
       'url': 'http://jekyllbootstrap.com'
-    - 'name': 'Twitter Bootstrap'
-      'url': 'https://getbootstrap.com/2.3.2/'

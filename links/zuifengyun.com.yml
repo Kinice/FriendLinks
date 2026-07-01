@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '或。者 一个可能的人'
-      'url': 'http://www.qh505.com/blog/'
     - 'name': 'PDF杂志'
       'url': 'https://pdfzj.com/'
     - 'name': '清音陋屋'

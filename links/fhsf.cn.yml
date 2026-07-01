@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'ZY知识库 一个技术探索与分享的平台'
-      'url': 'https://pljzy.top'
     - 'name': '虹色轨迹🌠 做一颗星星，有棱有角，黑暗中闪闪发光🍭🍭🍭'
       'url': 'https://illlli.com'
     - 'name': '御树树的小窝 来小窝逛逛吧~'

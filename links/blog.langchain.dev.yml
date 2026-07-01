@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'LangChain Academy'
       'url': 'https://academy.langchain.com/'
-    - 'name': 'Meetups'
-      'url': 'https://luma.com/langchain?k=c'
     - 'name': 'Try LangSmith'
       'url': 'https://smith.langchain.com/'
     - 'name': 'Trust Center'

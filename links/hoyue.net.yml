@@ -1,8 +1,0 @@
-'site':
-  'name': 'hoyue.net'
-  'description': '友情链接'
-  'url': 'https://hoyue.net/'
-  'links': '/friends'
-  'friends':
-    - 'name': 'Phoebe (Night) - void_0'
-      'url': 'https://www.pixiv.net/artworks/128293940'
