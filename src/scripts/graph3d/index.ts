@@ -1031,9 +1031,10 @@ export function init3d(graphData: GraphData) {
           flyCrosshair.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
         }
 
-        // 4. WASD 飞行（独立于准星）
+        // 4. WASD 飞行（独立于准星） — 自动驾驶时自动前进
         const speed = (flyKeys.shift ? SHIFT_MULTIPLIER : 1) * MOVE_SPEED;
-        if (flyKeys.w) cam.translateZ(-speed);
+        if (flyAutoPilot || flyKeys.w) cam.translateZ(-speed);
+        if (!flyAutoPilot && flyKeys.s) cam.translateZ(speed);
         if (flyKeys.s) cam.translateZ(speed);
         if (flyKeys.a) cam.translateX(-speed);
         if (flyKeys.d) cam.translateX(speed);
@@ -1179,6 +1180,7 @@ export function init3d(graphData: GraphData) {
   let flyOnKeyDown: ((e: KeyboardEvent) => void) | null = null;
   let flyOnKeyUp: ((e: KeyboardEvent) => void) | null = null;
   let autoHoverId: string | null = null;
+  let flyAutoPilot = false;
   // 准星弹簧-阻尼物理
   const reticleOffset = { x: 0, y: 0 };
   const reticleVelocity = { x: 0, y: 0 };
@@ -1261,8 +1263,9 @@ export function init3d(graphData: GraphData) {
         <div><kbd>R</kbd> 上升 · <kbd>F</kbd> 下降</div>
         <div><kbd>Q</kbd><kbd>E</kbd> 横滚</div>
         <div><kbd>Shift</kbd> 加速 3×</div>
+        <div><kbd>Space</kbd> 自动驾驶 <span id="fly-autopilot-status" style="color:#888;">OFF</span></div>
         <div style="color:#888;margin-top:4px;border-top:1px solid rgba(255,255,255,0.06);padding-top:4px;">
-	         准星瞄准 · 左键打开 · 惯性视角
+          准星瞄准 · 左键打开 · 惯性视角
         </div>
       </div>
       <style>
@@ -1292,6 +1295,15 @@ export function init3d(graphData: GraphData) {
     if (["w", "a", "s", "d", "r", "f", "q", "e", "shift"].includes(k)) {
       e.preventDefault();
       flyKeys[k] = down;
+    }
+    // 空格切换自动驾驶（持续前进）
+    if (k === " " && down) {
+      flyAutoPilot = !flyAutoPilot;
+      const statusEl = document.getElementById("fly-autopilot-status");
+      if (statusEl) {
+        statusEl.textContent = flyAutoPilot ? "ON" : "OFF";
+        statusEl.style.color = flyAutoPilot ? "#4f8" : "#888";
+      }
     }
   }
 
