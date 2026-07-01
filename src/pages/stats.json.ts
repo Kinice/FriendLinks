@@ -2,77 +2,42 @@ import { loadSites } from "../utils/load-sites";
 import { printProgress, printDone } from "../utils/progress";
 
 function getHost(u: string): string {
-  try {
-    return new URL(u).hostname.toLowerCase();
-  } catch {
-    return u.toLowerCase();
-  }
+  try { return new URL(u).hostname.toLowerCase(); } catch { return u.toLowerCase(); }
 }
 
 export async function GET() {
   const start = performance.now();
-
   printProgress("❶", "加载友链数据…", 0);
   const validSites = await loadSites();
-  printProgress("❶", `已加载 ${validSites.length} 个站点`, 20);
 
   const siteHostSet = new Set<string>();
-  for (const s of validSites) {
-    siteHostSet.add(getHost(s.url));
-  }
+  for (const s of validSites) siteHostSet.add(getHost(s.url));
 
   const linkMap = new Map<string, Set<string>>();
-  for (const s of validSites) {
-    linkMap.set(getHost(s.url), new Set());
-  }
+  for (const s of validSites) linkMap.set(getHost(s.url), new Set());
 
   let externalFriendsCount = 0;
   for (const s of validSites) {
     const sourceNorm = getHost(s.url);
     for (const f of s.friends) {
       const targetHost = getHost(f.url);
-      if (siteHostSet.has(targetHost)) {
-        linkMap.get(sourceNorm)!.add(targetHost);
-      } else {
-        externalFriendsCount++;
-      }
+      if (siteHostSet.has(targetHost)) linkMap.get(sourceNorm)!.add(targetHost);
+      else externalFriendsCount++;
     }
   }
 
-  // 统计外部友链节点的唯一数量
   const externalHosts = new Set<string>();
-  for (const s of validSites) {
+  for (const s of validSites)
     for (const f of s.friends) {
-      const targetHost = getHost(f.url);
-      if (!siteHostSet.has(targetHost)) {
-        externalHosts.add(targetHost);
-      }
+      const h = getHost(f.url);
+      if (!siteHostSet.has(h)) externalHosts.add(h);
     }
-  }
-  printProgress("❶", "链接映射构建完成", 40);
 
   const stats = {
-    coreNodes: {
-      count: validSites.length,
-      uniqueHosts: siteHostSet.size,
-    },
-    friendNodes: {
-      total: externalHosts.size,
-      externalFriends: externalFriendsCount,
-    },
-    connections: {
-      coreToCore: {
-        total: 0,
-        bidirectional: 0,
-        unidirectional: 0,
-      },
-      coreToFriend: externalFriendsCount,
-      total: 0,
-    },
-    overview: {
-      totalNodes: 0,
-      totalConnections: 0,
-    },
+    coreNodes: { count: validSites.length, uniqueHosts: siteHostSet.size },
+    friendNodes: { total: externalHosts.size, externalFriends: externalFriendsCount },
+    connections: { coreToCore: { total: 0, bidirectional: 0, unidirectional: 0 }, coreToFriend: externalFriendsCount, total: 0 },
+    overview: { totalNodes: 0, totalConnections: 0 },
   };
 
   printProgress("❷", "计算核心节点连接…", 50);
@@ -83,100 +48,112 @@ export async function GET() {
       if (processedCoreLinks.has(pairKey)) continue;
       processedCoreLinks.add(pairKey);
       if (sourceHost === targetNorm) continue;
-
       const aLinksB = linkMap.get(sourceHost)?.has(targetNorm);
       const bLinksA = linkMap.get(targetNorm)?.has(sourceHost);
-
       stats.connections.coreToCore.total++;
-      if (aLinksB && bLinksA) {
-        stats.connections.coreToCore.bidirectional++;
-      } else {
-        stats.connections.coreToCore.unidirectional++;
-      }
+      if (aLinksB && bLinksA) stats.connections.coreToCore.bidirectional++;
+      else stats.connections.coreToCore.unidirectional++;
     }
   }
-
   stats.connections.total = stats.connections.coreToCore.total + stats.connections.coreToFriend;
   stats.overview.totalConnections = stats.connections.total;
   stats.overview.totalNodes = validSites.length + externalHosts.size;
-  printProgress("❷", "连接统计完成", 75);
 
-  // 统计友链页面路由分布
+  // 路由统计
   const linkRoutes: Record<string, number> = {};
+  for (const s of validSites) if (s.links) linkRoutes[s.links] = (linkRoutes[s.links] || 0) + 1;
+  const linkRoutesSorted = Object.entries(linkRoutes).sort(([,a],[,b]) => b-a).map(([r,c]) => ({ route: r, count: c }));
+  printProgress("❷", "路由统计完成", 70);
+
+  // ── 全节点六度分隔统计 (C(n,2) APSP on largest component) ──
+  printProgress("❸", "构建全节点图…", 80);
+
+  // 所有节点 (核心 + 外部友链)
+  const urlSet = new Set<string>();
+  const urlToName = new Map<string, string>();
   for (const s of validSites) {
-    if (s.links) {
-      linkRoutes[s.links] = (linkRoutes[s.links] || 0) + 1;
+    urlSet.add(s.url); urlToName.set(s.url, s.name);
+    for (const f of s.friends ?? []) {
+      urlSet.add(f.url);
+      if (!urlToName.has(f.url)) urlToName.set(f.url, f.name);
     }
   }
-  const linkRoutesSorted = Object.entries(linkRoutes)
-    .sort(([, a], [, b]) => b - a)
-    .map(([route, count]) => ({ route, count }));
+  const allUrls = [...urlSet];
+  const n = allUrls.length;
+  const urlToIdx = new Map<string, number>();
+  allUrls.forEach((u, i) => urlToIdx.set(u, i));
 
-  const statsWithRoutes = { ...stats, linkRoutes: linkRoutesSorted };
-  printProgress("❷", "路由统计完成", 100);
-
-  // ── 六度分隔统计 ──────────────────────────────────────────
-  printProgress("❸", "六度分隔分析…", 85);
-
-  let sixDegreeStats: any = null;
-
-  // 尝试读取预计算缓存
-  try {
-    const cachedPath = "../../dist/six-degrees.json";
-    sixDegreeStats = JSON.parse(await Bun.file(new URL(cachedPath, import.meta.url)).text());
-  } catch {}
-
-  // 缓存不存在时采样估算
-  if (!sixDegreeStats) {
-    const degreeDist: Record<number, number> = {};
-    let maxDegreeSep = 0, totalPairs = 0;
-
-    const coreUrls = [...linkMap.keys()];
-    const coreIndex = new Map<string, number>();
-    coreUrls.forEach((u, i) => coreIndex.set(u, i));
-    const coreAdj: number[][] = Array.from({ length: coreUrls.length }, () => []);
-    for (const [src, targets] of linkMap) {
-      const si = coreIndex.get(src)!;
-      for (const t of targets) {
-        const ti = coreIndex.get(t);
-        if (ti != null) coreAdj[si].push(ti);
-      }
+  // 无向邻接表
+  const adj: number[][] = Array.from({ length: n }, () => []);
+  for (const s of validSites) {
+    const si = urlToIdx.get(s.url)!;
+    for (const f of s.friends ?? []) {
+      const ti = urlToIdx.get(f.url)!;
+      adj[si].push(ti); adj[ti].push(si);
     }
-
-    const sampCount = Math.min(100, coreUrls.length);
-    const degSorted = coreUrls
-      .map((u, i) => ({ idx: i, deg: linkMap.get(u)!.size }))
-      .sort((a, b) => b.deg - a.deg)
-      .slice(0, sampCount);
-
-    for (const { idx: start } of degSorted) {
-      const dist = new Int32Array(coreUrls.length).fill(-1);
-      dist[start] = 0;
-      const q: number[] = [start]; let head = 0;
-      while (head < q.length) { const u = q[head++]; for (const v of coreAdj[u]) { if (dist[v] === -1) { dist[v] = dist[u] + 1; q.push(v); } } }
-      for (let i = 0; i < dist.length; i++) {
-        if (i === start || dist[i] === -1) continue;
-        totalPairs++;
-        const d = dist[i]; if (d > maxDegreeSep) maxDegreeSep = d;
-        degreeDist[d] = (degreeDist[d] || 0) + 1;
-      }
-    }
-    const intermediateVertices: Record<number, number> = {};
-    for (const [d, cnt] of Object.entries(degreeDist)) intermediateVertices[Number(d) - 1] = cnt;
-
-    sixDegreeStats = {
-      maxEdgeDistance: maxDegreeSep,
-      maxIntermediateVertices: maxDegreeSep - 1,
-      distribution: degreeDist,
-      intermediateVertexDistribution: intermediateVertices,
-      _note: "采样估算, 完整数据: bun scripts/analyze_six_degrees.ts",
-    };
   }
 
-  const finalStats = { ...statsWithRoutes, sixDegrees: sixDegreeStats };
+  // 找连通分量
+  const comp = new Int32Array(n).fill(-1);
+  const compSizes: number[] = [];
+  let compId = 0;
+  for (let i = 0; i < n; i++) {
+    if (comp[i] !== -1) continue;
+    const q = [i]; comp[i] = compId;
+    let head = 0, size = 0;
+    while (head < q.length) { const u = q[head++]; size++; for (const v of adj[u]) { if (comp[v] === -1) { comp[v] = compId; q.push(v); } } }
+    compSizes.push(size); compId++;
+  }
 
+  // 对最大分量做全节点 BFS
+  const mainCompId = compSizes.indexOf(Math.max(...compSizes));
+  const mainNodes = [];
+  for (let i = 0; i < n; i++) if (comp[i] === mainCompId) mainNodes.push(i);
+  const M = mainNodes.length;
+
+  printProgress("❸", `主分量 ${M}/${n} 节点, 全节点 BFS…`, 85);
+
+  const degreeDist: Record<number, number> = {};
+  let maxDist = 0, processed = 0;
+  const startTime = performance.now();
+
+  for (const a of mainNodes) {
+    const distArr = new Int32Array(n).fill(-1);
+    distArr[a] = 0;
+    const q = [a]; let head = 0;
+    while (head < q.length) { const u = q[head++]; for (const v of adj[u]) { if (distArr[v] === -1) { distArr[v] = distArr[u] + 1; q.push(v); } } }
+    for (const b of mainNodes) {
+      if (b <= a) continue;
+      if (distArr[b] === -1) continue;
+      const d = distArr[b];
+      if (d > maxDist) maxDist = d;
+      degreeDist[d] = (degreeDist[d] || 0) + 1;
+    }
+    processed++;
+    if (processed % 500 === 0) {
+      printProgress("❸", `BFS ${processed}/${M} (${((performance.now()-startTime)/1000).toFixed(0)}s)`, 85 + Math.round((processed/M)*10));
+    }
+  }
+
+  const intermediateDist: Record<number, number> = {};
+  for (const [d, cnt] of Object.entries(degreeDist)) intermediateDist[Number(d)-1] = cnt;
+
+  const sixDegreeStats = {
+    totalNodes: n,
+    mainComponentSize: M,
+    componentCount: compId,
+    maxEdgeDistance: maxDist,
+    maxIntermediateVertices: maxDist - 1,
+    edgeDistanceDistribution: degreeDist,
+    intermediateVertexDistribution: intermediateDist,
+    totalPairsConsidered: mainNodes.length * (mainNodes.length - 1) / 2,
+  };
+
+  printProgress("❸", "六度分隔完成", 100);
+
+  const finalStats = { ...stats, linkRoutes: linkRoutesSorted, sixDegrees: sixDegreeStats };
   const elapsed = ((performance.now() - start) / 1000).toFixed(1);
-  printDone(`/stats.json  ${validSites.length} 站点，${stats.connections.total} 连接，耗时 ${elapsed}s`);
+  printDone(`/stats.json  ${validSites.length} 站点, ${stats.connections.total} 连接, ${n} 节点全量BFS, 耗时 ${elapsed}s`);
 
   return new Response(JSON.stringify(finalStats), {
     headers: { "Content-Type": "application/json" },
