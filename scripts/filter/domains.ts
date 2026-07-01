@@ -383,4 +383,19 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  "ghostring.neocities.org", // webring导航
 			  "firechicken.club",     // webring导航
 			  "by91.qzz.io",          // 色情
+			  // 数字开头非博客域名
+			  "libvio.pw", "libvios.com", "libvio.io", "libviobd.com", "libhd.com", // 影视盗版
+			  "hbkxsb.com",           // 体育博彩文章
+			  "kinkelder.cn",         // 足球直播吧
+			  "1linelayouts.com",     // CSS工具站
+			  "006idc.cn",            // IDC
+			  "0479xxw.cn",           // 信息网
+			  "06m.me",               // 短域名停放
+			  "10.ci",                // 短域名
+			  "1password.com",        // 密码工具
+			  "17ce.com", "17ex.com", // 测速工具
+			  "08sec.org",            // 安全团队
+			  "0akarma.com", "0cili.com", // 视频/工具站
+			  "0x0f.dev", "0xff.nu", "0xedward.io", "0xportal.dev", // 技术展示页(非博客)
+			  "0psu3.team",           // 团队站
 			];
