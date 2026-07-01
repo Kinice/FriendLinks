@@ -58,6 +58,8 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
   controls.minDistance = 20;
   controls.maxDistance = 20000;
   controls.zoomSpeed = 1.5;
+  controls.minPolarAngle = 0;
+  controls.maxPolarAngle = Math.PI * 2; // 上下贯通旋转
 
   // Lights
   scene.add(new THREE.AmbientLight(0xcccccc, Math.PI));
