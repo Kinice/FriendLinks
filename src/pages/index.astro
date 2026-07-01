@@ -784,7 +784,7 @@ import "../css/modal.css";
 	        const flyBtn = document.getElementById("fly-toggle");
 	        if (flyBtn) {
 	          flyBtn.addEventListener("click", () => {
-	            const api = window.__graphApi as any;
+	            const api = window.__graphApi;
 	            if (api && api.toggleFlightMode) {
 	              const isFly = api.toggleFlightMode();
 	              flyBtn.textContent = isFly ? "🌐 球幕模式" : "🚀 飞船模式";
