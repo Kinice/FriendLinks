@@ -429,4 +429,9 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  "kisssub.org", "ailoli.org", "w8dsci.org", "aichunjing.com", "subingwen.cn", "icodebook.com", // 动漫/组织/教育平台
 			  "aini365.cn", "sdxbm.com", "idh.cc", "aiit.me", "itmeit.com", "aigeek.top", "illlt.com", // 杂项
 			  "erro.cn", "x.iqimeng.com", "i.ewceo.com", "eriqua.com", "aikuaj.com", "aztdxz.cn", // 杂项
+			  // 社交媒体平台
+			  "bsky.app", "threads.net", "snapchat.com",
+			  "medium.com", "substack.com", "discord.com", "discord.gg",
+			  "vimeo.com", "instagram.com", "youtu.be", "tiktok.com",
+			  "twitch.tv", "patreon.com", "mastodon.social", "mastodon.online",
 			];
