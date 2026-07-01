@@ -487,4 +487,23 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  "panconnexus.com", "china-fanghuomen.com.cn", "baipin.pw", "kitauji-gwent.com", // 影院/工厂/软件/游戏
 			  "baiyaodao.com", "baoding.offcn.com", "bj.house.163.com", "ustb-806.github.io", // 工具/人事/房产/大学
 			  "geo.mijia88.com", "bj.xdf.cn", "bjmemory.clcn.net.cn", // SEO/新东方/地方站
+			  // "备-博"开头非博客(备用/博主spam/赌博/壁纸/博客平台等72个)
+			  "fk.wwkjs.top", "imouto.tech", "blog.megumifox.com", "visit.lcese.com", // 备用/新手/信息
+			  "deepinbolivia.com", "bokequanzi.com", "blog.peter267.me", "bingdou.com.cn", // 国家/博客录/备用/冰豆
+			  "likinming.com", "xianjichina.cn", "bloginn.vip", "anlubk.com", // 博客之家/表面/博客驿站/备用
+			  "samleoh.com", "hefeiyirui.com", "signcc.com", "boluoyun.com", // 博鱼/博亚/标识/菠萝云
+			  "boboji.org", "bizhib.com", "wordcloud.buyaocha.com", "biaoqingbao.xin", // 播客/壁纸/标签/表情
+			  "3.y66m.bid", "xf.ailingsi.top", "blog.wenwuhulian.com", "theblogstar.info", // 菠菜/备用/博客之星
+			  "utopiablog.cn", "bokelu.suijiboke.gs", "haopaper.com", "bingdou.vip", // 博博客/博客录/病例/冰豆
+			  "bingdou.xyz", "bingdou.live", "music.zane-liu.com", "jetli.com.cn", // 冰豆/播放器/比特
+			  "ifeve.com", "globalreachent.com", "52blog.cn", "btchao.com", // 并发/比特/博客巢
+			  "bizhizu.cn", "ohayou.aimo.moe", "boke8.net", "liuxunzhuo.com", // 壁纸/冰源/博客
+			  "bizihu.com", "jsform.com", "blbi.cn", "ourbore.cn", // 壁纸/表单/笔记堡/并发
+			  "bitinn.net", "blog.yingmiwo.me", "samovie11.com", "bikamanhua.org", // 比特/博客/博鱼/哔咔
+			  "kylen314.com", "bokelianmeng.com", "blog.zlog.online", "szkeihai.com", // 本地/博客联盟/备用/表张力
+			  "seiion.com", "blog.town", "binzhoufabu.com", "nmssb.cn", // 壁纸/博客镇/滨州/标识
+			  "qingfengnb.cn", "quanqiujiaoyi.com", "blog.lingerbhw.ml", "scuop.top", // 博主spam
+			  "limo.ts-yun.com", "blog.bornforthis.cn", "blog.jclin.top", // 博主spam/备用
+			  "perass.com", "shuangyunjx.com", "tibets.no43.cn", "hebeis.laparoscopy.cn", // 菠菜/壁纸/本地
+			  "lodka.vercel.app", "lcqbc.com", "1a1zp1ep5qgefi2dmptftl5slmv7divfna.com", // 表格/病例/比特币
 			];
