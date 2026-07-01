@@ -23,6 +23,7 @@
     "lint": "oxlint src/",
     "fmt": "oxfmt src/ --write",
     "fmt-check": "oxfmt src/ --check",
+    "names": "bun scripts/collect-names.ts",
     "prune": "bun scripts/prune-irrelevant.ts",
     "probe": "bun scripts/probe_subs.ts",
     "retry-slow": "bun scripts/retry-slow.ts",
@@ -30,6 +31,8 @@
   },
   "dependencies": {
     "3d-force-graph": "^1.80.0",
+    "@spider-rs/spider-rs": "^0.0.163",
+    "@spider-rs/spider-rs-linux-x64-gnu": "^0.0.157",
     "astro": "7.0.4",
     "cheerio": "^1.2.0",
     "d3-force-3d": "^3.0.6",
@@ -44,7 +47,6 @@
     "ngraph.graph": "^20.1.2",
     "oxfmt": "^0.57.0",
     "oxlint": "^1.72.0",
-    "playwright": "^1.61.1",
     "typescript": "^6.0.3",
     "vite-bundle-visualizer": "^1.2.1"
   }
