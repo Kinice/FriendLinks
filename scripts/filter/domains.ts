@@ -450,4 +450,15 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  "ani.gamer.com.tw", "lgrxzd.com", "web.baimiaoapp.com", "egret.com", // 动画/影视/OCR/引擎
 			  "baishan.com", "0439.com", "ai.baipiaozhe.com", "belugasubs.com", // CDN/门户/资源/字幕组
 			  "white-rat.com", "bn.cq.cn", "bacaoo.com", "batuhu.com", // 安全团队/政府/比价/工具
+			  // "百-北"开头非博客
+			  "bjjubao.org.cn", "english.aljazeera.net", "99ly.com.cn", "mapgz.com", // 举报/电视台/旅行社/租车
+			  "edu84.com", "baibiao.cn", "wz-scj.com", "bjjubao.org", "by56.com", // 报名/标网/天气/举报/物流
+			  "cndsnet.com", "dajietui.com", "quefan.com", "scyjzs.com", "bangongit.com", // 优化/推广/律师/办公
+			  "bjeea.cn", "bx26.com", "baway.org.cn", "bnman.net", "275.com", // 考试/取名/研修/漫画/保险
+			  "keinsci.com", "yamibo.com", "bnia.cn", "py.qianlong.com", "lxjkx.cn", // 科研/百合会/协会/辟谣/保险
+			  "bgwl.net", "bt.cn", "bt.sb", "plus.ibaotu.com", "cqhheat.com", // 优化/面板/破解/素材/工业
+			  "esp66.com", "baozoumanhua.com", "ebanma.com", "junchengkeji.com", // 文玩/漫画/网络/科技
+			  "panconnexus.com", "china-fanghuomen.com.cn", "baipin.pw", "kitauji-gwent.com", // 影院/工厂/软件/游戏
+			  "baiyaodao.com", "baoding.offcn.com", "bj.house.163.com", "ustb-806.github.io", // 工具/人事/房产/大学
+			  "geo.mijia88.com", "bj.xdf.cn", "bjmemory.clcn.net.cn", // SEO/新东方/地方站
 			];
