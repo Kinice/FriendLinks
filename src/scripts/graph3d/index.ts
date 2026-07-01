@@ -1081,16 +1081,18 @@ export function init3d(graphData: GraphData) {
 
   // ── 12. 飞船飞行模式 ────────────────────────────────────────────
   const MOVE_SPEED = 12;
-  const MOUSE_SENSITIVITY = 0.003;
+  const DRAG_SENSITIVITY = 0.005;
 
   const flyKeys: Record<string, boolean> = {};
   let isFlyMode = false;
-  let isPointerLocked = false;
   let spaceshipObj: THREE.Group | null = null;
+  let flyDragStart = { x: 0, y: 0 };
+  let flyControlPanel: HTMLElement | null = null;
+  let flyOnKeyDown: ((e: KeyboardEvent) => void) | null = null;
+  let flyOnKeyUp: ((e: KeyboardEvent) => void) | null = null;
 
   function createSpaceship(): THREE.Group {
     const group = new THREE.Group();
-
     const bodyMat = new THREE.MeshPhongMaterial({
       color: 0x88bbff,
       emissive: 0x224488,
@@ -1107,44 +1109,86 @@ export function init3d(graphData: GraphData) {
     });
     const glowMat = new THREE.MeshBasicMaterial({ color: 0xff8800 });
 
-    // 机身
     const body = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.4, 1.8, 8), bodyMat);
     body.rotation.x = Math.PI / 2;
     body.position.z = -0.2;
     group.add(body);
-
-    // 机头
     const nose = new THREE.Mesh(new THREE.ConeGeometry(0.25, 0.8, 8), bodyMat);
     nose.rotation.x = -Math.PI / 2;
     nose.position.z = -1.1;
     group.add(nose);
-
-    // 机翼
     const wing = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.04, 0.5), darkMat);
     wing.position.set(0, -0.18, 0.3);
     group.add(wing);
     const wing2 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.04, 0.5), darkMat);
     wing2.position.set(0, 0.18, 0.3);
     group.add(wing2);
-
-    // 驾驶舱
     const cockpit = new THREE.Mesh(new THREE.SphereGeometry(0.15, 8, 6), glassMat);
     cockpit.position.set(0, 0.28, -0.6);
     cockpit.scale.set(1, 0.6, 1.3);
     group.add(cockpit);
-
-    // 尾翼
     const tail = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.4, 0.3), darkMat);
     tail.position.set(0, 0.1, 1.0);
     group.add(tail);
-
-    // 引擎光
     const glow = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.03, 0.2, 6), glowMat);
     glow.position.set(0, 0, 1.0);
     group.add(glow);
-
-    group.scale.set(1, 1, 1);
     return group;
+  }
+
+  function createFlyControlPanel(): HTMLElement {
+    let panel = document.getElementById("fly-control-panel") as HTMLElement | null;
+    if (panel) return panel;
+    panel = document.createElement("div");
+    panel.id = "fly-control-panel";
+    panel.style.cssText = `
+      position:fixed;bottom:70px;left:16px;z-index:9998;
+      background:rgba(16,16,24,0.88);
+      backdrop-filter:blur(8px);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:8px;
+      padding:8px 12px;
+      font-family:sans-serif;
+      font-size:12px;
+      color:#ccc;
+      display:none;
+      max-width:220px;
+      line-height:1.6;
+    `;
+    panel.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <span style="font-weight:600;color:#fff;font-size:13px;">🚀 飞行控制</span>
+        <button id="fly-panel-toggle" style="background:none;border:none;color:#888;cursor:pointer;font-size:14px;">−</button>
+      </div>
+      <div id="fly-panel-body">
+        <div><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 飞行</div>
+        <div><kbd>R</kbd> 上升 · <kbd>F</kbd> 下降</div>
+        <div><kbd>Q</kbd><kbd>E</kbd> 横滚</div>
+        <div><kbd>Shift</kbd> 加速 3×</div>
+        <div style="color:#888;margin-top:4px;border-top:1px solid rgba(255,255,255,0.06);padding-top:4px;">
+          鼠标拖拽环顾 · 悬停看信息
+        </div>
+      </div>
+      <style>
+        #fly-control-panel kbd {
+          display:inline-block;background:rgba(255,255,255,0.1);
+          border-radius:3px;padding:0 5px;font-size:11px;color:#fff;
+          margin:0 1px;
+        }
+      </style>
+    `;
+    document.body.appendChild(panel);
+
+    const toggle = panel.querySelector("#fly-panel-toggle") as HTMLElement;
+    const body = panel.querySelector("#fly-panel-body") as HTMLElement;
+    if (toggle && body) {
+      toggle.addEventListener("click", () => {
+        const collapsed = body.style.display === "none";
+        body.style.display = collapsed ? "block" : "none";
+        toggle.textContent = collapsed ? "−" : "+";
+      });
+    }
+    return panel;
   }
 
   function handleKey(e: KeyboardEvent, down: boolean) {
@@ -1155,46 +1199,49 @@ export function init3d(graphData: GraphData) {
     }
   }
 
-  let flyKeyDownHandler: ((e: KeyboardEvent) => void) | null = null;
-  let flyKeyUpHandler: ((e: KeyboardEvent) => void) | null = null;
-  let flyPointerMoveHandler: ((e: MouseEvent) => void) | null = null;
-  let flyPointerLockChangeHandler: (() => void) | null = null;
-  let flyClickHandler: (() => void) | null = null;
+  function onFlyMouseDown(e: MouseEvent) {
+    if (!isFlyMode) return;
+    flyDragStart.x = e.clientX;
+    flyDragStart.y = e.clientY;
+  }
+
+  function onFlyMouseMove(e: MouseEvent) {
+    if (!isFlyMode) return;
+    // 检测是否正在拖拽（移动超过阈值）
+    const dx = e.clientX - flyDragStart.x;
+    const dy = e.clientY - flyDragStart.y;
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+      const cam = Graph.camera() as THREE.PerspectiveCamera;
+      if (cam) {
+        cam.rotateY(-dx * DRAG_SENSITIVITY);
+        cam.rotateX(-dy * DRAG_SENSITIVITY);
+      }
+      flyDragStart.x = e.clientX;
+      flyDragStart.y = e.clientY;
+    }
+  }
+
+  function onFlyMouseUp() {}
 
   function enterFlyMode() {
     Graph.enableNavigationControls(false);
     isFlyMode = true;
 
-    // 创建飞船挂到相机下
     const cam = Graph.camera() as THREE.PerspectiveCamera;
     spaceshipObj = createSpaceship();
     spaceshipObj.position.set(0, -0.6, -1.2);
     cam.add(spaceshipObj);
 
-    // 键盘
-    flyKeyDownHandler = (e) => handleKey(e, true);
-    flyKeyUpHandler = (e) => handleKey(e, false);
-    document.addEventListener("keydown", flyKeyDownHandler);
-    document.addEventListener("keyup", flyKeyUpHandler);
+    flyOnKeyDown = (e) => handleKey(e, true);
+    flyOnKeyUp = (e) => handleKey(e, false);
+    document.addEventListener("keydown", flyOnKeyDown);
+    document.addEventListener("keyup", flyOnKeyUp);
+    container.addEventListener("mousedown", onFlyMouseDown);
+    container.addEventListener("mousemove", onFlyMouseMove);
+    container.addEventListener("mouseup", onFlyMouseUp);
 
-    // Pointer Lock 鼠标环顾
-    flyClickHandler = () => {
-      if (!isPointerLocked) container.requestPointerLock();
-    };
-    flyPointerLockChangeHandler = () => {
-      isPointerLocked = !!document.pointerLockElement;
-    };
-    flyPointerMoveHandler = (e: MouseEvent) => {
-      if (!isPointerLocked || !isFlyMode) return;
-      const cam2 = Graph.camera() as THREE.PerspectiveCamera;
-      if (cam2) {
-        cam2.rotateY(-e.movementX * MOUSE_SENSITIVITY);
-        cam2.rotateX(-e.movementY * MOUSE_SENSITIVITY);
-      }
-    };
-    container.addEventListener("click", flyClickHandler);
-    document.addEventListener("pointerlockchange", flyPointerLockChangeHandler);
-    document.addEventListener("mousemove", flyPointerMoveHandler);
+    flyControlPanel = createFlyControlPanel();
+    flyControlPanel.style.display = "block";
   }
 
   function exitFlyMode() {
@@ -1207,15 +1254,14 @@ export function init3d(graphData: GraphData) {
       spaceshipObj = null;
     }
 
-    if (flyKeyDownHandler) document.removeEventListener("keydown", flyKeyDownHandler);
-    if (flyKeyUpHandler) document.removeEventListener("keyup", flyKeyUpHandler);
-    if (flyClickHandler) container.removeEventListener("click", flyClickHandler);
-    if (flyPointerLockChangeHandler) document.removeEventListener("pointerlockchange", flyPointerLockChangeHandler);
-    if (flyPointerMoveHandler) document.removeEventListener("mousemove", flyPointerMoveHandler);
-    flyKeyDownHandler = flyKeyUpHandler = flyPointerMoveHandler = flyPointerLockChangeHandler = flyClickHandler = null;
+    if (flyOnKeyDown) document.removeEventListener("keydown", flyOnKeyDown);
+    if (flyOnKeyUp) document.removeEventListener("keyup", flyOnKeyUp);
+    container.removeEventListener("mousedown", onFlyMouseDown);
+    container.removeEventListener("mousemove", onFlyMouseMove);
+    container.removeEventListener("mouseup", onFlyMouseUp);
+    flyOnKeyDown = flyOnKeyUp = null;
 
-    if (document.pointerLockElement) document.exitPointerLock();
-    isPointerLocked = false;
+    if (flyControlPanel) flyControlPanel.style.display = "none";
   }
 
   function toggleFlightMode(): boolean {
