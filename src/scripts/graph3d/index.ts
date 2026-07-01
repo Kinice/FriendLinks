@@ -810,8 +810,8 @@ export function init3d(graphData: GraphData) {
   const labelScene = Graph.scene();
   if (labelScene) labelScene.add(labelGroup);
 
-  const LABEL_MIN_DEGREE = 3;
-  const LABEL_MAX_DIST = 250;
+  const LABEL_MIN_DEGREE = 2;
+  const LABEL_MAX_DIST = 700;
   // 动态 import 避免 troika 模块初始化时序问题
   let _TextClass: any = null;
   import("troika-three-text")
@@ -1002,23 +1002,37 @@ export function init3d(graphData: GraphData) {
         const visible = dist < LABEL_MAX_DIST;
         if (t.visible !== visible) t.visible = visible;
         if (visible) {
-          t.opacity = Math.max(0.2, Math.min(1, 1 - (dist - 30) / LABEL_MAX_DIST));
+          t.opacity = Math.max(0.2, Math.min(1, 1 - (dist - 525) / LABEL_MAX_DIST));
         }
       }
     }
 
-    // 飞船模式：惯性视角 + WASD 飞行
+    // 飞船模式：弹簧-阻尼准星物理 + 视角跟随
     if (isFlyMode) {
       const cam = Graph.camera() as THREE.PerspectiveCamera;
       if (cam) {
-        // 惯性衰减
-        flyAngVel.x *= INERTIA_DAMPING;
-        flyAngVel.y *= INERTIA_DAMPING;
-        // 应用角速度到相机
-        if (Math.abs(flyAngVel.x) > 0.0001) cam.rotateX(flyAngVel.x);
-        if (Math.abs(flyAngVel.y) > 0.0001) cam.rotateY(-flyAngVel.y);
+        // 1. 弹簧力：偏移越大回中力越强
+        const ax = -RETICLE_SPRING * reticleOffset.x - RETICLE_DAMPING * reticleVelocity.x;
+        const ay = -RETICLE_SPRING * reticleOffset.y - RETICLE_DAMPING * reticleVelocity.y;
+        reticleVelocity.x += ax * 0.016;
+        reticleVelocity.y += ay * 0.016;
+        reticleOffset.x += reticleVelocity.x * 0.016;
+        reticleOffset.y += reticleVelocity.y * 0.016;
 
-        const speed = (flyKeys.shift ? 3 : 1) * MOVE_SPEED;
+        // 2. 准星偏移 → 相机旋转（偏移大 = 转得快）
+        const rotScale = 0.001;
+        cam.rotateY(-reticleOffset.x * rotScale);
+        cam.rotateX(reticleOffset.y * rotScale);
+
+        // 3. 更新准星 DOM 位置
+        if (flyCrosshair) {
+          const x = Math.round(reticleOffset.x);
+          const y = Math.round(reticleOffset.y);
+          flyCrosshair.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+        }
+
+        // 4. WASD 飞行（独立于准星）
+        const speed = (flyKeys.shift ? SHIFT_MULTIPLIER : 1) * MOVE_SPEED;
         if (flyKeys.w) cam.translateZ(-speed);
         if (flyKeys.s) cam.translateZ(speed);
         if (flyKeys.a) cam.translateX(-speed);
@@ -1152,9 +1166,11 @@ export function init3d(graphData: GraphData) {
   });
 
   // ── 12. 飞船飞行模式（FPS 惯性准星） ──────────────────────────
-  const MOVE_SPEED = 12;
+  const MOVE_SPEED = 3;
+  const SHIFT_MULTIPLIER = 3;
   const MOUSE_SENSITIVITY = 0.003;
-  const INERTIA_DAMPING = 0.88;
+  const RETICLE_SPRING = 3;
+  const RETICLE_DAMPING = 4;
 
   const flyKeys: Record<string, boolean> = {};
   let isFlyMode = false;
@@ -1163,7 +1179,9 @@ export function init3d(graphData: GraphData) {
   let flyOnKeyDown: ((e: KeyboardEvent) => void) | null = null;
   let flyOnKeyUp: ((e: KeyboardEvent) => void) | null = null;
   let autoHoverId: string | null = null;
-  const flyAngVel = { x: 0, y: 0 };
+  // 准星弹簧-阻尼物理
+  const reticleOffset = { x: 0, y: 0 };
+  const reticleVelocity = { x: 0, y: 0 };
   let flyCrosshair: HTMLElement | null = null;
   const _forward = new THREE.Vector3();
   const _camPos = new THREE.Vector3();
@@ -1277,14 +1295,16 @@ export function init3d(graphData: GraphData) {
     }
   }
 
-  /** 惯性视角：鼠标偏移累积为角速度，每帧衰减 */
+  /** 空战惯性操控：鼠标位移 → 给准星弹簧系统施加力 */
   function onFlyMouseMove(e: MouseEvent) {
     if (!isFlyMode) return;
-    // mouse up → movementY 负 → flyAngVel.x 负 → rotateX(负) → 抬头 ✅
-    flyAngVel.y += e.movementX * MOUSE_SENSITIVITY;
-    flyAngVel.x += e.movementY * MOUSE_SENSITIVITY;
-    flyAngVel.x = Math.max(-1, Math.min(1, flyAngVel.x));
-    flyAngVel.y = Math.max(-1, Math.min(1, flyAngVel.y));
+    // 鼠标位移直接驱动准星速度（准星被"推"离中心）
+    reticleVelocity.x += e.movementX * MOUSE_SENSITIVITY;
+    reticleVelocity.y -= e.movementY * MOUSE_SENSITIVITY; // 减号：mouse up → reticle 上移
+    // 限制速度上限
+    const maxV = 80;
+    reticleVelocity.x = Math.max(-maxV, Math.min(maxV, reticleVelocity.x));
+    reticleVelocity.y = Math.max(-maxV, Math.min(maxV, reticleVelocity.y));
   }
 
   /** 左键点击打开准星锁定的星球 */
@@ -1295,59 +1315,58 @@ export function init3d(graphData: GraphData) {
     if (node?.url) window.open(node.url, "_blank");
   }
 
-  /** 创建十字准星（内点 + 外环，锁定变色） */
+  /** 创建十字准星（固定十字 + 惯性浮动准星） */
   function createCrosshair(): HTMLElement {
     let el = document.getElementById("fly-crosshair") as HTMLElement | null;
     if (el) return el;
+    // 固定十字（始终在屏幕中心）
+    const fixed = document.createElement("div");
+    fixed.id = "fly-crosshair-fixed";
+    fixed.style.cssText = `
+      position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+      z-index:9999;pointer-events:none;
+    `;
+    // 浮动准星（惯性跟随）
     el = document.createElement("div");
     el.id = "fly-crosshair";
-    el.innerHTML = '<div class="dot"></div><div class="ring"></div>';
+    el.innerHTML = '<div class="ring"></div><div class="dot"></div>';
     el.style.cssText = `
       position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-      z-index:9999;pointer-events:none;display:none;
+      z-index:10000;pointer-events:none;
     `;
     const style = document.createElement("style");
     style.id = "fly-crosshair-style";
     style.textContent = `
-      #fly-crosshair::before, #fly-crosshair::after {
+      #fly-crosshair-fixed::before, #fly-crosshair-fixed::after {
         content:'';position:absolute;
-        background:rgba(255,255,255,0.5);border-radius:1px;
+        background:rgba(255,255,255,0.3);border-radius:1px;
       }
-      #fly-crosshair::before {
-        width:24px;height:1.5px;top:50%;left:50%;
+      #fly-crosshair-fixed::before {
+        width:24px;height:1px;top:50%;left:50%;
         transform:translate(-50%,-50%);
-        transition:background 0.15s,width 0.15s;
       }
-      #fly-crosshair::after {
-        width:1.5px;height:24px;top:50%;left:50%;
+      #fly-crosshair-fixed::after {
+        width:1px;height:24px;top:50%;left:50%;
         transform:translate(-50%,-50%);
-        transition:background 0.15s,height 0.15s;
       }
       #fly-crosshair .dot {
         position:absolute;top:50%;left:50%;
         transform:translate(-50%,-50%);
-        width:2px;height:2px;border-radius:50%;
-        background:#4af;transition:all 0.15s;
+        width:3px;height:3px;border-radius:50%;
+        background:#4af;transition:background 0.15s;
       }
       #fly-crosshair .ring {
         position:absolute;top:50%;left:50%;
         transform:translate(-50%,-50%);
-        width:12px;height:12px;border-radius:50%;
-        border:1px solid rgba(255,255,255,0.25);
-        transition:border-color 0.15s,width 0.15s,height 0.15s;
+        width:14px;height:14px;border-radius:50%;
+        border:1.5px solid rgba(255,255,255,0.2);
+        transition:border-color 0.15s;
       }
-      #fly-crosshair.locked::before, #fly-crosshair.locked::after {
-        background:rgba(68,255,136,0.8);width:28px;height:2px;
-      }
-      #fly-crosshair.locked .dot {
-        width:4px;height:4px;background:#4f8;
-      }
-      #fly-crosshair.locked .ring {
-        border-color:rgba(68,255,136,0.5);
-        width:16px;height:16px;
-      }
+      #fly-crosshair.locked .dot { background:#4f8; width:5px;height:5px; }
+      #fly-crosshair.locked .ring { border-color:rgba(68,255,136,0.5); width:18px;height:18px; }
     `;
     document.head.appendChild(style);
+    document.body.appendChild(fixed);
     document.body.appendChild(el);
     return el;
   }
@@ -1423,8 +1442,10 @@ export function init3d(graphData: GraphData) {
   function enterFlyMode() {
     Graph.enableNavigationControls(false);
     isFlyMode = true;
-    flyAngVel.x = 0;
-    flyAngVel.y = 0;
+    reticleOffset.x = 0;
+    reticleOffset.y = 0;
+    reticleVelocity.x = 0;
+    reticleVelocity.y = 0;
 
     const cam = Graph.camera() as THREE.PerspectiveCamera;
     spaceshipObj = createSpaceship();
@@ -1441,6 +1462,8 @@ export function init3d(graphData: GraphData) {
     flyCrosshair = createCrosshair();
     flyCrosshair.style.display = "block";
     flyCrosshair.classList.remove("locked");
+    const fixedCross = document.getElementById("fly-crosshair-fixed");
+    if (fixedCross) fixedCross.style.display = "block";
     container.style.cursor = "none";
 
     flyControlPanel = createFlyControlPanel();
@@ -1464,6 +1487,8 @@ export function init3d(graphData: GraphData) {
     flyOnKeyDown = flyOnKeyUp = null;
 
     if (flyCrosshair) flyCrosshair.style.display = "none";
+    const fixedCross = document.getElementById("fly-crosshair-fixed");
+    if (fixedCross) fixedCross.style.display = "none";
     container.style.cursor = "";
     if (flyControlPanel) flyControlPanel.style.display = "none";
   }
