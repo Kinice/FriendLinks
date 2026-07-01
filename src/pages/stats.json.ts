@@ -115,14 +115,11 @@ export async function GET() {
   const statsWithRoutes = { ...stats, linkRoutes: linkRoutesSorted };
   printProgress("❷", "路由统计完成", 100);
 
-  // ── 六度分隔统计 ──────────────────────────────────────────
-  printProgress("❸", "六度分隔分析…", 0);
+  // ── 六度分隔统计 (采样估算, 完整数据: bun scripts/analyze_six_degrees.ts) ──
+  printProgress("❸", "六度分隔采样…", 85);
   const degreeDist: Record<number, number> = {};
-  let maxDegreeSep = 0;
-  let unreachablePairs = 0;
-  let totalPairs = 0;
+  let maxDegreeSep = 0, totalPairs = 0;
 
-  // 构建邻接表(仅核心节点之间的无向图)
   const coreUrls = [...linkMap.keys()];
   const coreIndex = new Map<string, number>();
   coreUrls.forEach((u, i) => coreIndex.set(u, i));
@@ -135,8 +132,7 @@ export async function GET() {
     }
   }
 
-  // BFS 采样: 从度数最高的前 200 个核心节点做 BFS, 统计距离分布
-  const sampCount = Math.min(200, coreUrls.length);
+  const sampCount = Math.min(100, coreUrls.length);
   const degSorted = coreUrls
     .map((u, i) => ({ idx: i, deg: linkMap.get(u)!.size }))
     .sort((a, b) => b.deg - a.deg)
@@ -145,44 +141,25 @@ export async function GET() {
   for (const { idx: start } of degSorted) {
     const dist = new Int32Array(coreUrls.length).fill(-1);
     dist[start] = 0;
-    const q: number[] = [start];
-    let head = 0;
-    while (head < q.length) {
-      const u = q[head++];
-      for (const v of coreAdj[u]) {
-        if (dist[v] === -1) {
-          dist[v] = dist[u] + 1;
-          q.push(v);
-        }
-      }
-    }
+    const q: number[] = [start]; let head = 0;
+    while (head < q.length) { const u = q[head++]; for (const v of coreAdj[u]) { if (dist[v] === -1) { dist[v] = dist[u] + 1; q.push(v); } } }
     for (let i = 0; i < dist.length; i++) {
       if (i === start || dist[i] === -1) continue;
       totalPairs++;
-      const d = dist[i];
-      if (d > maxDegreeSep) maxDegreeSep = d;
+      const d = dist[i]; if (d > maxDegreeSep) maxDegreeSep = d;
       degreeDist[d] = (degreeDist[d] || 0) + 1;
     }
   }
-
-  // 中间顶点数 = 边数 - 1
   const intermediateVertices: Record<number, number> = {};
-  for (const [d, cnt] of Object.entries(degreeDist)) {
-    intermediateVertices[Number(d) - 1] = cnt;
-  }
+  for (const [d, cnt] of Object.entries(degreeDist)) intermediateVertices[Number(d) - 1] = cnt;
 
   const sixDegreeStats = {
     maxEdgeDistance: maxDegreeSep,
     maxIntermediateVertices: maxDegreeSep - 1,
     distribution: degreeDist,
     intermediateVertexDistribution: intermediateVertices,
-    sampleSize: sampCount,
-    unreachablePairs,
-    totalPairs,
+    _note: "采样估算(sample=100), 完整全节点数据请运行 bun scripts/analyze_six_degrees.ts",
   };
-
-  const finalStats = { ...statsWithRoutes, sixDegrees: sixDegreeStats };
-  printProgress("❸", "六度分隔分析完成", 100);
 
   const elapsed = ((performance.now() - start) / 1000).toFixed(1);
   printDone(`/stats.json  ${validSites.length} 站点，${stats.connections.total} 连接，耗时 ${elapsed}s`);
