@@ -398,4 +398,14 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  "0akarma.com", "0cili.com", // 视频/工具站
 			  "0x0f.dev", "0xff.nu", "0xedward.io", "0xportal.dev", // 技术展示页(非博客)
 			  "0psu3.team",           // 团队站
+			  // 数字开头非博客域名(P2)
+			  "11ty.dev", "11tybundle.dev", "11ty.rocks", "11ty-recipes.mikeaparicio.com", // 11ty框架站
+			  "135editor.com",        // 编辑器工具
+			  "114biao.com", "114phone.com", "hao123.cn", "123rf.com.cn", // 查询/素材
+			  "139cha.cn", "188dh.cn", "1988u.cn", "888slw.cn", "9ghao.com", "930cdm.vip", // SEO/导航spam
+			  "18mh.org", "1905.com", "56.com", "4kvm.tv", "4kvm.org", "88kan.org", "88ystv.com", // 影视/成人
+			  "51pptmoban.com", "12306soft.cn", "51dns.com", "2233xz.com", // 工具/软件
+			  "2017.thegiac.com", "sins-expo.com", "gzicee.com", // 会议/展会
+			  "jiuyelighting.1688.com", // 1688商业
+			  "alistguazai.icu", "678cn.com", "115fzw.cc", "115fz.cc", "678ca.com", // 辅助/挂载
 			];
