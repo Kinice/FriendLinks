@@ -520,4 +520,24 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  "bandbbs.cn", "miegoat.club", "rubicforce.com", "nicsrs.com", // 论坛/.NET/魔方/国际
 			  "jypy.jyb.cn", "live.freebuf.com", // 教育部/FreeBuf
 			  "ysepan.com", "moefire.tech", // 藏经阁/工作室
+			  // AI工具/平台/产品(非博客)
+			  "openai.com", "chatgpt.com", "doubao.com", "dify.ai", "cursor.com", // 大AI平台
+			  "siliconflow.cn", "kimi.moonshot.cn", "tiangong.cn", "n.cn", "minimaxi.com", // 国内AI平台
+			  "aitop100.cn", "aicpb.com", "aigc1024.com", "toolai.io", "aihero.dev", // AI排名/工具集
+			  "idjpg.com", "jpghi.com", "bigmp4.com", "jpghd.com", "jpgrm.com", "pixelmax.art", // AI图片/视频
+			  "zeemo.ai", "veed.io", "meshy.ai", "lepton.ai", "together.ai", "funda.ai", // AI工具
+			  "xingyun3d.com", "aitubiao.com", "logomaker.com.cn", "ubrand.com", // 设计/图表
+			  "openailab.com", "shlab.org.cn", "ai.nejm.org", // AI实验室
+			  "storygenerator.cc", "unaimytext.com", "clicknow.ai", "gitmind.com", // AI写作/导图
+			  "aibct.com", "xiaohuokekeji.com", "1ai.net", "aitm.cn", "aijhw.com", "aidyz.cn", // AI编程/导航
+			  "reelmate.cn", "aigc.yizhentv.com", "upage.ai", "aicentre.cn", // AI视频/建站
+			  "aiyuzhou8.com", "aixzd.com", "aiminiatur.org", "veo3hub.ai", // AI社区/工具
+			  "rbq.ai", "roleai.chat", "espai.fun", "llmcms.org", "java2ai.com", "cordys.cn", // AI聊天/开发
+			  "tomoviee.ai", "thispersondoesnotexist.com", "telepace.cc", "dboai.com", "aitom.cn", // AI工具/平台
+			  "qmye.com", "aigamer.cn", "aipmgo.com", "joysift.cn", "aieii.com", // AI产品/客服
+			  "bagbuddy.pages.dev", "ai-dr.tw", "kuai.com", "ai.logo123.com", "ai.ninesure.com", // AI杂项
+			  // 其他非博客
+			  "iasociety.org", "dortmund-aikido.de", "g-sunrisepump.com", // 学会/道馆/水泵
+			  "nerds.airbnb.com", "samurai.inguardians.com", "mirai.mamoe.net", // 企业/框架/机器人
+			  "noai.duckduckgo.com", "sekai.team", "fantastic-admin.hurui.me", // 搜索/CTF/后台
 			];
