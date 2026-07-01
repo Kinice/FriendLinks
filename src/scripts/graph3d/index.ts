@@ -480,8 +480,8 @@ export function init3d(graphData: GraphData) {
     return path;
   }
 
-  function stepPathNext(): boolean {
-    if (!pathNodeIds || pathStepIndex >= pathNodeIds.length - 1) return false;
+  function stepPathNext(): { ok: boolean; step: number; total: number } {
+    if (!pathNodeIds || pathStepIndex >= pathNodeIds.length - 1) return { ok: false, step: pathStepIndex, total: pathNodeIds?.length || 0 };
     pathStepIndex++;
     refreshPathNodeColors();
     const nid = pathNodeIds[pathStepIndex];
@@ -490,11 +490,11 @@ export function init3d(graphData: GraphData) {
       const pad = 200;
       animateCamera(ctx, { x: n.x + pad, y: n.y! + pad * 0.5, z: n.z! + pad }, { x: n.x!, y: n.y!, z: n.z! }, 600);
     }
-    return true;
+    return { ok: true, step: pathStepIndex, total: pathNodeIds.length };
   }
 
-  function stepPathPrev(): boolean {
-    if (!pathNodeIds || pathStepIndex <= 0) return false;
+  function stepPathPrev(): { ok: boolean; step: number; total: number } {
+    if (!pathNodeIds || pathStepIndex <= 0) return { ok: false, step: pathStepIndex, total: pathNodeIds?.length || 0 };
     pathStepIndex--;
     refreshPathNodeColors();
     const nid = pathNodeIds[pathStepIndex];
@@ -503,7 +503,7 @@ export function init3d(graphData: GraphData) {
       const pad = 200;
       animateCamera(ctx, { x: n.x + pad, y: n.y! + pad * 0.5, z: n.z! + pad }, { x: n.x!, y: n.y!, z: n.z! }, 600);
     }
-    return true;
+    return { ok: true, step: pathStepIndex, total: pathNodeIds.length };
   }
 
   function clearPath() {

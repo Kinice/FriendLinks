@@ -956,36 +956,28 @@ import "../css/modal.css";
           pathError.style.display = "none";
           pathStepIndicator.style.display = "inline";
           pathClearBtn.style.display = "inline-flex";
-          updatePathUI();
+          const info = api.getPathInfo?.();
+          if (info) updatePathUI({ step: info.currentStep, total: info.totalSteps });
         };
 
-        const updatePathUI = () => {
-          const api = getApi();
-          const info = api.getPathInfo ? api.getPathInfo() : null;
-          if (!info) return;
-
-          pathStepIndicator.textContent = `${info.currentStep + 1}/${info.totalSteps} 步`;
-          pathPrevBtn.disabled = info.currentStep <= 0;
-          pathNextBtn.disabled = info.currentStep >= info.totalSteps - 1;
+        const updatePathUI = (res) => {
+          if (!res) return;
+          pathStepIndicator.textContent = `${res.step + 1}/${res.total} 步`;
+          pathPrevBtn.disabled = res.step <= 0;
+          pathNextBtn.disabled = res.step >= res.total - 1;
         };
 
         // 步进按钮
         if (pathPrevBtn) {
           pathPrevBtn.addEventListener("click", () => {
             const api = getApi();
-            if (api.stepPathPrev) {
-              api.stepPathPrev();
-              updatePathUI();
-            }
+            if (api.stepPathPrev) updatePathUI(api.stepPathPrev());
           });
         }
         if (pathNextBtn) {
           pathNextBtn.addEventListener("click", () => {
             const api = getApi();
-            if (api.stepPathNext) {
-              api.stepPathNext();
-              updatePathUI();
-            }
+            if (api.stepPathNext) updatePathUI(api.stepPathNext());
           });
         }
 
