@@ -1045,7 +1045,6 @@ export function init3d(graphData: GraphData) {
     );
   }
 
-  animateRipples();
 
   // 阻止右键默认菜单
   container.addEventListener("contextmenu", (e: MouseEvent) => {
@@ -1461,6 +1460,8 @@ export function init3d(graphData: GraphData) {
     else enterFlyMode();
     return isFlyMode;
   }
+
+  animateRipples();
 
   // ── 11. API ──────────────────────────────────────────────────────
 
