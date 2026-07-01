@@ -68,7 +68,6 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
   const nodeGeom = new THREE.SphereGeometry(1, NODE_SEGMENTS, NODE_SEGMENTS);
   const nodeMat = new THREE.MeshStandardMaterial({ roughness: 0.6, metalness: 0.1 });
   const nodes = new THREE.InstancedMesh(nodeGeom, nodeMat, nodeCount);
-  nodes.count = nodeCount;
   nodes.frustumCulled = true;
   scene.add(nodes);
 

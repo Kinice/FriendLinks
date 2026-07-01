@@ -83,22 +83,18 @@ export function init3d(graphData: GraphData) {
   const degValues = Object.values(degreeMap);
   const maxDegree = degValues.length ? Math.max(...degValues) : 1;
 
-  // ── 2. 节点预处理 + 按度数降序排列（高 degree 节点在前，count 裁剪时优先渲染） ──
+  // ── 2. 节点预处理 ──
   const rawNodes = graphData.nodes || [];
   const nodes = rawNodes.map((n: any) => {
     const base = n.color || PALETTE[hashToIndex(n.id)];
-    const deg = degreeMap[n.id] || 0;
     return Object.assign({}, n, {
       palColor: base,
       _cDefault: adjustHex(base, 20),
       _cHover: adjustHex(base, 40),
       _cFocus: adjustHex(base, 60),
       _cHighlight: adjustHex(base, 20),
-      _deg: deg,
     });
   });
-  // 按度数降序，度数相同按 name 排序
-  nodes.sort((a: any, b: any) => (b._deg - a._deg) || (a.name || "").localeCompare(b.name || ""));
 
   // ── 4. 搜索索引 ──
   const fuse = new Fuse(nodes, {
@@ -553,16 +549,6 @@ export function init3d(graphData: GraphData) {
     if (camMoved || _queryCamMove) {
       _lastCamPos.x = camPos.x; _lastCamPos.y = camPos.y; _lastCamPos.z = camPos.z;
       _queryCamMove = false;
-
-      // 动态裁剪渲染节点数：相机越远只渲染高 degree 节点
-      const camDist = Math.sqrt(camPos.x * camPos.x + camPos.y * camPos.y + camPos.z * camPos.z);
-      const targetCount = camDist > 5000 ? Math.floor(nodes.length * 0.02) :
-                          camDist > 3500 ? Math.floor(nodes.length * 0.05) :
-                          camDist > 2000 ? Math.floor(nodes.length * 0.15) :
-                          camDist > 1000 ? Math.floor(nodes.length * 0.45) :
-                          nodes.length;
-      const newCount = Math.max(100, Math.min(nodes.length, targetCount));
-      if (ctx.nodes.count !== newCount) ctx.nodes.count = newCount;
 
       // 标签淡出（每 3 帧才跑一次，减少 CPU 消耗）
       _lblFrameSkip++;
