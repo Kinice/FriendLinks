@@ -10,10 +10,12 @@ import { NON_BLOG_DOMAINS } from "./filter/domains";
 import { SENSITIVE_DOMAINS } from "./filter/sensitive";
 import { SERVICE_SUBDOMAINS } from "./filter/subdomains";
 import { PLATFORM_HOSTS } from "./filter/platforms";
+import { WHITELIST_DOMAINS } from "./filter/whitelist";
 
 // ─── 预计算加速结构 ──────────────────────────────────────────
 const NON_BLOG_SET = new Set(NON_BLOG_DOMAINS);
 const SENSITIVE_SET = new Set(SENSITIVE_DOMAINS);
+const WHITELIST_SET = new Set(WHITELIST_DOMAINS);
 
 // ─── 过滤函数 ──────────────────────────────────────────────────
 
@@ -36,6 +38,8 @@ export function isJunkEntry(f: { name: string; url: string }, siteUrl?: string):
     const parsed = new URL(url.startsWith("http") ? url : `https://${url}`);
     const hostname = parsed.hostname.toLowerCase();
     const pathname = parsed.pathname;
+    // 绝对白名单 — 无论如何不被过滤
+    if (WHITELIST_SET.has(hostname) || WHITELIST_SET.has(hostname.replace(/^www\./, ""))) return false;
     // 友链必须指向首页
     if (pathname !== "/" && pathname !== "") return true;
     if (/^api[.-]/i.test(hostname)) return true;

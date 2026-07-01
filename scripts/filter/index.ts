@@ -13,3 +13,4 @@ export { NON_BLOG_DOMAINS as DOMAINS_HASHED } from "./domains";
 export { SENSITIVE_DOMAINS } from "./sensitive";
 export { SERVICE_SUBDOMAINS } from "./subdomains";
 export { PLATFORM_HOSTS } from "./platforms";
+export { WHITELIST_DOMAINS } from "./whitelist";
