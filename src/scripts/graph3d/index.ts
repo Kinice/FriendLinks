@@ -7,7 +7,8 @@ import ForceGraph3D from "3d-force-graph";
 import Fuse from "fuse.js";
 import * as THREE from "three";
 import { decode } from "msgpackr";
-import { PALETTE, hashToIndex, degreeToSize, adjustHex, createNodeLOD, updateLODColor, createTextSprite } from "./utils";
+import { PALETTE, hashToIndex, degreeToSize, adjustHex, createNodeLOD, updateLODColor } from "./utils";
+import TextSprite from "@seregpie/three.text-sprite";
 import { findShortestPath } from "./pathfinder";
 import type { GraphData } from "../../../types/graph";
 
@@ -875,25 +876,35 @@ export function init3d(graphData: GraphData) {
     if (labelsCreated) return;
     const gd = Graph.graphData() as any;
     if (!gd.nodes || gd.nodes.length === 0) return;
-    // 首个节点没有位置说明力仿真尚未完成，等下一帧
     if (gd.nodes[0].x == null) return;
 
     labelsCreated = true;
-    console.log(`[labels] creating labels for ${gd.nodes.length} nodes, first pos:`, gd.nodes[0].x, gd.nodes[0].y, gd.nodes[0].z);
-    let count = 0;
     for (const node of gd.nodes) {
       const deg = degreeMap[node.id] || 0;
       if (deg < LABEL_MIN_DEGREE) continue;
       const name = node.name || node.id;
       if (name.length > 40) continue;
 
-      const sprite = createTextSprite(name);
+      const sprite = new TextSprite(
+        {
+          text: name,
+          fontSize: 8,
+          color: "#ffffff",
+          fontFamily:
+            "'PingFang SC','Microsoft YaHei','Noto Sans CJK SC','WenQuanYi Micro Hei',sans-serif",
+          alignment: "center",
+          padding: 4,
+        },
+        new THREE.SpriteMaterial({
+          depthTest: false,
+          depthWrite: false,
+          transparent: true,
+        }),
+      );
       sprite.position.set(node.x, node.y + 1.2, node.z);
       (sprite as any)._nodePos = { x: node.x, y: node.y, z: node.z };
       labelGroup.add(sprite);
-      count++;
     }
-    console.log(`[labels] created ${count} sprites in labelGroup`);
   }
 
   // ── 9. LOD 替换：将默认球体替换为多层级细节模型 ──────────
@@ -1055,7 +1066,6 @@ export function init3d(graphData: GraphData) {
     if (labelGroup.children.length > 0) {
       const cp = Graph.cameraPosition();
       const show = labelShow.value;
-      let visibleCount = 0;
       for (const child of labelGroup.children) {
         const sprite = child as THREE.Sprite;
         const np = (sprite as any)._nodePos;
@@ -1071,13 +1081,8 @@ export function init3d(graphData: GraphData) {
         const visible = dist < LABEL_MAX_DIST;
         if (sprite.visible !== visible) sprite.visible = visible;
         if (visible) {
-          visibleCount++;
           sprite.material.opacity = Math.max(0.2, Math.min(1, 1 - (dist - 525) / LABEL_MAX_DIST));
         }
-      }
-      if (visibleCount > 0 && !(window as any).__labelLogDone) {
-        (window as any).__labelLogDone = true;
-        console.log(`[labels] ${visibleCount}/${labelGroup.children.length} visible, show=${show}, camPos=`, cp);
       }
     }
 

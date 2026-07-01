@@ -4,9 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'ChatGPT AI Chatbot launched by OpenAI'
-      'url': 'https://chatgpt.com'
     - 'name': 'Qwen Chat Qwen latest model experience platform launched by Alibaba Tongyi'
       'url': 'https://chat.qwen.ai/'
-    - 'name': 'Dify Open source generative AI application development platform'
-      'url': 'https://dify.ai/'

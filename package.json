@@ -19,7 +19,7 @@
     "check-access": "bun scripts/check-access.ts",
     "dev": "astro dev",
     "build": "astro build",
-    "minibuild": "astro build",
+    "minibuild": "MINIBUILD=1 astro build",
     "preview": "astro preview",
     "lint": "oxlint src/",
     "fmt": "oxfmt src/ --write",
@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "3d-force-graph": "^1.80.0",
+    "@seregpie/three.text-sprite": "^3.2.0",
     "@spider-rs/spider-rs": "^0.0.163",
     "@spider-rs/spider-rs-linux-x64-gnu": "^0.0.157",
     "astro": "7.0.4",

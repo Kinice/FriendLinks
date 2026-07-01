@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '技术支持：赢科'
-      'url': 'https://www.ykinvestment.com/'
     - 'name': 'w3ctech'
       'url': 'https://www.w3ctech.com/'

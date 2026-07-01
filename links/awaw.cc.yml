@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'Claude'
       'url': 'https://claude.ai'
-    - 'name': 'ChatGPT'
-      'url': 'https://chatgpt.com'
     - 'name': 'Grok'
       'url': 'https://grok.com'
     - 'name': 'DeepSeek'
@@ -16,8 +14,6 @@
       'url': 'https://www.kimi.com'
     - 'name': '智谱清言'
       'url': 'https://chatglm.cn'
-    - 'name': 'MiniMax'
-      'url': 'https://agent.minimaxi.com'
     - 'name': '通义千问'
       'url': 'https://www.qianwen.com'
     - 'name': 'Mitsea Blog 人菜瘾大'

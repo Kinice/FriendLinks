@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '网站截图生成器'
-      'url': 'https://www.thum.io/'
     - 'name': '二维码生成'
       'url': 'https://cli.im/'
-    - 'name': '你画我猜'
-      'url': 'https://gartic.io/'
     - 'name': '在线打乒乓'
       'url': 'http://dapingpang.top/'
     - 'name': '在线钢琴'

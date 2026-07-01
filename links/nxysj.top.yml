@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'ping IP'
       'url': 'https://ping.pe/'
-    - 'name': '网页测速'
-      'url': 'https://www.webpagetest.org/'
     - 'name': 'kamsilks.top'
       'url': 'https://kamsilks.top/'
     - 'name': 'seeksem.com'

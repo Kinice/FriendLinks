@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'Xin Peng'
       'url': 'https://cspengxin.github.io/'
-    - 'name': 'Shanghai AI Laboratory'
-      'url': 'https://www.shlab.org.cn/'
     - 'name': 'Jiangmiao Pang'
       'url': 'https://oceanpang.github.io/'
     - 'name': 'HTML'

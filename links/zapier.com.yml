@@ -1,8 +1,0 @@
-'site':
-  'name': 'zapier.com'
-  'url': 'https://zapier.com/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'Turn on Developer Mode'
-      'url': 'https://chatgpt.com/#settings/Connectors/Advanced'

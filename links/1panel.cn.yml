@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Cordys 新一代的开源 AI CRM 系统'
-      'url': 'https://cordys.cn'
     - 'name': 'JumpServer 广受欢迎的开源堡垒机'
       'url': 'https://www.jumpserver.org'
     - 'name': 'MaxKB 强大易用的企业级智能体平台'

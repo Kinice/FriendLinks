@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': '藏经阁'
-      'url': 'http://xrgzs.ysepan.com/'
     - 'name': '凌梦望初晓在无限绝望中努力前行...'
       'url': 'https://blog.lyi.moe/'
     - 'name': 'yukaidiyukaidi的小站'
@@ -26,8 +24,6 @@
       'url': 'https://kuerpe.com'
     - 'name': 'fbl_partner_eeapfbl_partner_eeap by ChenJD'
       'url': 'https://cjd1211.661212.xyz/'
-    - 'name': '柒柒的小站柒柒的小站丨纯净 PE 丨一键装机'
-      'url': 'https://www.softqq.com/'
     - 'name': 'Huhu 的思绪矩阵构建你的思绪矩阵'
       'url': 'https://huhuweb.qzz.io/'
     - 'name': '恋的博客别看啦，小恋一直一直喜欢你哦'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'PixelMax'
-      'url': 'https://pixelmax.art'
     - 'name': 'Alex'
       'url': 'https://achartmaker.com/'
     - 'name': 'xiazaiall'

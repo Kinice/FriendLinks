@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'aigc1024'
-      'url': 'https:/aigc1024.com'
     - 'name': '谢益辉'
       'url': 'https://yihui.org/'
     - 'name': '郝海龙'

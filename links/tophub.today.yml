@@ -1,8 +1,0 @@
-'site':
-  'name': 'tophub.today'
-  'url': 'https://tophub.today/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': '即时写作 AI 人工智能让每个人都可以自信地写作！'
-      'url': 'https://www.jishixiezuo.com/'

@@ -10,8 +10,6 @@
       'url': 'https://geekswg.js.cool/'
     - 'name': '博客-Hexo'
       'url': 'http://hexo.geekswg.top/'
-    - 'name': 'ChatGPT'
-      'url': 'https://chat.openai.com/'
     - 'name': 'Stable Diffusion Online'
       'url': 'https://stablediffusionweb.com/'
     - 'name': '讯飞星火'

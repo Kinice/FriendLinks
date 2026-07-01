@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Booling✨ The stars are not afraid to appear like fireflies.'
-      'url': 'https://blog.booling.cn/'
     - 'name': 'Chenli 分享牛肉'
       'url': 'https://chenliss.cn/'
     - 'name': 'Hill233的小窝 只是一个普普通通的 blog 罢了'

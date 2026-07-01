@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Funda AI'
-      'url': 'https://funda.ai/'
     - 'name': 'Better Auth'
       'url': 'https://www.better-auth.com/'
     - 'name': 'LlamaIndex'

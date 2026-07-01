@@ -10,8 +10,6 @@
       'url': 'https://www.enterprisecms.org'
     - 'name': 'Headless CMS Guides'
       'url': 'https://headlesscms.guide'
-    - 'name': 'Enhancing your CMS with AI'
-      'url': 'https://www.llmcms.org/'
     - 'name': 'Agent context guides'
       'url': 'https://www.agent-context.org'
     - 'name': 'Loading system status...'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '教育部'
-      'url': 'http://jypy.jyb.cn/'
     - 'name': '阳泉市'
       'url': 'http://yangquan.jubao.wangxinban.cn/'
     - 'name': '运城市'

@@ -6,7 +6,5 @@
   'friends':
     - 'name': 'NVIDIA'
       'url': 'https://nvidia.com'
-    - 'name': 'Lepton AI'
-      'url': 'https://lepton.ai'
     - 'name': 'Zeabur'
       'url': 'https://zeabur.com'

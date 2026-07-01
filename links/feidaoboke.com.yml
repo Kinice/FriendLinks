@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Shanghai G-Sunrise Pump Industrial Co., Ltd'
-      'url': 'http://www.g-sunrisepump.com/'
     - 'name': '太空船的博客'
       'url': 'https://www.boatsky.com/'
     - 'name': '辛未羊的博客'

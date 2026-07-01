@@ -170,9 +170,10 @@ export async function GET() {
   printProgress("❷", "图构建完成", 100);
   printDone("图构建完成");
 
-  const TICKS = import.meta.env.DEV ? 60 : 800;
-  const TICK_LOG = import.meta.env.DEV ? 10 : 40;
-  sim.alphaMin(import.meta.env.DEV ? 0.05 : 0.02);
+  const FAST = import.meta.env.DEV || !!process.env.MINIBUILD;
+  const TICKS = FAST ? 60 : 800;
+  const TICK_LOG = FAST ? 10 : 40;
+  sim.alphaMin(FAST ? 0.05 : 0.02);
   const alphaMin = sim.alphaMin();
   let actualTicks = 0;
   for (let i = 0; i < TICKS; i++) {

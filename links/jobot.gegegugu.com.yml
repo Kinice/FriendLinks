@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'AI品牌设计'
-      'url': 'https://www.ubrand.com/'
-    - 'name': 'AI神器集'
-      'url': 'https://hao.logosc.cn/'
     - 'name': 'DeepSeek'
       'url': 'https://deepseek.com'
     - 'name': 'SiliconFlow'

@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'ChatGPT'
-      'url': 'https://chat.openai.com/'
     - 'name': 'ElysiumStack'
       'url': 'https://www.elysium-stack.cn/'

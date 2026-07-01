@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Cordys 新一代的开源 AI CRM 系统'
-      'url': 'https://cordys.cn/'
     - 'name': 'JumpServer 广受欢迎的开源堡垒机'
       'url': 'https://www.jumpserver.org/'
     - 'name': 'MaxKB 强大易用的企业级智能体平台'
@@ -16,7 +14,5 @@
       'url': 'https://jumpserver.com/'
     - 'name': '1Panel 国际站'
       'url': 'https://1panel.pro/'
-    - 'name': 'UPage AI 建站'
-      'url': 'https://upage.ai/'
     - 'name': '凌霞软件'
       'url': 'http://lxware.cn/'

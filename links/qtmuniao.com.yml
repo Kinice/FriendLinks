@@ -10,5 +10,3 @@
       'url': 'http://ray.data'
     - 'name': 'jemalloc'
       'url': 'https://jemalloc.net/'
-    - 'name': 'KimiChat'
-      'url': 'https://kimi.moonshot.cn/'

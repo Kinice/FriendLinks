@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'chatgpt 官网'
-      'url': 'https://chat.openai.com/'
     - 'name': 'IOIOX'
       'url': 'https://www.ioiox.com/'
     - 'name': 'GhostCat'

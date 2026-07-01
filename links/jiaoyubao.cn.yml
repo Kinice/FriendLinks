@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'AI客服托管'
-      'url': 'https://www.joysift.cn/'
     - 'name': 'AI友好型官网'
       'url': 'http://www.zhixiaosite.com/'
     - 'name': '职业培训'

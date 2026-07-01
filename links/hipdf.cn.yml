@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '万兴剧厂 AI驱动的一站式精品漫剧创作平台'
-      'url': 'https://www.reelmate.cn/'
     - 'name': '万兴PDF秒会的全能PDF编辑神器'
       'url': 'https://pdf.wondershare.cn/'
     - 'name': '万兴优转 >'

@@ -26,8 +26,6 @@
       'url': 'http://www.destoon.com/'
     - 'name': '天气网'
       'url': 'http://www.tianqi.com/'
-    - 'name': '我图网'
-      'url': 'http://www.ooopic.com/'
     - 'name': '猪八戒网'
       'url': 'http://www.zbj.com/'
     - 'name': 'php教程'

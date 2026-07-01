@@ -8,8 +8,6 @@
       'url': 'https://aierlab.tech'
     - 'name': 'WandB'
       'url': 'https://wandb.ai/'
-    - 'name': 'TaichiTaichi世界级开源图形基础设施平台，专注图形计算和可视化。'
-      'url': 'https://taichi.graphics/'
     - 'name': 'Dasher v6Dasher v6高效的信息输入界面，支持头部追踪、凝视、开关输入等替代交互方式。'
       'url': 'https://dasher.acecentre.net/'
     - 'name': 'Keras bertKeras berttensorflow super api'

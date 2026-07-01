@@ -1,8 +1,0 @@
-'site':
-  'name': 'pythonhunter.org'
-  'url': 'https://pythonhunter.org/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'Clicknow: Mac AI 搜索 & 翻译'
-      'url': 'https://clicknow.ai'

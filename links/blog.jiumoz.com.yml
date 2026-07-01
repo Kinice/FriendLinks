@@ -1,8 +1,0 @@
-'site':
-  'name': '九陌斋'
-  'url': 'https://blog.jiumoz.com/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': 'AI产品狗'
-      'url': 'https://aipmgo.com/'

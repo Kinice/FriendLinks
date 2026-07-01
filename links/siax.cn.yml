@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'ChatGPT'
       'url': 'https://chat1.zhile.io/'
-    - 'name': 'Kimi'
-      'url': 'https://kimi.moonshot.cn/'
     - 'name': '小冰博客'
       'url': 'https://zfe.space/'
     - 'name': 'Heo'

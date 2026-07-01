@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': '安吉网站建设'
-      'url': 'https://www.anji66.net'
     - 'name': '懿古今'
       'url': 'https://www.yigujin.cn/'
     - 'name': '明月登楼'

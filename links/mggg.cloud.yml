@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'Free AI Chat'
-      'url': 'https://roleai.chat/'
     - 'name': 'GPTs'
       'url': 'https://gptdevelopment.online/'
     - 'name': '拾月🔗'

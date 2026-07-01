@@ -1,8 +1,0 @@
-'site':
-  'name': 'aijhw.com'
-  'url': 'https://www.aijhw.com/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': '下次一定'
-      'url': 'https://www.iiice.cn/'

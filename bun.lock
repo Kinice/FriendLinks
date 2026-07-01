@@ -6,6 +6,7 @@
       "name": "friendlinks",
       "dependencies": {
         "3d-force-graph": "^1.80.0",
+        "@seregpie/three.text-sprite": "^3.2.0",
         "@spider-rs/spider-rs": "^0.0.163",
         "@spider-rs/spider-rs-linux-x64-gnu": "^0.0.157",
         "astro": "7.0.4",
@@ -374,6 +375,10 @@
     "@rollup/rollup-win32-x64-gnu": ["@rollup/rollup-win32-x64-gnu@4.53.3", "https://registry.npmmirror.com/@rollup/rollup-win32-x64-gnu/-/rollup-win32-x64-gnu-4.53.3.tgz", { "os": "win32", "cpu": "x64" }, "sha512-J9QDiOIZlZLdcot5NXEepDkstocktoVjkaKUtqzgzpt2yWjGlbYiKyp05rWwk4nypbYUNoFAztEgixoLaSETkg=="],
 
     "@rollup/rollup-win32-x64-msvc": ["@rollup/rollup-win32-x64-msvc@4.53.3", "https://registry.npmmirror.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.53.3.tgz", { "os": "win32", "cpu": "x64" }, "sha512-UhTd8u31dXadv0MopwGgNOBpUVROFKWVQgAg5N1ESyCz8AuBcMqm4AuTjrwgQKGDfoFuz02EuMRHQIw/frmYKQ=="],
+
+    "@seregpie/three.text-sprite": ["@seregpie/three.text-sprite@3.2.0", "", { "dependencies": { "@seregpie/three.text-texture": "^3.2.0" }, "peerDependencies": { "three": ">=0.113" } }, "sha512-ozQq7JFKGCltCvT3DG5SC77WnSJfZhYpSabhp+I1iZ9tTMxiPJqyEscmcMC+Rdxy1eYCBmZKGKBBcMLLrd5GuA=="],
+
+    "@seregpie/three.text-texture": ["@seregpie/three.text-texture@3.2.1", "", { "peerDependencies": { "three": ">=0.113" } }, "sha512-+rBfu63PolUyg6WB56SxYIIGGw7BMiFMeoj6AcxGooGs1apnudu024EMY/6dr1KnpIa9lNIwSgJETeaclgT/BQ=="],
 
     "@shikijs/core": ["@shikijs/core@4.3.0", "", { "dependencies": { "@shikijs/primitive": "4.3.0", "@shikijs/types": "4.3.0", "@shikijs/vscode-textmate": "^10.0.2", "@types/hast": "^3.0.4", "hast-util-to-html": "^9.0.5" } }, "sha512-EooU3i9F6IAE8kEu+AnGf9DFZWkQBZ+hJn3tLVbsH+61mtQiva5biai66fAA6nvFPXkLgvrh7BrR7YcJU83xQQ=="],
 

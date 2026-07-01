@@ -6,9 +6,5 @@
   'friends':
     - 'name': 'Playground'
       'url': 'https://element-plus.run'
-    - 'name': 'Fantastic-adminA management system framework for AI development'
-      'url': 'https://fantastic-admin.hurui.me/'
-    - 'name': 'UnAIMyTextHumanize AI Text'
-      'url': 'https://unaimytext.com'
     - 'name': 'Element UI for Vue 2'
       'url': 'https://element.eleme.io/'

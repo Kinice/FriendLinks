@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Ai宇宙吧'
-      'url': 'http://www.aiyuzhou8.com'
     - 'name': '小门道'
       'url': 'https://www.xiaomendao.cn/'
     - 'name': '快标书AI'
@@ -16,8 +14,6 @@
       'url': 'https://www.ai-blog.cn'
     - 'name': 'Ok网'
       'url': 'https://www.ok.net.cn'
-    - 'name': 'AI第一站'
-      'url': 'https://www.aidyz.cn'
     - 'name': '文多多AIPPT'
       'url': 'https://docmee.cn/'
     - 'name': 'toolifyAI'

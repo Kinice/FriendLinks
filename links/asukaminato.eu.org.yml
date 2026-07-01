@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Dify.ai'
-      'url': 'https://dify.ai/'
     - 'name': 'unofficial xkcd Chinese translations'
       'url': 'https://xkcd.in/'
     - 'name': 'Rhenium Carbonyl Tritide'
