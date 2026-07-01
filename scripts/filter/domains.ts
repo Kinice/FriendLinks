@@ -434,4 +434,16 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  "medium.com", "substack.com", "discord.com", "discord.gg",
 			  "vimeo.com", "instagram.com", "youtu.be", "tiktok.com",
 			  "twitch.tv", "patreon.com", "mastodon.social", "mastodon.online",
+			  // "安/暗/澳/八"开头非博客 — 赌博/安全/平台/物流/教育/影视
+			  "uprpa.com", "lqntl.com", "szzjcy.com", "h5-link-anbo.com.cn", "googlechr.com", "2468c.com", // 赌博
+			  "secpulse.com", "anquanquan.info", "secsilo.com", "aqzt.com", "anquan.org", "anquanssl.com", // 安全
+			  "dbsec.cn", "sandbox.dbappsecurity.com.cn", "aosc.io", // 安全/OS项目
+			  "andown.com", "anxjm.com", "axxf.net", "axfork.com", "welawcn.com", // 加盟/房产/律所
+			  "anzhuo.cn", "app.kkj.cn", "nbapp.oioio.top", // 安卓/APP站
+			  "szanjun.com", "8dexpress.com", "hwc.aumbow.com", "bawei.net", "2aia.cn", // 物流/集团/联盟
+			  "aoshu.com", "bwie.net", "txt80.cc", "anee.cc", "xdzdmy.com", "iafuns.com", "netreflix.cn", // 教育/影视/动漫
+			  "antutu.com", "80iter.com", "anxinblog.org", "ddsky.cn", "axace.com", // 工具/社区/培训
+			  "talentpluscareer.com", "anying.cc", "yuepian.me", "anwangli.com", "8966.cn", // 求职/图集
+			  "zh.annas-archive.org", "ay.henanjubao.com", "theaustralian.news.com.au", "anandalue.com", // 档案/举报/新闻
+			  "yunagi7.github.io", "survey.zane-liu.com", "mjh.niulasong.com", // 商会/问卷/案例
 			];
