@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '商标交易-易标'
-      'url': 'http://www.ebiao.com/'
     - 'name': '商标查询-速标'
       'url': 'http://www.subiao.com/'
-    - 'name': '商标注册-乐标'
-      'url': 'http://www.lebiao.com/'
     - 'name': '知产网'
       'url': 'https://www.zcw.com.cn/'
     - 'name': 'REG.CN'

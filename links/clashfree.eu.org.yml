@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '免费clash节点|科学上网'
-      'url': 'https://clashgithub.com'
     - 'name': '机场推荐'
       'url': 'https://orymi.net'

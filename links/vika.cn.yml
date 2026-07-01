@@ -12,8 +12,6 @@
       'url': 'https:/solutions/'
     - 'name': 'PMO项目群管理'
       'url': 'https:/business-pmo/'
-    - 'name': 'CRM客户管理'
-      'url': 'https:/crm/'
     - 'name': 'Scrum敏捷开发管理'
       'url': 'https:/scrum/'
     - 'name': '营销策划与市场运营'

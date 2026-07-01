@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '商标转让'
-      'url': 'https://no3.goluckin.com/'
     - 'name': '优名网'
       'url': 'http://www.youming.cn'
     - 'name': '万师傅'

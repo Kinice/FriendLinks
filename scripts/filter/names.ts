@@ -26,6 +26,7 @@ export const JUNK_NAME_PATTERNS: RegExp[] = [
   /(游戏|试玩|娱乐|赌博|博彩|棋牌|Slot|Casino)/i,
   /(Steam|Epic|Origin|Uplay|Battle\.net|Xbox|PlayStation|Nintendo|任天堂|索尼|微软游戏)/i,
   /(公司|印刷|广告|装修|建筑|工程|劳务|派遣|货代|物流|快递|速递|仓储|转运|供应链)/i,
+  /神州(?:数码|控股|信息|鲲泰|云科|文学)/i,
   /\b(ERP|WMS|CRM|SaaS|FBA)\b/i,
   /(跨境电商|外贸|商标注册|商标交易|商标转让|知识产权|代运营|指纹浏览器|代理IP|国际短信)/i,
   /(支付|收款|码支付|POS|刷卡|收银)/i,

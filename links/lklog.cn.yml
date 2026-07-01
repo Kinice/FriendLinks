@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '文件快递'
-      'url': 'https://filebox.6785753.xyz/#/'
     - 'name': '寒曦朦博客'
       'url': 'http://hanximeng.com/'
     - 'name': '戴兜的小屋'
