@@ -38,9 +38,9 @@ export async function GET() {
 
   // ── dev 模式快速验证：只取 500 随机节点 ───────────────────────
   let sites = validSites;
-  if (import.meta.env.DEV && sites.length > 500) {
+  if (import.meta.env.DEV && sites.length > 100) {
     const shuffled = [...sites].sort(() => Math.random() - 0.5);
-    sites = shuffled.slice(0, 500);
+    sites = shuffled.slice(0, 100);
     console.error(`  ⚠ DEV 模式：从 ${validSites.length} 个站点中随机抽取 ${sites.length} 个快速验证`);
   }
 
