@@ -160,20 +160,20 @@ export async function GET() {
       "link",
       forceLink(simLinks as any)
         .id((d: any) => d.id)
-        .distance(350),
+        .distance(250),
     )
-    .force("charge", forceManyBody().strength(-800))
-    .force("center", forceCenter(0, 0, 0).strength(0.005))
-    .alphaDecay(0.08)
-    .velocityDecay(0.6);
+    .force("charge", forceManyBody().strength(-1200))
+    .force("center", forceCenter(0, 0, 0).strength(0.002))
+    .alphaDecay(0.12)
+    .velocityDecay(0.7);
 
   printProgress("❷", "图构建完成", 100);
   printDone("图构建完成");
 
   const FAST = import.meta.env.DEV || !!process.env.MINIBUILD;
-  const TICKS = FAST ? 30 : 60;
-  const TICK_LOG = 10;
-  sim.alphaMin(FAST ? 0.12 : 0.1);
+  const TICKS = FAST ? 15 : 25;
+  const TICK_LOG = 5;
+  sim.alphaMin(FAST ? 0.2 : 0.15);
   const alphaMin = sim.alphaMin();
   let actualTicks = 0;
   for (let i = 0; i < TICKS; i++) {
