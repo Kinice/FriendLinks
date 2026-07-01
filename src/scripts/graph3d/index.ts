@@ -1020,7 +1020,7 @@ export function init3d(graphData: GraphData) {
         reticleOffset.y += reticleVelocity.y * 0.016;
 
         // 2. 准星偏移 → 相机旋转（偏移大 = 转得快）
-        const rotScale = 0.01;
+        const rotScale = 0.1;
         cam.rotateY(-reticleOffset.x * rotScale);
         cam.rotateX(reticleOffset.y * rotScale);
 
@@ -1166,7 +1166,7 @@ export function init3d(graphData: GraphData) {
   });
 
   // ── 12. 飞船飞行模式（FPS 惯性准星） ──────────────────────────
-  const MOVE_SPEED = 3;
+  const MOVE_SPEED = 300;
   const SHIFT_MULTIPLIER = 3;
   const MOUSE_SENSITIVITY = 0.003;
   const RETICLE_SPRING = 3;
