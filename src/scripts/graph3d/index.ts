@@ -1079,14 +1079,13 @@ export function init3d(graphData: GraphData) {
     }
   });
 
-  // ── 12. 飞船飞行模式 ────────────────────────────────────────────
+  // ── 12. 飞船飞行模式（GTA 式自由鼠标环顾） ───────────────────
   const MOVE_SPEED = 12;
-  const DRAG_SENSITIVITY = 0.005;
+  const MOUSE_LOOK_SENSITIVITY = 0.002;
 
   const flyKeys: Record<string, boolean> = {};
   let isFlyMode = false;
   let spaceshipObj: THREE.Group | null = null;
-  let flyDragStart = { x: 0, y: 0 };
   let flyControlPanel: HTMLElement | null = null;
   let flyOnKeyDown: ((e: KeyboardEvent) => void) | null = null;
   let flyOnKeyUp: ((e: KeyboardEvent) => void) | null = null;
@@ -1166,7 +1165,7 @@ export function init3d(graphData: GraphData) {
         <div><kbd>Q</kbd><kbd>E</kbd> 横滚</div>
         <div><kbd>Shift</kbd> 加速 3×</div>
         <div style="color:#888;margin-top:4px;border-top:1px solid rgba(255,255,255,0.06);padding-top:4px;">
-          鼠标拖拽环顾 · 悬停看信息
+          鼠标移动环顾 · 悬停看信息 · 左键点击
         </div>
       </div>
       <style>
@@ -1178,13 +1177,12 @@ export function init3d(graphData: GraphData) {
       </style>
     `;
     document.body.appendChild(panel);
-
     const toggle = panel.querySelector("#fly-panel-toggle") as HTMLElement;
-    const body = panel.querySelector("#fly-panel-body") as HTMLElement;
-    if (toggle && body) {
+    const bodyEl = panel.querySelector("#fly-panel-body") as HTMLElement;
+    if (toggle && bodyEl) {
       toggle.addEventListener("click", () => {
-        const collapsed = body.style.display === "none";
-        body.style.display = collapsed ? "block" : "none";
+        const collapsed = bodyEl.style.display === "none";
+        bodyEl.style.display = collapsed ? "block" : "none";
         toggle.textContent = collapsed ? "−" : "+";
       });
     }
@@ -1199,29 +1197,15 @@ export function init3d(graphData: GraphData) {
     }
   }
 
-  function onFlyMouseDown(e: MouseEvent) {
-    if (!isFlyMode) return;
-    flyDragStart.x = e.clientX;
-    flyDragStart.y = e.clientY;
-  }
-
+  /** GTA 式自由鼠标环顾：鼠标移动即转视角，无需按键 */
   function onFlyMouseMove(e: MouseEvent) {
     if (!isFlyMode) return;
-    // 检测是否正在拖拽（移动超过阈值）
-    const dx = e.clientX - flyDragStart.x;
-    const dy = e.clientY - flyDragStart.y;
-    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
-      const cam = Graph.camera() as THREE.PerspectiveCamera;
-      if (cam) {
-        cam.rotateY(-dx * DRAG_SENSITIVITY);
-        cam.rotateX(-dy * DRAG_SENSITIVITY);
-      }
-      flyDragStart.x = e.clientX;
-      flyDragStart.y = e.clientY;
+    const cam = Graph.camera() as THREE.PerspectiveCamera;
+    if (cam && (e.movementX || e.movementY)) {
+      cam.rotateY(-e.movementX * MOUSE_LOOK_SENSITIVITY);
+      cam.rotateX(-e.movementY * MOUSE_LOOK_SENSITIVITY);
     }
   }
-
-  function onFlyMouseUp() {}
 
   function enterFlyMode() {
     Graph.enableNavigationControls(false);
@@ -1236,9 +1220,7 @@ export function init3d(graphData: GraphData) {
     flyOnKeyUp = (e) => handleKey(e, false);
     document.addEventListener("keydown", flyOnKeyDown);
     document.addEventListener("keyup", flyOnKeyUp);
-    container.addEventListener("mousedown", onFlyMouseDown);
     container.addEventListener("mousemove", onFlyMouseMove);
-    container.addEventListener("mouseup", onFlyMouseUp);
 
     flyControlPanel = createFlyControlPanel();
     flyControlPanel.style.display = "block";
@@ -1256,9 +1238,7 @@ export function init3d(graphData: GraphData) {
 
     if (flyOnKeyDown) document.removeEventListener("keydown", flyOnKeyDown);
     if (flyOnKeyUp) document.removeEventListener("keyup", flyOnKeyUp);
-    container.removeEventListener("mousedown", onFlyMouseDown);
     container.removeEventListener("mousemove", onFlyMouseMove);
-    container.removeEventListener("mouseup", onFlyMouseUp);
     flyOnKeyDown = flyOnKeyUp = null;
 
     if (flyControlPanel) flyControlPanel.style.display = "none";
