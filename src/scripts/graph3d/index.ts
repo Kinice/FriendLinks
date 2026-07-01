@@ -1019,12 +1019,13 @@ export function init3d(graphData: GraphData) {
         reticleOffset.x += reticleVelocity.x * 0.016;
         reticleOffset.y += reticleVelocity.y * 0.016;
 
-        // 2. 准星偏移 → 相机旋转（独立 yaw/pitch，无限 360°）
+        // 2. 准星偏移 → 摄像头本地轴旋转（翻滚后依然正确）
         const rotScale = 0.15;
-        flyYaw -= reticleOffset.x * rotScale;
-        flyPitch += reticleOffset.y * rotScale;
-        flyPitch = Math.max(-1.48, Math.min(1.48, flyPitch)); // ±85°
-        cam.rotation.set(flyPitch, flyYaw, flyRoll, "YXZ");
+        cam.rotateY(-reticleOffset.x * rotScale);       // 本地 Y 轴偏航
+        cam.rotateX(reticleOffset.y * rotScale);         // 本地 X 轴俯仰
+        // 俯仰限制 ±85°，读取 Euler x 分量（YXZ 顺序下 x=俯仰）
+        if (cam.rotation.x > 1.48) cam.rotation.x = 1.48;
+        if (cam.rotation.x < -1.48) cam.rotation.x = -1.48;
 
         // 3. 更新准星 DOM 位置
         if (flyCrosshair) {
@@ -1041,8 +1042,8 @@ export function init3d(graphData: GraphData) {
         if (flyKeys.d) cam.translateX(speed);
         if (flyKeys.r) cam.translateY(speed);
         if (flyKeys.f) cam.translateY(-speed);
-        if (flyKeys.q) flyRoll += speed * 0.003;
-        if (flyKeys.e) flyRoll -= speed * 0.003;
+        if (flyKeys.q) cam.rotateZ(speed * 0.003);
+        if (flyKeys.e) cam.rotateZ(-speed * 0.003);
       }
     }
 
@@ -1182,9 +1183,6 @@ export function init3d(graphData: GraphData) {
   let flyOnKeyUp: ((e: KeyboardEvent) => void) | null = null;
   let autoHoverId: string | null = null;
   let flyAutoPilot = false;
-  let flyYaw = 0;
-  let flyPitch = 0;
-  let flyRoll = 0;
   // 准星弹簧-阻尼物理
   const reticleOffset = { x: 0, y: 0 };
   const reticleVelocity = { x: 0, y: 0 };
@@ -1471,9 +1469,6 @@ export function init3d(graphData: GraphData) {
     reticleOffset.y = 0;
     reticleVelocity.x = 0;
     reticleVelocity.y = 0;
-    flyYaw = 0;
-    flyPitch = 0;
-    flyRoll = 0;
 
     // 锁定指针（鼠标不溢出）+ 全屏辅助
     try { container.requestPointerLock(); } catch {}
