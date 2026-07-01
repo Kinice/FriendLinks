@@ -495,6 +495,7 @@ export function init3d(graphData: GraphData) {
   // ── 13. 动画循环 ──
   let _lastCamPos = { x: 0, y: 0, z: 0 };
   let _queryCamMove = true;
+  let _lblFrameSkip = 0;
 
   function animateLoop() {
     requestAnimationFrame(animateLoop);
@@ -512,8 +513,10 @@ export function init3d(graphData: GraphData) {
       _lastCamPos.x = camPos.x; _lastCamPos.y = camPos.y; _lastCamPos.z = camPos.z;
       _queryCamMove = false;
 
-      // 标签淡出
-      if (labelGroup.children.length > 0) {
+      // 标签淡出（每 3 帧才跑一次，减少 CPU 消耗）
+      _lblFrameSkip++;
+      if (_lblFrameSkip >= 3 && labelGroup.children.length > 0) {
+        _lblFrameSkip = 0;
         const show = labelShow.value;
         for (const child of labelGroup.children) {
           const sprite = child as THREE.Sprite;

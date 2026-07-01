@@ -33,6 +33,8 @@ export function createInteraction(
 
   const allInstanced = [ctx.nodes];
   let lastHoveredId: string | null = null;
+  let lastCheck = 0;
+  const RAY_THROTTLE = 60; // ms
 
   function getNodeAtMouse(event: MouseEvent): GraphNode | null {
     const rect = ctx.renderer.domElement.getBoundingClientRect();
@@ -60,8 +62,12 @@ export function createInteraction(
     return null;
   }
 
-  // ── Mouse move → hover ──
+  // ── Mouse move → hover (throttled) ──
   ctx.renderer.domElement.addEventListener("mousemove", (event: MouseEvent) => {
+    const now = performance.now();
+    if (now - lastCheck < RAY_THROTTLE) return;
+    lastCheck = now;
+
     const node = getNodeAtMouse(event);
     const newId = node ? node.id : null;
 

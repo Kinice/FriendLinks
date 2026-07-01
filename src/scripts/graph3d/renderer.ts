@@ -28,7 +28,7 @@ export interface NodeState {
 
 // ─── 常量 ──────────────────────────────────────────────────────────
 
-const NODE_SEGMENTS = 8;
+const NODE_SEGMENTS = 6;
 const BG_COLOR = 0x0f1115;
 
 // ─── 工厂 ──────────────────────────────────────────────────────────
