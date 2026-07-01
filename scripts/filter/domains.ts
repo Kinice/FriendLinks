@@ -420,4 +420,13 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  "31idc.com", "42cloud.cn", // IDC
 			  "678tiyu.com", "bjcbsy.cn", "laitaoxie.cn", "smilegift.cn", "nxxinglin.com", "silliandesign.com", "tuchun66.com", // 菠菜
 			  "ti.360.net", "quake.360.net", "ata.360.net", "se.360.cn", "image.so.com", "st.so.com", "blogs.360.cn", // 360企业站
+			  // "爱"开头非博客 — 平台/工具/商业站
+			  "iqiyi.com", "iciba.com", "afdian.com", "aigei.com", "igao7.com", // 大平台
+			  "ijiwei.com", "ifabiao.com", "iwangba.net", "aisouzhan.com", "asilu.com", // 行业/导航
+			  "ituibar.com", "ivanba.com", "aikeyuan.cn", "awz.cc", "iisuser.com", "imf8.cn", // 推广/目录
+			  "athaitao.com", "afexcn.com", "it200.com", "iwmob.com", "love.tg", "i171.com", // 商业/海淘
+			  "aqzx.com", "aiwazi.com", "ziiti.com", "iciba.com", "23phy.com", "23ops.com", // 平台/工具
+			  "kisssub.org", "ailoli.org", "w8dsci.org", "aichunjing.com", "subingwen.cn", "icodebook.com", // 动漫/组织/教育平台
+			  "aini365.cn", "sdxbm.com", "idh.cc", "aiit.me", "itmeit.com", "aigeek.top", "illlt.com", // 杂项
+			  "naturaleki.one", "erro.cn", "x.iqimeng.com", "i.ewceo.com", "eriqua.com", "aikuaj.com", "aztdxz.cn", // 杂项
 			];
