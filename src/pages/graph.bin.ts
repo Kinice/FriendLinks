@@ -166,12 +166,12 @@ export async function GET() {
         .id((d: any) => d.id)
         .distance(LINK_DISTANCE),
     )
-    .force("charge", forceManyBody().strength(-REPULSION).theta(0))
+    .force("charge", forceManyBody().strength(-REPULSION).theta(0.3))
     .force("center", forceCenter(0, 0, 0).strength(CENTER_STRENGTH))
     .alphaDecay(0.003)
     .velocityDecay(0.35);
 
-  printProgress("❷", `力导仿真就绪 · ${nodes.length} 节点 · θ=0 精确N体 · 斥力${REPULSION}`, 100);
+  printProgress("❷", `力导仿真就绪 · ${nodes.length} 节点 · θ=0.3 高精Barnes-Hut · 斥力${REPULSION}`, 100);
   printDone(`图构建完成 · ${nodes.length} 节点 · ${linksArr.length} 边`);
 
   const FAST = import.meta.env.DEV || !!process.env.MINIBUILD;
