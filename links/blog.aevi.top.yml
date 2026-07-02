@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '极客教程 - 以工匠精神打磨精品教程 极客教程(geek-docs.com)提供最全面最通俗易懂'
-      'url': 'https://geek-docs.com/'
     - 'name': '新都在 - Carol 小屋 只想专业的玩NAS'
       'url': 'https://blog.xindu.site/'
     - 'name': '执念 欢迎访问 执念，执着于心|念念不忘'

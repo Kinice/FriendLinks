@@ -60,8 +60,6 @@
       'url': 'https://www.cnbeta.com/'
     - 'name': 'transifex'
       'url': 'http://transifex.com'
-    - 'name': 'pixabay'
-      'url': 'https://pixabay.com/'
     - 'name': '计蒜客'
       'url': 'https://www.jisuanke.com/'
     - 'name': '蓝桥/实验楼'

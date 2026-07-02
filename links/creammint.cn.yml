@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': 'VitePress 中文教程VitePress 快速上手中文教程'
-      'url': 'https://vitepress.yiov.top/'
     - 'name': '唯知笔记探索知识的无限可能'
       'url': 'https://note.weizwz.com/'
     - 'name': '谜谜叶象限每一片叶子，都是未完成的坐标系'

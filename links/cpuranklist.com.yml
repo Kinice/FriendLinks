@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'OSSSR.COM'
-      'url': 'https://www.osssr.com/'
     - 'name': 'ZAPRO杂铺'
       'url': 'https://tmioe.com/'
     - 'name': '蓝点网'

@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'Creazilla'
       'url': 'https://creazilla.com/'
-    - 'name': 'Pixabay'
-      'url': 'https://pixabay.com/'
     - 'name': 'Butterick’s Practical Typography'
       'url': 'https://practicaltypography.com/'
     - 'name': 'Converseen'

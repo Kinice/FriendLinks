@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': '静雨 · 安蝉生活随记，学习网络，分享知识'
-      'url': 'https://blog.loadke.tech/'
     - 'name': '林海草原愿我经历的苦难你不要经历，愿我已有的幸福你触手可及'
       'url': 'https://lhcy.org/'
     - 'name': '青木的博客青木和安妮的生活琐碎和感悟，读书笔记，照片记录。'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'OSSSR.COM'
-      'url': 'https://osssr.com/'
     - 'name': 'JayXon'
       'url': 'http://www.jayxon.com/'
     - 'name': 'QiuQuan''s Blog'

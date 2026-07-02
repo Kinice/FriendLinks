@@ -6,8 +6,6 @@
   'friends':
     - 'name': '基于Flask开发的博客，Python开源项目...'
       'url': 'https://frostming.com'
-    - 'name': 'Django博客教程分享者，教程非常适合新手入...'
-      'url': 'https://zmrenwu.com'
     - 'name': 'Jerry的个人博客，使用Django开发，分...'
       'url': 'https://www.jerrycoding.com'
     - 'name': '人生五十年，如梦亦如幻'

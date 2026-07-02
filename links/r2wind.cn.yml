@@ -5,7 +5,7 @@
   'links': '/friends'
   'friends':
     - 'name': '佳明.cn 前世多少次回眸,今世才变成对眼...'
-      'url': 'https://xn--9krq6q.xn--qrqy46c.cn/'
+      'url': 'https://博客.佳明.cn/'
     - 'name': 'Wxory 自由追逐，勇敢而赤诚'
       'url': 'https://wxory.com/'
     - 'name': '北巷季 北巷季的博客'
@@ -42,7 +42,5 @@
       'url': 'https://www.9kr.cc/'
     - 'name': 'DNSPod 国民级 DNS 服务平台'
       'url': 'https://www.dnspod.cn/'
-    - 'name': 'Pixabay'
-      'url': 'https://pixabay.com/'
     - 'name': 'RIPE The Regional Internet Registry for Europe, the Middle East and pa'
       'url': 'https://www.ripe.net/'

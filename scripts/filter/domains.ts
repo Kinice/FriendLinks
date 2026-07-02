@@ -269,6 +269,62 @@ export const NON_BLOG_DOMAINS: string[] = [
   "yweihu.com", "wangbaweihu.com", "slsup.com", "clxp.net.cn", "shykx.com",
   "cnit.net.cn", "laoliit.cn", "im2828.com", "osssr.com", "xitonggho.com",
   "58server.net", "iwangwei.cn",
+  // 商业/企业站
+  "yuzhua.com", "mxhaitao.com", "yingjia360.com", "xiangmu.com",
+  "tnc.com.cn", "yuanhu.com", "haofabiao.com", "szhk.com", "chinairn.com",
+  // 3D模型/培训/设计站
+  "yitu.cn", "3dxia.com", "100vr.com", "gototsinghua.org.cn", "c4d.cn",
+  // 设计/渲染工具站
+  "yituyu.com", "animiz.cn", "zhutix.com", "renderbus.com", "meizhang.com",
+  // 商业工具/媒体/教育平台
+  "yixieshi.com", "tmtpost.com", "newrank.cn", "gaoding.com", "pixlr.com",
+  "pixabay.com", "soogif.com", "doutula.com", "jianguoyun.com", "teambition.com",
+  "tower.im", "yinxiang.com", "qichacha.com", "tianyancha.com", "iflyrec.com",
+  "xiaoe-tech.com", "kaikeba.com", "sanjieke.cn", "maiziedu.com",
+  // 链接聚合/工具站
+  "yiwangmeng.com", "gantanhao.vip", "iplocation.net", "flomoapp.com",
+  "processon.com", "mubu.com", "gitmind.cn", "ezgif.com",
+  "mastergo.com", "xiaopiu.com", "sketchapp.com", "invisionapp.com",
+  "coolors.co", "wappalyzer.com", "sizzy.co", "csspeeper.com",
+  "blender.org", "affinity.serif.com", "uigradients.com",
+  // 影视/字幕/工具站
+  "yingheapp.com", "xl01.eu.cc", "kzzy.fun", "zimuku.org", "zhaotaici.cn",
+  "quodb.com", "t759.cn", "saucenao.com", "dialogue.moe", "miluxing.com",
+  "hmacg.cn", "shuge.org", "tv.garden", "classppt.cn", "kms.cx",
+  "quwenjian.cc", "cntshare.com", "qbiji.com", "zoom.earth",
+  "urlzj.com", "fsgameo.com", "boomcatcher.com",
+  // 工具/查询站
+  "yigekuang.cn", "4.plus", "lanzou.com", "cx580.com", "gerensuodeshui.cn", "sixin.cc",
+  // 工业/商业站
+  "yhwufvo.cn", "haodediaosu.com", "h2wz.com", "ts1010.com",
+  // 色情/伴游站
+  "yeban.cc", "gcwaxl.cn", "06tc.com", "withoutfog.cn",
+  // 体育博彩站群
+  "yahuu.cn", "bjrfnk.com", "hanyucrushers.com", "hftlh.com", "51qixun.com",
+  "alshrds.cn", "akszyds.cn", "tyzh.com.cn", "dcmotor.com.cn", "t1517.cn",
+  "wanttek.cn", "snts.cn", "xiyangzhushou.cn", "7kuwang.cn", "superdingdian.com",
+  "fzjmx.com", "ldkcw.com", "junfeijun.cn", "hzfuda168.cn", "mlwmm.cn", "be3653658.cn",
+  // 破解/逆向社区
+  "xuepojie.com", "52hb.com", "52bug.cn", "zn50.com", "chinapyg.com", "synx.cn",
+  // 图片压缩工具
+  "yotupng.com",
+  "xing-zhi-love.com", "hn96520.com", "114piaowu.com",
+  "2zzt.com", "admin5.cn", "51xuediannao.com", "huzhan.com", "omooo.com", "salongweb.com",
+  // 新闻/朋友圈工具站
+  "pyq.gs", "kanxinwen.cc",
+  // 域名/停放/工具站
+  "我的.网站", "龍哥.中國", "registrant.contact",
+  "doma.ing", "rdapx.com", "rdap.press", "rdapis.com", "lookup.ee",
+  "longway.dad", "drag.one", "type.life", "teodns.cn", "nopua.com",
+  "cname.pro", "is-for-sale.com", "poorbeg.com", "lasts.top", "randomto.com",
+  "ipabc.de", "favicons.cn",
+  // 成人/政治/极端站
+  , ,
+  , , "douyidou.com",
+  "mantoubi.com", "qimengke.com", "pipayu.com",
+  "regdict.com", "dotaone.com", "dota.pro", "tgrot.cn", "xiaoyingyu.com",
+  // AI垃圾/错乱站
+  "jike.com", "piliangongyu.com", "zcool.com.cn", "uisdc.com", "sohu.com",
   // 教程/博客平台
   "codeqd.com", "jiangweishan.com", "web176.com", "zblogcn.com", "htmlit.com.cn",
   // 杂志/发表/批发/法律/新闻站
@@ -535,14 +591,14 @@ export const NON_BLOG_DOMAINS: string[] = [
 			  "openjsf.org", "lion.js.org", "auro.alaskaair.com",
 			  "packetstormsecurity.org",   // 漏洞利用库，非博客
 			  // 电影中文域名/无法访问的停放域名(punycode)
-			  "xn--dpqv20e8ug6r8a.com",  // 阿甘正传.com
-			  "xn--rhqp87dfoiv9a830g.com", // 楚门的世界.com
-			  "xn--10vr61a3xc5x3b.com",  // 盗梦空间.com
-			  "xn--vcsx1ip8b8w4i.com",   // 黑客帝国.com
-			  "xn--wcv59z.com",          // 教父.com
-			  "xn--74qy8dk4drvg29x.com", // 泰坦尼克号.com
-			  "xn--74qz10cqsltibh40akss.com", // 肖申克的救赎.com
-			  "xn--kivn76b41nnhi.com",   // 星际穿越.com
+			  "阿甘正传.com",  // 阿甘正传.com
+			  "楚门的世界.com", // 楚门的世界.com
+			  "盗梦空间.com",  // 盗梦空间.com
+			  "黑客帝国.com",   // 黑客帝国.com
+			  "教父.com",          // 教父.com
+			  "泰坦尼克号.com", // 泰坦尼克号.com
+			  "肖申克的救赎.com", // 肖申克的救赎.com
+			  "星际穿越.com",   // 星际穿越.com
 			  "hgeme.com",
 			  // emoji名称对应非博客站点
 			  "ai.dcnav.com",         // ChatGPT导航站

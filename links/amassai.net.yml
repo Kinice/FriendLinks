@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '电脑安卓软件免费下'
-      'url': 'https://www.fsgameo.com'
     - 'name': '微企脉'
       'url': 'https://www.weiqimai.com'
     - 'name': '在线ping'

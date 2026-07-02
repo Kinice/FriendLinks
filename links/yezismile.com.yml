@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'PHP学习网'
-      'url': 'http://www.viphper.com/'
     - 'name': 'KTWO博客'
       'url': 'http://www.k2zone.cn'
     - 'name': 'Leftso(左搜)'

@@ -12,8 +12,6 @@
       'url': 'http://www.web3d.org'
     - 'name': 'assimp'
       'url': 'http://assimp.org/'
-    - 'name': 'Blender 2.83.3'
-      'url': 'https://www.blender.org/'
     - 'name': 'Palettist'
       'url': 'http://palettist.endavid.com/'
     - 'name': 'V-Ray'

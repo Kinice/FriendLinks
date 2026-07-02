@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Pixabay'
-      'url': 'https://pixabay.com/'
     - 'name': 'LifeCheq'
       'url': 'https://www.lifecheq.co.za'
     - 'name': 'Styleshout.'

@@ -1,8 +1,0 @@
-'site':
-  'name': 'long.ge'
-  'url': 'https://long.ge/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': '我的网站'
-      'url': 'https://xn--wnu286b.xn--5tzm5g/'

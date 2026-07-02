@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '京都动画官网 kyotoanimation.co.jp'
-      'url': 'https://www.kyotoanimation.co.jp/'
     - 'name': '響け！ユーフォニアム3響け！ユーフォニアム3'
       'url': 'https://anime-eupho.com/'
     - 'name': '凉宫春日应援团，图书漂流计划sos'

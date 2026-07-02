@@ -1,8 +1,0 @@
-'site':
-  'name': 'quodb.com'
-  'url': 'https://www.quodb.com/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': 'Glyphicons Free'
-      'url': 'http://glyphicons.com'

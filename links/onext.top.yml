@@ -6,7 +6,5 @@
   'friends':
     - 'name': '道不知'
       'url': 'https://www.oknow.me'
-    - 'name': '力扣 编程练习平台'
-      'url': 'https://leetcode-cn.com'
     - 'name': 'Coursera 在线课程平台'
       'url': 'https://www.coursera.org'

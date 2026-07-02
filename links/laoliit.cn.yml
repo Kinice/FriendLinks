@@ -1,8 +1,0 @@
-'site':
-  'name': 'laoliit.cn'
-  'url': 'https://www.laoliit.cn/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': '牛商股份'
-      'url': 'http://nsw88.com/'

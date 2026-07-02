@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Know More'
-      'url': 'https://yiwangmeng.com/'
     - 'name': '开心屋'
       'url': 'https://faka.kaixinwu.vip/'

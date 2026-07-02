@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/flink'
   'friends':
-    - 'name': '程序员面经网'
-      'url': 'http://www.jobbible.cn'
     - 'name': 'whyvv'
       'url': 'https://www.whyvv.top'
     - 'name': '王高利的个人博客'
@@ -66,7 +64,5 @@
       'url': 'https://blog.cent1pedee.top/'
     - 'name': '陈子伟博客'
       'url': 'http://chenziwe.cn'
-    - 'name': '夜半'
-      'url': 'https://www.yeban.cc'
     - 'name': '张戈博客'
       'url': 'https://zhangge.net'

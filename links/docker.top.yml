@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'MinDoc官网已发布，欢迎您的访问！'
       'url': 'https://www.mindoc.cn'
-    - 'name': '良许Linux教程网'
-      'url': 'https://www.lxlinux.net/'
     - 'name': '格姗知识圈'
       'url': 'https://geshanzsq.com/'
     - 'name': '运维网'

@@ -1,8 +1,0 @@
-'site':
-  'name': 'uisdc.com'
-  'url': 'https://www.uisdc.com/'
-  'description': '友情链接'
-  'links': '/link'
-  'friends':
-    - 'name': '优优网'
-      'url': 'https://uiiiuiii.com/'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '动画制作软件'
-      'url': 'https://www.animiz.cn/'
     - 'name': '二维码生成器'
       'url': 'https://www.liantu.com/'
     - 'name': '殁漂遥'

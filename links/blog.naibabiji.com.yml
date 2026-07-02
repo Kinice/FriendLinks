@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'SiteGround教程网'
-      'url': 'https://sitegroundwp.com/'
     - 'name': '老蒋博客'
       'url': 'https://www.itbulu.com/'
     - 'name': '红板砖开发信'

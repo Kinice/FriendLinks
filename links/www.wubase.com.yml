@@ -4,8 +4,6 @@
   'url': 'https://www.wubase.com'
   'links': '/links'
   'friends':
-    - 'name': '一网盟'
-      'url': 'https://www.yiwangmeng.com/'
     - 'name': '开心屋发卡'
       'url': 'https://faka.kaixinwu.vip/'
     - 'name': '搜百谷'

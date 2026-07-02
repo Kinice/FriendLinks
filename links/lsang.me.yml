@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': 'Liseezn''bloghttps://blog.liseezn.top分享个人学习，项目，教程'
-      'url': 'https://blog.liseezn.top'
     - 'name': '23朵毒蘑菇https://blog.dumogu.top一个简单的前端开发者'
       'url': 'https://blog.dumogu.top'
     - 'name': '此方的秘密基地https://konata9.cc记录技术与生活的自留地'
