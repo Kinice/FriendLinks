@@ -67,7 +67,7 @@ export async function quickHeadCheck(
         signal: AbortSignal.timeout(5000),
         headers: {
           "User-Agent":
-            "Mozilla/5.0 (compatible; FriendLinks/1.0) Precheck",
+            "Mozilla/5.0 (compatible; BlogUniverse/1.0) Precheck",
         },
       });
       return { ok: resp.status < 500, status: resp.status };

@@ -2,7 +2,7 @@ import { loadSites } from "../utils/load-sites";
 import type { GraphNode, GraphLink, GraphCategory } from "../../types/graph";
 import { forceSimulation, forceLink, forceManyBody, forceCenter } from "d3-force-3d";
 import { encode } from "msgpackr";
-import { printProgress, printDone } from "../utils/progress";
+import { printProgress, printDone, printTick } from "../utils/progress";
 
 function getHost(u: string): string {
   try {
@@ -31,17 +31,17 @@ const resolveFavicon = (fav: string | undefined) => {
 export async function GET() {
   const startTime = performance.now();
 
-  printProgress("❶", "加载友链数据…", 0);
+  printProgress("❶", "加载站点数据…", 0);
   const validSites = await loadSites();
-  printProgress("❶", `已加载 ${validSites.length} 个站点`, 100);
-  printDone("站点加载完成");
+  printProgress("❶", `${validSites.length} 个站点`, 100);
+  printDone(`${validSites.length} 个站点加载完成`);
 
   // ── dev 模式快速验证：只取 500 随机节点 ───────────────────────
   let sites = validSites;
   if (import.meta.env.DEV && sites.length > 100) {
     const shuffled = [...sites].sort(() => Math.random() - 0.5);
     sites = shuffled.slice(0, 100);
-    console.error(`  ⚠ DEV 模式：从 ${validSites.length} 个站点中随机抽取 ${sites.length} 个快速验证`);
+    console.error(`  ⚠ DEV 模式：${validSites.length} 站点中抽样 ${sites.length} 个`);
   }
 
   const categories: GraphCategory[] = [{ name: "site" }, { name: "friend" }];
@@ -147,49 +147,54 @@ export async function GET() {
   }
 
   // ── 构建时 3D 力导布局（d3-force-3d） ─────────────────────────
-  printProgress("❷", `构建图… ${nodes.length} 节点, ${linksArr.length} 边`, 0);
+  printProgress("❷", `${nodes.length} 节点 · ${linksArr.length} 边 · 构建中…`, 0);
   const simNodes = nodes.map((n) => Object.assign({}, n));
   const simLinks = linksArr.map((l) => ({
     source: typeof l.source === "string" ? l.source : (l as any).source,
     target: typeof l.target === "string" ? l.target : (l as any).target,
   }));
 
-  // 稀疏度控制：电荷斥力，绝对值越大节点越散开
-  // 800 = 原始自然网络，200 = 紧密，2000 = 极度稀疏
-  const REPULSION = 1200;
+  // ── 稀疏巨型星系 ──
+  // theta=0 → 精确 N-body（O(n²)），无 Barnes-Hut 近似，最高精度
+  const REPULSION = 3000;
+  const LINK_DISTANCE = 500;
+  const CENTER_STRENGTH = 0.005;
   const sim = forceSimulation(simNodes as any, 3)
     .force(
       "link",
       forceLink(simLinks as any)
         .id((d: any) => d.id)
-        .distance(350),
+        .distance(LINK_DISTANCE),
     )
-    .force("charge", forceManyBody().strength(-REPULSION).theta(2.5))
-    .force("center", forceCenter(0, 0, 0).strength(0.01))
-    .alphaDecay(0.008)
+    .force("charge", forceManyBody().strength(-REPULSION).theta(0))
+    .force("center", forceCenter(0, 0, 0).strength(CENTER_STRENGTH))
+    .alphaDecay(0.003)
     .velocityDecay(0.35);
 
-  printProgress("❷", "图构建完成", 100);
-  printDone("图构建完成");
+  printProgress("❷", `力导仿真就绪 · ${nodes.length} 节点 · θ=0 精确N体 · 斥力${REPULSION}`, 100);
+  printDone(`图构建完成 · ${nodes.length} 节点 · ${linksArr.length} 边`);
 
   const FAST = import.meta.env.DEV || !!process.env.MINIBUILD;
-  const TICKS = FAST ? 80 : 500;
-  const TICK_LOG = FAST ? 10 : 50;
-  sim.alphaMin(FAST ? 0.06 : 0.02);
+  const TICKS = FAST ? 150 : 800;
+  const TICK_LOG = FAST ? 5 : 20;
+  sim.alphaMin(FAST ? 0.03 : 0.001);
   const alphaMin = sim.alphaMin();
   let actualTicks = 0;
   for (let i = 0; i < TICKS; i++) {
     sim.tick();
     actualTicks++;
+    if (i % TICK_LOG === 0) {
+      printTick(i + 1, TICKS, sim.alpha(), nodes.length);
+    }
     // alpha 降至阈值以下 → 系统已收敛，提前结束
     if (sim.alpha() < alphaMin) break;
-    if (i % TICK_LOG === 0) {
-      const pct = Math.round(((i + 1) / TICKS) * 100);
-      printProgress("❸", `力导仿真 ${i + 1}/${TICKS}`, pct);
-    }
+  }
+  // 最后一条（如果收敛时不是 TICK_LOG 的倍数，补打一条）
+  if (actualTicks % TICK_LOG !== 1) {
+    printTick(actualTicks, TICKS, sim.alpha(), nodes.length);
   }
   sim.stop();
-  printDone(`力导仿真完成（${actualTicks} tick）`);
+  printDone(`力导仿真完成 · ${actualTicks} tick · α=${sim.alpha().toFixed(5)}`);
 
   // ── 列式紧凑输出（含预计算 3D 位置） ─────────────────────────
   const nid: string[] = [];
@@ -226,7 +231,7 @@ export async function GET() {
 
   const compact = { nid, nnm, nur, nfa, nde, nx, ny, nz, ls, lt, c: categories };
   const elapsed = ((performance.now() - startTime) / 1000).toFixed(1);
-  printDone(`完成，耗时 ${elapsed}s`);
+  printDone(`/graph.bin 完成 · ${nodes.length} 节点 · ${linksArr.length} 边 · 耗时 ${elapsed}s`);
   return new Response(encode(compact) as unknown as BodyInit, {
     headers: { "Content-Type": "application/octet-stream" },
   });

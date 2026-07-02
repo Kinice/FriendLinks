@@ -1,8 +1,8 @@
-# 友链图谱 — 3D 球状网络图
+# 博客宇宙
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/xingwangzhe/FriendLinks)
 
-> 汇聚独立博客，构建友链图谱。每个节点是一个博客，每条连线是一段友链关系。
+> 探索浩瀚的博客宇宙，寻找彼此之间的联系。每个节点是一个博客，每条连线是一段友链关系。
 
 **法律合规说明：** 网站所有者和投稿者必须确保其发布内容及网站运营遵守中华人民共和国以及适用情况下的美利坚合众国法律法规。
 

@@ -1,5 +1,5 @@
 /**
- * 3D 球状友链网络图渲染模块
+ * 3D 博客宇宙渲染模块（Three.js InstancedMesh）
  * 使用 Three.js 原生 InstancedMesh 替代 3d-force-graph
  */
 import Fuse from "fuse.js";
@@ -166,6 +166,12 @@ export function init3d(graphData: GraphData) {
   const labelGroup = new THREE.Group();
   labelGroup.name = "labels";
   ctx.scene.add(labelGroup);
+
+  // ── 8b. 邻居大字标签（聚焦时显示，屏幕空间恒定大小）──
+  const neighborLabelGroup = new THREE.Group();
+  neighborLabelGroup.name = "neighborLabels";
+  neighborLabelGroup.renderOrder = 999;
+  ctx.scene.add(neighborLabelGroup);
 
   let labelsCreated = new Set<number>(); // 改为 Set 追踪已创建的节点索引
   const LABEL_MAX_FADE_START = 3000;
@@ -398,9 +404,39 @@ export function init3d(graphData: GraphData) {
     }
   }
 
+  // ── 10b. 邻居大字标签 ──
+  function clearNeighborLabels() {
+    while (neighborLabelGroup.children.length > 0) {
+      const sprite = neighborLabelGroup.children[0] as THREE.Sprite;
+      if (sprite.material) {
+        (sprite.material as THREE.SpriteMaterial).map?.dispose();
+        sprite.material.dispose();
+      }
+      neighborLabelGroup.remove(sprite);
+    }
+  }
+
+  function buildNeighborLabels(nodeId: string) {
+    clearNeighborLabels();
+    const neighborIds = neighborMap.get(nodeId);
+    if (!neighborIds || neighborIds.size === 0) return;
+    for (const nid of neighborIds) {
+      const node = nodes.find((n) => n.id === nid);
+      if (!node || node.x == null) continue;
+      const name = node.name || node.id;
+      if (name.length > 40) continue;
+      const sprite = createTextSprite(name, 1, 96);
+      sprite.position.set(node.x, (node.y || 0) + 10, node.z || 0);
+      (sprite as any)._neighborId = nid;
+      (sprite as any)._neighborUrl = node.url || "";
+      neighborLabelGroup.add(sprite);
+    }
+  }
+
   // ── 11. 路径查找 ──
   function clearOldPathState() {
     pathNodeIds = null; pathStepIndex = -1;
+    clearNeighborLabels();
     if (pathOverlayGroup) {
       while (pathOverlayGroup.children.length > 0) {
         const child = pathOverlayGroup.children[0] as THREE.Mesh;
@@ -608,6 +644,20 @@ export function init3d(graphData: GraphData) {
       }
     }
 
+    // 邻居大字标签：屏幕空间恒定大小（每帧更新）
+    if (neighborLabelGroup.children.length > 0) {
+      const fovRad = ctx.camera.fov * Math.PI / 180;
+      const targetFraction = 0.04; // 占屏幕高度 4%
+      for (const child of neighborLabelGroup.children) {
+        const sprite = child as THREE.Sprite;
+        const dist = ctx.camera.position.distanceTo(sprite.position);
+        const worldH = Math.max(0.1, 2 * dist * Math.tan(fovRad / 2) * targetFraction);
+        const curScale = sprite.scale;
+        const aspect = curScale.y > 0 ? curScale.x / curScale.y : 1;
+        sprite.scale.set(worldH * aspect, worldH, 1);
+      }
+    }
+
     // 飞船模式（独立控制，不与 OrbitControls 冲突）
     if (isFlyMode) {
       flyLoop();
@@ -617,6 +667,39 @@ export function init3d(graphData: GraphData) {
 
     ctx.renderer.render(ctx.scene, ctx.camera);
   }
+
+  // ── 13b. 邻居大字标签点击/右键（独立 Raycaster，在节点交互之前注册）──
+  const spriteRaycaster = new THREE.Raycaster();
+  const spriteMouse = new THREE.Vector2();
+
+  function hitTestNeighborSprite(event: MouseEvent): THREE.Sprite | null {
+    if (neighborLabelGroup.children.length === 0) return null;
+    const rect = ctx.renderer.domElement.getBoundingClientRect();
+    spriteMouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    spriteMouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+    spriteRaycaster.setFromCamera(spriteMouse, ctx.camera);
+    const hits = spriteRaycaster.intersectObjects(neighborLabelGroup.children);
+    return hits.length > 0 ? (hits[0].object as THREE.Sprite) : null;
+  }
+
+  // 左键 → 打开邻居 URL
+  ctx.renderer.domElement.addEventListener("click", (event: MouseEvent) => {
+    const sprite = hitTestNeighborSprite(event);
+    if (sprite && (sprite as any)._neighborUrl) {
+      event.stopImmediatePropagation();
+      window.open((sprite as any)._neighborUrl, "_blank");
+    }
+  });
+
+  // 右键 → 聚焦邻居节点
+  ctx.renderer.domElement.addEventListener("contextmenu", (event: MouseEvent) => {
+    const sprite = hitTestNeighborSprite(event);
+    if (sprite && (sprite as any)._neighborId) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      focusNodeById((sprite as any)._neighborId);
+    }
+  });
 
   // ── 14. 交互事件 ──
   const tooltip = createTooltip();
@@ -735,6 +818,7 @@ export function init3d(graphData: GraphData) {
     refreshAllNodeColors();
     buildOverlay(id, 0xffdd44);
     updateNeighborPanel(id);
+    buildNeighborLabels(id);
     const node = nodes.find((n) => n.id === id);
     if (node && node.x != null) {
       const pad = Math.max(100, (degreeMap[id] || 0) * 5);
@@ -753,7 +837,7 @@ export function init3d(graphData: GraphData) {
 
   function clearHighlights() {
     highlightedSet.clear();
-    if (focusedId) { focusedId = null; updateNeighborPanel(null); buildOverlay(null, 0xffffff); }
+    if (focusedId) { focusedId = null; updateNeighborPanel(null); buildOverlay(null, 0xffffff); clearNeighborLabels(); }
     refreshAllNodeColors();
   }
 

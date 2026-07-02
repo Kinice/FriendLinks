@@ -70,7 +70,7 @@ export function extractAnchors(html: string, excludeHost: string): Array<{ t: st
  * @param onPwEnd   可选，Playwright 页面关闭后调用（eg. 释放信号量）
  */
 export async function fetchPage(
-  context: BrowserContext,
+  context: BrowserContext | null,
   url: string,
   logs: string[],
   label: string,

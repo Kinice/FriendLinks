@@ -84,15 +84,14 @@ export function getEmissiveColor(baseHex: string, intensity: number): string {
  * 用 Canvas 2D 渲染文字，生成 THREE.Sprite
  * 纯系统字体，零外部依赖，自动 billboarding
  */
-export function createTextSprite(text: string): THREE.Sprite {
+export function createTextSprite(text: string, worldHeight = 5, fontSize = 48): THREE.Sprite {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d")!;
-  const fontSize = 48;
 
   ctx.font = `${fontSize}px sans-serif`;
   const m = ctx.measureText(text);
-  const pw = 12;
-  const ph = 6;
+  const pw = fontSize * 0.25;
+  const ph = fontSize * 0.125;
   canvas.width = Math.max(2, Math.ceil(m.width + pw * 2));
   canvas.height = Math.max(2, Math.ceil(fontSize * 1.3 + ph * 2));
 
@@ -115,7 +114,7 @@ export function createTextSprite(text: string): THREE.Sprite {
   });
 
   const sprite = new THREE.Sprite(mat);
-  const h = 5; // world-unit height
+  const h = worldHeight;
   sprite.scale.set(h * (canvas.width / canvas.height), h, 1);
   sprite.renderOrder = 999;
 

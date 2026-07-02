@@ -35,8 +35,8 @@ const BG_COLOR = 0x0f1115;
 export function createRenderer(container: HTMLElement, nodeCount: number, linkCount: number): RenderContext {
   const { width, height } = container.getBoundingClientRect();
 
-  // Camera
-  const camera = new THREE.PerspectiveCamera(55, width / height, 10, 50000);
+  // Camera（far=200k 配合 maxDistance 10x，支持极远视野俯瞰博客宇宙）
+  const camera = new THREE.PerspectiveCamera(55, width / height, 10, 200000);
   camera.position.set(0, 0, 1000);
 
   // Renderer
@@ -55,7 +55,7 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
   controls.enableDamping = true;
   controls.dampingFactor = 0.08;
   controls.minDistance = 20;
-  controls.maxDistance = 20000;
+  controls.maxDistance = 200000;
   controls.zoomSpeed = 1.5;
   controls.minPolarAngle = 0;
   controls.maxPolarAngle = Math.PI * 2; // 上下贯通旋转
