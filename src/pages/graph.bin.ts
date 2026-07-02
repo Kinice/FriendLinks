@@ -154,8 +154,7 @@ export async function GET() {
     target: typeof l.target === "string" ? l.target : (l as any).target,
   }));
 
-  // ── 稀疏巨型星系 ──
-  // theta=0 → 精确 N-body（O(n²)），无 Barnes-Hut 近似，最高精度
+  // ── 稀疏巨型星系（53k 节点优化）──
   const REPULSION = 3000;
   const LINK_DISTANCE = 500;
   const CENTER_STRENGTH = 0.005;
@@ -168,16 +167,16 @@ export async function GET() {
     )
     .force("charge", forceManyBody().strength(-REPULSION).theta(0.3))
     .force("center", forceCenter(0, 0, 0).strength(CENTER_STRENGTH))
-    .alphaDecay(0.003)
+    .alphaDecay(0.01)
     .velocityDecay(0.35);
 
   printProgress("❷", `力导仿真就绪 · ${nodes.length} 节点 · θ=0.3 高精Barnes-Hut · 斥力${REPULSION}`, 100);
   printDone(`图构建完成 · ${nodes.length} 节点 · ${linksArr.length} 边`);
 
   const FAST = import.meta.env.DEV || !!process.env.MINIBUILD;
-  const TICKS = FAST ? 150 : 800;
-  const TICK_LOG = FAST ? 5 : 20;
-  sim.alphaMin(FAST ? 0.03 : 0.001);
+  const TICKS = FAST ? 150 : 200;
+  const TICK_LOG = FAST ? 5 : 10;
+  sim.alphaMin(FAST ? 0.03 : 0.05);
   const alphaMin = sim.alphaMin();
   let actualTicks = 0;
   for (let i = 0; i < TICKS; i++) {
