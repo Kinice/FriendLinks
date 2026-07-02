@@ -154,7 +154,7 @@ export async function GET() {
     target: typeof l.target === "string" ? l.target : (l as any).target,
   }));
 
-  // ── Vercel 适配：30k 节点每 tick ~60s，超时 20min → 最多 15 tick ──
+  // ── Vercel 时间驱动：14 分钟上限，能跑多少 tick 跑多少 ──
   const REPULSION = 3000;
   const LINK_DISTANCE = 500;
   const CENTER_STRENGTH = 0.005;
@@ -167,31 +167,34 @@ export async function GET() {
     )
     .force("charge", forceManyBody().strength(-REPULSION).theta(0.8))
     .force("center", forceCenter(0, 0, 0).strength(CENTER_STRENGTH))
-    .alphaDecay(0.12)
+    .alphaDecay(0.02)
     .velocityDecay(0.35);
 
-  printProgress("❷", `力导仿真就绪 · ${nodes.length} 节点 · θ=0.8 · 15 tick · 斥力${REPULSION}`, 100);
+  printProgress("❷", `力导仿真就绪 · ${nodes.length} 节点 · θ=0.8 · 14min 上限 · 斥力${REPULSION}`, 100);
   printDone(`图构建完成 · ${nodes.length} 节点 · ${linksArr.length} 边`);
 
   const FAST = import.meta.env.DEV || !!process.env.MINIBUILD;
-  const TICKS = FAST ? 100 : 15;
-  const TICK_LOG = FAST ? 5 : 3;
-  sim.alphaMin(FAST ? 0.03 : 0.005);
+  const TICKS_MAX = FAST ? 100 : 500;
+  const TICK_LOG = FAST ? 5 : 10;
+  const TIME_LIMIT_MS = FAST ? 30000 : 14 * 60 * 1000; // 14 分钟
+  const t0 = performance.now();
+  sim.alphaMin(FAST ? 0.03 : 0.001);
   const alphaMin = sim.alphaMin();
   let actualTicks = 0;
-  for (let i = 0; i < TICKS; i++) {
+  let stoppedByTime = false;
+  for (let i = 0; i < TICKS_MAX; i++) {
     sim.tick();
     actualTicks++;
-    if (i % TICK_LOG === 0) {
-      printTick(i + 1, TICKS, sim.alpha(), nodes.length);
+    const elapsed = performance.now() - t0;
+    if (i % TICK_LOG === 0 || elapsed > TIME_LIMIT_MS - 30000) {
+      printTick(i + 1, -1, sim.alpha(), nodes.length);
     }
     if (sim.alpha() < alphaMin) break;
-  }
-  if (actualTicks % TICK_LOG !== 1) {
-    printTick(actualTicks, TICKS, sim.alpha(), nodes.length);
+    if (elapsed > TIME_LIMIT_MS) { stoppedByTime = true; break; }
   }
   sim.stop();
-  printDone(`力导仿真完成 · ${actualTicks} tick · α=${sim.alpha().toFixed(4)}`);
+  const totalSec = ((performance.now() - t0) / 1000).toFixed(1);
+  printDone(`力导仿真完成 · ${actualTicks} tick · ${totalSec}s${stoppedByTime ? " (时间上限)" : ""}`);
 
   // ── 列式紧凑输出（含预计算 3D 位置） ─────────────────────────
   const nid: string[] = [];
