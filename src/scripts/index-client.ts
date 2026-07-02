@@ -138,6 +138,7 @@ type SearchResult = { id: string; name: string; url?: string };
   }
 
   if (input) {
+    let searchTimer: ReturnType<typeof setTimeout> | null = null;
     input.addEventListener("input", (ev: Event) => {
       const target = ev.target as HTMLInputElement | null;
       const v = target && target.value ? target.value.trim() : "";
@@ -154,23 +155,28 @@ type SearchResult = { id: string; name: string; url?: string };
         }
       } catch {}
       if (!v) {
+        if (searchTimer) { clearTimeout(searchTimer); searchTimer = null; }
         render([]);
         return;
       }
-      try {
-        clearLocalQueryParam();
-      } catch {}
-      try {
-        const list: SearchResult[] =
-          controller && (controller as any).find
-            ? (controller as any).find(v)
-            : window.__graphApi && window.__graphApi.find
-              ? window.__graphApi.find(v)
-              : [];
-        render((list || []).slice(0, 12));
-      } catch (err) {
-        console.error(err);
-      }
+      if (searchTimer) clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        searchTimer = null;
+        try {
+          clearLocalQueryParam();
+        } catch {}
+        try {
+          const list: SearchResult[] =
+            controller && (controller as any).find
+              ? (controller as any).find(v)
+              : window.__graphApi && window.__graphApi.find
+                ? window.__graphApi.find(v)
+                : [];
+          render((list || []).slice(0, 12));
+        } catch (err) {
+          console.error(err);
+        }
+      }, 150);
     });
   }
 
