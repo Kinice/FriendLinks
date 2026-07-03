@@ -9,6 +9,7 @@ export const WHITELIST_DOMAINS: string[] = [
   "blogfinder.cc",
   "blogscn.com",
   "bkld.me",
+  "blogsclub.org",
 	  "blogs.hn",
 	  // Fediring — Fediverse 个人站点 webring
 	  "fediring.net",
