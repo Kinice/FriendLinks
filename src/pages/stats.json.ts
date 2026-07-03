@@ -117,7 +117,38 @@ export async function GET() {
   }
   offsets[n] = cursor;
 
-  // 找连通分量（TS 一次遍历，O(n+m)，够快无需 Rust）
+  printProgress("❸", `全量 ${n} 节点, Rust bfsAll…`, 85);
+
+  const startBfs = performance.now();
+
+  // Rust bfsAll: 对所有节点做全量 BFS
+  const { results: bfsResults } = bfsAll(
+    Array.from(adjFlat),
+    Array.from(offsets),
+    n,
+  );
+
+  // 聚合距离分布
+  const degreeDist: Record<number, number> = {};
+  let maxDist = 0;
+  for (const r of bfsResults) {
+    for (let d = 1; d < r.distances.length; d++) {
+      if (r.distances[d] > 0) {
+        const dist = r.distances[d];
+        degreeDist[dist] = (degreeDist[dist] || 0) + 1;
+        if (dist > maxDist) maxDist = dist;
+      }
+    }
+  }
+  // 除以 2：每对 (a,b) 被双方各计数一次
+  for (const d of Object.keys(degreeDist)) {
+    degreeDist[Number(d)] = Math.round(degreeDist[Number(d)] / 2);
+  }
+
+  const bfsElapsed = ((performance.now() - startBfs) / 1000).toFixed(1);
+  printProgress("❸", `Rust BFS 完成 in ${bfsElapsed}s`, 95);
+
+  // 连通分量统计
   const comp = new Int32Array(n).fill(-1);
   const compSizes: number[] = [];
   let compId = 0;
@@ -137,77 +168,20 @@ export async function GET() {
     compId++;
   }
 
-  // 取最大分量
-  const mainCompId = compSizes.indexOf(Math.max(...compSizes));
-  const mainNodes: number[] = [];
-  for (let i = 0; i < n; i++) if (comp[i] === mainCompId) mainNodes.push(i);
-  const M = mainNodes.length;
-
-  // 构建主分量子图的 CSR（仅含主分量节点）
-  const mainIdxToGlobal = new Uint32Array(mainNodes);
-  const mainGlobalToIdx = new Int32Array(n).fill(-1);
-  for (let i = 0; i < M; i++) mainGlobalToIdx[mainNodes[i]] = i;
-
-  let mainEdges = 0;
-  for (const u of mainNodes)
-    for (const v of adj[u])
-      if (mainGlobalToIdx[v] !== -1) mainEdges++;
-  const mainAdj = new Uint32Array(mainEdges);
-  const mainOffsets = new Uint32Array(M + 1);
-  let cur = 0;
-  for (let i = 0; i < M; i++) {
-    mainOffsets[i] = cur;
-    const u = mainNodes[i];
-    for (const v of adj[u]) {
-      const vi = mainGlobalToIdx[v];
-      if (vi !== -1) mainAdj[cur++] = vi;
-    }
-  }
-  mainOffsets[M] = cur;
-
-  printProgress("❸", `主分量 ${M}/${n} 节点, Rust bfsAll…`, 85);
-
-  const startBfs = performance.now();
-
-  // Rust bfsAll: 对主分量所有节点做全量 BFS
-  const { results: mainBfsResults } = bfsAll(
-    Array.from(mainAdj),
-    Array.from(mainOffsets),
-    M,
-  );
-
-  // 聚合距离分布
-  const degreeDist: Record<number, number> = {};
-  let maxDist = 0;
-  for (const r of mainBfsResults) {
-    for (let d = 1; d < r.distances.length; d++) {
-      if (r.distances[d] > 0) {
-        const dist = r.distances[d];
-        degreeDist[dist] = (degreeDist[dist] || 0) + 1;
-        if (dist > maxDist) maxDist = dist;
-      }
-    }
-  }
-  // 除以 2：每对 (a,b) 被双方各计数一次
-  for (const d of Object.keys(degreeDist)) {
-    degreeDist[Number(d)] = Math.round(degreeDist[Number(d)] / 2);
-  }
-
-  const bfsElapsed = ((performance.now() - startBfs) / 1000).toFixed(1);
-  printProgress("❸", `Rust BFS 完成 in ${bfsElapsed}s`, 95);
+  const mainComponentSize = Math.max(...compSizes);
 
   const intermediateDist: Record<number, number> = {};
   for (const [d, cnt] of Object.entries(degreeDist)) intermediateDist[Number(d) - 1] = cnt;
 
   const sixDegreeStats = {
     totalNodes: n,
-    mainComponentSize: M,
+    mainComponentSize: mainComponentSize,
     componentCount: compId,
     maxEdgeDistance: maxDist,
     maxIntermediateVertices: maxDist - 1,
     edgeDistanceDistribution: degreeDist,
     intermediateVertexDistribution: intermediateDist,
-    totalPairsConsidered: (mainNodes.length * (mainNodes.length - 1)) / 2,
+    totalPairsConsidered: (n * (n - 1)) / 2,
   };
 
   printProgress("❸", "六度分隔完成", 100);
