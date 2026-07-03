@@ -6,5 +6,3 @@
   'friends':
     - 'name': '一言网 提供一句话服务'
       'url': 'https://hitokoto.cn/'
-    - 'name': 'Artitalk.js 基于 LeanCloud'
-      'url': 'https://artitalk.js.org/'

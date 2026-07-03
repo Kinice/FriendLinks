@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'HotACG'
       'url': 'https://www.hotacg.com/'
-    - 'name': 'pixiv壁纸'
-      'url': 'https://bobopic.com/'
     - 'name': '趣搜呀'
       'url': 'https://qusoya.com'
     - 'name': 'Cosplay'

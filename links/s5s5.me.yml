@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'rsync'
       'url': 'https://rsync.samba.org/'
-    - 'name': 'SQLite'
-      'url': 'https://www.sqlite.org/'
     - 'name': 'Drizzle'
       'url': 'https://orm.drizzle.team/'
     - 'name': 'Better Auth'
@@ -16,8 +14,6 @@
       'url': 'https://www.debian.org/'
     - 'name': 'CircleCI'
       'url': 'https://circleci.com/'
-    - 'name': 'Cypress'
-      'url': 'https://www.cypress.io/'
     - 'name': 'Koa2'
       'url': 'https://koajs.com/'
     - 'name': 'Datadog'

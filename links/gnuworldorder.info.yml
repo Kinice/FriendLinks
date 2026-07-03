@@ -166,8 +166,6 @@
       'url': 'http://xiph.org'
     - 'name': 'sudo'
       'url': 'https://www.sudo.ws/'
-    - 'name': 'SQLite'
-      'url': 'http://sqlite.org'
     - 'name': 'SomaFM'
       'url': 'http://somafm.com/'
     - 'name': 'SBopkg'

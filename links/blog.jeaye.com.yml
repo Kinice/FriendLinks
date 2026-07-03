@@ -18,8 +18,6 @@
       'url': 'http://bsonspec.org/'
     - 'name': 'Onyx'
       'url': 'http://www.onyxplatform.org/'
-    - 'name': 'Let’s Encrypt'
-      'url': 'https://letsencrypt.org/'
     - 'name': 'Unity3D'
       'url': 'http://madewith.unity.com/'
     - 'name': 'SBo'

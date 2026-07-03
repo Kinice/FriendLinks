@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'modules'
       'url': 'https://raku.land'
-    - 'name': 'htmx'
-      'url': 'https://htmx.org'
     - 'name': 'Åir'
       'url': 'https://harcstack.org'
     - 'name': 'picocss'

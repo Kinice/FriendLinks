@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'semver'
-      'url': 'https://semver.org/'
     - 'name': 'Xiaoying Riley'
       'url': 'https://themes.3rdwavemedia.com'

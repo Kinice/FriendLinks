@@ -1,8 +1,0 @@
-'site':
-  'name': 'lifebaiwei.com'
-  'url': 'http://www.lifebaiwei.com/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': '2026美加墨世界杯中国认证平台'
-      'url': 'https://www.guangxukeji.com'

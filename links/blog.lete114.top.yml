@@ -6,8 +6,6 @@
   'friends':
     - 'name': '小康博客'
       'url': 'https://www.antmoe.com'
-    - 'name': 'Seeker'
-      'url': 'https://snow.js.org'
     - 'name': '神邸 - Zendee.cn'
       'url': 'https://www.zendee.cn'
     - 'name': 'MiChong'

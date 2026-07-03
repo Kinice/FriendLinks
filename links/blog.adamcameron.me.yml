@@ -6,7 +6,5 @@
   'friends':
     - 'name': 'Lovable'
       'url': 'https://lovable.dev/'
-    - 'name': 'Supabase'
-      'url': 'https://supabase.com/'
     - 'name': 'Claudia'
       'url': 'https://claude.ai/'

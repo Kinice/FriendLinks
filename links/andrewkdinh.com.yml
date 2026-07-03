@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Homepage'
-      'url': 'https://openssl.org'
     - 'name': 'Nextcloud'
       'url': 'https://nextcloud.com/'
     - 'name': 'Homepage'

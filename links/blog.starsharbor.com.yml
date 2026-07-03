@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'BlogFinder'
       'url': 'https://bf.zzxworld.com/'
-    - 'name': 'Solitude'
-      'url': 'https://solitude.js.org/'
     - 'name': '杜老师说'
       'url': 'https://dusays.com/'
     - 'name': '张洪Heo'

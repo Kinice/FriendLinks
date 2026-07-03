@@ -1,8 +1,0 @@
-'site':
-  'name': 'docusaurus.io'
-  'url': 'https://docusaurus.io/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'Try a Demo'
-      'url': 'https://docusaurus.new'

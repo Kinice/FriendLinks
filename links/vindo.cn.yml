@@ -1,8 +1,0 @@
-'site':
-  'name': '静观小窗'
-  'url': 'https://vindo.cn/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': 'Artalk'
-      'url': 'https://artalk.js.org'

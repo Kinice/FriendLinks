@@ -10,8 +10,6 @@
       'url': 'https://capnproto.org/'
     - 'name': 'Protocol Buffers'
       'url': 'https://protobuf.dev/'
-    - 'name': 'Socket.io'
-      'url': 'https://socket.io/'
     - 'name': 'Jimmy Fungus'
       'url': 'http://jimmyfungus.com'
     - 'name': 'Khoi'

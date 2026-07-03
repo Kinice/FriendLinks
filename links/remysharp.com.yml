@@ -22,7 +22,5 @@
       'url': 'http://visual6502.org'
     - 'name': 'adactio.com'
       'url': 'http://adactio.com'
-    - 'name': 'Socket.IO'
-      'url': 'http://Socket.IO'
     - 'name': 'MIT license'
       'url': 'http://rem.mit-license.org'

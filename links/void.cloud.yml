@@ -6,10 +6,6 @@
   'friends':
     - 'name': 'Vite+'
       'url': 'https://viteplus.dev'
-    - 'name': 'Vite'
-      'url': 'https://vite.dev'
-    - 'name': 'Vitest'
-      'url': 'https://vitest.dev'
     - 'name': 'Rolldown'
       'url': 'https://rolldown.rs'
     - 'name': 'Oxc'

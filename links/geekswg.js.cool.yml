@@ -4,8 +4,6 @@
   'url': 'https://geekswg.js.cool/'
   'links': '/friends'
   'friends':
-    - 'name': '了解更多'
-      'url': 'https://www.cookiesandyou.com'
     - 'name': '影视'
       'url': 'https://libretv.geekswg.dpdns.org/'
     - 'name': 'Blog-342901.xyz'

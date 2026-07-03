@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Let''s Encrypt'
-      'url': 'https://letsencrypt.org/'
     - 'name': 'LinuxTag 2011'
       'url': 'http://www.linuxtag.org'

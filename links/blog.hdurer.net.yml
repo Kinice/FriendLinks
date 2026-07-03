@@ -6,7 +6,5 @@
   'friends':
     - 'name': 'StartCom'
       'url': 'https://www.startssl.com/'
-    - 'name': 'LetEncrypt'
-      'url': 'https://letsencrypt.org/'
     - 'name': 'QuietPC.com'
       'url': 'https://www.quietpc.com/'

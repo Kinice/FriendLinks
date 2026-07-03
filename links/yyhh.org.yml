@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'GraalVM'
       'url': 'https://www.graalvm.org/'
-    - 'name': 'Let''s Encrypt'
-      'url': 'https://letsencrypt.org/'
     - 'name': 'my startup'
       'url': 'https://juji.io'
     - 'name': 'Netlify CMS'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links.html'
   'friends':
-    - 'name': '必应壁纸'
-      'url': 'https://bimg.cc/'
     - 'name': '张洪 Heo 分享设计与科技生活'
       'url': 'https://blog.zhheo.com/'
     - 'name': 'Leonus 进一寸有进一寸的欢喜'

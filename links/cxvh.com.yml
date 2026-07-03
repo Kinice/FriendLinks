@@ -10,8 +10,6 @@
       'url': 'https://loading.io/'
     - 'name': 'jsDelivr'
       'url': 'https://www.jsdelivr.com/'
-    - 'name': 'unpkg'
-      'url': 'https://www.unpkg.com/'
     - 'name': 'XMind'
       'url': 'https://www.xmind.cn/'
     - 'name': 'Axure'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/friends'
   'friends':
-    - 'name': '了解更多'
-      'url': 'https://www.cookiesandyou.com'
     - 'name': '@Lruihao'
       'url': 'https://lruihao.cn'
     - 'name': '@Moyuyanli'

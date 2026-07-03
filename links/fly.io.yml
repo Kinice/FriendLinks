@@ -24,8 +24,6 @@
       'url': 'https://www.beam.cloud'
     - 'name': 'Imbue'
       'url': 'https://imbue.com'
-    - 'name': 'Supabase'
-      'url': 'https://supabase.com'
     - 'name': 'Webhound'
       'url': 'https://www.webhound.ai'
     - 'name': 'Hercules'

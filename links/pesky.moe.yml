@@ -108,8 +108,6 @@
       'url': 'https://espargos.net/'
     - 'name': 'Polaris'
       'url': 'https://pola.rs/'
-    - 'name': 'SQLite'
-      'url': 'https://www.sqlite.org/'
     - 'name': 'Prime Pointe Industrial Park'
       'url': 'http://www.primepointepark.com/'
     - 'name': 'neal.fun'

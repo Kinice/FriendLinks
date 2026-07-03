@@ -2,11 +2,9 @@
   'name': 'blog.dogxi.me'
   'url': 'https://blog.dogxi.me/'
   'description': '友情链接'
-  'links': '/about'
+  'links': '/friends'
   'friends':
-    - 'name': 'Vite'
-      'url': 'https://vite.dev/'
-    - 'name': 'Bun'
-      'url': 'https://bun.sh/'
-    - 'name': 'Godot'
-      'url': 'https://godotengine.org/'
+    - 'name': 'Viki 写东西的地方'
+      'url': 'https://blog.viki.moe'
+    - 'name': "luckixf的blog"
+      'url': 'https://blog.luckixf.top'

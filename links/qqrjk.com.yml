@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '世界杯直播'
-      'url': 'https://qiujin.com/'
     - 'name': '免费寻人'
       'url': 'https://www.xunren.la'
     - 'name': '剑客网'

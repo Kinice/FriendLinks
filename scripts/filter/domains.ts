@@ -221,4 +221,12 @@ export const NON_BLOG_DOMAINS: string[] = [
   "amblethroughbramble.com", "basarrate.com", "a-mantailors.com",
   "arsrna.cn", "arirs.cn", "serverless.com", "edgeone.ai", "elysiajs.com",
   "autoexpo-auto.com", "in-en.com", "solarenpv.com", "intertextilexpo.com", "cdz-z.cn", "qp-z.cn", "fz-e.cn", "hqew.com", "epwho.com", "china-nengyuan.com", "bpsa.org.cn", "cyh168.cn", "qc188.com", "ecf-gov.com",
+  "baoyinyp.com", "sujiazhuang.com", "lyhhq.com", "guangxukeji.com",
+  "bdqiuxue.com", "lihaity.com",
+  "bersella-ai.cc", "victoriametrics.com",
+  "bizhi88.com", "yutu.cn", "qianye88.com", "bizhi66.com",
+  "vite.dev", "bun.sh", "godotengine.org", "lodash.com",
+  "solidjs.com", "qwik.dev", "eleventy.dev", "preactjs.com", "alpinejs.dev", "htmx.org", "unocss.dev", "postcss.org", "sass-lang.com", "lesscss.org", "babeljs.io", "swc.rs", "biomejs.dev", "prettier.io", "pinia.vuejs.org", "vue-router.vuejs.org", "vitest.dev", "playwright.dev", "cypress.io", "storybook.js.org", "nx.dev", "turborepo.dev", "changesets.dev", "semver.org", "nvm.sh", "nvm-windows.github.io", "openjdk.org", "jdk.java.net", "gradle.org", "maven.apache.org", "ant.apache.org", "tomcat.apache.org", "nginx.org", "apache.org", "letsencrypt.org", "certbot.eff.org", "openssl.org", "gnupg.org", "git-scm.com", "github.com", "gitlab.com", "bitbucket.org", "sourceforge.net", "codeberg.org", "launchpad.net",
+  "bulma.io", "ant.design", "element-plus.org", "rollupjs.org", "parceljs.org", "jestjs.io", "expressjs.com", "fastify.dev", "socket.io", "graphql.org", "trpc.io", "grpc.io", "sqlite.org", "supabase.com", "terraform.io", "docusaurus.io", "vitepress.dev", "vuetifyjs.com", "quasar.dev", "naiveui.com",
+  "unpkg.com", "cdn.jsdelivr.net", "cdnjs.cloudflare.com", "esm.sh", "skypack.dev", "bundle.run", "jspm.io", "cdn.staticfile.org", "cdn.bootcdn.net", "cdnjs.com", "registry.npmjs.org", "npm.taobao.org",
 ];

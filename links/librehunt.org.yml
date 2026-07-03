@@ -9,8 +9,6 @@
     - 'name': 'Website'
       'url': 'https://kernel.org/'
     - 'name': 'Website'
-      'url': 'https://letsencrypt.org/'
-    - 'name': 'Website'
       'url': 'https://distrowatch.com/'
     - 'name': 'Website'
       'url': 'https://www.ibo.org/'

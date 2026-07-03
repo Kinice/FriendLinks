@@ -1,8 +1,0 @@
-'site':
-  'name': 'xinyuu.cn'
-  'url': 'https://www.xinyuu.cn/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': 'Docusaurus'
-      'url': 'https://docusaurus.io'

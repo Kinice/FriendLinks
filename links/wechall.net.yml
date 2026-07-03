@@ -28,7 +28,5 @@
       'url': 'http://google-gruyere.appspot.com/'
     - 'name': 'Hashcat: hash cracker supporting multiple algorithms.'
       'url': 'http://hashcat.net/'
-    - 'name': 'Let''s encrypt - get free SSL/TLS certificates'
-      'url': 'https://letsencrypt.org/'
     - 'name': 'Aperisolve - online tool that automates some basic stegano, like splitting bit p'
       'url': 'https://aperisolve.fr'

@@ -22,5 +22,3 @@
       'url': 'https://brew.sh/'
     - 'name': 'Advent of Code'
       'url': 'https://adventofcode.com/'
-    - 'name': 'Gradle'
-      'url': 'https://gradle.org/'
