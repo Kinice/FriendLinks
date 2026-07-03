@@ -1,6 +1,6 @@
 import { loadSites } from "../utils/load-sites";
 import { printProgress, printDone } from "../utils/progress";
-import { bfsBatch } from "@xingwangzhe/bfs-rs";
+import { bfsMergedHistogram } from "@xingwangzhe/bfs-rs";
 
 function getHost(u: string): string {
   try {
@@ -117,44 +117,18 @@ export async function GET() {
   }
   offsets[n] = cursor;
 
-  printProgress("❸", `全量 ${n} 节点, Rust bfsBatch…`, 85);
+  printProgress("❸", `全量 ${n} 节点, Rust bfsMergedHistogram…`, 85);
 
   const startBfs = performance.now();
-  const BATCH_SIZE = 500;
   const adjArr = Array.from(adjFlat);
   const offArr = Array.from(offsets);
 
-  // 聚合距离分布
+  // Rust 侧一次调用，Mutex 合并全部直方图
+  const merged = bfsMergedHistogram(adjArr, offArr, n);
+
   const degreeDist: Record<number, number> = {};
-  let maxDist = 0;
-  let processedNodes = 0;
-
-  // 分批处理，每批 500 个源节点，避免 O(n²) 内存
-  for (let i = 0; i < n; i += BATCH_SIZE) {
-    const batch = [];
-    for (let j = i; j < Math.min(i + BATCH_SIZE, n); j++) batch.push(j);
-
-    const { results } = bfsBatch(adjArr, offArr, n, batch);
-
-    for (const r of results) {
-      for (let d = 1; d < r.distances.length; d++) {
-        const dist = r.distances[d];
-        if (dist > 0) {
-          degreeDist[dist] = (degreeDist[dist] || 0) + 1;
-          if (dist > maxDist) maxDist = dist;
-        }
-      }
-    }
-
-    processedNodes += batch.length;
-    const pct = 85 + Math.round((processedNodes / n) * 10);
-    const elapsed = ((performance.now() - startBfs) / 1000).toFixed(0);
-    printProgress("❸", `BFS ${processedNodes}/${n} (${elapsed}s)`, pct);
-  }
-
-  // 除以 2：每对 (a,b) 被双方各计数一次
-  for (const d of Object.keys(degreeDist)) {
-    degreeDist[Number(d)] = Math.round(degreeDist[Number(d)] / 2);
+  for (let d = 0; d < merged.histogram.length; d++) {
+    degreeDist[d + 1] = Math.round(merged.histogram[d] / 2);
   }
 
   const bfsElapsed = ((performance.now() - startBfs) / 1000).toFixed(1);
@@ -189,8 +163,8 @@ export async function GET() {
     totalNodes: n,
     mainComponentSize: mainComponentSize,
     componentCount: compId,
-    maxEdgeDistance: maxDist,
-    maxIntermediateVertices: maxDist - 1,
+    maxEdgeDistance: merged.maxDistance,
+    maxIntermediateVertices: merged.maxDistance - 1,
     edgeDistanceDistribution: degreeDist,
     intermediateVertexDistribution: intermediateDist,
     totalPairsConsidered: (n * (n - 1)) / 2,
