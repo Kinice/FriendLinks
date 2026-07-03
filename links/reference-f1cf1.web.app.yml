@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'macOS 应用'
-      'url': 'https://wangchujiang.com/#/app'
     - 'name': 'quickref.cn'
       'url': 'https://quickref.cn'
     - 'name': '78888889.xyz'

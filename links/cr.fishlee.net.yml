@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'macOS 应用'
-      'url': 'https://wangchujiang.com/#/app'
     - 'name': 'hanacloud.site'
       'url': 'https://reference.hanacloud.site'
     - 'name': 'quickref.cn'

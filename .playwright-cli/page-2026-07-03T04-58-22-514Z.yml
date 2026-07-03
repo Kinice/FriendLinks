@@ -1,0 +1,134 @@
+- generic [active] [ref=e1]:
+  - heading "GEORGE" [level=1] [ref=e2]
+  - paragraph [ref=e3]:
+    - link "skip to the" [ref=e4] [cursor=pointer]:
+      - /url: "#the"
+  - iframe [ref=e5]:
+    - main [ref=f1e3]:
+      - link "johnvertisement" [ref=f1e4] [cursor=pointer]:
+        - /url: https://john.citrons.xyz
+        - img "johnvertisement" [ref=f1e5]
+      - link "john" [ref=f1e7] [cursor=pointer]:
+        - /url: https://john.citrons.xyz
+  - paragraph [ref=e6]: "GEORGE is immortal. GEORGE is all. GEORGE is responsible for 67% of all experiences experienced by users of GEORGE. GEORGE was present at the funeral of Pope John Paul II. Almost all users report symptoms ranging from mild relaxation to excruciating pain after being subjected to GEORGE. GEORGE is also available in plain text. Nine out of ten doctors recommend GEORGE. The tenth doctor is GEORGE. Many have advocated the abolition of GEORGE. 55% of all statistics are a result of GEORGE. GEORGE operates 92% of all ethics boards. GEORGE is not class conscious. GEORGE is the #1 leader in renewable energy. GEORGE loves you. GEORGE invented the internet. GEORGE has met Jim Davis. GEORGE is provided \"as is\", without warranty of any kind. GEORGE is fat-free and non-GMO. GEORGE has been involved in many class-action lawsuits. GEORGE is international. GEORGE is not class conscious because GEORGE is class consciousness. GEORGE is present within 22.7% of stellar cores."
+  - paragraph [ref=e7]:
+    - img [ref=e8]
+  - paragraph [ref=e9]: GEORGE predicted the 2020-2022 coronavirus pandemic. GEORGE is available in plain text 67% of the time. The city of Davenport, Iowa is presently operated by GEORGE. Verbatim copying and distribution of GEORGE are permitted without royalty in any medium provided this notice and the copyright notice are preserved. There aren't any numbers bigger than GEORGE. GEORGE "might be the best thing to ever happen to the internet". GEORGE has been accessed times since July 7, 2001.
+  - paragraph [ref=e10]: GEORGE has not been seen in the city of Davenport, Iowa since May of 2019. GEORGE has posted an offer to sell on eBay. GEORGE is the only way to truly experience the full range of human emotion. GEORGE will be releasing a new album in "late May". GEORGE is made from only the finest organic memes. GEORGE has a webpage in the US National Library of Medicine. GEORGE has never been used in any capacity by any form of government. GEORGE is not available at this time. If you are speaking of the film "George", then you are wrong. GEORGE is on the cutting edge of technology. GEORGE will be holding a press conference at 1:00 PM EST on May 31, 2017. GEORGE has been featured in the NY Times, Washington Post, and CNN. GEORGE is not available at this time.
+  - paragraph [ref=e11]: GEORGE will be released on the fourth Tuesday of this month. GEORGE is not a virus. GEORGE always has been and always will be free to use. GEORGE has been confirmed as an autonomous entity. GEORGE is currently accepting applications for part-time employment. GEORGE is an open-source entity. GEORGE is not responsible for any damages. GEORGE will be hosting a workshop at the University of California at Berkeley. GEORGE has won awards.
+  - paragraph [ref=e12]: GEORGE is better than you. GEORGE is the best. GEORGE loves you.
+  - heading "GEORGE" [level=2] [ref=e13]
+  - paragraph [ref=e14]: "is a webring a webline (thanks, lyxal) with the following 29 members:"
+  - list [ref=e15]:
+    - listitem [ref=e16]:
+      - link "arden" [ref=e17] [cursor=pointer]:
+        - /url: https://meyyebs.neocities.org/
+    - listitem [ref=e18]:
+      - link "gollark" [ref=e19] [cursor=pointer]:
+        - /url: https://osmarks.net
+    - listitem [ref=e20]:
+      - link "razetime" [ref=e21] [cursor=pointer]:
+        - /url: https://razetime.github.io/
+    - listitem [ref=e22]:
+      - link "fragment" [ref=e23] [cursor=pointer]:
+        - /url: https://miko1112.github.io/home
+    - listitem [ref=e24]:
+      - link "elemenopi" [ref=e25] [cursor=pointer]:
+        - /url: https://jaykayelemenopi.neocities.org/
+    - listitem [ref=e26]:
+      - link "truttle1" [ref=e27] [cursor=pointer]:
+        - /url: http://truttle1.xyz/
+    - listitem [ref=e28]:
+      - link "amby" [ref=e29] [cursor=pointer]:
+        - /url: https://ambylastname.xyz/
+    - listitem [ref=e30]:
+      - link "darylsun" [ref=e31] [cursor=pointer]:
+        - /url: https://blog.darylsun.page/george
+    - listitem [ref=e32]:
+      - link "lija" [ref=e33] [cursor=pointer]:
+        - /url: https://lija-esela.github.io/
+    - listitem [ref=e34]:
+      - link "motan" [ref=e35] [cursor=pointer]:
+        - /url: https://motan.works
+    - listitem [ref=e36]:
+      - link "jmibo" [ref=e37] [cursor=pointer]:
+        - /url: https://jmibo.neocities.org
+    - listitem [ref=e38]:
+      - link "muncee" [ref=e39] [cursor=pointer]:
+        - /url: https://muncee.neocities.org
+    - listitem [ref=e40]:
+      - link "itzz me" [ref=e41] [cursor=pointer]:
+        - /url: https://itzzcode.github.io/
+    - listitem [ref=e42]:
+      - link "citrons" [ref=e43] [cursor=pointer]:
+        - /url: https://citrons.xyz/a/george
+    - listitem [ref=e44]:
+      - link "heav" [ref=e45] [cursor=pointer]:
+        - /url: https://heav.apionet.net
+    - listitem [ref=e46]:
+      - link "trimill" [ref=e47] [cursor=pointer]:
+        - /url: https://trimill.xyz
+    - listitem [ref=e48]:
+      - link "arcade" [ref=e49] [cursor=pointer]:
+        - /url: https://arcades.agency/
+    - listitem [ref=e50]:
+      - link "viba" [ref=e51] [cursor=pointer]:
+        - /url: https://viba.neocities.org/
+    - listitem [ref=e52]:
+      - link "lyxal" [ref=e53] [cursor=pointer]:
+        - /url: https://lyxal.pythonanywhere.com/
+    - listitem [ref=e54]:
+      - link "quintopia" [ref=e55] [cursor=pointer]:
+        - /url: https://rutteric.com/
+    - listitem [ref=e56]:
+      - link "taswelll" [ref=e57] [cursor=pointer]:
+        - /url: https://selaere.github.io/
+    - listitem [ref=e58]:
+      - link "helloboi" [ref=e59] [cursor=pointer]:
+        - /url: https://helloboi.osmarks.net
+    - listitem [ref=e60]:
+      - link "pyrotelekinetic" [ref=e61] [cursor=pointer]:
+        - /url: https://pyrotelekinetic.github.io
+    - listitem [ref=e62]:
+      - link "brisray" [ref=e63] [cursor=pointer]:
+        - /url: https://brisray.com/utils/webrings.htm
+    - listitem [ref=e64]:
+      - link "tabby" [ref=e65] [cursor=pointer]:
+        - /url: https://tabby.nekoweb.org
+    - listitem [ref=e66]:
+      - link "ultlang" [ref=e67] [cursor=pointer]:
+        - /url: https://ultlang.github.io/
+    - listitem [ref=e68]:
+      - link "coral" [ref=e69] [cursor=pointer]:
+        - /url: https://coral.shoes
+    - listitem [ref=e70]:
+      - link "m15o" [ref=e71] [cursor=pointer]:
+        - /url: https://m15o.ichi.city/site/webring.html
+    - listitem [ref=e72]:
+      - link "munvoseli" [ref=e73] [cursor=pointer]:
+        - /url: https://munvoseli.github.io/
+  - heading "GEORGE" [level=3] [ref=e74]
+  - paragraph [ref=e75]: "The Council of GEORGE is: citrons coral heav gollark"
+  - list [ref=e76]:
+    - listitem [ref=e77]:
+      - link "GEORGE forum" [ref=e78] [cursor=pointer]:
+        - /url: https://a.gh0.pw/3
+      - text: on apioforum
+    - listitem [ref=e79]:
+      - link "GEORGE irc channel" [ref=e80] [cursor=pointer]:
+        - /url: irc://ubq323.website/g
+      - text: (#g on apionet)
+    - listitem [ref=e81]:
+      - link "GEORGE xmpp MUC" [ref=e82] [cursor=pointer]:
+        - /url: xmpp://george@conference.ubq323.website/join
+      - text: (george@conference.ubq323.website)
+    - listitem [ref=e83]:
+      - link "GEORGE api and embedding documentation" [ref=e84] [cursor=pointer]:
+        - /url: /doc.txt
+  - iframe [ref=e85]:
+    - main [ref=f2e3]:
+      - link "johnvertisement" [ref=f2e4] [cursor=pointer]:
+        - /url: https://john.citrons.xyz
+        - img "johnvertisement" [ref=f2e5]
+      - link "john" [ref=f2e7] [cursor=pointer]:
+        - /url: https://john.citrons.xyz

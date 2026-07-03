@@ -1,0 +1,93 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]: Qugalet
+    - generic [ref=e4]:
+      - link "X" [ref=e5] [cursor=pointer]:
+        - /url: https://quga.m0e.space/
+      - link "" [ref=e6] [cursor=pointer]:
+        - /url: /index.xml
+  - main [ref=e7]:
+    - navigation [ref=e9]:
+      - list [ref=e10]:
+        - listitem [ref=e11]:
+          - link "Main page" [ref=e12] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=e13]:
+          - link "Contacts" [ref=e14] [cursor=pointer]:
+            - /url: /contacts/
+        - listitem [ref=e15]:
+          - link "Donate" [ref=e16] [cursor=pointer]:
+            - /url: /donate/
+        - listitem [ref=e17]:
+          - link "Posts" [ref=e18] [cursor=pointer]:
+            - /url: /post/
+        - listitem [ref=e19]:
+          - link "Tags" [ref=e20] [cursor=pointer]:
+            - /url: /tags/
+    - article [ref=e21]:
+      - heading "Contacts" [level=1] [ref=e23]
+      - generic [ref=e24]:
+        - heading "Messengers:" [level=3] [ref=e25]
+        - list [ref=e27]:
+          - listitem [ref=e28]:
+            - text: "Matrix:"
+            - code [ref=e29]: "@qugalet@m0e.space"
+      - generic [ref=e30]:
+        - heading "Social networks:" [level=3] [ref=e31]
+        - generic [ref=e32]:
+          - list [ref=e33]:
+            - listitem [ref=e34]:
+              - text: "Fediverse:"
+              - link "@qugalet@pl.m0e.space" [ref=e35] [cursor=pointer]:
+                - /url: https://pl.m0e.space/qugalet
+            - listitem [ref=e36]:
+              - text: "Youtube:"
+              - link "Qugalet" [ref=e37] [cursor=pointer]:
+                - /url: https://www.youtube.com/channel/UCyPe6wgNpY9OYWaM5Lf8nUg
+          - paragraph [ref=e38]:
+            - text: "Email address:"
+            - code [ref=e39]: qugalet (meow) m0e.space
+      - generic:
+        - 'link "Next: Donate"':
+          - /url: /donate/
+          - generic [ref=e40] [cursor=pointer]:
+            - text: "Next:"
+            - text: Donate
+    - generic [ref=e41]:
+      - navigation [ref=e42]:
+        - list [ref=e43]:
+          - text: "Translations:"
+          - listitem [ref=e44]:
+            - link "Українська" [ref=e45] [cursor=pointer]:
+              - /url: https://quga.m0e.space/ua/contacts/
+      - generic [ref=e46]:
+        - text: fediring
+        - link "random" [ref=e47] [cursor=pointer]:
+          - /url: https://fediring.net/random
+        - link "previous" [ref=e48] [cursor=pointer]:
+          - /url: https://fediring.net/previous?host=quga.m0e.space
+        - link "next" [ref=e49] [cursor=pointer]:
+          - /url: https://fediring.net/next?host=quga.m0e.space
+        - text: buttons
+        - link "praise me sometimes" [ref=e50] [cursor=pointer]:
+          - /url: https://m0e.space
+          - img "praise me sometimes" [ref=e51]
+        - link "praise naiji" [ref=e52] [cursor=pointer]:
+          - /url: https://udongein.xyz
+          - img "praise naiji" [ref=e53]
+        - link "praise foresle" [ref=e54] [cursor=pointer]:
+          - /url: https://opulus.space
+          - img "praise foresle" [ref=e55]
+        - link "fozunja класний тіп. Думайте. Подписаться" [ref=e56] [cursor=pointer]:
+          - /url: https://fozunja.glamour.ovh
+          - img "fozunja класний тіп. Думайте. Подписаться" [ref=e57]
+        - link "powered by fedora" [ref=e58] [cursor=pointer]:
+          - /url: https://fedoraproject.org
+          - img "powered by fedora" [ref=e59]
+        - link "i use arch btw" [ref=e60] [cursor=pointer]:
+          - /url: https://archlinux.org
+          - img "i use arch btw" [ref=e61]
+        - img "Бджільництво України" [ref=e62]
+        - link "join fediverse pls, it's cool" [ref=e63] [cursor=pointer]:
+          - /url: https://joinfediverse.wiki
+          - img "join fediverse pls, it's cool" [ref=e64]

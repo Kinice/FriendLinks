@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'macOS 应用'
-      'url': 'https://wangchujiang.com/#/app'
     - 'name': 'ScreenSage Pro，在 macOS 上几分钟内录制精美的屏幕录像'
       'url': 'https://screensage.pro/'
     - 'name': 'baiyapeng.cc'

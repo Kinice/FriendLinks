@@ -4,10 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'Tools'
-      'url': 'https://dlarpx-tools.cpolar.cn/'
-    - 'name': 'Quick Reference'
-      'url': 'https://dlarpx-qr.cpolar.cn/'
     - 'name': '玖涯博客|童话梦境 - 殇雪的秘密基地 热烈欢迎各位大佬专家莅临玖涯博客指导检查'
       'url': 'https://blog.nineya.com'
     - 'name': '辣椒の酱 后端开发，技术分享'

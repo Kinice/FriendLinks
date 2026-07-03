@@ -1,0 +1,109 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]: Qugalet
+    - generic [ref=e4]:
+      - link "X" [ref=e5] [cursor=pointer]:
+        - /url: https://quga.m0e.space/
+      - link "" [ref=e6] [cursor=pointer]:
+        - /url: /index.xml
+  - main [ref=e7]:
+    - navigation [ref=e9]:
+      - list [ref=e10]:
+        - listitem [ref=e11]:
+          - link "Main page" [ref=e12] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=e13]:
+          - link "Contacts" [ref=e14] [cursor=pointer]:
+            - /url: /contacts/
+        - listitem [ref=e15]:
+          - link "Donate" [ref=e16] [cursor=pointer]:
+            - /url: /donate/
+        - listitem [ref=e17]:
+          - link "Posts" [ref=e18] [cursor=pointer]:
+            - /url: /post/
+        - listitem [ref=e19]:
+          - link "Tags" [ref=e20] [cursor=pointer]:
+            - /url: /tags/
+    - article [ref=e21]:
+      - heading "Main Page" [level=1] [ref=e23]
+      - img "konata happy" [ref=e24]
+      - generic [ref=e25]:
+        - heading "Welcome to my personal place ᕕ( ᐛ )ᕗ" [level=3] [ref=e26]:
+          - text: Welcome to my personal place
+          - code [ref=e27]: ᕕ( ᐛ )ᕗ
+        - generic [ref=e28]:
+          - paragraph [ref=e29]:
+            - text: Hi, qugalet, I'm owner of
+            - link "m0e.space" [ref=e30] [cursor=pointer]:
+              - /url: https://m0e.space
+            - text: instance. I'm learning and practicing JS, C++, trying Go.
+          - paragraph [ref=e31]:
+            - text: Here you can read my thoughts about
+            - strong [ref=e32]: Fediverse
+            - text: ","
+            - strong [ref=e33]: programming
+            - text: ","
+            - strong [ref=e34]: retro consoles
+            - text: and
+            - strong [ref=e35]: games
+            - text: ", probably."
+          - paragraph [ref=e36]:
+            - text: You can find me on
+            - link "Fediverse" [ref=e37] [cursor=pointer]:
+              - /url: https://pl.m0e.space/qugalet
+            - text: ", other contacts stored"
+            - link "here" [ref=e38] [cursor=pointer]:
+              - /url: /contacts
+            - text: .
+          - paragraph [ref=e39]:
+            - text: If you want me to continue my experiments and other things, you can support me
+            - link "financially" [ref=e40] [cursor=pointer]:
+              - /url: /donate
+            - text: .
+          - generic [ref=e41]:
+            - heading "Other Useful links:" [level=4] [ref=e42]
+            - list [ref=e44]:
+              - listitem [ref=e45]:
+                - link "My Github" [ref=e46] [cursor=pointer]:
+                  - /url: https://github.com/Andrmist
+              - listitem [ref=e47]:
+                - link "My Git" [ref=e48] [cursor=pointer]:
+                  - /url: https://git.m0e.space
+    - generic [ref=e49]:
+      - navigation [ref=e50]:
+        - list [ref=e51]:
+          - text: "Translations:"
+          - listitem [ref=e52]:
+            - link "Українська" [ref=e53] [cursor=pointer]:
+              - /url: https://quga.m0e.space/ua/
+      - generic [ref=e54]:
+        - text: fediring
+        - link "random" [ref=e55] [cursor=pointer]:
+          - /url: https://fediring.net/random
+        - link "previous" [ref=e56] [cursor=pointer]:
+          - /url: https://fediring.net/previous?host=quga.m0e.space
+        - link "next" [ref=e57] [cursor=pointer]:
+          - /url: https://fediring.net/next?host=quga.m0e.space
+        - text: buttons
+        - link "praise me sometimes" [ref=e58] [cursor=pointer]:
+          - /url: https://m0e.space
+          - img "praise me sometimes" [ref=e59]
+        - link "praise naiji" [ref=e60] [cursor=pointer]:
+          - /url: https://udongein.xyz
+          - img "praise naiji" [ref=e61]
+        - link "praise foresle" [ref=e62] [cursor=pointer]:
+          - /url: https://opulus.space
+          - img "praise foresle" [ref=e63]
+        - link "fozunja класний тіп. Думайте. Подписаться" [ref=e64] [cursor=pointer]:
+          - /url: https://fozunja.glamour.ovh
+          - img "fozunja класний тіп. Думайте. Подписаться" [ref=e65]
+        - link "powered by fedora" [ref=e66] [cursor=pointer]:
+          - /url: https://fedoraproject.org
+          - img "powered by fedora" [ref=e67]
+        - link "i use arch btw" [ref=e68] [cursor=pointer]:
+          - /url: https://archlinux.org
+          - img "i use arch btw" [ref=e69]
+        - img "Бджільництво України" [ref=e70]
+        - link "join fediverse pls, it's cool" [ref=e71] [cursor=pointer]:
+          - /url: https://joinfediverse.wiki
+          - img "join fediverse pls, it's cool" [ref=e72]

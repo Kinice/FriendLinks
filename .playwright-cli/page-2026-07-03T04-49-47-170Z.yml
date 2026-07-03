@@ -1,0 +1,246 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - heading "Business Listing Directory" [level=1] [ref=e3]
+  - generic [ref=e4]:
+    - generic [ref=e5]: Ad
+    - heading "Contact Us for Business Listings and DR Increase SEO Services" [level=1] [ref=e6]
+    - paragraph [ref=e7]: "Reach us on WhatsApp: +4915755214685 & serpzenith@gmail.com"
+    - generic [ref=e8]:
+      - link "Contact via Gmail" [ref=e9] [cursor=pointer]:
+        - /url: mailto:serpzenith@gmail.com?subject=Business%20Listing%20Inquiry&body=Hello,%20I%20am%20interested%20in%20your%20business%20listing%20services.
+      - link "Contact on WhatsApp" [ref=e10] [cursor=pointer]:
+        - /url: https://wa.me/c/4915755214685
+  - generic [ref=e11]:
+    - heading "Business Listings" [level=2] [ref=e12]
+    - paragraph [ref=e13]: Explore top business listing websites that strengthen your professional network, enhance credibility, and improve online visibility.
+    - list [ref=e14]:
+      - listitem [ref=e15]:
+        - link "openmydoor24" [ref=e16] [cursor=pointer]:
+          - /url: https://openmydoor24.de/
+        - text: – Professioneller Schlüsseldienst und Türöffnungsservice für schnelle Hilfe im Notfall.
+      - listitem [ref=e17]:
+        - link "Cross Aesthetics" [ref=e18] [cursor=pointer]:
+          - /url: https://www.cross-aesthetics.com/
+        - text: – Moderne ästhetische Behandlungen und individuelle Schönheitslösungen.
+      - listitem [ref=e19]:
+        - link "Aristo Uhren" [ref=e20] [cursor=pointer]:
+          - /url: https://www.aristo-uhren.de/
+        - text: – Hochwertige Armbanduhren und traditionsreiche Uhrmacherkunst aus Deutschland.
+      - listitem [ref=e21]:
+        - link "Die Web Experten" [ref=e22] [cursor=pointer]:
+          - /url: https://dieweb-experten.de/
+        - text: – Digitale Lösungen für Webdesign, Entwicklung und Online-Marketing.
+      - listitem [ref=e23]:
+        - link "W-Smile" [ref=e24] [cursor=pointer]:
+          - /url: https://w-smile.de/
+        - text: – Innovative Zahnmedizin und ästhetische Behandlungen für ein gesundes Lächeln.
+      - listitem [ref=e25]:
+        - link "Treppenbau Voss" [ref=e26] [cursor=pointer]:
+          - /url: https://treppenbau-voss.de/
+        - text: – Maßgeschneiderte Treppen aus Holz, Stahl und modernen Materialien.
+      - listitem [ref=e27]:
+        - link "Clean24" [ref=e28] [cursor=pointer]:
+          - /url: https://www.gebaeudereinigung-clean24.de/
+        - text: – Zuverlässige Gebäudereinigung für Privat- und Gewerbekunden.
+      - listitem [ref=e29]:
+        - link "Dachreinigung Talent" [ref=e30] [cursor=pointer]:
+          - /url: https://dachreinigung-talent.de/
+        - text: – Fachgerechte Dachreinigung und nachhaltige Dachpflege.
+      - listitem [ref=e31]:
+        - link "Hochzeits und Event DJ" [ref=e32] [cursor=pointer]:
+          - /url: https://www.hochzeitsundeventdj.com/
+        - text: – Professionelle Musik- und DJ-Dienstleistungen für besondere Anlässe.
+      - listitem [ref=e33]:
+        - link "Kovodirekt" [ref=e34] [cursor=pointer]:
+          - /url: https://www.kovodirekt.de/
+        - text: – Anbieter hochwertiger Produkte und Lösungen für Industrie und Handwerk.
+      - listitem [ref=e35]:
+        - link "KFZTech" [ref=e36] [cursor=pointer]:
+          - /url: https://www.kfztech.de/
+        - text: – Informationen und Dienstleistungen rund um Fahrzeugtechnik und Kfz-Service.
+      - listitem [ref=e37]:
+        - link "Notebookgalerie" [ref=e38] [cursor=pointer]:
+          - /url: https://www.notebookgalerie.de/
+        - text: – Verkauf und Service für Notebooks, Computer und IT-Zubehör.
+      - listitem [ref=e39]:
+        - link "AllBlogThings" [ref=e40] [cursor=pointer]:
+          - /url: https://www.allblogthings.com/
+        - text: – Online-Magazin mit Artikeln zu Technologie, Business und Lifestyle.
+      - listitem [ref=e41]:
+        - link "AllBlogThings" [ref=e42] [cursor=pointer]:
+          - /url: https://allblogthings.com/
+        - text: – Wissensplattform mit aktuellen Beiträgen zu digitalen Themen.
+      - listitem [ref=e43]:
+        - link "Schwan Metternich" [ref=e44] [cursor=pointer]:
+          - /url: https://schwan-metternich.de/
+        - text: – Traditionelles Hotel und Gastronomiebetrieb mit stilvollem Ambiente.
+      - listitem [ref=e45]:
+        - link "Blunch Kitchen" [ref=e46] [cursor=pointer]:
+          - /url: https://www.blunch-kitchen.de/
+        - text: – Restaurant mit kreativen Frühstücks-, Brunch- und Mittagsgerichten.
+      - listitem [ref=e47]:
+        - link "Rohrfrei Schnitzler" [ref=e48] [cursor=pointer]:
+          - /url: https://rohrfrei-schnitzler.com/
+        - text: – Schnelle Rohrreinigung und professionelle Abflussservices.
+      - listitem [ref=e49]:
+        - link "Rainbow Shop" [ref=e50] [cursor=pointer]:
+          - /url: https://www.rainbow-shop.de/
+        - text: – Onlineshop für ausgewählte Produkte und vielfältiges Zubehör.
+      - listitem [ref=e51]:
+        - link "Seniocon" [ref=e52] [cursor=pointer]:
+          - /url: https://seniocon.de/
+        - text: – Dienstleistungen und Beratung für Senioren und Pflegekonzepte.
+      - listitem [ref=e53]:
+        - link "AC SVB" [ref=e54] [cursor=pointer]:
+          - /url: https://ac-svb.de/
+        - text: – Kompetenter Anbieter technischer und handwerklicher Lösungen.
+      - listitem [ref=e55]:
+        - link "Türöffnung München" [ref=e56] [cursor=pointer]:
+          - /url: https://xn--trffnung-mnchen-9sb4hk.de/
+        - text: – 24-Stunden-Schlüsseldienst für Türöffnungen in München.
+      - listitem [ref=e57]:
+        - link "Pizza Tonio Restaurant" [ref=e58] [cursor=pointer]:
+          - /url: https://www.pizzatoniorestaurant.de/
+        - text: – Italienisches Restaurant mit Pizza und mediterranen Spezialitäten.
+      - listitem [ref=e59]:
+        - link "Alex Billards" [ref=e60] [cursor=pointer]:
+          - /url: https://www.alex-billards.de/
+        - text: – Billardzentrum mit Freizeitangeboten und Veranstaltungen.
+      - listitem [ref=e61]:
+        - link "Eden Galabau GmbH" [ref=e62] [cursor=pointer]:
+          - /url: https://www.eden-galabau-gmbh.de/
+        - text: – Professioneller Garten- und Landschaftsbau für private und gewerbliche Projekte.
+      - listitem [ref=e63]:
+        - link "Camperselbstbau" [ref=e64] [cursor=pointer]:
+          - /url: https://camperselbstbau.de/
+        - text: – Informationen und Lösungen für den individuellen Camper-Ausbau.
+      - listitem [ref=e65]:
+        - link "Blink Entrümpelung" [ref=e66] [cursor=pointer]:
+          - /url: https://blink-entruempelung.de/
+        - text: – Schnelle Entrümpelung und Haushaltsauflösungen aus einer Hand.
+      - listitem [ref=e67]:
+        - link "Sachverständigenbüro Seimen" [ref=e68] [cursor=pointer]:
+          - /url: https://sachverstaendigenbuero-seimen.de/
+        - text: – Unabhängige Gutachten und fachkundige Sachverständigendienstleistungen.
+      - listitem [ref=e69]:
+        - link "Fippl Dachtechnik" [ref=e70] [cursor=pointer]:
+          - /url: https://fippl-dachtechnik.de/
+        - text: – Dachdeckerarbeiten, Sanierungen und moderne Dachtechnik.
+      - listitem [ref=e71]:
+        - link "VHI Immobilien" [ref=e72] [cursor=pointer]:
+          - /url: https://vhi-immobilien.de/
+        - text: – Vermittlung und Beratung rund um Immobilien und Wohnobjekte.
+      - listitem [ref=e73]:
+        - link "Verpflegungswelt" [ref=e74] [cursor=pointer]:
+          - /url: https://www.verpflegungswelt.de/
+        - text: – Produkte und Lösungen für Gastronomie und Gemeinschaftsverpflegung.
+      - listitem [ref=e75]:
+        - link "Easy 2 Drive" [ref=e76] [cursor=pointer]:
+          - /url: https://easy-2-drive.de/
+        - text: – Fahrschule mit moderner Ausbildung und individueller Betreuung.
+      - listitem [ref=e77]:
+        - link "Kinetic Switch" [ref=e78] [cursor=pointer]:
+          - /url: https://kinetic-switch.de/
+        - text: – Innovative Technologien und intelligente Schalterlösungen.
+      - listitem [ref=e79]:
+        - link "BK Rohrreinigung" [ref=e80] [cursor=pointer]:
+          - /url: https://www.bk-rohrreinigung.de/
+        - text: – Fachbetrieb für Rohr- und Kanalreinigung sowie Notdienste.
+      - listitem [ref=e81]:
+        - link "Marble Building" [ref=e82] [cursor=pointer]:
+          - /url: https://marble-building.de/
+        - text: – Hochwertige Bau- und Natursteinlösungen für moderne Projekte.
+      - listitem [ref=e83]:
+        - link "JS Bikes" [ref=e84] [cursor=pointer]:
+          - /url: https://www.js-bikes.de/
+        - text: – Fahrräder, Zubehör und professioneller Reparaturservice.
+      - listitem [ref=e85]:
+        - link "Gante Elektro" [ref=e86] [cursor=pointer]:
+          - /url: https://gante-elektro.de/
+        - text: – Elektroinstallationen und moderne Energielösungen für Gebäude.
+      - listitem [ref=e87]:
+        - link "XMedia Designs" [ref=e88] [cursor=pointer]:
+          - /url: https://xmedia-designs.de/
+        - text: – Kreative Webdesign- und Grafiklösungen für Unternehmen.
+      - listitem [ref=e89]:
+        - link "Quantec Industrieboden" [ref=e90] [cursor=pointer]:
+          - /url: https://www.quantec-industrieboden.de/
+        - text: – Spezialist für langlebige Industrieboden- und Beschichtungssysteme.
+      - listitem [ref=e91]:
+        - link "Rümpel Böhmert" [ref=e92] [cursor=pointer]:
+          - /url: https://www.ruempel-boehmert.de/
+        - text: – Professionelle Entrümpelung und fachgerechte Haushaltsauflösung.
+      - listitem [ref=e93]:
+        - link "Tattoo For You" [ref=e94] [cursor=pointer]:
+          - /url: https://www.tattooforyou.de/
+        - text: – Tattoo-Studio mit individuellen Designs und kreativer Beratung.
+      - listitem [ref=e95]:
+        - link "HMS Technik" [ref=e96] [cursor=pointer]:
+          - /url: https://www.hms-technik.de/
+        - text: – Technische Dienstleistungen und innovative Systemlösungen.
+      - listitem [ref=e97]:
+        - link "Allround Sonnenschutz" [ref=e98] [cursor=pointer]:
+          - /url: https://allround-sonnenschutz.de/
+        - text: – Sonnenschutzsysteme für Wohn- und Gewerbeimmobilien.
+      - listitem [ref=e99]:
+        - link "Easy2Drive" [ref=e100] [cursor=pointer]:
+          - /url: https://easy2drive.de/
+        - text: – Moderne Fahrausbildung für Führerscheinbewerber.
+      - listitem [ref=e101]:
+        - link "SML Spitzer" [ref=e102] [cursor=pointer]:
+          - /url: https://www.sml-spitzer.de/
+        - text: – Industrielle Fertigung und technische Dienstleistungen.
+      - listitem [ref=e103]:
+        - link "Zorro Rohrreinigung" [ref=e104] [cursor=pointer]:
+          - /url: https://www.zorrorohrreinigung.de/
+        - text: – Schneller Service für Rohrreinigung und Abflussprobleme.
+      - listitem [ref=e105]:
+        - link "Glasklar Stammeier" [ref=e106] [cursor=pointer]:
+          - /url: https://glasklar-stammeier.de/
+        - text: – Professionelle Glas- und Fensterreinigung für Privat und Gewerbe.
+      - listitem [ref=e107]:
+        - link "Silentium Bestattungen" [ref=e108] [cursor=pointer]:
+          - /url: https://silentium-bestattungen.de/
+        - text: – Würdevolle Bestattungsdienstleistungen und persönliche Beratung.
+      - listitem [ref=e109]:
+        - link "Beton und Holzpaneelen" [ref=e110] [cursor=pointer]:
+          - /url: https://beton-und-holzpaneelen.ch/
+        - text: – Hochwertige Wandpaneele aus Beton und Holz für modernes Design.
+      - listitem [ref=e111]:
+        - link "Baumfällung und Pflege" [ref=e112] [cursor=pointer]:
+          - /url: https://baumfaellung-und-pflege.de/
+        - text: – Fachgerechte Baumfällung, Baumpflege und Grünflächenservice.
+      - listitem [ref=e113]:
+        - link "Umzug Yankov" [ref=e114] [cursor=pointer]:
+          - /url: https://umzug-yankov.de/
+        - text: – Zuverlässiges Umzugsunternehmen für private und gewerbliche Umzüge.
+      - listitem [ref=e115]:
+        - link "Merk Umzüge" [ref=e116] [cursor=pointer]:
+          - /url: https://merk-umzuege.de/
+        - text: – Professionelle Umzugs- und Transportdienstleistungen deutschlandweit.
+      - listitem [ref=e117]:
+        - link "JS Fahrradladen" [ref=e118] [cursor=pointer]:
+          - /url: https://js-fahrradladen.de/
+        - text: – Fahrradgeschäft mit Verkauf, Wartung und Reparaturservice.
+      - listitem [ref=e119]:
+        - link "Nautica Holiday" [ref=e120] [cursor=pointer]:
+          - /url: https://nautica-holiday.com/de/
+        - text: – Urlaubsangebote und Bootstouren für unvergessliche Reisen.
+      - listitem [ref=e121]:
+        - link "Rohrreinigung Aquafix" [ref=e122] [cursor=pointer]:
+          - /url: https://rohrreinigung-aquafix.de/
+        - text: – Professionelle Rohr- und Kanalreinigung mit schneller Hilfe.
+      - listitem [ref=e123]:
+        - link "Kommze Ma Eben" [ref=e124] [cursor=pointer]:
+          - /url: https://www.kommze-ma-eben.de/
+        - text: – Kompetente Entrümpelung und Haushaltsauflösungen mit zuverlässigem Service.
+  - contentinfo [ref=e125]:
+    - paragraph [ref=e126]:
+      - text: © 2026
+      - link "Affordable SEO Backlinks Company" [ref=e127] [cursor=pointer]:
+        - /url: https://serpzenith.com/
+      - text: . All rights reserved.
+  - list [ref=e128]:
+    - listitem [ref=e129]:
+      - link "haus service behlmer" [ref=e130] [cursor=pointer]:
+        - /url: https://hausservicebehlmer.de/
