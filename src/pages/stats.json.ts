@@ -129,13 +129,29 @@ export async function GET() {
     compId++;
   }
 
-  // 对最大分量做全节点 BFS
+  // 对最大分量做全节点 BFS（随机采样以控制构建时间）
   const mainCompId = compSizes.indexOf(Math.max(...compSizes));
   const mainNodes = [];
   for (let i = 0; i < n; i++) if (comp[i] === mainCompId) mainNodes.push(i);
   const M = mainNodes.length;
 
-  printProgress("❸", `主分量 ${M}/${n} 节点, 全节点 BFS…`, 85);
+  // 采样上限：节点数过多时随机采样，六度分布统计在样本量 > 2000 时已足够收敛
+  const MAX_BFS_SAMPLES = 3000;
+  let sampledNodes: number[];
+  if (M > MAX_BFS_SAMPLES) {
+    // Fisher-Yates 部分洗牌取前 MAX_BFS_SAMPLES 个
+    const arr = [...mainNodes];
+    for (let i = 0; i < MAX_BFS_SAMPLES; i++) {
+      const j = i + Math.floor(Math.random() * (M - i));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    sampledNodes = arr.slice(0, MAX_BFS_SAMPLES);
+  } else {
+    sampledNodes = mainNodes;
+  }
+  const sampleSize = sampledNodes.length;
+
+  printProgress("❸", `主分量 ${M}/${n} 节点, 采样 ${sampleSize} 节点 BFS…`, 85);
 
   const degreeDist: Record<number, number> = {};
   let maxDist = 0,
@@ -146,7 +162,7 @@ export async function GET() {
   const qBuf = new Int32Array(n);
   const dBuf = new Int32Array(n);
 
-  for (const a of mainNodes) {
+  for (const a of sampledNodes) {
     dBuf.fill(-1, 0, n);
     dBuf[a] = 0;
     qBuf[0] = a;
@@ -171,15 +187,17 @@ export async function GET() {
     if (processed % 500 === 0) {
       printProgress(
         "❸",
-        `BFS ${processed}/${M} (${((performance.now() - startTime) / 1000).toFixed(0)}s)`,
-        85 + Math.round((processed / M) * 10),
+        `BFS ${processed}/${sampleSize} (${((performance.now() - startTime) / 1000).toFixed(0)}s)`,
+        85 + Math.round((processed / sampleSize) * 10),
       );
     }
   }
 
-  // 除以2：因为每对(a,b)被双方各计数1次
+  // 除以2 + 缩放到全量估计：每对(a,b)被双方各计数1次
+  // 采样时已计数 sampleSize × M 对，需缩放到 M × (M-1) / 2 对
+  const scaleFactor = M > 1 ? (M * (M - 1)) / 2 / ((sampleSize * (M - 1)) / 2) : 1;
   for (const d of Object.keys(degreeDist)) {
-    degreeDist[Number(d)] = Math.round(degreeDist[Number(d)] / 2);
+    degreeDist[Number(d)] = Math.round((degreeDist[Number(d)] / 2) * scaleFactor);
   }
 
   const intermediateDist: Record<number, number> = {};
