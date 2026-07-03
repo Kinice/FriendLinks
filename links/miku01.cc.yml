@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '初音云计算官网'
-      'url': 'https://www.miku01.com'
     - 'name': 'Miku01'
       'url': 'https://blog.miku01.com'
     - 'name': 'SCH的博客'

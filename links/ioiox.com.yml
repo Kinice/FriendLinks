@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'FRP'
       'url': 'https://freefrp.net'
-    - 'name': '群晖官方网站'
-      'url': 'https://www.synology.com'
     - 'name': 'SunPma''Blog'
       'url': 'https://sunpma.com'
     - 'name': 'Mark''s Blog'

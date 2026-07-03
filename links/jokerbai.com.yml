@@ -4,7 +4,5 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'vitepress-theme-teekTeek官网'
-      'url': 'https://vp.teek.top/'
     - 'name': '运维开发故事运维开发路上的指明灯'
       'url': 'https://www.devopstory.cn/'

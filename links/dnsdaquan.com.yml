@@ -6,8 +6,6 @@
   'friends':
     - 'name': '局域网'
       'url': 'https://www.juyuwang.cn/'
-    - 'name': 'iP查询'
-      'url': 'https://www.ip138.com/'
     - 'name': '网站iP'
       'url': 'https://ipchaxun.com/'
     - 'name': 'iP计算器'

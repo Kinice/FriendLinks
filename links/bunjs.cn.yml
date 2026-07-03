@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '英文官网'
-      'url': 'https://bun.sh/'
     - 'name': 'Node.js'
       'url': 'https://www.nodeapp.cn/'
     - 'name': 'Deno'

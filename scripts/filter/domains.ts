@@ -182,4 +182,7 @@ export const NON_BLOG_DOMAINS: string[] = [
   "3nhxn.com", "ndjtichuang.com", "jayff.com", "jinma56.com", "deaoxi.com", "patsensor.com", "as-yq.com", "gaoguangpu.com", "yibeiic.com", "nongyaocanliu.com", "do3think.com", "nmsmj.com", "shjinwen.cn", "polymer-batterys.com", "espoly.com", "youleshebei666.com", "shshangyu.net", "gzhjhjkj.com", "pqyjy.com", "purplelavender.com.cn", "kejian-tech.com",
   "ip6.arpa",
   "3dstorrents.com", "gz-lianhe.com", "n562.com",
+  "2math.cn", "discuz.net", "comsenz.com",
+  "2weima.com", "diycms.com", "shicongkeji.com", "wwei.cn", "zhulouren.com", "hdk.net", "cloudbility.com",
+  "1zhe.com", "3839.com", "ip138.com",
 ];

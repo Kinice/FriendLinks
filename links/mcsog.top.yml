@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': 'ISCTF ISCTF官网'
-      'url': 'https://isc.tf/'
     - 'name': '小白 小白的学习笔记'
       'url': 'https://xia0b4i.github.io/'
     - 'name': 'ioo0s''s blog ioo0s'

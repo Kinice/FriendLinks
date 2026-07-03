@@ -8,8 +8,6 @@
       'url': 'https://gordma.rpcx.io'
     - 'name': 'Scapy in Go'
       'url': 'https://goscapy.rpcx.io'
-    - 'name': 'RPCX官网'
-      'url': 'https://rpcx.io'
     - 'name': 'Karpathy''s Blog'
       'url': 'https://karpathy.ai'
     - 'name': 'LangChain Blog'

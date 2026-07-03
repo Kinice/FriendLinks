@@ -6,5 +6,3 @@
   'friends':
     - 'name': '3.8.7'
       'url': 'https://v3.yarnpkg.com'
-    - 'name': '英文官网'
-      'url': 'https://yarnpkg.com/'

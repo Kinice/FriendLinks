@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '英文官网'
-      'url': 'https://rollupjs.org/'
     - 'name': 'webpack'
       'url': 'https://www.webpackjs.com/'
     - 'name': 'Parcel'

@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'iP计算器'
       'url': 'https://ipjisuanqi.com/'
-    - 'name': 'iP查询'
-      'url': 'https://www.ip138.com/'
     - 'name': '二维码生成器'
       'url': 'https://www.liantu.com/'
     - 'name': '国学经典'

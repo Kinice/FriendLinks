@@ -1,8 +1,0 @@
-'site':
-  'name': 'dege365.com'
-  'url': 'https://www.dege365.com/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': '米兰milan(中国)体育官方网站'
-      'url': 'http://www.jiuzhouwo.com'

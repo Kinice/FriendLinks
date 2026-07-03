@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'AceData Cloud 平台'
       'url': 'https://platform.acedata.cloud'
-    - 'name': 'MCP 协议官网'
-      'url': 'https://modelcontextprotocol.io'
     - 'name': 'studio.acedata.cloud'
       'url': 'https://studio.acedata.cloud'
     - 'name': 'Claude.ai'

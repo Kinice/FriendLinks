@@ -6,8 +6,6 @@
   'friends':
     - 'name': '网站iP'
       'url': 'https://ipchaxun.com/'
-    - 'name': 'iP查询'
-      'url': 'https://www.ip138.com/'
     - 'name': '保安堂'
       'url': 'https://www.baoantang.com/'
     - 'name': '公共DNS'

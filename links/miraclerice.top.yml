@@ -20,8 +20,6 @@
       'url': 'https://pytorch.org/'
     - 'name': 'netron 权重文件可视化'
       'url': 'https://netron.app/'
-    - 'name': 'stackoverflow stackoverflow官网'
-      'url': 'https://stackoverflow.com/'
     - 'name': 'maven仓库 java依赖仓库'
       'url': 'https://mvnrepository.com/'
     - 'name': 'Python仓库 Python依赖仓库'

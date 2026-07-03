@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': 'NOI官网'
-      'url': 'http://www.noi.cn'
     - 'name': 'PKU OJ'
       'url': 'http://poj.org'
     - 'name': 'vijos'

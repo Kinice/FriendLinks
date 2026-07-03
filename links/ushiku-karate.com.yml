@@ -1,8 +1,0 @@
-'site':
-  'name': 'ushiku-karate.com'
-  'url': 'http://www.ushiku-karate.com/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': 'MANBEXT万博(中国)官方网站'
-      'url': 'http://www.cqyhwhzs.com'

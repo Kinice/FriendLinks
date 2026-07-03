@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '英文官网'
-      'url': 'https://purgecss.com/'
     - 'name': 'Bootstrap'
       'url': 'https://www.getbootstrap.cn/'
     - 'name': 'TailwindCSS'

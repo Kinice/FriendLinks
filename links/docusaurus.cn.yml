@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': '英文官网'
-      'url': 'https://docusaurus.io/'
     - 'name': '试一试'
       'url': 'https://docusaurus.new'
     - 'name': 'Astro'

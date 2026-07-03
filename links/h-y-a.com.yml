@@ -1,8 +1,0 @@
-'site':
-  'name': 'h-y-a.com'
-  'url': 'http://h-y-a.com/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': '英亚在线(中国)唯一官方网站'
-      'url': 'http://bhovio.com/'

@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/link'
   'friends':
-    - 'name': 'CloudEverCloudEver官网'
-      'url': 'https://cloudever.top/'
     - 'name': 'enoch天才少年'
       'url': 'https://enoch.host/'
     - 'name': 'YHalo''s Blog我受够了繁文缛节！'

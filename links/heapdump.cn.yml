@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'PerfMa官网'
-      'url': 'https://www.perfma.com'
     - 'name': 'SegmentFault思否'
       'url': 'https://segmentfault.com'
     - 'name': 'TesterHome'

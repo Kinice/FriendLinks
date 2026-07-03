@@ -1,8 +1,0 @@
-'site':
-  'name': 'freebuf.com'
-  'url': 'https://www.freebuf.com/'
-  'description': '友情链接'
-  'links': '/friends'
-  'friends':
-    - 'name': '斗象官网'
-      'url': 'https://www.tophant.com/'

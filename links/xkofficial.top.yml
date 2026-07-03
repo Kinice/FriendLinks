@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/'
   'friends':
-    - 'name': 'Minecraft官方网站'
-      'url': 'https://www.minecraft.net'
     - 'name': 'Minecraft For Android'
       'url': 'https://mcapks.com/'
     - 'name': 'Quark PC'

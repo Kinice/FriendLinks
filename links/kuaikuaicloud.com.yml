@@ -4,12 +4,8 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '快快官网'
-      'url': 'https://www.kkidc.com/'
     - 'name': '在线ping'
       'url': 'https://www.kk.yun'
-    - 'name': '等保官网'
-      'url': 'http://www.tan.cc'
     - 'name': 'ddos高防服务'
       'url': 'http://www.niu.cc'
     - 'name': 'sdwan'

@@ -6,8 +6,6 @@
   'friends':
     - 'name': 'Raindrop'
       'url': 'https://raindrop.io/'
-    - 'name': '廖雪峰的官方网站'
-      'url': 'http://www.liaoxuefeng.com/'
     - 'name': 'CoolShell'
       'url': 'https://coolshell.cn'
     - 'name': '1byte'
