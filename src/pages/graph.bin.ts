@@ -1,8 +1,8 @@
 import { loadSites } from "../utils/load-sites";
 import type { GraphNode, GraphLink, GraphCategory } from "../../types/graph";
-import { forceSimulation, forceLink, forceManyBody, forceCenter } from "d3-force-3d";
 import { encode } from "msgpackr";
 import { printProgress, printDone, printTick } from "../utils/progress";
+import { simTick } from "@xingwangzhe/force-rs";
 
 function getHost(u: string): string {
   try {
@@ -146,29 +146,42 @@ export async function GET() {
     });
   }
 
-  // ── 构建时 3D 力导布局（d3-force-3d） ─────────────────────────
+  // ── 构建时 3D 力导布局（@xingwangzhe/force-rs, Barnes-Hut） ─────────
   printProgress("❷", `${nodes.length} 节点 · ${linksArr.length} 边 · 构建中…`, 0);
-  const simNodes = nodes.map((n) => Object.assign({}, n));
-  const simLinks = linksArr.map((l) => ({
-    source: typeof l.source === "string" ? l.source : (l as any).source,
-    target: typeof l.target === "string" ? l.target : (l as any).target,
-  }));
 
-  // ── Vercel 时间驱动：14 分钟上限，能跑多少 tick 跑多少 ──
+  const n = nodes.length;
+  const state = new Float64Array(n * 6 + 1);
+
+  // d3-force golden-ratio spiral initialization
+  const initialRadius = 10;
+  const rollAngle = Math.PI * (3 - Math.sqrt(5));
+  const yawAngle = Math.PI * 20 / (9 + Math.sqrt(221));
+  for (let i = 0; i < n; i++) {
+    const b = i * 6;
+    const radius = initialRadius * Math.cbrt(0.5 + i);
+    const roll = i * rollAngle;
+    const yaw = i * yawAngle;
+    state[b] = radius * Math.sin(roll) * Math.cos(yaw);
+    state[b + 1] = radius * Math.cos(roll);
+    state[b + 2] = radius * Math.sin(roll) * Math.sin(yaw);
+  }
+  state[state.length - 1] = 1.0;
+
+  const idMap = new Map<string, number>();
+  nodes.forEach((nd, i) => idMap.set(nd.id, i));
+  const linkSrcTgt = new Uint32Array(linksArr.length * 2);
+  let li = 0;
+  for (const l of linksArr) {
+    const si = idMap.get(typeof l.source === "string" ? l.source : (l as any).source);
+    const ti = idMap.get(typeof l.target === "string" ? l.target : (l as any).target);
+    if (si != null && ti != null) { linkSrcTgt[li++] = si; linkSrcTgt[li++] = ti; }
+  }
+  const linksFlat = Array.from(linkSrcTgt.slice(0, li));
+
   const REPULSION = 3000;
   const LINK_DISTANCE = 500;
   const CENTER_STRENGTH = 0.005;
-  const sim = forceSimulation(simNodes as any, 3)
-    .force(
-      "link",
-      forceLink(simLinks as any)
-        .id((d: any) => d.id)
-        .distance(LINK_DISTANCE),
-    )
-    .force("charge", forceManyBody().strength(-REPULSION).theta(0.8))
-    .force("center", forceCenter(0, 0, 0).strength(CENTER_STRENGTH))
-    .alphaDecay(0.02)
-    .velocityDecay(0.35);
+  const forceOpts = { repulsion: REPULSION, linkDistance: LINK_DISTANCE, centerStrength: CENTER_STRENGTH, theta: 0.8, velocityDecay: 0.60, alphaDecay: 0.02 };
 
   printProgress("❷", `力导仿真就绪 · ${nodes.length} 节点 · θ=0.8 · 14min 上限 · 斥力${REPULSION}`, 100);
   printDone(`图构建完成 · ${nodes.length} 节点 · ${linksArr.length} 边`);
@@ -176,28 +189,32 @@ export async function GET() {
   const FAST = import.meta.env.DEV || !!process.env.MINIBUILD;
   const TICKS_MAX = FAST ? 100 : 500;
   const TICK_LOG = FAST ? 5 : 10;
-  const TIME_LIMIT_MS = FAST ? 30000 : 14 * 60 * 1000; // 14 分钟
+  const TIME_LIMIT_MS = FAST ? 30000 : 14 * 60 * 1000;
   const t0 = performance.now();
-  sim.alphaMin(FAST ? 0.03 : 0.001);
-  const alphaMin = sim.alphaMin();
+  const alphaMin = FAST ? 0.03 : 0.001;
   let actualTicks = 0;
   let stoppedByTime = false;
+
+  let s: number[] = Array.from(state);
   for (let i = 0; i < TICKS_MAX; i++) {
-    sim.tick();
+    s = simTick(s, linksFlat, n, forceOpts);
     actualTicks++;
     const elapsed = performance.now() - t0;
     if (i % TICK_LOG === 0 || elapsed > TIME_LIMIT_MS - 30000) {
-      printTick(i + 1, -1, sim.alpha(), nodes.length);
+      printTick(i + 1, -1, s[s.length - 1], n);
     }
-    if (sim.alpha() < alphaMin) break;
-    if (elapsed > TIME_LIMIT_MS) {
-      stoppedByTime = true;
-      break;
-    }
+    if (s[s.length - 1] < alphaMin) break;
+    if (elapsed > TIME_LIMIT_MS) { stoppedByTime = true; break; }
   }
-  sim.stop();
   const totalSec = ((performance.now() - t0) / 1000).toFixed(1);
   printDone(`力导仿真完成 · ${actualTicks} tick · ${totalSec}s${stoppedByTime ? " (时间上限)" : ""}`);
+
+  for (let i = 0; i < n; i++) {
+    const b = i * 6;
+    (nodes[i] as any).x = s[b];
+    (nodes[i] as any).y = s[b + 1];
+    (nodes[i] as any).z = s[b + 2];
+  }
 
   // ── 列式紧凑输出（含预计算 3D 位置） ─────────────────────────
   const nid: string[] = [];
@@ -208,7 +225,7 @@ export async function GET() {
   const nx: number[] = [];
   const ny: number[] = [];
   const nz: number[] = [];
-  for (const n of simNodes) {
+  for (const n of nodes) {
     nid.push(n.id);
     nnm.push(n.name ?? "");
     nur.push(n.url);
