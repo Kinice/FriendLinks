@@ -750,9 +750,14 @@ export function init3d(graphData: GraphData) {
       // 退出飞船模式后平滑恢复翻滚角度
       if (Math.abs(flyExitRoll) > 0.0001) {
         ctx.camera.rotateZ(flyExitRoll);
-        flyExitRoll *= 0.92; // 每帧衰减，平滑过渡
+        flyExitRoll *= 0.92;
       } else {
         flyExitRoll = 0;
+      }
+      // Ctrl+拖拽横滚（球幕斜视）
+      const roll = (ctx.controls as any).getRoll?.() || 0;
+      if (Math.abs(roll) > 0.0001) {
+        ctx.camera.rotateZ(roll);
       }
     }
 

@@ -58,7 +58,28 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
   controls.maxDistance = 200000;
   controls.zoomSpeed = 1.5;
   controls.minPolarAngle = 0;
-  controls.maxPolarAngle = Math.PI * 2; // 上下贯通旋转
+  controls.maxPolarAngle = Math.PI; // 允许从正上方到正下方完整俯仰
+
+  // Ctrl+拖拽横滚（球幕模式斜视）
+  let rollAngle = 0;
+  renderer.domElement.addEventListener("pointerdown", (e: PointerEvent) => {
+    if (!controls.enabled) return;
+    if (!e.ctrlKey && !e.metaKey) return;
+    e.stopPropagation();
+    const onMove = (ev: PointerEvent) => {
+      rollAngle += (ev.movementX || 0) * 0.005;
+    };
+    const onUp = () => {
+      renderer.domElement.removeEventListener("pointermove", onMove);
+      renderer.domElement.removeEventListener("pointerup", onUp);
+    };
+    renderer.domElement.addEventListener("pointermove", onMove);
+    renderer.domElement.addEventListener("pointerup", onUp);
+  });
+
+  // 暴露 rollAngle 供 render loop 使用
+  (controls as any).getRoll = () => rollAngle;
+  (controls as any).resetRoll = () => { rollAngle = 0; };
 
   // Lights
   scene.add(new THREE.AmbientLight(0xcccccc, Math.PI));
