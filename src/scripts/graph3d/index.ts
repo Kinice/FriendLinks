@@ -747,6 +747,10 @@ export function init3d(graphData: GraphData) {
       flyLoop();
     } else {
       ctx.controls.update();
+      // 继承飞船模式的翻滚视角
+      if (Math.abs(flyExitRoll) > 0.0001) {
+        ctx.camera.rotateZ(flyExitRoll);
+      }
     }
 
     ctx.renderer.render(ctx.scene, ctx.camera);
@@ -983,6 +987,7 @@ export function init3d(graphData: GraphData) {
   let isFlyMode = false;
   const flyKeys: Record<string, boolean> = {};
   let flyAutoPilot = false;
+  let flyExitRoll = 0; // 退出飞船时保留的翻滚角
   const SHIFT_MULTIPLIER = 3;
   const MOUSE_SENSITIVITY = 0.003;
   const RETICLE_SPRING = 30;
@@ -1213,17 +1218,13 @@ export function init3d(graphData: GraphData) {
 
   function exitFlyMode() {
     isFlyMode = false;
-    flyExitRoll = 0;
-    // 同步 OrbitControls target + up 到当前视角，继承飞船倾斜
+    // 保存当前翻滚角度，切回球幕后持续保留
+    flyExitRoll = ctx.camera.rotation.z;
+    // 同步 OrbitControls target 到当前视线方向
     const lookTarget = new THREE.Vector3();
     ctx.camera.getWorldDirection(lookTarget);
     lookTarget.multiplyScalar(200).add(ctx.camera.position);
     ctx.controls.target.copy(lookTarget);
-    // 同步上方向，让球幕绕当前倾斜轴旋转
-    const camUp = new THREE.Vector3(0, 1, 0);
-    camUp.applyQuaternion(ctx.camera.quaternion).normalize();
-    ctx.controls.up.copy(camUp);
-    ctx.controls.update(); // 立即同步内部状态
     ctx.controls.enabled = true;
     if (flyOnKeyDown) document.removeEventListener("keydown", flyOnKeyDown);
     if (flyOnKeyUp) document.removeEventListener("keyup", flyOnKeyUp);
