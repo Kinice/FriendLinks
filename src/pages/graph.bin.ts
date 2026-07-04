@@ -39,13 +39,7 @@ export async function GET() {
   printProgress("❶", `${validSites.length} 个站点`, 50);
   printDone(`${validSites.length} 个站点加载完成`);
 
-  // ── dev 模式快速验证：只取 500 随机节点 ───────────────────────
-  let sites = validSites;
-  if (import.meta.env.DEV && sites.length > 100) {
-    const shuffled = [...sites].sort(() => Math.random() - 0.5);
-    sites = shuffled.slice(0, 100);
-    console.error(`  ⚠ DEV 模式：${validSites.length} 站点中抽样 ${sites.length} 个`);
-  }
+  const sites = validSites;
 
   const categories: GraphCategory[] = [{ name: "site" }, { name: "friend" }];
   const nodes: GraphNode[] = [];

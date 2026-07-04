@@ -102,7 +102,21 @@ export async function loadSites(
   onProgress?: (current: number, total: number) => void,
 ): Promise<Site[]> {
   const inputDir = dir ?? path.resolve("links");
-  const files = await listYamlFiles(inputDir);
+  let files = await listYamlFiles(inputDir);
+
+  // DEV 模式只取 100 个文件，跳过大量 IO
+  if (import.meta.env.DEV && files.length > 100) {
+    // 确定性随机：基于文件名排序后取固定种子，保证同一次 dev 内不跳变
+    files.sort();
+    const seed = 42;
+    const shuffled = [...files];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = (seed * (i + 1)) % (i + 1);
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    files = shuffled.slice(0, 100);
+  }
+
   if (files.length === 0) {
     console.log("未找到 YAML 文件。");
     return [];
