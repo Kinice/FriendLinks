@@ -747,9 +747,12 @@ export function init3d(graphData: GraphData) {
       flyLoop();
     } else {
       ctx.controls.update();
-      // 继承飞船模式的翻滚视角
+      // 退出飞船后平滑恢复翻滚角
       if (Math.abs(flyExitRoll) > 0.0001) {
         ctx.camera.rotateZ(flyExitRoll);
+        flyExitRoll *= 0.92;
+      } else {
+        flyExitRoll = 0;
       }
     }
 
