@@ -1218,6 +1218,10 @@ export function init3d(graphData: GraphData) {
     ctx.camera.getWorldDirection(lookTarget);
     lookTarget.multiplyScalar(200).add(ctx.camera.position);
     ctx.controls.target.copy(lookTarget);
+    // 同步相机 up 方向，保留飞船翻滚后的倾斜角度
+    const camUp = new THREE.Vector3(0, 1, 0);
+    camUp.applyQuaternion(ctx.camera.quaternion);
+    ctx.controls.up.copy(camUp);
     ctx.controls.enabled = true;
     if (flyOnKeyDown) document.removeEventListener("keydown", flyOnKeyDown);
     if (flyOnKeyUp) document.removeEventListener("keyup", flyOnKeyUp);

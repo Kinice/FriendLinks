@@ -13,7 +13,11 @@ function getHost(u: string): string {
 export async function GET() {
   const start = performance.now();
   printProgress("❶", "加载友链数据…", 0);
-  const validSites = await loadSites();
+  const validSites = await loadSites(undefined, (i, total) => {
+    const pct = Math.round((i / total) * 50);
+    printProgress("❶", `${i}/${total} 站点已加载`, pct);
+  });
+  printProgress("❶", `${validSites.length} 站点加载完成`, 50);
 
   const siteHostSet = new Set<string>();
   for (const s of validSites) siteHostSet.add(getHost(s.url));
@@ -51,7 +55,9 @@ export async function GET() {
 
   printProgress("❷", "计算核心节点连接…", 50);
   const processedCoreLinks = new Set<string>();
-  for (const [sourceHost, targetHosts] of linkMap) {
+  const linkMapEntries = [...linkMap.entries()];
+  let linkProgress = 0;
+  for (const [sourceHost, targetHosts] of linkMapEntries) {
     for (const targetNorm of targetHosts) {
       const pairKey = [sourceHost, targetNorm].sort().join("<->");
       if (processedCoreLinks.has(pairKey)) continue;
@@ -62,6 +68,11 @@ export async function GET() {
       stats.connections.coreToCore.total++;
       if (aLinksB && bLinksA) stats.connections.coreToCore.bidirectional++;
       else stats.connections.coreToCore.unidirectional++;
+    }
+    linkProgress++;
+    if (linkProgress % 500 === 0 || linkProgress === linkMapEntries.length) {
+      const pct = 50 + Math.round((linkProgress / linkMapEntries.length) * 20);
+      printProgress("❷", `核心连接 ${linkProgress}/${linkMapEntries.length}`, pct);
     }
   }
   stats.connections.total = stats.connections.coreToCore.total + stats.connections.coreToFriend;
@@ -77,7 +88,7 @@ export async function GET() {
   printProgress("❷", "路由统计完成", 70);
 
   // ── 全节点六度分隔统计 (via @xingwangzhe/bfs-rs) ──
-  printProgress("❸", "构建全节点图…", 80);
+  printProgress("❸", "构建全节点图…", 71);
 
   const urlSet = new Set<string>();
   const urlToName = new Map<string, string>();
@@ -117,7 +128,7 @@ export async function GET() {
   }
   offsets[n] = cursor;
 
-  printProgress("❸", `全量 ${n} 节点, Rust bfsMergedHistogram…`, 85);
+  printProgress("❸", `全量 ${n} 节点, Rust bfsMergedHistogram…`, 75);
 
   const startBfs = performance.now();
   const adjArr = Array.from(adjFlat);
@@ -132,7 +143,7 @@ export async function GET() {
   }
 
   const bfsElapsed = ((performance.now() - startBfs) / 1000).toFixed(1);
-  printProgress("❸", `Rust BFS 完成 in ${bfsElapsed}s`, 95);
+  printProgress("❸", `Rust BFS 完成 in ${bfsElapsed}s`, 90);
 
   // 连通分量统计
   const comp = new Int32Array(n).fill(-1);
@@ -152,6 +163,9 @@ export async function GET() {
     }
     compSizes.push(size);
     compId++;
+    if (compId % 200 === 0) {
+      printProgress("❸", `连通分量分析 ${compId} 个`, 90 + Math.round((compId / n) * 10));
+    }
   }
 
   const mainComponentSize = Math.max(...compSizes);

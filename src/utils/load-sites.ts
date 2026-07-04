@@ -97,7 +97,10 @@ async function parseAndValidate(file: string): Promise<Site | null> {
   }
 }
 
-export async function loadSites(dir?: string): Promise<Site[]> {
+export async function loadSites(
+  dir?: string,
+  onProgress?: (current: number, total: number) => void,
+): Promise<Site[]> {
   const inputDir = dir ?? path.resolve("links");
   const files = await listYamlFiles(inputDir);
   if (files.length === 0) {
@@ -105,9 +108,10 @@ export async function loadSites(dir?: string): Promise<Site[]> {
     return [];
   }
   const validSites: Site[] = [];
-  for (const f of files) {
-    const site = await parseAndValidate(f);
+  for (let i = 0; i < files.length; i++) {
+    const site = await parseAndValidate(files[i]);
     if (site) validSites.push(site);
+    onProgress?.(i + 1, files.length);
   }
   return validSites;
 }
