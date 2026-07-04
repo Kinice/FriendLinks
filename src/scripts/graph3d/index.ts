@@ -747,12 +747,9 @@ export function init3d(graphData: GraphData) {
       flyLoop();
     } else {
       ctx.controls.update();
-      // 退出飞船模式后平滑恢复翻滚角度
+      // 继承飞船模式的翻滚视角（球幕斜视）
       if (Math.abs(flyExitRoll) > 0.0001) {
         ctx.camera.rotateZ(flyExitRoll);
-        flyExitRoll *= 0.92;
-      } else {
-        flyExitRoll = 0;
       }
     }
 
@@ -1186,6 +1183,7 @@ export function init3d(graphData: GraphData) {
 
   function enterFlyMode() {
     isFlyMode = true;
+    flyExitRoll = 0; // 进入飞船模式时重置球幕斜视角
     ctx.controls.enabled = false;
     reticleOffset.x = 0;
     reticleOffset.y = 0;
