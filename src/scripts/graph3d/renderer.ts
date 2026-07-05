@@ -36,7 +36,7 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
   const { width, height } = container.getBoundingClientRect();
 
   // Camera（far=200k 配合 maxDistance 10x，支持极远视野俯瞰博客宇宙）
-  const camera = new THREE.PerspectiveCamera(55, width / height, 10, 200000);
+  const camera = new THREE.PerspectiveCamera(75, width / height, 1, 500000);
   camera.position.set(0, 0, 1000);
 
   // Renderer
@@ -69,7 +69,7 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
   const nodeGeom = new THREE.SphereGeometry(1, NODE_SEGMENTS, NODE_SEGMENTS);
   const nodeMat = new THREE.MeshStandardMaterial({ roughness: 0.6, metalness: 0.1 });
   const nodes = new THREE.InstancedMesh(nodeGeom, nodeMat, nodeCount);
-  nodes.frustumCulled = true;
+  nodes.frustumCulled = false;
   scene.add(nodes);
 
   // 连线 (LineSegments)
