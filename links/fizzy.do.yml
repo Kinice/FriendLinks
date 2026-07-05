@@ -1,8 +1,0 @@
-'site':
-  'name': 'fizzy.do'
-  'url': 'https://www.fizzy.do/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'HEY'
-      'url': 'https://www.hey.com'

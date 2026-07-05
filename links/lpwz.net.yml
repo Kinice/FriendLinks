@@ -1,8 +1,0 @@
-'site':
-  'name': 'lpwz.net'
-  'url': 'http://www.lpwz.net/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': '电子教材'
-      'url': 'https://jc.pep.com.cn/'

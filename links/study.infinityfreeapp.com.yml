@@ -1,8 +1,0 @@
-'site':
-  'name': 'study.infinityfreeapp.com'
-  'url': 'http://study.infinityfreeapp.com/'
-  'description': '友情链接'
-  'links': '/friends/'
-  'friends':
-    - 'name': 'See how here!'
-      'url': 'http://myownfreehost.net'

@@ -33,11 +33,10 @@ export async function GET() {
 
   printProgress("❶", "加载站点数据…", 0);
   const validSites = await loadSites(undefined, (i, total) => {
-    const pct = Math.round((i / total) * 50);
+    const pct = Math.round((i / total) * 100);
     printProgress("❶", `${i}/${total} 站点已加载`, pct);
   });
-  printProgress("❶", `${validSites.length} 个站点`, 50);
-  printDone(`${validSites.length} 个站点加载完成`);
+  printDone(`${validSites.length} 个站点`);
 
   const sites = validSites;
 
@@ -144,7 +143,7 @@ export async function GET() {
   }
 
   // ── 构建时 3D 力导布局（@xingwangzhe/force-rs, Barnes-Hut） ─────────
-  printProgress("❷", `${nodes.length} 节点 · ${linksArr.length} 边 · 构建中…`, 50);
+  printProgress("❷", `${nodes.length} 节点 · ${linksArr.length} 边 · 力导仿真中…`, 0);
 
   const n = nodes.length;
   const state = new Float64Array(n * 6 + 1);
@@ -186,8 +185,7 @@ export async function GET() {
   const TIME_LIMIT_MS = FAST ? 30000 : 14 * 60 * 1000;
   const TICK_LOG_NEAR_END_MS = 30000;
 
-  printProgress("❷", `力导仿真就绪 · ${nodes.length} 节点 · θ=${forceOpts.theta} · ${Math.round(TIME_LIMIT_MS / 60000)}min 上限 · 斥力${REPULSION}`, 100);
-  printDone(`图构建完成 · ${nodes.length} 节点 · ${linksArr.length} 边`);
+  printDone(`力导仿真就绪 · ${nodes.length} 节点 · θ=${forceOpts.theta}`);
 
   const t0 = performance.now();
   const alphaMin = FAST ? 0.03 : 0.001;
@@ -199,7 +197,7 @@ export async function GET() {
     s = simTick(s, linksFlat, n, forceOpts);
     actualTicks++;
     const elapsed = performance.now() - t0;
-    const tickPct = 50 + Math.round((i / TICKS_MAX) * 50);
+    const tickPct = Math.round((i / TICKS_MAX) * 100);
     if (i % TICK_LOG === 0 || elapsed > TIME_LIMIT_MS - TICK_LOG_NEAR_END_MS) {
       printProgress("❷", `tick ${i + 1}/${TICKS_MAX}  α=${s[s.length - 1].toFixed(4)}  ${n} 节点`, tickPct);
     }

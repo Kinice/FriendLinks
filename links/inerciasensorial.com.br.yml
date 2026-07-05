@@ -1,8 +1,0 @@
-'site':
-  'name': 'inerciasensorial.com.br'
-  'url': 'https://www.inerciasensorial.com.br/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'DreamHost'
-      'url': 'https://www.dreamhost.com/'

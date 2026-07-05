@@ -97,16 +97,33 @@ async function parseAndValidate(file: string): Promise<Site | null> {
   }
 }
 
+// ── 模块级缓存：避免多个端点重复加载 ──
+let _cacheKey: string | undefined;
+let _cachedSites: Site[] | null = null;
+
+export function clearSiteCache() {
+  _cacheKey = undefined;
+  _cachedSites = null;
+}
+
+const PARALLEL_BATCH = 128; // 并发上限，避免 fd 耗尽
+
 export async function loadSites(
   dir?: string,
   onProgress?: (current: number, total: number) => void,
 ): Promise<Site[]> {
   const inputDir = dir ?? path.resolve("links");
+
+  // 缓存命中：同目录直接返回
+  if (_cachedSites && _cacheKey === inputDir) {
+    onProgress?.(_cachedSites.length, _cachedSites.length);
+    return _cachedSites;
+  }
+
   let files = await listYamlFiles(inputDir);
 
   // DEV 模式只取 100 个文件，跳过大量 IO
   if (import.meta.env.DEV && files.length > 100) {
-    // 确定性随机：基于文件名排序后取固定种子，保证同一次 dev 内不跳变
     files.sort();
     const seed = 42;
     const shuffled = [...files];
@@ -121,11 +138,21 @@ export async function loadSites(
     console.log("未找到 YAML 文件。");
     return [];
   }
+
+  // 并行批量解析
   const validSites: Site[] = [];
-  for (let i = 0; i < files.length; i++) {
-    const site = await parseAndValidate(files[i]);
-    if (site) validSites.push(site);
-    onProgress?.(i + 1, files.length);
+  let completed = 0;
+  for (let b = 0; b < files.length; b += PARALLEL_BATCH) {
+    const batch = files.slice(b, b + PARALLEL_BATCH);
+    const results = await Promise.all(batch.map(parseAndValidate));
+    for (const site of results) {
+      if (site) validSites.push(site);
+      completed++;
+    }
+    onProgress?.(completed, files.length);
   }
+
+  _cacheKey = inputDir;
+  _cachedSites = validSites;
   return validSites;
 }

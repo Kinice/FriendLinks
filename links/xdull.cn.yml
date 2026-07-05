@@ -1,10 +1,12 @@
 'site':
-  'name': 'xdull.cn'
+  'name': 'CodeTime'
   'url': 'https://www.xdull.cn/'
-  'description': '友情链接'
-  'links': '/link'
+  'description': '自律是最好的修行'
+  'links': '/link/'
   'friends':
-    - 'name': '喵窝･札记火喵的私密日记小本本'
+    - 'name': '喵窝･札记'
       'url': 'https://www.dorcandy.cn/'
-    - 'name': '心流保持谨慎，保持乐观'
+    - 'name': '小王总博客吧'
+      'url': 'https://www.scczz.com'
+    - 'name': '心流'
       'url': 'https://blog.panghai.top'

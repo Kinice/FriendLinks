@@ -22,7 +22,8 @@
     "preview": "astro preview",
     "lint": "oxlint src/ && tsc --noEmit",
     "fmt": "oxfmt src/ --write",
-    "fmt-check": "oxfmt src/ --check"
+    "fmt-check": "oxfmt src/ --check",
+    "six": "bun run scripts/six-degrees.ts"
   },
   "dependencies": {
     "@xingwangzhe/bfs-rs": "^0.1.6",

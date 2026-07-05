@@ -14,10 +14,10 @@ export async function GET() {
   const start = performance.now();
   printProgress("❶", "加载友链数据…", 0);
   const validSites = await loadSites(undefined, (i, total) => {
-    const pct = Math.round((i / total) * 50);
+    const pct = Math.round((i / total) * 100);
     printProgress("❶", `${i}/${total} 站点已加载`, pct);
   });
-  printProgress("❶", `${validSites.length} 站点加载完成`, 50);
+  printDone(`${validSites.length} 站点加载完成`);
 
   const siteHostSet = new Set<string>();
   for (const s of validSites) siteHostSet.add(getHost(s.url));
@@ -53,7 +53,7 @@ export async function GET() {
     overview: { totalNodes: 0, totalConnections: 0 },
   };
 
-  printProgress("❷", "计算核心节点连接…", 50);
+  printProgress("❷", "计算核心节点连接…", 0);
   const processedCoreLinks = new Set<string>();
   const linkMapEntries = [...linkMap.entries()];
   let linkProgress = 0;
@@ -71,7 +71,7 @@ export async function GET() {
     }
     linkProgress++;
     if (linkProgress % 500 === 0 || linkProgress === linkMapEntries.length) {
-      const pct = 50 + Math.round((linkProgress / linkMapEntries.length) * 20);
+      const pct = Math.round((linkProgress / linkMapEntries.length) * 100);
       printProgress("❷", `核心连接 ${linkProgress}/${linkMapEntries.length}`, pct);
     }
   }
@@ -85,10 +85,10 @@ export async function GET() {
   const linkRoutesSorted = Object.entries(linkRoutes)
     .sort(([, a], [, b]) => b - a)
     .map(([r, c]) => ({ route: r, count: c }));
-  printProgress("❷", "路由统计完成", 70);
+  printProgress("❷", "路由统计完成", 100);
 
   // ── 全节点六度分隔统计 (via @xingwangzhe/bfs-rs) ──
-  printProgress("❸", "构建全节点图…", 71);
+  printProgress("❸", "构建全节点图…", 0);
 
   const urlSet = new Set<string>();
   const urlToName = new Map<string, string>();
@@ -128,7 +128,7 @@ export async function GET() {
   }
   offsets[n] = cursor;
 
-  printProgress("❸", `全量 ${n} 节点, Rust bfsMergedHistogram…`, 75);
+  printProgress("❸", `全量 ${n} 节点, Rust bfsMergedHistogram…`, 10);
 
   const startBfs = performance.now();
   const adjArr = Array.from(adjFlat);
@@ -143,7 +143,7 @@ export async function GET() {
   }
 
   const bfsElapsed = ((performance.now() - startBfs) / 1000).toFixed(1);
-  printProgress("❸", `Rust BFS 完成 in ${bfsElapsed}s`, 90);
+  printProgress("❸", `Rust BFS 完成 in ${bfsElapsed}s`, 30);
 
   // 连通分量统计
   const comp = new Int32Array(n).fill(-1);
@@ -164,11 +164,26 @@ export async function GET() {
     compSizes.push(size);
     compId++;
     if (compId % 200 === 0) {
-      printProgress("❸", `连通分量分析 ${compId} 个`, 90 + Math.round((compId / n) * 10));
+      printProgress("❸", `连通分量分析 ${compId} 个`, 30 + Math.round((compId / n) * 70));
     }
   }
 
   const mainComponentSize = Math.max(...compSizes);
+
+  // 分量大小分布（分桶）
+  const sizeBuckets = [
+    { label: "1 (孤立)", min: 1, max: 1 },
+    { label: "2-5", min: 2, max: 5 },
+    { label: "6-20", min: 6, max: 20 },
+    { label: "21-100", min: 21, max: 100 },
+    { label: "101-1000", min: 101, max: 1000 },
+    { label: "1000+", min: 1001, max: Infinity },
+  ];
+  const compSizeDistribution: Array<{ label: string; count: number }> = [];
+  for (const b of sizeBuckets) {
+    const cnt = compSizes.filter((s) => s >= b.min && s <= b.max).length;
+    if (cnt > 0) compSizeDistribution.push({ label: b.label, count: cnt });
+  }
 
   const intermediateDist: Record<number, number> = {};
   for (const [d, cnt] of Object.entries(degreeDist)) intermediateDist[Number(d) - 1] = cnt;
@@ -177,14 +192,13 @@ export async function GET() {
     totalNodes: n,
     mainComponentSize: mainComponentSize,
     componentCount: compId,
+    compSizeDistribution,
     maxEdgeDistance: merged.maxDistance,
     maxIntermediateVertices: merged.maxDistance - 1,
     edgeDistanceDistribution: degreeDist,
     intermediateVertexDistribution: intermediateDist,
     totalPairsConsidered: (n * (n - 1)) / 2,
   };
-
-  printProgress("❸", "六度分隔完成", 100);
 
   const finalStats = { ...stats, linkRoutes: linkRoutesSorted, sixDegrees: sixDegreeStats };
   const elapsed = ((performance.now() - start) / 1000).toFixed(1);

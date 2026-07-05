@@ -1,8 +1,0 @@
-'site':
-  'name': 'babyyoung.gitbook.io'
-  'url': 'https://babyyoung.gitbook.io/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'token.love'
-      'url': 'https://token.love'

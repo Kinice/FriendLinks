@@ -1,8 +1,0 @@
-'site':
-  'name': 'amandacoco.com'
-  'url': 'http://www.amandacoco.com/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': 'www.tsztsy.com'
-      'url': 'http://www.2tsztsy.com'

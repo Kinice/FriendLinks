@@ -1,8 +1,0 @@
-'site':
-  'name': 'zhijiali.com'
-  'url': 'http://www.zhijiali.com/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': '米兰网页版登录入口-米兰milan中国'
-      'url': 'http://www.maiyabbs.com/'

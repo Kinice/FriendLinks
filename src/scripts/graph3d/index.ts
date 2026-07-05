@@ -318,7 +318,7 @@ export function init3d(graphData: GraphData) {
     }
 
     const hint = document.createElement("div");
-    hint.textContent = "⚙️ 滚动滚轮可缩放，右键拖拽可旋转";
+    hint.textContent = "⚙️ 左键拖拽旋转 · 右键拖拽平移 · 滚轮缩放";
     hint.style.cssText = "font-size:10px;color:#666;margin-top:10px;text-align:center;";
     panel.appendChild(hint);
     panel.style.cssText = `position:fixed;bottom:70px;right:16px;z-index:9998;

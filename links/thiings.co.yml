@@ -1,8 +1,0 @@
-'site':
-  'name': 'thiings.co'
-  'url': 'https://www.thiings.co/'
-  'description': '友情链接'
-  'links': '/about'
-  'friends':
-    - 'name': 'Charlie'
-      'url': 'https://charlieclark.co'
