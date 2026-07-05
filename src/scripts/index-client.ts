@@ -215,6 +215,30 @@ type SearchResult = { id: string; name: string; url?: string };
     });
   }
 
+  // 随机博客按钮
+  const randomBtn = document.getElementById("btn-random");
+  if (randomBtn) {
+    randomBtn.addEventListener("click", () => {
+      try {
+        const data = (controller as any).getGraphData?.() || (window as any).__graphApi?.getGraphData?.();
+        const nodes = data?.nodes;
+        if (nodes && nodes.length > 0) {
+          const idx = Math.floor(Math.random() * nodes.length);
+          const node = nodes[idx];
+          if (node?.id) {
+            if ((controller as any).focusNodeById) {
+              (controller as any).focusNodeById(node.id);
+            } else if ((window as any).__graphApi?.focusNodeById) {
+              (window as any).__graphApi.focusNodeById(node.id);
+            }
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  }
+
   // 支持通过 ?local=<url> 聚焦到对应域名节点
   try {
     const params = new URLSearchParams(location.search);

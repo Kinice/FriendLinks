@@ -1,0 +1,26 @@
+site:
+  name: 云海鹰影
+  description: 鹰击长空，鱼翔浅底
+  url: https://www.chaoswork.cn/
+  links: /friends
+  friends:
+    - name: 五弹幕
+      url: https://www.5dm.tv/
+    - name: 维基萌
+      url: https://www.wikimoe.com/
+    - name: 糖菓·部落
+      url: https://candinya.com/
+    - name: 宿命博客
+      url: http://www.sumbk.com
+    - name: 游魂博客
+      url: https://www.iyouhun.com
+    - name: 红柚酱
+      url: http://www.notenet.cn/
+    - name: 谷小川的博客
+      url: https://www.svip.tech/
+    - name: 封尘博客
+      url: http://lovefc.cn
+    - name: 艾瑞可erik
+      url: https://erik.xyz
+    - name: 前端开发者技术周刊
+      url: https://weekly.shanyue.tech/

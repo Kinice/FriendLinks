@@ -997,6 +997,7 @@ export function init3d(graphData: GraphData) {
   const RETICLE_DAMPING = 12;
   const reticleOffset = { x: 0, y: 0 };
   const reticleVelocity = { x: 0, y: 0 };
+  let rollVelocity = 0; // Q/E 横滚速度（带阻尼平滑）
   let flyCrosshair: HTMLElement | null = null;
   let flyControlPanel: HTMLElement | null = null;
   let flyOnKeyDown: ((e: KeyboardEvent) => void) | null = null;
@@ -1136,8 +1137,15 @@ export function init3d(graphData: GraphData) {
     if (flyKeys.d) cam.translateX(speed);
     if (flyKeys.r) cam.translateY(speed);
     if (flyKeys.f) cam.translateY(-speed);
-    if (flyKeys.q) cam.rotateZ(speed * 0.003);
-    if (flyKeys.e) cam.rotateZ(-speed * 0.003);
+    // Q/E 横滚：带加速和阻尼的平滑过渡
+    const ROLL_ACCEL = 0.008;   // 每帧角加速度
+    const ROLL_DAMPING = 0.88;  // 松手后衰减系数
+    const MAX_ROLL = 0.06;      // 最大横滚角速度 (rad/frame)
+    if (flyKeys.q) rollVelocity += ROLL_ACCEL;
+    if (flyKeys.e) rollVelocity -= ROLL_ACCEL;
+    if (!flyKeys.q && !flyKeys.e) rollVelocity *= ROLL_DAMPING;
+    rollVelocity = Math.max(-MAX_ROLL, Math.min(MAX_ROLL, rollVelocity));
+    cam.rotateZ(rollVelocity);
 
     if (flyAutoPilot) updateAutoHover(nodes, ctx.camera);
   }
