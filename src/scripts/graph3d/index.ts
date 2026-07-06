@@ -647,28 +647,59 @@ export function init3d(graphData: GraphData) {
     });
     const up = new THREE.Vector3(0, 1, 0);
     const quat = new THREE.Quaternion();
+    const startV = new THREE.Vector3();
+    const endV = new THREE.Vector3();
+    const dirV = new THREE.Vector3();
+    const midV = new THREE.Vector3();
+    const bezier = (s: number, c: number, e: number, t: number) => {
+      const i = 1 - t;
+      return i * i * s + 2 * i * t * c + t * t * e;
+    };
+    // 缓存 links 查找映射 (source+target → index)
+    const linkLookup = new Map<string, number>();
+    for (let i = 0; i < links.length; i++) {
+      const key = `${links[i].source}|${links[i].target}`;
+      linkLookup.set(key, i);
+      linkLookup.set(`${links[i].target}|${links[i].source}`, i);
+    }
     for (let i = 0; i < path.length - 1; i++) {
       const a = nodes.find((n) => n.id === path[i]);
       const b = nodes.find((n) => n.id === path[i + 1]);
       if (!a || !b || a.x == null || b.x == null) continue;
-      const start = new THREE.Vector3(a.x, a.y!, a.z!);
-      const end = new THREE.Vector3(b.x, b.y!, b.z!);
-      const mid = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5);
-      const dir = new THREE.Vector3().subVectors(end, start);
-      const len = dir.length();
-      if (len < 0.01) continue;
-      dir.normalize();
-      quat.setFromUnitVectors(up, dir);
-      const halo = new THREE.Mesh(sharedHaloGeom, haloMat);
-      halo.position.copy(mid);
-      halo.quaternion.copy(quat);
-      halo.scale.set(1, len, 1);
-      const core = new THREE.Mesh(sharedCoreGeom, coreMat);
-      core.position.copy(mid);
-      core.quaternion.copy(quat);
-      core.scale.set(1, len, 1);
-      pathOverlayGroup.add(halo);
-      pathOverlayGroup.add(core);
+      // 查找边的贝塞尔控制点
+      const edgeKey = `${a.id}|${b.id}`;
+      const ei = linkLookup.get(edgeKey);
+      let cx: number, cy: number, cz: number;
+      if (ei != null && ei < ctx.edgeRefs.length) {
+        const ref = ctx.edgeRefs[ei];
+        cx = ref.cx; cy = ref.cy; cz = ref.cz;
+      } else {
+        // 回退：用中点作为控制点（直线）
+        cx = (a.x + b.x) / 2; cy = (a.y! + b.y!) / 2; cz = (a.z! + b.z!) / 2;
+      }
+      // 沿贝塞尔曲线创建分段圆柱
+      for (let j = 0; j < EDGE_SEGMENTS; j++) {
+        const t0 = j / EDGE_SEGMENTS;
+        const t1 = (j + 1) / EDGE_SEGMENTS;
+        startV.set(bezier(a.x, cx, b.x, t0), bezier(a.y!, cy, b.y!, t0), bezier(a.z!, cz, b.z!, t0));
+        endV.set(bezier(a.x, cx, b.x, t1), bezier(a.y!, cy, b.y!, t1), bezier(a.z!, cz, b.z!, t1));
+        dirV.subVectors(endV, startV);
+        const segLen = dirV.length();
+        if (segLen < 0.01) continue;
+        dirV.normalize();
+        midV.addVectors(startV, endV).multiplyScalar(0.5);
+        quat.setFromUnitVectors(up, dirV);
+        const halo = new THREE.Mesh(sharedHaloGeom, haloMat);
+        halo.position.copy(midV);
+        halo.quaternion.copy(quat);
+        halo.scale.set(1, segLen, 1);
+        const core = new THREE.Mesh(sharedCoreGeom, coreMat);
+        core.position.copy(midV);
+        core.quaternion.copy(quat);
+        core.scale.set(1, segLen, 1);
+        pathOverlayGroup.add(halo);
+        pathOverlayGroup.add(core);
+      }
     }
     ctx.scene.add(pathOverlayGroup);
   }
