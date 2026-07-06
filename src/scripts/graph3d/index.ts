@@ -244,33 +244,38 @@ export function init3d(graphData: GraphData) {
     const { lseg, lpx, lpy, lpz: _lpz } = _bezier;
 
     // 从紧凑格式解包到固定尺寸的 GPU buffer（MAX_EDGE_SEGMENTS 段/边）
-    const FIXED_FLOATS_PER_EDGE = MAX_EDGE_SEGMENTS * 2 * 3;
-    let srcCursor = 0;
+    // buffer 格式：每顶点 3 个 float (x,y,z)，每边最多 MAX_EDGE_SEGMENTS*2 个顶点
+    const MAX_VERTS_PER_EDGE = MAX_EDGE_SEGMENTS * 2;
+    let srcVert = 0; // 源数据顶点游标
     for (let i = 0; i < linkArr.length; i++) {
       const segs = lseg[i] || 6;
-      const dstBase = i * FIXED_FLOATS_PER_EDGE;
-      const copyLen = Math.min(FIXED_FLOATS_PER_EDGE, segs * 2 * 3);
-      for (let j = 0; j < copyLen && srcCursor + j < lpx.length; j++) {
-        pos[dstBase + j * 3] = lpx[srcCursor + j];
-        pos[dstBase + j * 3 + 1] = lpy[srcCursor + j];
-        pos[dstBase + j * 3 + 2] = _lpz[srcCursor + j];
+      const srcVerts = segs * 2; // 这条边的实际顶点数
+      const dstBaseVert = i * MAX_VERTS_PER_EDGE; // GPU buffer 中的起始顶点索引
+      const copyVerts = Math.min(MAX_VERTS_PER_EDGE, srcVerts);
+
+      // 拷贝有效顶点
+      for (let j = 0; j < copyVerts; j++) {
+        const srcIdx = srcVert + j;
+        pos[(dstBaseVert + j) * 3] = lpx[srcIdx] ?? 0;
+        pos[(dstBaseVert + j) * 3 + 1] = lpy[srcIdx] ?? 0;
+        pos[(dstBaseVert + j) * 3 + 2] = _lpz[srcIdx] ?? 0;
       }
-      // 短边补齐（重复最后一个点填满固定尺寸）
-      if (copyLen < FIXED_FLOATS_PER_EDGE) {
-        const li = srcCursor + copyLen - 3;
-        const lx = lpx[li] || 0,
-          ly = lpy[li] || 0,
-          lz = _lpz[li] || 0;
-        for (let j = copyLen; j < FIXED_FLOATS_PER_EDGE; j++) {
-          pos[dstBase + j * 3] = lx;
-          pos[dstBase + j * 3 + 1] = ly;
-          pos[dstBase + j * 3 + 2] = lz;
+      // 短边补齐（重复最后一个有效顶点）
+      if (copyVerts < MAX_VERTS_PER_EDGE) {
+        const li = srcVert + copyVerts - 1;
+        const lx = lpx[li] ?? 0,
+          ly = lpy[li] ?? 0,
+          lz = _lpz[li] ?? 0;
+        for (let j = copyVerts; j < MAX_VERTS_PER_EDGE; j++) {
+          pos[(dstBaseVert + j) * 3] = lx;
+          pos[(dstBaseVert + j) * 3 + 1] = ly;
+          pos[(dstBaseVert + j) * 3 + 2] = lz;
         }
       }
-      srcCursor += segs * 2 * 3;
+      srcVert += srcVerts;
     }
     ctx.linkLines.geometry.attributes.position.needsUpdate = true;
-    ctx.linkLines.geometry.setDrawRange(0, (linkArr.length * FIXED_FLOATS_PER_EDGE) / 3);
+    ctx.linkLines.geometry.setDrawRange(0, linkArr.length * MAX_VERTS_PER_EDGE);
     (ctx.linkLines.material as THREE.LineBasicMaterial).opacity = linkOpacity.value;
     // 填充 edgeRefs（供 updateLineGlow 用，使用最大段数）
     ctx.edgeRefs = linkArr.map((l) => {
