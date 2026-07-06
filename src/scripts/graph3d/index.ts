@@ -28,8 +28,6 @@ import type { GraphData } from "../../../types/graph";
 const FOCUS_NODE_SCALE = 1.5;
 /** 叠加线管最多沿几条边生成（巨型节点只显示部分连线，避免 GPU 爆炸） */
 const OVERLAY_MAX_EDGES = 200;
-/** 叠加线细分段数（低于基础线网的 6，减少 50% mesh 数量） */
-const OVERLAY_EDGE_SEGMENTS = 3;
 
 // ─── Tooltip ─────────────────────────────────────────────────────────────
 
@@ -1098,8 +1096,7 @@ export function init3d(graphData: GraphData) {
     });
 
     const linkPos = ctx.linkLines.geometry.attributes.position.array as Float32Array;
-    const FLOATS_PER_EDGE = EDGE_SEGMENTS * 2 * 3; // 基础线网是 6 段，取位置时步长不变
-    const STRIDE = EDGE_SEGMENTS / OVERLAY_EDGE_SEGMENTS; // 从 6 段中每 STRIDE 取 1 段
+    const FLOATS_PER_EDGE = EDGE_SEGMENTS * 2 * 3;
     let edgeCount = 0;
 
     for (let i = 0; i < links.length && edgeCount < OVERLAY_MAX_EDGES; i++) {
@@ -1107,9 +1104,8 @@ export function init3d(graphData: GraphData) {
       edgeCount++;
       const base = i * FLOATS_PER_EDGE;
 
-      // 沿贝塞尔曲线创建分段圆柱（等比抽取，减少 mesh 数量）
-      for (let j = 0; j < OVERLAY_EDGE_SEGMENTS; j++) {
-        const segBase = base + Math.round(j * STRIDE) * 6;
+      for (let j = 0; j < EDGE_SEGMENTS; j++) {
+        const segBase = base + j * 6;
         start_v.set(linkPos[segBase], linkPos[segBase + 1], linkPos[segBase + 2]);
         end_v.set(linkPos[segBase + 3], linkPos[segBase + 4], linkPos[segBase + 5]);
         dir_v.subVectors(end_v, start_v);
