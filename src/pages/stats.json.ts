@@ -87,8 +87,8 @@ export async function GET() {
     .map(([r, c]) => ({ route: r, count: c }));
   printProgress("❷", "路由统计完成", 100);
 
-  // ── 全节点六度分隔统计 (via @xingwangzhe/bfs-rs) ──
-  printProgress("❸", "构建全节点图…", 0);
+	  // ── 全节点六度分隔统计 (via @xingwangzhe/bfs-rs) ──
+	  printProgress("❸", "构建全节点图…", 0);
 
   const urlSet = new Set<string>();
   const urlToName = new Map<string, string>();
@@ -198,13 +198,13 @@ export async function GET() {
     edgeDistanceDistribution: degreeDist,
     intermediateVertexDistribution: intermediateDist,
     totalPairsConsidered: (n * (n - 1)) / 2,
-  };
+	  };
 
-  const finalStats = { ...stats, linkRoutes: linkRoutesSorted, sixDegrees: sixDegreeStats };
-  const elapsed = ((performance.now() - start) / 1000).toFixed(1);
-  printDone(
-    `/stats.json  ${validSites.length} 站点, ${stats.connections.total} 连接, ${n} 节点全量BFS, 耗时 ${elapsed}s`,
-  );
+	  const finalStats = { ...stats, linkRoutes: linkRoutesSorted, sixDegrees: sixDegreeStats };
+	  const elapsed = ((performance.now() - start) / 1000).toFixed(1);
+	  printDone(
+	    `/stats.json  ${validSites.length} 站点, ${stats.connections.total} 连接, ${n} 节点全量BFS, 耗时 ${elapsed}s`,
+	  );
 
   return new Response(JSON.stringify(finalStats), {
     headers: { "Content-Type": "application/json" },

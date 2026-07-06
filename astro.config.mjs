@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite";
 // @ts-check
 import { defineConfig } from "astro/config";
 
@@ -5,8 +6,9 @@ import { defineConfig } from "astro/config";
 import path from "node:path";
 
 export default defineConfig({
-  output: "static",
+	output: "static",
   vite: {
+		plugins: [tailwindcss()],
     ssr: {
       external: ["@xingwangzhe/bfs-rs", "@xingwangzhe/force-rs"],
     },

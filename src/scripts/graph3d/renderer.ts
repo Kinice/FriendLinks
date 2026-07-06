@@ -23,6 +23,7 @@ export interface NodeState {
   _cHover: string;
   _cFocus: string;
   _cHighlight: string;
+  _cDimmed: string;
 }
 
 // ─── 常量 ──────────────────────────────────────────────────────────

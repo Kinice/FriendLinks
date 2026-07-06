@@ -1,9 +1,11 @@
 ---
+import "../styles/starwind.css";
 import "../css/base.css";
 import "../css/topbar.css";
-import "../css/buttons.css";
-import "../css/modal.css";
-	export const prerender = true;
+import { Button } from "@/components/starwind/button";
+import { Spinner } from "@/components/starwind/spinner";
+import { Dialog, DialogContent, DialogTitle, DialogHeader, DialogTrigger } from "@/components/starwind/dialog";
+export const prerender = true;
 ---
 
 <html lang="zh-CN">
@@ -18,6 +20,22 @@ import "../css/modal.css";
     <meta name="generator" content={Astro.generator} />
     <title>博客宇宙</title>
     <meta name="description" content="探索浩瀚的博客宇宙，寻找彼此之间的联系" />
+    <script is:inline>
+      function initTheme() {
+        const theme = localStorage.getItem("colorTheme");
+        if (!theme) {
+          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            document.documentElement.classList.add("dark");
+          }
+        } else if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      }
+      initTheme();
+      document.addEventListener("astro:after-swap", initTheme);
+    </script>
   </head>
   <body>
     <div class="topbar">
@@ -61,7 +79,7 @@ import "../css/modal.css";
     <!-- 首屏加载蒙版 -->
     <div id="loading-overlay">
       <div class="loading-box">
-        <div class="loading-spinner"></div>
+        <Spinner class="size-10 text-[#4a9eff]" />
         <div class="loading-status">
           <span id="loading-text">正在探索博客宇宙...</span>
           <span id="loading-time" class="loading-time"></span>
@@ -75,100 +93,94 @@ import "../css/modal.css";
     <div class="top-buttons">
       <button id="menu-toggle" class="top-button menu-toggle" aria-label="菜单" title="菜单">☰</button>
       <div class="top-buttons-group">
-        <button id="fly-toggle" class="top-button" aria-label="切换飞船模式"
-          >🚀 飞船模式</button
-        >
-        <button id="about-toggle" class="top-button" aria-label="关于项目"
-          >关于</button
-        >
-        <button id="stats-toggle" class="top-button" aria-label="查看统计信息"
-          >📊统计信息</button
-        >
-        <button id="opacity-toggle" class="top-button" aria-label="控制面板"
-          >控制面板</button
-        >
-        <button id="path-toggle" class="top-button" aria-label="路径查找"
-          >🔗 路径查找</button
-        >
-        <button id="btn-random" class="top-button" aria-label="随机博客"
-          >🎲 随机博客</button
-        >
+        <Button id="fly-toggle" variant="ghost" size="sm" aria-label="切换飞船模式">🚀 飞船模式</Button>
+        <DialogTrigger for="about-dialog" asChild>
+          <Button id="about-toggle" variant="ghost" size="sm" aria-label="关于项目">关于</Button>
+        </DialogTrigger>
+        <DialogTrigger for="stats-dialog" asChild>
+          <Button id="stats-toggle" variant="ghost" size="sm" aria-label="查看统计信息">📊统计信息</Button>
+        </DialogTrigger>
+        <Button id="opacity-toggle" variant="ghost" size="sm" aria-label="控制面板">控制面板</Button>
+        <Button id="path-toggle" variant="ghost" size="sm" aria-label="路径查找">🔗 路径查找</Button>
+        <Button id="btn-random" variant="ghost" size="sm" aria-label="随机博客">🎲 随机博客</Button>
       </div>
     </div>
 
+    <!-- 统计数据（构建时预埋，避免运行时 fetch） -->
+
     <!-- 统计弹窗 -->
-    <div id="stats-modal" role="dialog" aria-modal="true">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2>📊 博客宇宙统计</h2>
-          <button class="close-btn" aria-label="关闭">&times;</button>
-        </div>
-        <div id="stats-content">
-          <div class="loading">加载中...</div>
-        </div>
-      </div>
-    </div>
+    <Dialog id="stats-dialog">
+      <DialogContent class="sm:max-w-3xl">
+        <DialogHeader>
+          <DialogTitle>📊 博客宇宙统计</DialogTitle>
+        </DialogHeader>
+        <div id="stats-content" class="space-y-4"></div>
+      </DialogContent>
+    </Dialog>
+
     <!-- 关于弹窗 -->
-    <div id="about-modal" role="dialog" aria-modal="true">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2>关于博客宇宙</h2>
-          <button class="close-btn" aria-label="关闭">&times;</button>
-        </div>
-        <div class="about-content">
-          <h3>博客宇宙</h3>
-          <p>探索浩瀚的博客宇宙，寻找彼此之间的联系。每个节点是一个博客，每条连线是一段友链关系。</p>
-          <p><strong>法律合规说明：</strong>网站所有者和投稿者必须确保其发布内容及网站运营遵守中华人民共和国以及适用情况下的美利坚合众国法律法规（包括但不限于版权、隐私、网络安全与信息内容方面的法律）。</p>
-          <p><strong>请确保：</strong>你的站点使用 <code>https</code> 并可以在大陆访问。</p>
-          <h4>操作说明</h4>
-          <ul>
-            <li><strong>左键点击节点</strong>：在新标签页打开对应网站</li>
-            <li><strong>右键点击节点</strong>：聚焦该节点（相机拉近、节点放大 1.5 倍、金色粗管荧光连线），右侧弹出邻居节点面板</li>
-            <li><strong>悬停节点</strong>：显示站点名称/描述/链接，白色荧光连线</li>
-            <li><strong>左键拖拽</strong>：旋转 3D 视角</li>
-            <li><strong>右键拖拽</strong>：平移视角</li>
-            <li><strong>滚轮</strong>：缩放视图</li>
-            <li><strong>搜索框</strong>：模糊搜索站点名或域名</li>
-            <li><strong>「控制面板」按钮</strong>：调整连线透明度、飞船速度、节点标签显隐</li>
-          </ul>
-          <h4>聚焦效果说明</h4>
-          <p>右键点击节点后，会触发以下视觉效果：</p>
-          <ul>
-            <li>节点半径<strong>放大 1.5 倍</strong></li>
-            <li>节点颜色<strong>调亮 60%</strong></li>
-            <li>相连连线变为<strong>亮金色粗管</strong>，带荧光光晕</li>
-            <li>相机自动将节点移动到视野中心</li>
-            <li>邻居节点轻微高亮（调亮 20%）</li>
-          </ul>
-          <h4>添加你的博客</h4>
-          <p>在 <code>links/&#123;yoursite&#125;.yml</code> 中填写你的站点信息，示例格式如下：</p>
-          <pre><code class="yaml">site:
-  name: 我的博客
-  description: 分享编程和技术相关的文章
-  url: https://example.com
-  color: "#ff6600"  # 可选，自定义节点颜色
-  links: /links     # 友链页面路由（必填）
-  friends:
-    - name: 编程小站
-      url: https://codehub.example.com</code></pre>
-          <h4>URL 聚焦查询（自动高亮）</h4>
-          <p>通过在页面地址中添加 <code>?local=域名</code> 参数即可自动定位到指定节点。</p>
-          <ul>
-            <li><code>?local=example.com</code> — 按域名匹配</li>
-            <li><code>?local=https://example.com</code> — 按完整 URL 匹配</li>
-          </ul>
-          <h4>如何贡献</h4>
-          <ol>
-            <li>Fork 本仓库并创建新分支用于改动。</li>
-            <li>在 <code>links/</code> 下添加或更新你的 <code>blog.yml</code> 文件，<strong>必须填写 <code>links</code> 字段</strong>（友链页面路由如 <code>/links</code>、<code>/link</code>、<code>/friends</code> 等），可选的 <code>color</code> 字段可自定义节点颜色。</li>
-            <li>提交改动并提 PR，之后会审查并合并入主干。</li>
-          </ol>
-          <div style="margin-top: 12px; display:flex; gap:8px; flex-wrap:wrap;">
-            <a href="https://github.com/xingwangzhe/FriendLinks" target="_blank" rel="noopener" class="modal-link">查看仓库</a>
+    <Dialog id="about-dialog">
+      <DialogContent class="sm:max-w-2xl">
+        <DialogHeader>
+          <DialogTitle>关于博客宇宙</DialogTitle>
+        </DialogHeader>
+        <div class="space-y-5 text-sm">
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="rounded-lg border p-4">
+              <h4 class="mb-2 font-semibold">🖱 操作</h4>
+              <ul class="space-y-1 text-muted-foreground">
+                <li><strong class="text-foreground">左键</strong> 打开网站</li>
+                <li><strong class="text-foreground">右键</strong> 聚焦节点</li>
+                <li><strong class="text-foreground">悬停</strong> 显示信息</li>
+                <li><strong class="text-foreground">左键拖拽</strong> 旋转</li>
+                <li><strong class="text-foreground">右键拖拽</strong> 平移</li>
+                <li><strong class="text-foreground">滚轮</strong> 缩放</li>
+              </ul>
+            </div>
+            <div class="rounded-lg border p-4">
+              <h4 class="mb-2 font-semibold">🔍 搜索</h4>
+              <ul class="space-y-1 text-muted-foreground">
+                <li>输入站点名或域名实时搜索</li>
+                <li>点击结果项可<strong class="text-foreground">打开网站</strong>或<strong class="text-foreground">聚焦节点</strong></li>
+                <li><code class="rounded bg-muted px-1">?local=example.com</code> 按域名匹配</li>
+                <li><code class="rounded bg-muted px-1">?local=https://example.com</code> 按完整 URL 匹配</li>
+                <li><strong class="text-foreground">🎲 随机博客</strong> 按钮随机跳转</li>
+              </ul>
+            </div>
+            <div class="rounded-lg border p-4">
+              <h4 class="mb-2 font-semibold">✨ 聚焦效果</h4>
+              <ul class="space-y-1 text-muted-foreground">
+                <li>节点 <strong class="text-foreground">放大 1.5x</strong> + 调亮 60%</li>
+                <li>亮金色粗管荧光连线</li>
+                <li>邻居节点高亮 20%</li>
+                <li>自动居中相机</li>
+              </ul>
+            </div>
+            <div class="rounded-lg border p-4">
+              <h4 class="mb-2 font-semibold">➕ 添加友链</h4>
+              <p class="text-muted-foreground mb-2">在项目中新建 <code class="rounded bg-muted px-1">links/你的站点.yml</code>：</p>
+              <pre class="rounded bg-muted p-2 text-xs overflow-x-auto"><code>name: 我的博客
+url: https://example.com
+links: /friends
+friends:
+  - name: 友人
+    url: https://friend.com</code></pre>
+            </div>
+          </div>
+          <div class="rounded-lg border p-4">
+            <h4 class="mb-2 font-semibold">📋 要求</h4>
+            <ul class="space-y-1 text-muted-foreground">
+              <li>✅ 仅限<strong class="text-foreground">个人博客</strong>，有原创内容</li>
+              <li>✅ 使用 <strong class="text-foreground">HTTPS</strong> 并可在国内访问</li>
+              <li>✅ 友链页需包含本站信息</li>
+            </ul>
+          </div>
+          <div class="flex gap-3 justify-end">
+            <a href="https://github.com/xingwangzhe/FriendLinks" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs hover:bg-muted transition-colors">GitHub 仓库</a>
           </div>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
     <!-- 路径查找底部栏 -->
     <div id="path-bar" class="path-bar">
       <div class="path-bar-row">
@@ -279,168 +291,7 @@ import "../css/modal.css";
         }
       }
 
-      /* 统计弹窗样式 */
-      #stats-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-        opacity: 0;
-        visibility: hidden;
-        transition:
-          opacity 0.3s ease,
-          visibility 0.3s ease;
-      }
-      #stats-modal.show {
-        opacity: 1;
-        visibility: visible;
-      }
-      #stats-modal .modal-content {
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 20px;
-        max-width: 700px;
-        width: 90%;
-        max-height: 80vh;
-        overflow-y: auto;
-        position: relative;
-        transform: translateY(-20px);
-        transition: transform 0.3s ease;
-        margin: 20px; /* 在小屏幕上添加边距 */
-      }
-      #stats-modal.show .modal-content {
-        transform: translateY(0);
-      }
-      #stats-modal .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid var(--border);
-      }
-      #stats-modal .modal-header h2 {
-        margin: 0;
-        color: var(--text-color);
-        font-size: 18px;
-      }
-      #stats-modal .close-btn {
-        background: none;
-        border: none;
-        font-size: 24px;
-        cursor: pointer;
-        color: var(--text-color);
-        padding: 0;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      #stats-modal .stats-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-      }
-      #stats-modal .stat-item {
-        background: color-mix(in srgb, var(--card-bg) 95%, black 5%);
-        padding: 15px;
-        border-radius: 6px;
-        text-align: center;
-        border: 1px solid var(--border);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 60px;
-      }
-      #stats-modal .stat-label {
-        font-size: 14px;
-        color: var(--muted);
-        font-weight: 500;
-        line-height: 1.2;
-      }
-      #stats-modal .stat-value {
-        font-size: 18px;
-        font-weight: bold;
-        line-height: 1.2;
-        color: var(--accent);
-      }
-
-      /* 暗色主题下 stat-value 颜色跟随 accent */
-      #stats-modal .loading {
-        text-align: center;
-        color: var(--muted);
-        padding: 40px;
-      }
-      #stats-modal .error {
-        text-align: center;
-        color: var(--danger);
-        padding: 40px;
-      }
-      #stats-modal .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        margin-top: 20px;
-      }
-      #stats-modal .stat-section {
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 16px;
-      }
-      #stats-modal .stat-section h3 {
-        margin: 0 0 12px 0;
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--text-color);
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 8px;
-      }
-
-      /* 移动端响应式 */
-      @media (max-width: 640px) {
-        #stats-modal .modal-content {
-          width: calc(100% - 40px);
-          margin: 20px;
-          padding: 15px;
-          max-height: 90vh;
-        }
-        #stats-modal .stats-grid {
-          grid-template-columns: 1fr;
-          gap: 15px;
-        }
-        #stats-modal .stat-section {
-          padding: 12px;
-        }
-        #stats-modal .stat-section h3 {
-          font-size: 13px;
-          margin-bottom: 10px;
-        }
-        #stats-modal .stat-item {
-          padding: 12px;
-          min-height: 50px;
-        }
-        #stats-modal .stat-label {
-          font-size: 13px;
-        }
-        #stats-modal .stat-value {
-          font-size: 16px;
-        }
-        #stats-modal .modal-header h2 {
-          font-size: 16px;
-        }
-      }
-
       /* 首屏加载蒙版 */
-      #loading-overlay {
         position: fixed;
         inset: 0;
         z-index: 9999;
@@ -460,17 +311,6 @@ import "../css/modal.css";
         flex-direction: column;
         align-items: center;
         gap: 16px;
-      }
-      .loading-spinner {
-        width: 40px;
-        height: 40px;
-        border: 3px solid var(--border);
-        border-top-color: #4a9eff;
-        border-radius: 50%;
-        animation: spin 0.8s linear infinite;
-      }
-      @keyframes spin {
-        to { transform: rotate(360deg); }
       }
       .loading-status {
         display: flex;
@@ -631,227 +471,103 @@ import "../css/modal.css";
     </script>
     <script lang="js">
       (function () {
-        // 强制暗色宇宙模式
-        document.documentElement.dataset.theme = "dark";
+        // 启用暗色模式（若无系统偏好则默认为暗色）
+        if (!localStorage.getItem("colorTheme")) {
+          document.documentElement.classList.add("dark");
+        }
 
-        // 统计弹窗功能
-        const statsBtn = document.getElementById("stats-toggle");
-        const statsModal = document.getElementById("stats-modal");
+        // ── 统计弹窗：点击触发时加载数据 ──
         const statsContent = document.getElementById("stats-content");
-        const closeBtn = statsModal?.querySelector(".close-btn");
 
-        const showStatsModal = () => {
-          if (!statsModal) return;
-          statsModal.classList.add("show");
-          loadStatsData();
-        };
-
-        const hideStatsModal = () => {
-          if (!statsModal) return;
-          statsModal.classList.remove("show");
-        };
-
-        const loadStatsData = () => {
-          if (!statsContent) return;
-
-          statsContent.innerHTML = '<div class="loading">加载中...</div>';
-
-          fetch("/stats.json")
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error("网络请求失败");
-              }
-              return response.json();
-            })
-            .then((data) => {
-              renderStats(data);
-            })
-            .catch((error) => {
-              console.error("加载统计数据失败:", error);
-              statsContent.innerHTML =
-                '<div class="error">加载失败，请稍后重试</div>';
+        if (statsContent) {
+          const statsTrigger = document.querySelector('[data-dialog-for="stats-dialog"]');
+          if (statsTrigger) {
+            statsTrigger.addEventListener("click", () => {
+              statsContent.innerHTML = '<div class="flex items-center justify-center py-10 text-muted-foreground text-sm">加载中...</div>';
+              fetch("/stats.json")
+                .then(r => r.ok ? r.json() : Promise.reject())
+                .then(data => { statsContent.innerHTML = renderStatsCards(data); })
+                .catch(() => { statsContent.innerHTML = '<div class="text-destructive text-sm text-center py-10">加载失败</div>'; });
             });
-        };
+          }
+        }
 
-        const renderStats = (data) => {
-          if (!statsContent) return;
+        function renderStatsCards(data) {
+          const sd = data.sixDegrees;
+          const dist = sd?.edgeDistanceDistribution || {};
+          const entries = Object.entries(dist).filter(([d]) => Number(d) <= 20).sort(([a],[b])=>Number(a)-Number(b));
+          const maxVal = Math.max(...entries.map(([,c])=>Number(c)), 1);
+          const cd = sd?.compSizeDistribution || [];
+          const maxCompCnt = Math.max(...cd.map(b => b.count), 1);
 
-          const statsHtml = `
-            <div class="stats-grid">
-              <div class="stat-section">
-                <h3>核心节点</h3>
-                <div class="stat-item">
-                  <span class="stat-label">核心节点数</span>
-                  <span class="stat-value">${data.coreNodes.count}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">唯一域名</span>
-                  <span class="stat-value">${data.coreNodes.uniqueHosts}</span>
+          return `
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div class="rounded-lg border p-4">
+                <h3 class="mb-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">核心节点</h3>
+                <div class="space-y-2">
+                  <div class="flex justify-between"><span class="text-muted-foreground text-sm">节点数</span><span class="font-bold">${data.coreNodes.count.toLocaleString()}</span></div>
+                  <div class="flex justify-between"><span class="text-muted-foreground text-sm">唯一域名</span><span class="font-bold">${data.coreNodes.uniqueHosts.toLocaleString()}</span></div>
                 </div>
               </div>
-
-              <div class="stat-section">
-                <h3>友链节点</h3>
-                <div class="stat-item">
-                  <span class="stat-label">友链节点总数</span>
-                  <span class="stat-value">${data.friendNodes.total}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">外部友链</span>
-                  <span class="stat-value">${data.friendNodes.externalFriends}</span>
+              <div class="rounded-lg border p-4">
+                <h3 class="mb-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">友链节点</h3>
+                <div class="space-y-2">
+                  <div class="flex justify-between"><span class="text-muted-foreground text-sm">外部友链数</span><span class="font-bold">${data.friendNodes.total.toLocaleString()}</span></div>
+                  <div class="flex justify-between"><span class="text-muted-foreground text-sm">友链连接</span><span class="font-bold">${data.friendNodes.externalFriends.toLocaleString()}</span></div>
                 </div>
               </div>
-
-              <div class="stat-section">
-                <h3>核心节点间连接</h3>
-                <div class="stat-item">
-                  <span class="stat-label">连接总数</span>
-                  <span class="stat-value">${data.connections.coreToCore.total}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">双向连接</span>
-                  <span class="stat-value">${data.connections.coreToCore.bidirectional}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">单向连接</span>
-                  <span class="stat-value">${data.connections.coreToCore.unidirectional}</span>
+              <div class="rounded-lg border p-4">
+                <h3 class="mb-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">连接</h3>
+                <div class="space-y-2">
+                  <div class="flex justify-between"><span class="text-muted-foreground text-sm">核心间双向</span><span class="font-bold">${data.connections.coreToCore.bidirectional.toLocaleString()}</span></div>
+                  <div class="flex justify-between"><span class="text-muted-foreground text-sm">核心间单向</span><span class="font-bold">${data.connections.coreToCore.unidirectional.toLocaleString()}</span></div>
+                  <div class="flex justify-between"><span class="text-muted-foreground text-sm">核心到友链</span><span class="font-bold">${data.connections.coreToFriend.toLocaleString()}</span></div>
                 </div>
               </div>
-
-              <div class="stat-section">
-                <h3>核心节点到友链</h3>
-                <div class="stat-item">
-                  <span class="stat-label">连接数量</span>
-                  <span class="stat-value">${data.connections.coreToFriend}</span>
+              <div class="rounded-lg border p-4">
+                <h3 class="mb-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">总览</h3>
+                <div class="space-y-2">
+                  <div class="flex justify-between"><span class="text-muted-foreground text-sm">所有节点</span><span class="font-bold">${data.overview.totalNodes.toLocaleString()}</span></div>
+                  <div class="flex justify-between"><span class="text-muted-foreground text-sm">总连接</span><span class="font-bold">${data.overview.totalConnections.toLocaleString()}</span></div>
                 </div>
               </div>
-
-              <div class="stat-section">
-                <h3>总览</h3>
-                <div class="stat-item">
-                  <span class="stat-label">所有节点数</span>
-                  <span class="stat-value">${data.overview.totalNodes}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">总连接数</span>
-                  <span class="stat-value">${data.overview.totalConnections}</span>
-                </div>
-              </div>
-
-              ${data.sixDegrees ? (() => {
-                const dist = data.sixDegrees.edgeDistanceDistribution;
-                const entries = Object.entries(dist)
-                  .filter(([d]) => Number(d) <= 20)
-                  .sort(([a],[b])=>Number(a)-Number(b));
-                const maxVal = Math.max(...entries.map(([,c])=>Number(c)));
-                return `
-              <div class="stat-section" style="grid-column:1/-1;">
-                <h3>🌐 六度分隔 · 主分量 ${data.sixDegrees.mainComponentSize} 节点 · 最大 ${data.sixDegrees.maxEdgeDistance} 度</h3>
-                <div class="six-degrees-bars">
+              <div class="rounded-lg border p-4 sm:col-span-2 lg:col-span-2">
+                <h3 class="mb-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">🌐 六度分隔 · 主分量 ${sd?.mainComponentSize.toLocaleString()} 节点 · 最大 ${sd?.maxEdgeDistance} 度</h3>
+                <div class="space-y-1">
                   ${entries.map(([d,c]) => {
-                    const pct = (Number(c)/maxVal*100).toFixed(1);
                     const w = Math.max(1, Number(c)/maxVal*100).toFixed(0);
-                    return `<div class="sd-bar-row">
-                      <span class="sd-label">${d}度</span>
-                      <span class="sd-bar" style="width:${w}%"></span>
-                      <span class="sd-count">${Number(c).toLocaleString()}</span>
+                    return `<div class="flex items-center gap-2 text-xs">
+                      <span class="w-10 text-right text-muted-foreground shrink-0">${d}度</span>
+                      <span class="h-3 rounded-sm" style="width:${w}%;background:linear-gradient(90deg,#4a9eff,#00c6ff);min-width:2px"></span>
+                      <span class="text-muted-foreground shrink-0">${Number(c).toLocaleString()}</span>
                     </div>`;
                   }).join('')}
                 </div>
               </div>
-              ${data.sixDegrees.compSizeDistribution ? (() => {
-                const cd = data.sixDegrees.compSizeDistribution;
-                const maxCompCnt = Math.max(...cd.map(b => b.count));
-                return `
-              <div class="stat-section" style="grid-column:1/-1;">
-                <h3>🧩 连通分量 · ${data.sixDegrees.componentCount} 个 · 主分量 ${data.sixDegrees.mainComponentSize.toLocaleString()} 节点</h3>
-                <div class="six-degrees-bars">
+              ${cd.length ? `<div class="rounded-lg border p-4 sm:col-span-2 lg:col-span-2">
+                <h3 class="mb-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">🧩 连通分量 · ${sd?.componentCount} 个 · 主分量 ${sd?.mainComponentSize.toLocaleString()} 节点</h3>
+                <div class="space-y-1">
                   ${cd.map(b => {
                     const w = Math.max(1, b.count/maxCompCnt*100).toFixed(0);
-                    return `<div class="sd-bar-row">
-                      <span class="sd-label">${b.label}</span>
-                      <span class="sd-bar" style="width:${w}%"></span>
-                      <span class="sd-count">${b.count.toLocaleString()}</span>
+                    return `<div class="flex items-center gap-2 text-xs">
+                      <span class="w-12 text-right text-muted-foreground shrink-0">${b.label}</span>
+                      <span class="h-3 rounded-sm" style="width:${w}%;background:linear-gradient(90deg,#4a9eff,#00c6ff);min-width:2px"></span>
+                      <span class="text-muted-foreground shrink-0">${b.count.toLocaleString()}</span>
                     </div>`;
                   }).join('')}
                 </div>
-              </div>`; })() : ''}
-              <style>
-                .six-degrees-bars { margin-top:8px; }
-                .sd-bar-row { display:flex; align-items:center; gap:6px; margin:2px 0; font-size:11px; }
-                .sd-label { width:90px; text-align:right; color:#aaa; flex-shrink:0; }
-                .sd-bar { height:14px; background:linear-gradient(90deg,#4a9eff,#00c6ff); border-radius:3px; min-width:2px; transition:width 0.3s; }
-                .sd-count { color:#ccc; flex-shrink:0; font-variant-numeric:tabular-nums; }
-              </style>`; })() : ''}
-
-              <div class="stat-section">
-                <h3>友链页面路由排行</h3>
-                ${(data.linkRoutes || []).map(r => `
-                  <div class="stat-item">
-                    <span class="stat-label">${r.route}</span>
-                    <span class="stat-value">${r.count}</span>
-                  </div>
-                `).join('')}
+              </div>` : ''}
+              <div class="rounded-lg border p-4">
+                <h3 class="mb-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">路由排行</h3>
+                <div class="space-y-1 max-h-40 overflow-y-auto">
+                  ${(data.linkRoutes || []).map(r => `
+                    <div class="flex justify-between text-sm"><span class="text-muted-foreground">${r.route}</span><span class="font-bold">${r.count}</span></div>
+                  `).join('')}
+                </div>
               </div>
             </div>
           `;
-
-          statsContent.innerHTML = statsHtml;
         }
-
-        if (statsBtn) {
-          statsBtn.addEventListener("click", showStatsModal);
-        }
-
-        if (closeBtn) {
-          closeBtn.addEventListener("click", hideStatsModal);
-        }
-
-        if (statsModal) {
-          statsModal.addEventListener("click", (e) => {
-            if (e.target === statsModal) {
-              hideStatsModal();
-            }
-          });
-        }
-
-        // About modal
-        const aboutBtn = document.getElementById("about-toggle");
-        const aboutModal = document.getElementById("about-modal");
-        const aboutClose = aboutModal?.querySelector(".close-btn");
-
-        const showAboutModal = () => {
-          if (!aboutModal) return;
-          aboutModal.classList.add("show");
-        };
-
-        const hideAboutModal = () => {
-          if (!aboutModal) return;
-          aboutModal.classList.remove("show");
-        };
-
-        if (aboutBtn) {
-          aboutBtn.addEventListener("click", showAboutModal);
-        }
-
-        if (aboutClose) {
-          aboutClose.addEventListener("click", hideAboutModal);
-        }
-
-        if (aboutModal) {
-          aboutModal.addEventListener("click", (e) => {
-            if (e.target === aboutModal) {
-              hideAboutModal();
-            }
-          });
-        }
-
-        // ESC键关闭弹窗（关闭任一显示的弹窗）
-        document.addEventListener("keydown", (e) => {
-          if (e.key !== "Escape") return;
-          if (statsModal?.classList.contains("show")) hideStatsModal();
-          if (aboutModal?.classList.contains("show")) hideAboutModal();
-        });
 
         // 控制面板按钮
         const opacityBtn = document.getElementById("opacity-toggle");

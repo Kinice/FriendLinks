@@ -89,7 +89,8 @@ export function init3d(graphData: GraphData) {
       _cDefault: adjustHex(base, 20),
       _cHover: adjustHex(base, 40),
       _cFocus: adjustHex(base, 60),
-      _cHighlight: adjustHex(base, 20),
+      _cHighlight: adjustHex(base, 35),
+      _cDimmed: adjustHex(base, -15),
     });
   });
 
@@ -157,6 +158,7 @@ export function init3d(graphData: GraphData) {
     _cHover: n._cHover,
     _cFocus: n._cFocus,
     _cHighlight: n._cHighlight,
+    _cDimmed: n._cDimmed,
   }));
 
   updateAllNodePositions(ctx, nodes, nodeStates);
@@ -735,6 +737,8 @@ export function init3d(graphData: GraphData) {
         color = nd._cFocus;
       } else if (highlightedSet.size > 0 && highlightedSet.has(nd.id)) {
         color = nd._cHighlight;
+      } else if (highlightedSet.size > 0) {
+        color = nd._cDimmed;
       } else {
         color = nd._cDefault;
       }
@@ -762,7 +766,7 @@ export function init3d(graphData: GraphData) {
       if (!_fpsDisplay) {
         _fpsDisplay = document.createElement("div");
         _fpsDisplay.style.cssText =
-          "position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:10000;background:rgba(0,0,0,0.7);color:#0f0;padding:4px 8px;border-radius:4px;font:12px monospace;";
+          "position:fixed;bottom:8px;left:8px;z-index:10000;background:rgba(0,0,0,0.7);color:#0f0;padding:4px 8px;border-radius:4px;font:12px monospace;";
         document.body.appendChild(_fpsDisplay);
       }
       const nodeCount = ctx.nodes.count;

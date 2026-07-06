@@ -3,6 +3,7 @@ import type { GraphNode, GraphLink, GraphCategory } from "../../types/graph";
 import { encode } from "msgpackr";
 import { printProgress, printDone } from "../utils/progress";
 import { simTick } from "@xingwangzhe/force-rs";
+import { isFastMode } from "../utils/sample";
 
 function getHost(u: string): string {
   try {
@@ -179,7 +180,7 @@ export async function GET() {
   const CENTER_STRENGTH = 0.015;
   const forceOpts = { repulsion: REPULSION, linkDistance: LINK_DISTANCE, centerStrength: CENTER_STRENGTH, theta: 0.8, velocityDecay: 0.10, alphaDecay: 0.02 };
 
-  const FAST = import.meta.env.DEV || !!process.env.MINIBUILD;
+  const FAST = isFastMode();
   const TICKS_MAX = FAST ? 100 : 500;
   const TICK_LOG = FAST ? 5 : 10;
   const TIME_LIMIT_MS = FAST ? 30000 : 14 * 60 * 1000;
