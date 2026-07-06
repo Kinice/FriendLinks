@@ -121,6 +121,7 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
   // InstancedMesh: 单层球体 + 自定义 ShaderMaterial（菲涅尔 rim 光，比 MeshStandardMaterial 轻量 20x+）
   const nodeGeom = new THREE.SphereGeometry(1, NODE_SEGMENTS, NODE_HEIGHT_SEGMENTS);
   const nodeMat = new THREE.ShaderMaterial({
+    transparent: true,
     vertexShader: `
       varying vec3 vColor;
       varying vec3 vNormal;
@@ -129,7 +130,6 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
       void main() {
         vColor = instanceColor;
         vec4 worldPos = instanceMatrix * vec4(position, 1.0);
-        // 均匀缩放 (15,15,15)，mat3(instanceMatrix) 即可正确变换法线
         vNormal = normalize(mat3(instanceMatrix) * normal);
         vec4 mvPos = modelViewMatrix * worldPos;
         vViewDir = normalize(-mvPos.xyz);
@@ -144,12 +144,13 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
       void main() {
         vec3 n = normalize(vNormal);
         vec3 v = normalize(vViewDir);
-        // 菲涅尔 rim 光：边缘亮、中心暗，增强 3D 立体感
+        // 菲涅尔 rim
         float rim = 1.0 - max(0.0, dot(n, v));
-        rim = pow(rim, 1.6);
-        // 内部极暗(0.25)，边缘亮环(2.0)——视觉主体靠光晕层而非球体
-        vec3 col = vColor * mix(0.25, 2.0, rim);
-        gl_FragColor = vec4(col, 1.0);
+        rim = pow(rim, 2.0);
+        // 果冻透明：中心透明(alpha=0)，边缘半透发光
+        float alpha = rim * 0.55;
+        vec3 col = vColor * (0.15 + rim * 1.8);
+        gl_FragColor = vec4(col, alpha);
       }
     `,
   });
@@ -364,7 +365,7 @@ export function createNodeGlow(
     colors[i * 3 + 1] = c.g;
     colors[i * 3 + 2] = c.b;
     const deg = degreeMap[n.id] || 1;
-    sizes[i] = nodeSize(deg, maxDegree) * 3.5;
+    sizes[i] = nodeSize(deg, maxDegree) * 4.5;
   }
 
   const geom = new THREE.BufferGeometry();
@@ -383,7 +384,7 @@ export function createNodeGlow(
         vCol = aCol;
         vec4 mv = modelViewMatrix * vec4(position, 1.0);
         // 限制最大像素尺寸：远景缩小光晕，防止加法混合叠成白色
-        gl_PointSize = clamp(aSz * (320.0 / -mv.z), 1.5, 48.0);
+        gl_PointSize = clamp(aSz * (320.0 / -mv.z), 1.5, 96.0);
         gl_Position = projectionMatrix * mv;
       }
     `,
@@ -410,7 +411,7 @@ export function createNodeGlow(
 
 /** MeetBlog 风格的节点大小计算：度数越大节点越大 */
 function nodeSize(degree: number, maxDegree: number): number {
-  return 2.5 + Math.pow(degree / Math.max(1, maxDegree), 0.38) * 16;
+  return 5 + Math.pow(degree / Math.max(1, maxDegree), 0.38) * 40;
 }
 
 export function updateAllNodePositions(
