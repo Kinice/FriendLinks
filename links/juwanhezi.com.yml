@@ -4,8 +4,6 @@
   'description': '友情链接'
   'links': '/links'
   'friends':
-    - 'name': '程序库'
-      'url': 'https://cxku.cn/'
     - 'name': '极客酱'
       'url': 'https://www.jikejiang.com'
     - 'name': '花式玩客'
