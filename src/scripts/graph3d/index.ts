@@ -14,6 +14,7 @@ import {
   animateCamera,
   createParticles,
   updateParticles,
+  createNodeGlow,
   EDGE_SEGMENTS,
   type RenderContext,
   type NodeState,
@@ -158,7 +159,10 @@ export function init3d(graphData: GraphData) {
     } catch {}
   }
 
-  // ── 6c. 节点索引映射 ──
+  // ── 6c. 最大度数 ──
+  const maxDegree = Math.max(...Object.values(degreeMap), 1);
+
+  // ── 6d. 节点索引映射 ──
   const linkArr = links as Array<{ source: string; target: string }>;
   const nodeIdToIndex = new Map<string, number>();
   nodes.forEach((n, i) => nodeIdToIndex.set(n.id, i));
@@ -174,9 +178,10 @@ export function init3d(graphData: GraphData) {
     _cDimmed: n._cDimmed,
   }));
 
-  updateAllNodePositions(ctx, nodes, nodeStates);
+  updateAllNodePositions(ctx, nodes, nodeStates, degreeMap, maxDegree);
   updateLinkPositions(ctx, linkArr, nodeIdToIndex, nodes, linkOpacity.value);
   createParticles(ctx);
+  createNodeGlow(ctx, nodes.length, degreeMap, nodes, maxDegree);
 
   function refreshLinkColors() {
     (ctx.linkLines.material as THREE.LineBasicMaterial).opacity = linkOpacity.value;

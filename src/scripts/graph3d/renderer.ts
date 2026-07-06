@@ -34,6 +34,8 @@ export interface RenderContext {
   } | null;
   /** 边数组引用（供粒子使用） */
   edgeRefs: EdgeData[];
+  /** 节点光晕 (Points) */
+  nodeGlow: THREE.Points | null;
 }
 
 export interface NodeState {
@@ -53,7 +55,8 @@ interface EdgeData {
 
 // ─── 常量 ──────────────────────────────────────────────────────────
 
-const NODE_SEGMENTS = 6;
+const NODE_SEGMENTS = 12;
+const NODE_HEIGHT_SEGMENTS = 8;
 const BG_COLOR = 0x0f1115;
 /** 每条边细分为多少段线 */
 export const EDGE_SEGMENTS = 6;
@@ -116,7 +119,7 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
   // 无需 scene lights — 自定义 ShaderMaterial 不使用 Three.js 内置光照
 
   // InstancedMesh: 单层球体 + 自定义 ShaderMaterial（菲涅尔 rim 光，比 MeshStandardMaterial 轻量 20x+）
-  const nodeGeom = new THREE.SphereGeometry(1, NODE_SEGMENTS, NODE_SEGMENTS);
+  const nodeGeom = new THREE.SphereGeometry(1, NODE_SEGMENTS, NODE_HEIGHT_SEGMENTS);
   const nodeMat = new THREE.ShaderMaterial({
     vertexShader: `
       varying vec3 vColor;
@@ -192,6 +195,7 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
     composer, bloomPass,
     particles: null,
     edgeRefs: [],
+    nodeGlow: null,
   };
 }
 
@@ -314,23 +318,138 @@ export function updateParticles(ctx: RenderContext, delta: number) {
   p.mesh.geometry.attributes.position.needsUpdate = true;
 }
 
+// ─── 节点光晕（MeetBlog 风格的 Points 加法混合光晕） ─────────────────
+
+/** 创建 128×128 径向渐变纹理（中心白 → 边缘透明） */
+function createGlowTexture(): THREE.CanvasTexture {
+  const size = 128;
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext("2d")!;
+  const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  gradient.addColorStop(0, "rgba(255,255,255,1)");
+  gradient.addColorStop(0.2, "rgba(255,255,255,1)");
+  gradient.addColorStop(0.5, "rgba(255,255,255,0.6)");
+  gradient.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, size, size);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.needsUpdate = true;
+  return tex;
+}
+
+export function createNodeGlow(
+  ctx: RenderContext,
+  nodeCount: number,
+  degreeMap: Record<string, number>,
+  nodes: GraphNode[],
+  maxDegree: number,
+) {
+  if (ctx.nodeGlow) return;
+
+  const positions = new Float32Array(nodeCount * 3);
+  const colors = new Float32Array(nodeCount * 3);
+  const sizes = new Float32Array(nodeCount);
+
+  for (let i = 0; i < nodeCount; i++) {
+    const n = nodes[i];
+    positions[i * 3] = n.x ?? 0;
+    positions[i * 3 + 1] = n.y ?? 0;
+    positions[i * 3 + 2] = n.z ?? 0;
+    // 颜色：从节点状态取
+    const base = (n as any)._cDefault || "#ffffff";
+    const c = new THREE.Color(base);
+    colors[i * 3] = c.r;
+    colors[i * 3 + 1] = c.g;
+    colors[i * 3 + 2] = c.b;
+    const deg = degreeMap[n.id] || 1;
+    sizes[i] = nodeSize(deg, maxDegree) * 3.5;
+  }
+
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  geom.setAttribute("aCol", new THREE.BufferAttribute(colors, 3));
+  geom.setAttribute("aSz", new THREE.BufferAttribute(sizes, 1));
+
+  const glowTex = createGlowTexture();
+  const mat = new THREE.ShaderMaterial({
+    uniforms: { glowTex: { value: glowTex } },
+    vertexShader: `
+      attribute vec3 aCol;
+      attribute float aSz;
+      varying vec3 vCol;
+      void main() {
+        vCol = aCol;
+        vec4 mv = modelViewMatrix * vec4(position, 1.0);
+        // 限制最大像素尺寸：远景缩小光晕，防止加法混合叠成白色
+        gl_PointSize = clamp(aSz * (320.0 / -mv.z), 1.5, 48.0);
+        gl_Position = projectionMatrix * mv;
+      }
+    `,
+    fragmentShader: `
+      uniform sampler2D glowTex;
+      varying vec3 vCol;
+      void main() {
+        float a = texture2D(glowTex, gl_PointCoord).r;
+        gl_FragColor = vec4(vCol * 1.4, a * 0.75);
+      }
+    `,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    transparent: true,
+  });
+
+  const mesh = new THREE.Points(geom, mat);
+  mesh.frustumCulled = false;
+  ctx.scene.add(mesh);
+  ctx.nodeGlow = mesh;
+}
+
 // ─── 节点位置 + 颜色 ──────────────────────────────────────────────
 
-export function updateAllNodePositions(ctx: RenderContext, nodes: GraphNode[], nodeStates: NodeState[]) {
+/** MeetBlog 风格的节点大小计算：度数越大节点越大 */
+function nodeSize(degree: number, maxDegree: number): number {
+  return 2.5 + Math.pow(degree / Math.max(1, maxDegree), 0.38) * 16;
+}
+
+export function updateAllNodePositions(
+  ctx: RenderContext,
+  nodes: GraphNode[],
+  nodeStates: NodeState[],
+  degreeMap: Record<string, number>,
+  maxDegree: number,
+) {
   const m = new THREE.Matrix4();
+  // 如果需要更新光晕位置
+  const glowPos = ctx.nodeGlow?.geometry.attributes.position?.array as Float32Array | undefined;
+  const glowSize = ctx.nodeGlow?.geometry.attributes.aSz?.array as Float32Array | undefined;
 
   for (let i = 0; i < nodes.length; i++) {
     const n = nodes[i];
-    m.compose(new THREE.Vector3(n.x ?? 0, n.y ?? 0, n.z ?? 0), new THREE.Quaternion(), new THREE.Vector3(15, 15, 15));
+    const deg = degreeMap[n.id] || 1;
+    const sz = nodeSize(deg, maxDegree);
+    m.compose(new THREE.Vector3(n.x ?? 0, n.y ?? 0, n.z ?? 0), new THREE.Quaternion(), new THREE.Vector3(sz, sz, sz));
     ctx.nodes.setMatrixAt(i, m);
 
     if (nodeStates[i]) {
       ctx.nodes.setColorAt(i, new THREE.Color(nodeStates[i]._cDefault));
     }
+
+    // 同步更新光晕位置和大小
+    if (glowPos) {
+      glowPos[i * 3] = n.x ?? 0;
+      glowPos[i * 3 + 1] = n.y ?? 0;
+      glowPos[i * 3 + 2] = n.z ?? 0;
+    }
+    if (glowSize) {
+      glowSize[i] = sz * 3.5;
+    }
   }
 
   ctx.nodes.instanceMatrix.needsUpdate = true;
   if (ctx.nodes.instanceColor) ctx.nodes.instanceColor.needsUpdate = true;
+  if (glowPos) ctx.nodeGlow!.geometry.attributes.position.needsUpdate = true;
+  if (glowSize) ctx.nodeGlow!.geometry.attributes.aSz.needsUpdate = true;
 }
 
 export function setNodeColor(ctx: RenderContext, index: number, color: string) {
@@ -414,6 +533,12 @@ export function dispose(ctx: RenderContext) {
   if (ctx.particles) {
     ctx.particles.mesh.geometry.dispose();
     (ctx.particles.mesh.material as THREE.Material).dispose();
+  }
+  if (ctx.nodeGlow) {
+    ctx.nodeGlow.geometry.dispose();
+    const mat = ctx.nodeGlow.material as THREE.ShaderMaterial;
+    if (mat.uniforms?.glowTex?.value) mat.uniforms.glowTex.value.dispose();
+    mat.dispose();
   }
   ctx.composer.dispose();
   ctx.renderer.dispose();
