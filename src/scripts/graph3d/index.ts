@@ -938,6 +938,14 @@ export function init3d(graphData: GraphData) {
         const aspect = curScale.y > 0 ? curScale.x / curScale.y : 1;
         sprite.scale.set(worldH * aspect, worldH, 1);
       }
+	    }
+
+    // ── 自动自转（在 controls.update 前设置）──
+    if (autoRotate.value && !isFlyMode) {
+      ctx.controls.autoRotate = _idleFrames > 60;
+      ctx.controls.autoRotateSpeed = 0.8 * autoRotateDir.value;
+    } else {
+      ctx.controls.autoRotate = false;
     }
 
     // 飞船模式 / OrbitControls
@@ -954,12 +962,8 @@ export function init3d(graphData: GraphData) {
 	    }
 
     // ── 自动自转（空闲时球幕漫游）──
-    if (autoRotate.value && !isFlyMode) {
       // 用户交互后暂停 1s 再恢复自转
-      ctx.controls.autoRotate = _idleFrames > 60;
-      ctx.controls.autoRotateSpeed = 0.8 * autoRotateDir.value;
     } else {
-      ctx.controls.autoRotate = false;
     }
 
     // 粒子 CPU 更新（轻量，每帧都跑）
