@@ -53,7 +53,7 @@ site:
 - **渲染节流** — 空闲自动降帧（60→30→15→8fps），减少 GPU 压力
 
 ### 路径查找
-- **BFS 最短路径** — Rust WASM 加速计算
+- **BFS 最短路径** — Rust NAPI-RS 原生加速计算
 - **金色贝塞尔管道** — 沿曲线分段圆柱，步进导航
 - **高亮覆盖** — 聚焦/悬停使用节点本色而非固定颜色
 
@@ -198,8 +198,8 @@ types/                     # TypeScript 类型定义
 | 框架 | **Astro 7** + Tailwind CSS v4 |
 | UI 组件 | **Starwind UI**（Button/Dialog/Spinner） |
 | 3D 引擎 | **Three.js** (r185) + EffectComposer + UnrealBloomPass |
-| 力导布局 | **d3-force-3d** + **Rust WASM**（`@xingwangzhe/force-rs`）|
-| BFS 路径 | **Rust WASM**（`@xingwangzhe/bfs-rs`）|
+| 力导布局 | **d3-force-3d** + **Rust NAPI-ROS native addon**（`@xingwangzhe/force-rs`）|
+| BFS 路径 | **Rust NAPI-RS native addon**（`@xingwangzhe/bfs-rs`）|
 | 搜索 | **FlexSearch** |
 | 数据序列化 | **msgpackr** |
 | 包管理器 | **Bun** |
