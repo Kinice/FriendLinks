@@ -38,6 +38,8 @@ export interface RenderContext {
   nodeGlow: THREE.Points | null;
   /** 节点光晕材质（用于调节 glowIntensity uniform） */
   glowMaterial: THREE.ShaderMaterial | null;
+  /** 背景星群 */
+  starfield: THREE.Points | null;
 }
 
 export interface NodeState {
@@ -107,6 +109,8 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
   // Scene
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(BG_COLOR);
+  // 雾效：远处星星逐渐隐入背景，增强纵深感
+  scene.fog = new THREE.FogExp2(BG_COLOR, 0.000015);
 
   // OrbitControls
   const controls = new OrbitControls(camera, renderer.domElement);
@@ -201,6 +205,7 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
     edgeRefs: [],
     nodeGlow: null,
     glowMaterial: null,
+    starfield: null,
   };
 }
 
@@ -425,6 +430,55 @@ export function createNodeGlow(
   ctx.glowMaterial = mat;
 }
 
+// ─── 背景星群 ──────────────────────────────────────────────────
+
+export function createStarfield(ctx: RenderContext) {
+  const count = 8000;
+  const positions = new Float32Array(count * 3);
+  const colors = new Float32Array(count * 3);
+  const sizes = new Float32Array(count);
+
+  const palette = [
+    new THREE.Color(0xffffff),
+    new THREE.Color(0xaaccff),
+    new THREE.Color(0xffddbb),
+  ];
+
+  for (let i = 0; i < count; i++) {
+    const r = 600 + Math.random() * 1000; // 半径 600~1600
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+    positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+    positions[i * 3 + 2] = r * Math.cos(phi);
+    const c = palette[Math.floor(Math.random() * palette.length)];
+    colors[i * 3] = c.r;
+    colors[i * 3 + 1] = c.g;
+    colors[i * 3 + 2] = c.b;
+    sizes[i] = 0.5 + Math.random() * 1.5;
+  }
+
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  geom.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  geom.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
+
+  const mat = new THREE.PointsMaterial({
+    size: 1.5,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.6,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    sizeAttenuation: true,
+  });
+
+  const stars = new THREE.Points(geom, mat);
+  stars.frustumCulled = false;
+  ctx.scene.add(stars);
+  ctx.starfield = stars;
+}
+
 /** 更新线条辉光强度（缩放顶点颜色） */
 export function updateLineGlow(ctx: RenderContext, intensity: number) {
   const col = ctx.linkLines.geometry.attributes.color?.array as Float32Array | undefined;
@@ -578,6 +632,10 @@ export function dispose(ctx: RenderContext) {
     const mat = ctx.nodeGlow.material as THREE.ShaderMaterial;
     if (mat.uniforms?.glowTex?.value) mat.uniforms.glowTex.value.dispose();
     mat.dispose();
+  }
+  if (ctx.starfield) {
+    ctx.starfield.geometry.dispose();
+    (ctx.starfield.material as THREE.Material).dispose();
   }
   delete (ctx as any)._lineGlowBaseColors;
   ctx.composer.dispose();
