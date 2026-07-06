@@ -1,6 +1,8 @@
 /**
  * Three.js 原生渲染层
  * 替代 3d-force-graph：单层 InstancedMesh + LineSegments + OrbitControls
+ * 
+ * v2: 贝塞尔曲线连线 + 流动粒子
  */
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
@@ -22,6 +24,16 @@ export interface RenderContext {
   dummy: THREE.Object3D;
   composer: EffectComposer;
   bloomPass: UnrealBloomPass;
+  /** 流动粒子系统 */
+  particles: {
+    mesh: THREE.Points;
+    edgeIndices: Int32Array;
+    progress: Float32Array;
+    speeds: Float32Array;
+    positions: Float32Array;
+  } | null;
+  /** 边数组引用（供粒子使用） */
+  edgeRefs: EdgeData[];
 }
 
 export interface NodeState {
@@ -32,10 +44,44 @@ export interface NodeState {
   _cDimmed: string;
 }
 
+/** 缓存的边几何数据（包括贝塞尔控制点） */
+interface EdgeData {
+  sx: number; sy: number; sz: number;  // source
+  ex: number; ey: number; ez: number;  // target
+  cx: number; cy: number; cz: number;  // control point
+}
+
 // ─── 常量 ──────────────────────────────────────────────────────────
 
 const NODE_SEGMENTS = 6;
 const BG_COLOR = 0x0f1115;
+/** 每条边细分为多少段线 */
+const EDGE_SEGMENTS = 6;
+/** 流动粒子数量 */
+const PARTICLE_COUNT = 500;
+
+// ─── 贝塞尔工具 ──────────────────────────────────────────────────────
+
+/** 二次贝塞尔插值 */
+function bezier(s: number, c: number, e: number, t: number): number {
+  const i = 1 - t;
+  return i * i * s + 2 * i * t * c + t * t * e;
+}
+
+/** 计算垂直于边方向的偏移方向（在 XZ 平面） */
+function calcControlOffset(
+  dx: number, dy: number, dz: number, len: number,
+): { ox: number; oy: number; oz: number } {
+  if (len < 0.001) return { ox: 0, oy: 0, oz: 1 };
+  const nx = dx / len, ny = dy / len, nz = dz / len;
+  // 叉积 (nx,ny,nz) × (0,1,0) = (nz, 0, -nx)，若边接近垂直则用 (1,0,0)
+  const up = Math.abs(ny) > 0.99 ? { x: 1, y: 0, z: 0 } : { x: 0, y: 1, z: 0 };
+  const ox = ny * up.z - nz * up.y;
+  const oy = nz * up.x - nx * up.z;
+  const oz = nx * up.y - ny * up.x;
+  const ol = Math.sqrt(ox * ox + oy * oy + oz * oz) || 1;
+  return { ox: ox / ol, oy: oy / ol, oz: oz / ol };
+}
 
 // ─── 工厂 ──────────────────────────────────────────────────────────
 
@@ -79,13 +125,15 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
   nodes.frustumCulled = false;
   scene.add(nodes);
 
-  // 连线 (LineSegments)
+  // ── 贝塞尔曲线连线 (LineSegments) ──
+  // 每条边细分 EDGE_SEGMENTS 段，每段 2 个顶点 × 3 坐标
+  const edgeVertsPerEdge = EDGE_SEGMENTS * 2 * 3;
   const linkGeom = new THREE.BufferGeometry();
-  const linkPositions = new Float32Array(linkCount * 6);
+  const linkPositions = new Float32Array(linkCount * edgeVertsPerEdge);
   linkGeom.setAttribute("position", new THREE.BufferAttribute(linkPositions, 3));
   linkGeom.setDrawRange(0, 0);
   const linkMat = new THREE.LineBasicMaterial({
-    color: 0x555555,
+    color: 0x666666,
     transparent: true,
     opacity: 0,
     depthWrite: false,
@@ -104,14 +152,137 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
     new THREE.Vector2(width, height),
     0.25,   // strength — 泛光强度
     0.5,    // radius   — 泛光扩散半径
-    0.3,    // threshold — 亮度阈值（仅超过此亮度的区域产生泛光）
+    0.3,    // threshold — 亮度阈值
   );
   composer.addPass(bloomPass);
 
   const outputPass = new OutputPass();
   composer.addPass(outputPass);
 
-  return { scene, camera, renderer, controls, nodes, linkLines, dummy, composer, bloomPass };
+  return {
+    scene, camera, renderer, controls, nodes, linkLines, dummy,
+    composer, bloomPass,
+    particles: null,
+    edgeRefs: [],
+  };
+}
+
+// ─── 连线更新（贝塞尔曲线） ──────────────────────────────────────────
+
+export function updateLinkPositions(
+  ctx: RenderContext,
+  links: { source: string; target: string }[],
+  nodeIdToIndex: Map<string, number>,
+  graphNodes: GraphNode[],
+  opacity: number,
+) {
+  const pos = ctx.linkLines.geometry.attributes.position.array as Float32Array;
+  const maxEdges = Math.min(links.length, pos.length / (EDGE_SEGMENTS * 2 * 3));
+  const edgeDataArr: EdgeData[] = [];
+
+  for (let i = 0; i < maxEdges; i++) {
+    const l = links[i];
+    const si = nodeIdToIndex.get(l.source);
+    const ti = nodeIdToIndex.get(l.target);
+    if (si == null || ti == null) {
+      edgeDataArr.push({ sx: 0, sy: 0, sz: 0, ex: 0, ey: 0, ez: 0, cx: 0, cy: 0, cz: 0 });
+      continue;
+    }
+    const sn = graphNodes[si];
+    const tn = graphNodes[ti];
+    const sx = sn.x ?? 0, sy = sn.y ?? 0, sz = sn.z ?? 0;
+    const ex = tn.x ?? 0, ey = tn.y ?? 0, ez = tn.z ?? 0;
+    const mx = (sx + ex) / 2, my = (sy + ey) / 2, mz = (sz + ez) / 2;
+    const dx = ex - sx, dy = ey - sy, dz = ez - sz;
+    const len = Math.sqrt(dx * dx + dy * dy + dz * dz) || 1;
+    const offset = calcControlOffset(dx, dy, dz, len);
+    const bend = len * 0.18;
+    const cx = mx + offset.ox * bend;
+    const cy = my + offset.oy * bend;
+    const cz = mz + offset.oz * bend;
+
+    edgeDataArr.push({ sx, sy, sz, ex, ey, ez, cx, cy, cz });
+
+    // 生成 EDGE_SEGMENTS 段线
+    for (let j = 0; j < EDGE_SEGMENTS; j++) {
+      const t0 = j / EDGE_SEGMENTS;
+      const t1 = (j + 1) / EDGE_SEGMENTS;
+      const base = (i * EDGE_SEGMENTS + j) * 6;
+      pos[base]     = bezier(sx, cx, ex, t0);
+      pos[base + 1] = bezier(sy, cy, ey, t0);
+      pos[base + 2] = bezier(sz, cz, ez, t0);
+      pos[base + 3] = bezier(sx, cx, ex, t1);
+      pos[base + 4] = bezier(sy, cy, ey, t1);
+      pos[base + 5] = bezier(sz, cz, ez, t1);
+    }
+  }
+
+  ctx.edgeRefs = edgeDataArr;
+  ctx.linkLines.geometry.attributes.position.needsUpdate = true;
+  ctx.linkLines.geometry.setDrawRange(0, maxEdges * EDGE_SEGMENTS * 2);
+  (ctx.linkLines.material as THREE.LineBasicMaterial).opacity = opacity;
+}
+
+// ─── 流动粒子系统 ──────────────────────────────────────────────────
+
+export function createParticles(ctx: RenderContext) {
+  if (ctx.particles) return;
+
+  const edgeIndices = new Int32Array(PARTICLE_COUNT);
+  const progress = new Float32Array(PARTICLE_COUNT);
+  const speeds = new Float32Array(PARTICLE_COUNT);
+  const positions = new Float32Array(PARTICLE_COUNT * 3);
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    edgeIndices[i] = Math.floor(Math.random() * ctx.edgeRefs.length);
+    progress[i] = Math.random();
+    speeds[i] = 0.003 + Math.random() * 0.007;
+  }
+
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  const mat = new THREE.PointsMaterial({
+    color: 0x88ccff,
+    size: 2.5,
+    transparent: true,
+    opacity: 0.7,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    sizeAttenuation: true,
+  });
+  const mesh = new THREE.Points(geom, mat);
+  mesh.frustumCulled = false;
+  ctx.scene.add(mesh);
+
+  ctx.particles = { mesh, edgeIndices, progress, speeds, positions };
+}
+
+/** 每帧更新粒子位置 */
+export function updateParticles(ctx: RenderContext, delta: number) {
+  const p = ctx.particles;
+  if (!p) return;
+  const edges = ctx.edgeRefs;
+  if (edges.length === 0) return;
+
+  const pos = p.positions;
+  const dt = delta * 60;
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    p.progress[i] += p.speeds[i] * dt;
+    if (p.progress[i] > 1) {
+      p.progress[i] = 0;
+      p.edgeIndices[i] = Math.floor(Math.random() * edges.length);
+    }
+    const ei = p.edgeIndices[i];
+    if (ei >= edges.length) continue;
+    const e = edges[ei];
+    const t = p.progress[i];
+    pos[i * 3]     = bezier(e.sx, e.cx, e.ex, t);
+    pos[i * 3 + 1] = bezier(e.sy, e.cy, e.ey, t);
+    pos[i * 3 + 2] = bezier(e.sz, e.cz, e.ez, t);
+  }
+
+  p.mesh.geometry.attributes.position.needsUpdate = true;
 }
 
 // ─── 节点位置 + 颜色 ──────────────────────────────────────────────
@@ -138,40 +309,6 @@ export function setNodeColor(ctx: RenderContext, index: number, color: string) {
   if (ctx.nodes.instanceColor) ctx.nodes.instanceColor.needsUpdate = true;
 }
 
-// ─── 连线更新 ──────────────────────────────────────────────────────
-
-export function updateLinkPositions(
-  ctx: RenderContext,
-  links: { source: string; target: string }[],
-  nodeIdToIndex: Map<string, number>,
-  graphNodes: GraphNode[],
-  opacity: number,
-) {
-  const pos = ctx.linkLines.geometry.attributes.position.array as Float32Array;
-  const count = Math.min(links.length, pos.length / 6);
-
-  for (let i = 0; i < count; i++) {
-    const l = links[i];
-    const si = nodeIdToIndex.get(typeof l.source === "string" ? l.source : ((l.source as any).id ?? l.source));
-    const ti = nodeIdToIndex.get(typeof l.target === "string" ? l.target : ((l.target as any).id ?? l.target));
-    if (si == null || ti == null) continue;
-
-    const sn = graphNodes[si];
-    const tn = graphNodes[ti];
-    const j = i * 6;
-    pos[j] = sn.x ?? 0;
-    pos[j + 1] = sn.y ?? 0;
-    pos[j + 2] = sn.z ?? 0;
-    pos[j + 3] = tn.x ?? 0;
-    pos[j + 4] = tn.y ?? 0;
-    pos[j + 5] = tn.z ?? 0;
-  }
-
-  ctx.linkLines.geometry.attributes.position.needsUpdate = true;
-  ctx.linkLines.geometry.setDrawRange(0, count * 2);
-  (ctx.linkLines.material as THREE.LineBasicMaterial).opacity = opacity;
-}
-
 // ─── 相机 ──────────────────────────────────────────────────────────
 
 export function zoomToFit(
@@ -184,10 +321,7 @@ export function zoomToFit(
   if (!graphNodes.length) return;
 
   // 度数加权中心：密集区权重高
-  let cx = 0,
-    cy = 0,
-    cz = 0,
-    tw = 0;
+  let cx = 0, cy = 0, cz = 0, tw = 0;
   for (const n of graphNodes) {
     const w = degreeMap ? Math.max(1, degreeMap[n.id] || 0) : 1;
     cx += (n.x ?? 0) * w;
@@ -197,7 +331,6 @@ export function zoomToFit(
   }
   const wCenter = new THREE.Vector3(cx / tw, cy / tw, cz / tw);
 
-  // Bounding box 用于确定视野大小
   const box = new THREE.Box3();
   for (const n of graphNodes) {
     box.expandByPoint(new THREE.Vector3(n.x ?? 0, n.y ?? 0, n.z ?? 0));
@@ -249,6 +382,10 @@ export function animateCamera(
 }
 
 export function dispose(ctx: RenderContext) {
+  if (ctx.particles) {
+    ctx.particles.mesh.geometry.dispose();
+    (ctx.particles.mesh.material as THREE.Material).dispose();
+  }
   ctx.composer.dispose();
   ctx.renderer.dispose();
   ctx.nodes.geometry.dispose();

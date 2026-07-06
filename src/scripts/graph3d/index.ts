@@ -12,6 +12,8 @@ import {
   updateAllNodePositions,
   updateLinkPositions,
   animateCamera,
+  createParticles,
+  updateParticles,
   type RenderContext,
   type NodeState,
 } from "./renderer";
@@ -173,6 +175,7 @@ export function init3d(graphData: GraphData) {
 
   updateAllNodePositions(ctx, nodes, nodeStates);
   updateLinkPositions(ctx, linkArr, nodeIdToIndex, nodes, linkOpacity.value);
+  createParticles(ctx);
 
   function refreshLinkColors() {
     (ctx.linkLines.material as THREE.LineBasicMaterial).opacity = linkOpacity.value;
@@ -807,8 +810,13 @@ export function init3d(graphData: GraphData) {
     }
   }
 
+  let _lastTime = performance.now();
+
   function animateLoop() {
     requestAnimationFrame(animateLoop);
+    const now = performance.now();
+    const delta = Math.min((now - _lastTime) / 1000, 0.1); // 上限 100ms 防跳帧
+    _lastTime = now;
 
     // 按需创建标签
     ensureLabels();
@@ -887,11 +895,12 @@ export function init3d(graphData: GraphData) {
         flyExitRoll *= 0.92;
       } else {
         flyExitRoll = 0;
-      }
-    }
+	    }
+	    }
 
-    ctx.composer.render();
-  }
+	    updateParticles(ctx, delta);
+	    ctx.composer.render();
+	  }
 
   // ── 13b. 邻居大字标签点击/右键（独立 Raycaster，在节点交互之前注册）──
   const spriteRaycaster = new THREE.Raycaster();
