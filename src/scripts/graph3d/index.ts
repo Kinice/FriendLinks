@@ -156,8 +156,6 @@ export function init3d(graphData: GraphData) {
   const linkOpacity = { value: loadVal("link_opacity", 0) };
   const bloomStrength = { value: loadVal("bloom_strength", 0.08) };
   const labelShow = { value: loadVal("label_show", true) };
-  const autoRotate = { value: loadVal("auto_rotate", false) };
-  const autoRotateDir = { value: loadVal("auto_rotate_dir", 1) }; // 1=顺时针, -1=逆时针
 
   // ── 6c. 最大度数 ──
   const maxDegree = Math.max(...Object.values(degreeMap), 1);
@@ -344,41 +342,6 @@ export function init3d(graphData: GraphData) {
       row.style.cssText = "display:flex;align-items:center;";
       row.appendChild(cb);
       row.appendChild(cbLabel);
-      panel.appendChild(lbl);
-      panel.appendChild(row);
-    }
-
-    // ── 自动自转 ──
-    {
-      const lbl = document.createElement("label");
-      lbl.textContent = "自动自转";
-      lbl.style.cssText = "font-size:12px;color:#aaa;display:block;margin-bottom:4px;margin-top:10px;";
-      const cb = document.createElement("input");
-      cb.type = "checkbox";
-      cb.checked = autoRotate.value;
-      cb.style.cssText = "accent-color:#4a9eff;margin-right:6px;";
-      const cbLabel = document.createElement("span");
-      cbLabel.textContent = cb.checked ? "开" : "关";
-      cbLabel.style.cssText = "font-size:12px;color:#ccc;";
-      cb.addEventListener("change", () => {
-        autoRotate.value = cb.checked;
-        saveVal("auto_rotate", cb.checked);
-        cbLabel.textContent = cb.checked ? "开" : "关";
-        _idleFrames = 0;
-      });
-      const dirBtn = document.createElement("button");
-      dirBtn.textContent = autoRotateDir.value > 0 ? "↻ 顺" : "↺ 逆";
-      dirBtn.style.cssText = "margin-left:8px;font-size:11px;padding:2px 6px;border:1px solid rgba(255,255,255,0.15);border-radius:4px;background:transparent;color:#aaa;cursor:pointer;";
-      dirBtn.addEventListener("click", () => {
-        autoRotateDir.value = autoRotateDir.value > 0 ? -1 : 1;
-        saveVal("auto_rotate_dir", autoRotateDir.value);
-        dirBtn.textContent = autoRotateDir.value > 0 ? "↻ 顺" : "↺ 逆";
-      });
-      const row = document.createElement("div");
-      row.style.cssText = "display:flex;align-items:center;";
-      row.appendChild(cb);
-      row.appendChild(cbLabel);
-      row.appendChild(dirBtn);
       panel.appendChild(lbl);
       panel.appendChild(row);
     }
@@ -940,27 +903,9 @@ export function init3d(graphData: GraphData) {
       }
 	    }
 
-    // ── 自动自转 ──
-    const isAutoRotating = autoRotate.value && !isFlyMode && _idleFrames > 60;
-    if (isAutoRotating) {
-      // 手动绕 Y 轴旋转相机，不依赖 OrbitControls.autoRotate
-      const target = ctx.controls.target;
-      const pos = ctx.camera.position;
-      const dx = pos.x - target.x;
-      const dz = pos.z - target.z;
-      const speed = 0.002 * autoRotateDir.value;
-      const cos = Math.cos(speed);
-      const sin = Math.sin(speed);
-      pos.x = target.x + dx * cos - dz * sin;
-      pos.z = target.z + dx * sin + dz * cos;
-      ctx.camera.lookAt(target);
-    }
-
     // 飞船模式 / OrbitControls
     if (isFlyMode) {
       flyLoop();
-    } else if (isAutoRotating) {
-      // 自转中 → 不调 controls.update()，避免与手动旋转冲突
     } else {
       ctx.controls.update();
       if (Math.abs(flyExitRoll) > 0.0001) {
@@ -977,10 +922,8 @@ export function init3d(graphData: GraphData) {
     _needsRender = true;
 
     // ── 空闲计数（每帧 +1，用户交互重置）──
-    _idleFrames++;
+	    _idleFrames++;
 
-    // 自转中 → 全帧渲染，节流禁用
-    if (isAutoRotating) _needsRender = true;
 
     // ── 渲染节流 ──
     // 空闲时逐步降低渲染帧率，减少 GPU 负担（尤其是 Bloom 后处理）
