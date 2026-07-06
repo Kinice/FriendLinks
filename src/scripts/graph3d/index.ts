@@ -940,18 +940,27 @@ export function init3d(graphData: GraphData) {
       }
 	    }
 
-    // ── 自动自转（在 controls.update 前设置）──
+    // ── 自动自转 ──
     const isAutoRotating = autoRotate.value && !isFlyMode && _idleFrames > 60;
-    if (autoRotate.value && !isFlyMode) {
-      ctx.controls.autoRotate = _idleFrames > 60;
-      ctx.controls.autoRotateSpeed = 0.8 * autoRotateDir.value;
-    } else {
-      ctx.controls.autoRotate = false;
+    if (isAutoRotating) {
+      // 手动绕 Y 轴旋转相机，不依赖 OrbitControls.autoRotate
+      const target = ctx.controls.target;
+      const pos = ctx.camera.position;
+      const dx = pos.x - target.x;
+      const dz = pos.z - target.z;
+      const speed = 0.002 * autoRotateDir.value;
+      const cos = Math.cos(speed);
+      const sin = Math.sin(speed);
+      pos.x = target.x + dx * cos - dz * sin;
+      pos.z = target.z + dx * sin + dz * cos;
+      ctx.camera.lookAt(target);
     }
 
     // 飞船模式 / OrbitControls
     if (isFlyMode) {
       flyLoop();
+    } else if (isAutoRotating) {
+      // 自转中 → 不调 controls.update()，避免与手动旋转冲突
     } else {
       ctx.controls.update();
       if (Math.abs(flyExitRoll) > 0.0001) {
