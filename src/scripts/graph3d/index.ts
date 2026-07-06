@@ -15,7 +15,6 @@ import {
   createParticles,
   updateParticles,
   createNodeGlow,
-  createStarfield,
   updateLineGlow,
   EDGE_SEGMENTS,
   type RenderContext,
@@ -189,7 +188,6 @@ export function init3d(graphData: GraphData) {
   updateLineGlow(ctx, lineGlowIntensity.value);
   createParticles(ctx);
   createNodeGlow(ctx, nodes.length, degreeMap, nodes, maxDegree);
-  createStarfield(ctx);
 
   function refreshLinkColors() {
     (ctx.linkLines.material as THREE.LineBasicMaterial).opacity = linkOpacity.value;
