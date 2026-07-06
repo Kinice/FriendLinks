@@ -15,6 +15,7 @@ import {
   createParticles,
   updateParticles,
   createNodeGlow,
+  updateLineGlow,
   EDGE_SEGMENTS,
   type RenderContext,
   type NodeState,
@@ -156,6 +157,8 @@ export function init3d(graphData: GraphData) {
   const linkOpacity = { value: loadVal("link_opacity", 0) };
   const bloomStrength = { value: loadVal("bloom_strength", 0.08) };
   const labelShow = { value: loadVal("label_show", true) };
+  const nodeGlowIntensity = { value: loadVal("node_glow", 1.0) };
+  const lineGlowIntensity = { value: loadVal("line_glow", 1.0) };
 
   // ── 6c. 最大度数 ──
   const maxDegree = Math.max(...Object.values(degreeMap), 1);
@@ -177,9 +180,12 @@ export function init3d(graphData: GraphData) {
   }));
 
   updateAllNodePositions(ctx, nodes, nodeStates, degreeMap, maxDegree);
-  // 从持久化恢复 bloom 强度
+  // 从持久化恢复 bloom / glow 强度
   ctx.bloomPass.strength = bloomStrength.value;
+  ctx.glowMaterial && (ctx.glowMaterial.uniforms.glowIntensity.value = nodeGlowIntensity.value);
   updateLinkPositions(ctx, linkArr, nodeIdToIndex, nodes, linkOpacity.value);
+  // 初始线条辉光
+  updateLineGlow(ctx, lineGlowIntensity.value);
   createParticles(ctx);
   createNodeGlow(ctx, nodes.length, degreeMap, nodes, maxDegree);
 
@@ -319,6 +325,17 @@ export function init3d(graphData: GraphData) {
       bloomStrength.value = v;
       ctx.bloomPass.strength = v;
       saveVal("bloom_strength", v);
+    });
+    addSliderRow(panel, "节点辉光", "0", "3", "0.1", String(nodeGlowIntensity.value), (v) => {
+      nodeGlowIntensity.value = v;
+      if (ctx.glowMaterial) ctx.glowMaterial.uniforms.glowIntensity.value = v;
+      saveVal("node_glow", v);
+    });
+    addSliderRow(panel, "线条辉光", "0", "3", "0.1", String(lineGlowIntensity.value), (v) => {
+      lineGlowIntensity.value = v;
+      updateLineGlow(ctx, v);
+      saveVal("line_glow", v);
+      _needsRender = true;
     });
 
     {

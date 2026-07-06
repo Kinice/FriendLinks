@@ -36,6 +36,8 @@ export interface RenderContext {
   edgeRefs: EdgeData[];
   /** 节点光晕 (Points) */
   nodeGlow: THREE.Points | null;
+  /** 节点光晕材质（用于调节 glowIntensity uniform） */
+  glowMaterial: THREE.ShaderMaterial | null;
 }
 
 export interface NodeState {
@@ -198,6 +200,7 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
     particles: null,
     edgeRefs: [],
     nodeGlow: null,
+    glowMaterial: null,
   };
 }
 
@@ -386,7 +389,10 @@ export function createNodeGlow(
 
   const glowTex = createGlowTexture();
   const mat = new THREE.ShaderMaterial({
-    uniforms: { glowTex: { value: glowTex } },
+    uniforms: { 
+      glowTex: { value: glowTex },
+      glowIntensity: { value: 1.0 },
+    },
     vertexShader: `
       attribute vec3 aCol;
       attribute float aSz;
@@ -394,17 +400,17 @@ export function createNodeGlow(
       void main() {
         vCol = aCol;
         vec4 mv = modelViewMatrix * vec4(position, 1.0);
-        // 限制最大像素尺寸：远景缩小光晕，防止加法混合叠成白色
         gl_PointSize = clamp(aSz * (320.0 / -mv.z), 1.5, 48.0);
         gl_Position = projectionMatrix * mv;
       }
     `,
     fragmentShader: `
       uniform sampler2D glowTex;
+      uniform float glowIntensity;
       varying vec3 vCol;
       void main() {
         float a = texture2D(glowTex, gl_PointCoord).r;
-        gl_FragColor = vec4(vCol * 1.2, a * 0.60);
+        gl_FragColor = vec4(vCol * 1.2 * glowIntensity, a * 0.60);
       }
     `,
     blending: THREE.AdditiveBlending,
@@ -416,6 +422,26 @@ export function createNodeGlow(
   mesh.frustumCulled = false;
   ctx.scene.add(mesh);
   ctx.nodeGlow = mesh;
+  ctx.glowMaterial = mat;
+}
+
+/** 更新线条辉光强度（缩放顶点颜色） */
+export function updateLineGlow(ctx: RenderContext, intensity: number) {
+  const col = ctx.linkLines.geometry.attributes.color?.array as Float32Array | undefined;
+  if (!col) return;
+  // 从 edgeRefs 数量推断原始颜色范围
+  const maxEdges = ctx.edgeRefs.length;
+  // 每段线有 2 个顶点 × 3 分量 × EDGE_SEGMENTS
+  const floatsPerEdge = EDGE_SEGMENTS * 2 * 3;
+  // 储存一份原始颜色（懒初始化）
+  if (!(ctx as any)._lineGlowBaseColors) {
+    (ctx as any)._lineGlowBaseColors = new Float32Array(col);
+  }
+  const base = (ctx as any)._lineGlowBaseColors as Float32Array;
+  for (let i = 0; i < maxEdges * floatsPerEdge; i++) {
+    col[i] = Math.min(1, base[i] * intensity);
+  }
+  ctx.linkLines.geometry.attributes.color.needsUpdate = true;
 }
 
 // ─── 节点位置 + 颜色 ──────────────────────────────────────────────
@@ -553,6 +579,7 @@ export function dispose(ctx: RenderContext) {
     if (mat.uniforms?.glowTex?.value) mat.uniforms.glowTex.value.dispose();
     mat.dispose();
   }
+  delete (ctx as any)._lineGlowBaseColors;
   ctx.composer.dispose();
   ctx.renderer.dispose();
   ctx.nodes.geometry.dispose();
