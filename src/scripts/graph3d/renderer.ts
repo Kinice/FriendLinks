@@ -147,7 +147,8 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
         // 菲涅尔 rim 光：边缘亮、中心暗，增强 3D 立体感
         float rim = 1.0 - max(0.0, dot(n, v));
         rim = pow(rim, 1.6);
-        vec3 col = vColor * mix(0.45, 1.8, rim);
+        // 内部极暗(0.25)，边缘亮环(2.0)——视觉主体靠光晕层而非球体
+        vec3 col = vColor * mix(0.25, 2.0, rim);
         gl_FragColor = vec4(col, 1.0);
       }
     `,
@@ -328,8 +329,8 @@ function createGlowTexture(): THREE.CanvasTexture {
   const ctx = canvas.getContext("2d")!;
   const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
   gradient.addColorStop(0, "rgba(255,255,255,1)");
-  gradient.addColorStop(0.2, "rgba(255,255,255,1)");
-  gradient.addColorStop(0.5, "rgba(255,255,255,0.6)");
+  gradient.addColorStop(0.3, "rgba(255,255,255,0.8)");
+  gradient.addColorStop(0.6, "rgba(255,255,255,0.3)");
   gradient.addColorStop(1, "rgba(255,255,255,0)");
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, size, size);
@@ -391,7 +392,7 @@ export function createNodeGlow(
       varying vec3 vCol;
       void main() {
         float a = texture2D(glowTex, gl_PointCoord).r;
-        gl_FragColor = vec4(vCol * 1.4, a * 0.75);
+        gl_FragColor = vec4(vCol * 1.8, a * 0.85);
       }
     `,
     blending: THREE.AdditiveBlending,
