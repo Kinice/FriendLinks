@@ -101,7 +101,7 @@ type SearchResult = { id: string; name: string; url?: string };
       el.className = "item";
       el.innerHTML = `<div style="font-weight:600">${
         it.name
-      }</div><div style="font-size:12px;color:var(--muted,#666)">${it.url ?? ""}</div>`;
+      }</div><div style="font-size:12px;color:var(--text-color,#e6eef8)">${it.url ?? ""}</div>`;
       el.onclick = () => {
         try {
           try {
