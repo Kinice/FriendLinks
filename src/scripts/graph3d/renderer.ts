@@ -196,7 +196,8 @@ export function updateLinkPositions(
     const dx = ex - sx, dy = ey - sy, dz = ez - sz;
     const len = Math.sqrt(dx * dx + dy * dy + dz * dz) || 1;
     const offset = calcControlOffset(dx, dy, dz, len);
-    const bend = len * 0.18;
+    // 弯度随边长比例增长，但设上限避免超长边过度弯曲
+    const bend = Math.min(len * 0.18, 8000);
     const cx = mx + offset.ox * bend;
     const cy = my + offset.oy * bend;
     const cz = mz + offset.oz * bend;
