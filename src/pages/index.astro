@@ -682,9 +682,9 @@ friends:
                   }).join('')}
                 </div>
               </div>` : ''}
-              <div class="rounded-lg border p-4">
-                <h3 class="mb-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">路由排行</h3>
-                <div class="space-y-1 max-h-40 overflow-y-auto">
+	              <div class="rounded-lg border p-4 sm:col-span-2 lg:col-span-2">
+	                <h3 class="mb-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">🚏 路由排行</h3>
+	                <div class="space-y-1">
                   ${(data.linkRoutes || []).map(r => `
                     <div class="flex justify-between text-sm"><span class="text-muted-foreground">${r.route}</span><span class="font-bold">${r.count}</span></div>
                   `).join('')}
