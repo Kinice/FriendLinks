@@ -142,14 +142,9 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
       varying vec3 vViewDir;
 
       void main() {
-        vec3 n = normalize(vNormal);
-        vec3 v = normalize(vViewDir);
-        // 菲涅尔 rim
-        float rim = 1.0 - max(0.0, dot(n, v));
-        rim = pow(rim, 2.0);
-        // 果冻透明：中心透明(alpha=0)，边缘半透发光
-        float alpha = rim * 0.55;
-        vec3 col = vColor * (0.15 + rim * 1.8);
+        // 均匀透明发光球体，无明暗变化
+        float alpha = 0.25;
+        vec3 col = vColor * 0.7;
         gl_FragColor = vec4(col, alpha);
       }
     `,
