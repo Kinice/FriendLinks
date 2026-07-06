@@ -180,7 +180,7 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
 
   const bloomPass = new UnrealBloomPass(
     new THREE.Vector2(width, height),
-    0.25,   // strength — 泛光强度
+    0.08,   // strength — 泛光强度（默认调低）
     0.5,    // radius   — 泛光扩散半径
     0.3,    // threshold — 亮度阈值
   );

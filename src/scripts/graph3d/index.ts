@@ -140,24 +140,22 @@ export function init3d(graphData: GraphData) {
     neighborMap.get(l.target)!.add(l.source);
   }
 
-  // ── 6b. 连线透明度控制 ──
-  const STORAGE_KEY = "friendlinks_link_opacity";
-  const saved = (() => {
+  // ── 6b. 控制面板持久化 ──
+  const STORAGE_PREFIX = "friendlinks_";
+  function loadVal<T>(key: string, fallback: T): T {
     try {
-      const v = localStorage.getItem(STORAGE_KEY);
-      if (v !== null) {
-        const n = parseFloat(v);
-        if (!isNaN(n) && n >= 0 && n <= 1) return n;
-      }
+      const v = localStorage.getItem(STORAGE_PREFIX + key);
+      if (v !== null) return JSON.parse(v) as T;
     } catch {}
-    return 0;
-  })();
-  const linkOpacity = { value: saved };
-  function saveOpacity(v: number) {
-    try {
-      localStorage.setItem(STORAGE_KEY, String(v));
-    } catch {}
+    return fallback;
   }
+  function saveVal(key: string, val: unknown) {
+    try { localStorage.setItem(STORAGE_PREFIX + key, JSON.stringify(val)); } catch {}
+  }
+
+  const linkOpacity = { value: loadVal("link_opacity", 0) };
+  const bloomStrength = { value: loadVal("bloom_strength", 0.08) };
+  const labelShow = { value: loadVal("label_show", true) };
 
   // ── 6c. 最大度数 ──
   const maxDegree = Math.max(...Object.values(degreeMap), 1);
@@ -179,12 +177,15 @@ export function init3d(graphData: GraphData) {
   }));
 
   updateAllNodePositions(ctx, nodes, nodeStates, degreeMap, maxDegree);
+  // 从持久化恢复 bloom 强度
+  ctx.bloomPass.strength = bloomStrength.value;
   updateLinkPositions(ctx, linkArr, nodeIdToIndex, nodes, linkOpacity.value);
   createParticles(ctx);
   createNodeGlow(ctx, nodes.length, degreeMap, nodes, maxDegree);
 
   function refreshLinkColors() {
     (ctx.linkLines.material as THREE.LineBasicMaterial).opacity = linkOpacity.value;
+    saveVal("link_opacity", linkOpacity.value);
     _needsRender = true;
   }
 
@@ -261,9 +262,7 @@ export function init3d(graphData: GraphData) {
       sprite.material.dispose();
       labelGroup.remove(sprite);
     }
-  }
-
-  const labelShow = { value: true };
+	  }
 
   // ── 9. 控制面板 ──
   let MOVE_SPEED = 5;
@@ -311,14 +310,15 @@ export function init3d(graphData: GraphData) {
 
     addSliderRow(panel, "连线透明度", "0", "1", "0.05", String(linkOpacity.value), (v) => {
       linkOpacity.value = v;
-      saveOpacity(v);
       refreshLinkColors();
     });
     addSliderRow(panel, "飞船速度", "5", "100", "5", String(MOVE_SPEED), (v) => {
       MOVE_SPEED = v;
     });
-    addSliderRow(panel, "泛光强度", "0", "2", "0.05", String(ctx.bloomPass.strength), (v) => {
+    addSliderRow(panel, "泛光强度", "0", "2", "0.05", String(bloomStrength.value), (v) => {
+      bloomStrength.value = v;
       ctx.bloomPass.strength = v;
+      saveVal("bloom_strength", v);
     });
 
     {
@@ -334,6 +334,7 @@ export function init3d(graphData: GraphData) {
       cbLabel.style.cssText = "font-size:12px;color:#ccc;";
       cb.addEventListener("change", () => {
         labelShow.value = cb.checked;
+        saveVal("label_show", cb.checked);
         cbLabel.textContent = cb.checked ? "显示" : "隐藏";
         if (cb.checked) ensureLabels(); // 开启时立即创建视野内标签
       });
