@@ -1080,7 +1080,14 @@ export function init3d(graphData: GraphData) {
   function focusByDomain(domain: string) {
     const node = nodes.find((n) => {
       try {
-        return new URL(n.url).hostname === domain;
+        // 支持两种模式：
+        //   ?local=example.com       → 按 hostname 匹配
+        //   ?local=https://example.com → 按完整 URL 匹配
+        const url = new URL(n.url);
+        if (domain.startsWith("http://") || domain.startsWith("https://")) {
+          return n.url === domain || url.href === domain;
+        }
+        return url.hostname === domain;
       } catch {
         return false;
       }
