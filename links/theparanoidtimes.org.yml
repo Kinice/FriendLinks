@@ -1,8 +1,8 @@
-'site':
-  'name': 'theparanoidtimes.org'
-  'url': 'https://theparanoidtimes.org/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'IGT'
-      'url': 'https://www.igt.com/'
+site:
+  name: 'theparanoidtimes.org'
+  url: 'https://theparanoidtimes.org/'
+  description: '友情链接'
+  links: '/'
+  friends:
+    - name: 'IGT'
+      url: 'https://www.igt.com/'

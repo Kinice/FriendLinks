@@ -1,10 +1,10 @@
-'site':
-  'name': 'crotovane.neocities.org'
-  'url': 'https://crotovane.neocities.org/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': 'rainbowspec'
-      'url': 'https://rainbowspec.observer/'
-    - 'name': 'skyshard'
-      'url': 'https://skyshard.itch.io/'
+site:
+  name: 'crotovane.neocities.org'
+  url: 'https://crotovane.neocities.org/'
+  description: '友情链接'
+  links: '/links'
+  friends:
+    - name: 'rainbowspec'
+      url: 'https://rainbowspec.observer/'
+    - name: 'skyshard'
+      url: 'https://skyshard.itch.io/'

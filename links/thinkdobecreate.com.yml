@@ -1,10 +1,10 @@
-'site':
-  'name': 'thinkdobecreate.com'
-  'url': 'https://thinkdobecreate.com/'
-  'description': '友情链接'
-  'links': '/links'
-  'friends':
-    - 'name': 'ButtonBuddy'
-      'url': 'https://buttonbuddy.dev'
-    - 'name': 'WordWrap Podcast'
-      'url': 'https://wordwrap.dev'
+site:
+  name: 'thinkdobecreate.com'
+  url: 'https://thinkdobecreate.com/'
+  description: '友情链接'
+  links: '/links'
+  friends:
+    - name: 'ButtonBuddy'
+      url: 'https://buttonbuddy.dev'
+    - name: 'WordWrap Podcast'
+      url: 'https://wordwrap.dev'

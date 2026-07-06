@@ -1,8 +1,8 @@
-'site':
-  'name': 'Dryad Glen'
-  'url': 'https://cyberneticdryad.neocities.org/'
-  'description': 'Dryad Glen'
-  'links': '/links'
-  'friends':
-    - 'name': 'imood.com'
-      'url': 'https://www.imood.com/'
+site:
+  name: 'Dryad Glen'
+  url: 'https://cyberneticdryad.neocities.org/'
+  description: 'Dryad Glen'
+  links: '/links'
+  friends:
+    - name: 'imood.com'
+      url: 'https://www.imood.com/'

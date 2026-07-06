@@ -1,8 +1,8 @@
-'site':
-  'name': 'Stone Zhao@STZ'
-  'url': 'https://lxy12138.com/'
-  'description': 'Stone Zhao@STZ'
-  'links': '/links'
-  'friends':
-    - 'name': 'ShawnZhou的小站'
-      'url': 'https://shawnzhou.world/'
+site:
+  name: 'Stone Zhao@STZ'
+  url: 'https://lxy12138.com/'
+  description: 'Stone Zhao@STZ'
+  links: '/links'
+  friends:
+    - name: 'ShawnZhou的小站'
+      url: 'https://shawnzhou.world/'

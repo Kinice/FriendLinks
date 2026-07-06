@@ -1,8 +1,8 @@
-'site':
-  'name': 'kunq.me'
-  'url': 'http://kunq.me/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'Hux Blog'
-      'url': 'http://huangxuan.me/'
+site:
+  name: 'kunq.me'
+  url: 'http://kunq.me/'
+  description: '友情链接'
+  links: '/'
+  friends:
+    - name: 'Hux Blog'
+      url: 'http://huangxuan.me/'

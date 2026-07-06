@@ -1,8 +1,8 @@
-'site':
-  'name': 'rupertmckay.com'
-  'url': 'https://rupertmckay.com/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'Odido.nl'
-      'url': 'https://odido.nl/'
+site:
+  name: 'rupertmckay.com'
+  url: 'https://rupertmckay.com/'
+  description: '友情链接'
+  links: '/'
+  friends:
+    - name: 'Odido.nl'
+      url: 'https://odido.nl/'

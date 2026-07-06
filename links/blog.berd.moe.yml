@@ -1,8 +1,8 @@
-'site':
-  'name': 'blog.berd.moe'
-  'url': 'https://blog.berd.moe/'
-  'description': '友情链接'
-  'links': '/about'
-  'friends':
-    - 'name': 'Dimpurr'
-      'url': 'http://dimpurr.com/'
+site:
+  name: 'blog.berd.moe'
+  url: 'https://blog.berd.moe/'
+  description: '友情链接'
+  links: '/about'
+  friends:
+    - name: 'Dimpurr'
+      url: 'http://dimpurr.com/'

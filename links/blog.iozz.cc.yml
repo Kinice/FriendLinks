@@ -1,12 +1,12 @@
-'site':
-  'name': 'iozz的Blog (＾▽＾)'
-  'url': 'https://blog.iozz.cc/'
-  'description': 'iozz的Blog (＾▽＾)'
-  'links': '/links'
-  'friends':
-    - 'name': 'Oyiso's Blog'
-      'url': 'https://oyiso.cn/'
-    - 'name': '『自习室』EXYONE的篝火小屋'
-      'url': 'https://www.exyone.me/'
-    - 'name': 'Lim's Blog'
-      'url': 'https://blog.useforall.com/'
+site:
+  name: 'iozz的Blog (＾▽＾)'
+  url: 'https://blog.iozz.cc/'
+  description: 'iozz的Blog (＾▽＾)'
+  links: '/links'
+  friends:
+    - name: 'Oyiso's Blog'
+      url: 'https://oyiso.cn/'
+    - name: '『自习室』EXYONE的篝火小屋'
+      url: 'https://www.exyone.me/'
+    - name: 'Lim's Blog'
+      url: 'https://blog.useforall.com/'

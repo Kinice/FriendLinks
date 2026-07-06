@@ -1,8 +1,8 @@
-'site':
-  'name': 'RalXYZ'
-  'url': 'https://ralxyz.xyz/'
-  'description': 'RalXYZ'
-  'links': '/links'
-  'friends':
-    - 'name': 'Blog'
-      'url': 'https://blog.ralxyz.xyz/'
+site:
+  name: 'RalXYZ'
+  url: 'https://ralxyz.xyz/'
+  description: 'RalXYZ'
+  links: '/links'
+  friends:
+    - name: 'Blog'
+      url: 'https://blog.ralxyz.xyz/'

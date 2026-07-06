@@ -1,8 +1,8 @@
-'site':
-  'name': 'mipian.com'
-  'url': 'https://mipian.com/'
-  'description': '友情链接'
-  'links': '/'
-  'friends':
-    - 'name': 'ZXS.ME'
-      'url': 'https://www.zxs.me'
+site:
+  name: 'mipian.com'
+  url: 'https://mipian.com/'
+  description: '友情链接'
+  links: '/'
+  friends:
+    - name: 'ZXS.ME'
+      url: 'https://www.zxs.me'
