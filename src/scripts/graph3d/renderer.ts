@@ -461,7 +461,7 @@ export function createStarfield(ctx: RenderContext) {
   ];
 
   for (let i = 0; i < count; i++) {
-    const r = 600 + Math.random() * 1000; // 半径 600~1600
+    const r = 2000 + Math.random() * 5000; // 半径 2000~7000，远离相机视野
     const theta = Math.random() * Math.PI * 2;
     const phi = Math.acos(2 * Math.random() - 1);
     positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
