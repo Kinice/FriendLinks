@@ -238,9 +238,9 @@ export function updateLinkPositions(
 
     edgeDataArr.push({ sx, sy, sz, ex, ey, ez, cx, cy, cz });
 
-    // 边颜色 = 源节点颜色
-    const srcColor = new THREE.Color((sn as any)._cDefault || "#ffffff");
-    const colR = srcColor.r, colG = srcColor.g, colB = srcColor.b;
+    // 边颜色：源→目标渐变
+    const srcCol = new THREE.Color((sn as any)._cDefault || "#ffffff");
+    const tgtCol = new THREE.Color((tn as any)._cDefault || "#ffffff");
 
     for (let j = 0; j < EDGE_SEGMENTS; j++) {
       const t0 = j / EDGE_SEGMENTS;
@@ -252,9 +252,13 @@ export function updateLinkPositions(
       pos[base + 3] = bezier(sx, cx, ex, t1);
       pos[base + 4] = bezier(sy, cy, ey, t1);
       pos[base + 5] = bezier(sz, cz, ez, t1);
-      // 顶点颜色：两个顶点都取源节点颜色
-      col[base]     = colR; col[base + 1] = colG; col[base + 2] = colB;
-      col[base + 3] = colR; col[base + 4] = colG; col[base + 5] = colB;
+      // 顶点颜色：按 t 在源→目标之间插值
+      col[base]     = srcCol.r + (tgtCol.r - srcCol.r) * t0;
+      col[base + 1] = srcCol.g + (tgtCol.g - srcCol.g) * t0;
+      col[base + 2] = srcCol.b + (tgtCol.b - srcCol.b) * t0;
+      col[base + 3] = srcCol.r + (tgtCol.r - srcCol.r) * t1;
+      col[base + 4] = srcCol.g + (tgtCol.g - srcCol.g) * t1;
+      col[base + 5] = srcCol.b + (tgtCol.b - srcCol.b) * t1;
     }
   }
 
