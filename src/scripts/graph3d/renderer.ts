@@ -236,7 +236,7 @@ export function updateLinkPositions(
       dz = ez - sz;
     const len = Math.sqrt(dx * dx + dy * dy + dz * dz) || 1;
     const offset = calcControlOffset(dx, dy, dz, len);
-    const bend = Math.min(len * 0.18, 8000);
+    const bend = len * 0.15;
     const cx = mx + offset.ox * bend;
     const cy = my + offset.oy * bend;
     const cz = mz + offset.oz * bend;
