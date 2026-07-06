@@ -28,3 +28,15 @@ export function calcControlOffset(
 }
 
 export const EDGE_SEGMENTS = 6;
+
+/** 基础最小分段数 */
+const MIN_SEGMENTS = 6;
+/** 最大分段数（数据上限） */
+export const MAX_EDGE_SEGMENTS = 16;
+/** 每个采样段覆盖的期望距离 */
+const SAMPLE_DISTANCE = 500;
+
+/** 根据边长计算自适应分段数 */
+export function calcSegmentCount(edgeLength: number): number {
+  return Math.max(MIN_SEGMENTS, Math.min(MAX_EDGE_SEGMENTS, Math.ceil(edgeLength / SAMPLE_DISTANCE)));
+}

@@ -6,6 +6,7 @@ import FlexSearch from "flexsearch";
 import * as THREE from "three";
 import { decode } from "msgpackr";
 import { adjustHex, createTextSprite, hashToIndex, PALETTE } from "./utils";
+import { MAX_EDGE_SEGMENTS } from "../../utils/bezier";
 import {
   animateCamera,
   createNodeGlow,
@@ -229,22 +230,49 @@ export function init3d(graphData: GraphData) {
   }
 
   // ── 连线位置：优先使用构建时预计算的贝塞尔数据，否则运行时计算 ──
-  const _bezier = (graphData as any).bezier as { lpx: number[]; lpy: number[]; lpz: number[] } | null | undefined;
+  const _bezier = (graphData as any).bezier as
+    | {
+        lseg: number[];
+        lpx: number[];
+        lpy: number[];
+        lpz: number[];
+      }
+    | null
+    | undefined;
   if (_bezier) {
     const pos = ctx.linkLines.geometry.attributes.position.array as Float32Array;
-    const lpx = _bezier.lpx,
-      lpy = _bezier.lpy,
-      lpz = _bezier.lpz;
-    const maxFloats = Math.min(pos.length, lpx.length);
-    for (let i = 0; i < maxFloats; i++) {
-      pos[i * 3] = lpx[i];
-      pos[i * 3 + 1] = lpy[i];
-      pos[i * 3 + 2] = lpz[i];
+    const { lseg, lpx, lpy, lpz: _lpz } = _bezier;
+
+    // 从紧凑格式解包到固定尺寸的 GPU buffer（MAX_EDGE_SEGMENTS 段/边）
+    const FIXED_FLOATS_PER_EDGE = MAX_EDGE_SEGMENTS * 2 * 3;
+    let srcCursor = 0;
+    for (let i = 0; i < linkArr.length; i++) {
+      const segs = lseg[i] || 6;
+      const dstBase = i * FIXED_FLOATS_PER_EDGE;
+      const copyLen = Math.min(FIXED_FLOATS_PER_EDGE, segs * 2 * 3);
+      for (let j = 0; j < copyLen && srcCursor + j < lpx.length; j++) {
+        pos[dstBase + j * 3] = lpx[srcCursor + j];
+        pos[dstBase + j * 3 + 1] = lpy[srcCursor + j];
+        pos[dstBase + j * 3 + 2] = _lpz[srcCursor + j];
+      }
+      // 短边补齐（重复最后一个点填满固定尺寸）
+      if (copyLen < FIXED_FLOATS_PER_EDGE) {
+        const li = srcCursor + copyLen - 3;
+        const lx = lpx[li] || 0,
+          ly = lpy[li] || 0,
+          lz = _lpz[li] || 0;
+        for (let j = copyLen; j < FIXED_FLOATS_PER_EDGE; j++) {
+          pos[dstBase + j * 3] = lx;
+          pos[dstBase + j * 3 + 1] = ly;
+          pos[dstBase + j * 3 + 2] = lz;
+        }
+      }
+      srcCursor += segs * 2 * 3;
     }
     ctx.linkLines.geometry.attributes.position.needsUpdate = true;
-    ctx.linkLines.geometry.setDrawRange(0, (maxFloats / 3) | 0);
+    ctx.linkLines.geometry.setDrawRange(0, (linkArr.length * FIXED_FLOATS_PER_EDGE) / 3);
     (ctx.linkLines.material as THREE.LineBasicMaterial).opacity = linkOpacity.value;
-    // 填充 edgeRefs（供 updateLineGlow 用）
+    // 填充 edgeRefs（供 updateLineGlow 用，使用最大段数）
     ctx.edgeRefs = linkArr.map((l) => {
       const si = nodeIdToIndex.get(l.source);
       const ti = nodeIdToIndex.get(l.target);
@@ -262,6 +290,7 @@ export function init3d(graphData: GraphData) {
         cz: 0,
       };
     });
+    (graphData as any)._lseg = lseg;
   } else {
     updateLinkPositions(ctx, linkArr, nodeIdToIndex, nodes, linkOpacity.value);
   }
@@ -1210,10 +1239,11 @@ export function init3d(graphData: GraphData) {
     overlayCoreMat.emissiveIntensity = isFocus ? 1.2 : 0.7;
     overlayCoreMat.opacity = 1;
 
-    const focusScale = isFocus ? 2 : 1; // focus 用 2x 缩放替代大号几何体
+    const focusScale = isFocus ? 2 : 1;
 
     const linkPos = ctx.linkLines.geometry.attributes.position.array as Float32Array;
-    const FLOATS_PER_EDGE = EDGE_SEGMENTS * 2 * 3;
+    const FLOATS_PER_EDGE = EDGE_SEGMENTS * 2 * 3; // buffer stride (fixed)
+    const lseg = (graphData as any)._lseg as number[] | undefined; // per-edge actual segment counts
     let edgeCount = 0;
     let poolIdx = 0;
 
@@ -1221,8 +1251,9 @@ export function init3d(graphData: GraphData) {
       if (links[i].source !== nodeId && links[i].target !== nodeId) continue;
       edgeCount++;
       const base = i * FLOATS_PER_EDGE;
+      const segs = lseg ? lseg[i] || 6 : EDGE_SEGMENTS;
 
-      for (let j = 0; j < EDGE_SEGMENTS && poolIdx < POOL_SIZE; j++) {
+      for (let j = 0; j < segs && poolIdx < POOL_SIZE; j++) {
         const segBase = base + j * 6;
         start_v.set(linkPos[segBase], linkPos[segBase + 1], linkPos[segBase + 2]);
         end_v.set(linkPos[segBase + 3], linkPos[segBase + 4], linkPos[segBase + 5]);
@@ -1762,7 +1793,7 @@ export function init3d(graphData: GraphData) {
 // ─── 紧凑格式展开 ────────────────────────────────────────────────────
 
 function expandCompact(c: any): GraphData {
-  const { nid, nnm, nur, nfa, nde, nx, ny, nz, ndeg, ladj_off, ladj, lpx, lpy, lpz } = c;
+  const { nid, nnm, nur, nfa, nde, nx, ny, nz, ndeg, ladj_off, ladj, lseg, lpx, lpy, lpz } = c;
   const nodes = nid.map((_id: string, i: number) => ({
     id: nid[i],
     name: nnm[i],
@@ -1781,7 +1812,7 @@ function expandCompact(c: any): GraphData {
     links,
     categories: c.c || [],
     adjacency: ndeg ? { ndeg, ladj_off, ladj } : {},
-    bezier: lpx ? { lpx, lpy, lpz } : null,
+    bezier: lpx ? { lseg, lpx, lpy, lpz } : null,
   };
 }
 

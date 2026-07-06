@@ -4,7 +4,7 @@ import { encode } from "msgpackr";
 import { printProgress, printDone } from "../utils/progress";
 import { simTick } from "@xingwangzhe/force-rs";
 import { isFastMode } from "../utils/sample";
-import { bezier2, calcControlOffset, EDGE_SEGMENTS } from "../utils/bezier";
+import { bezier2, calcControlOffset, calcSegmentCount } from "../utils/bezier";
 
 function getHost(u: string): string {
   try {
@@ -289,7 +289,7 @@ export async function GET() {
     }
   }
 
-  /** 预计算贝塞尔曲线连线位置（客户端只需 TypedArray 拷贝，零计算） */
+  /** 预计算贝塞尔曲线连线位置（自适应分段：短线 6 段，超长线最多 16 段） */
   function buildBezierPositions(
     nCount: number,
     srcs: number[],
@@ -299,15 +299,38 @@ export async function GET() {
     pz: number[],
   ) {
     const edgeCount = srcs.length;
-    const totalFloats = edgeCount * EDGE_SEGMENTS * 2 * 3;
+    // 第一遍：计算每条边的分段数
+    const lseg = new Uint8Array(edgeCount);
+    let totalFloats = 0;
+    for (let i = 0; i < edgeCount; i++) {
+      const si = srcs[i];
+      const ti = tgts[i];
+      if (si >= nCount || ti >= nCount) {
+        lseg[i] = 6;
+        totalFloats += 6 * 2 * 3;
+        continue;
+      }
+      const dx = px[ti] - px[si],
+        dy = py[ti] - py[si],
+        dz = pz[ti] - pz[si];
+      const len = Math.sqrt(dx * dx + dy * dy + dz * dz) || 1;
+      lseg[i] = calcSegmentCount(len);
+      totalFloats += lseg[i] * 2 * 3;
+    }
+
+    // 第二遍：填充贝塞尔位置
     const lpx = new Float32Array(totalFloats);
     const lpy = new Float32Array(totalFloats);
     const lpz = new Float32Array(totalFloats);
+    let cursor = 0;
 
     for (let i = 0; i < edgeCount; i++) {
       const si = srcs[i];
       const ti = tgts[i];
-      if (si >= nCount || ti >= nCount) continue;
+      if (si >= nCount || ti >= nCount) {
+        cursor += lseg[i] * 2 * 3;
+        continue;
+      }
       const sx = px[si],
         sy = py[si],
         sz = pz[si];
@@ -324,21 +347,27 @@ export async function GET() {
       const cy = (sy + ey) / 2 + off.oy * bend;
       const cz = (sz + ez) / 2 + off.oz * bend;
 
-      for (let j = 0; j < EDGE_SEGMENTS; j++) {
-        const t0 = j / EDGE_SEGMENTS;
-        const t1 = (j + 1) / EDGE_SEGMENTS;
-        const base = (i * EDGE_SEGMENTS + j) * 6;
-        // 起点
-        lpx[base] = bezier2(sx, cx, ex, t0);
-        lpy[base] = bezier2(sy, cy, ey, t0);
-        lpz[base] = bezier2(sz, cz, ez, t0);
-        // 终点
-        lpx[base + 3] = bezier2(sx, cx, ex, t1);
-        lpy[base + 3] = bezier2(sy, cy, ey, t1);
-        lpz[base + 3] = bezier2(sz, cz, ez, t1);
+      const segs = lseg[i];
+      for (let j = 0; j < segs; j++) {
+        const t0 = j / segs;
+        const t1 = (j + 1) / segs;
+        lpx[cursor] = bezier2(sx, cx, ex, t0);
+        lpy[cursor] = bezier2(sy, cy, ey, t0);
+        lpz[cursor] = bezier2(sz, cz, ez, t0);
+        cursor++;
+        lpx[cursor] = bezier2(sx, cx, ex, t1);
+        lpy[cursor] = bezier2(sy, cy, ey, t1);
+        lpz[cursor] = bezier2(sz, cz, ez, t1);
+        cursor++;
       }
     }
-    return { lpx: Array.from(lpx), lpy: Array.from(lpy), lpz: Array.from(lpz) };
+
+    return {
+      lseg: Array.from(lseg),
+      lpx: Array.from(lpx),
+      lpy: Array.from(lpy),
+      lpz: Array.from(lpz),
+    };
   }
 
   const compact = {

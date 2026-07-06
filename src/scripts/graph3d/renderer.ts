@@ -8,6 +8,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { BloomEffect, EffectComposer, EffectPass, RenderPass } from "postprocessing";
 import type { GraphNode } from "../../../types/graph";
+import { MAX_EDGE_SEGMENTS } from "../../utils/bezier";
 
 // ─── 类型 ──────────────────────────────────────────────────────────
 
@@ -55,8 +56,8 @@ interface EdgeData {
 const NODE_SEGMENTS = 12;
 const NODE_HEIGHT_SEGMENTS = 8;
 const BG_COLOR = 0x0f1115;
-/** 每条边细分为多少段线 */
-export const EDGE_SEGMENTS = 6;
+/** 每条边细分为多少段线（最大，实际按边长自适应） */
+export const EDGE_SEGMENTS = MAX_EDGE_SEGMENTS;
 
 // ─── 贝塞尔工具 ──────────────────────────────────────────────────────
 
