@@ -5,6 +5,7 @@
 import FlexSearch from "flexsearch";
 import * as THREE from "three";
 import { decode } from "msgpackr";
+import { init as zstdInit, decompress as zstdDecompress } from "@bokuweb/zstd-wasm";
 import { adjustHex, createTextSprite, hashToIndex, PALETTE } from "./utils";
 import { MAX_EDGE_SEGMENTS } from "../../utils/bezier";
 import {
@@ -1813,6 +1814,32 @@ function expandCompact(c: any): GraphData {
   };
 }
 
+/** zstd magic bytes: 0x28 0xB5 0x2F 0xFD */
+function isZstd(buf: Uint8Array): boolean {
+  return buf.length >= 4 && buf[0] === 0x28 && buf[1] === 0xb5 && buf[2] === 0x2f && buf[3] === 0xfd;
+}
+
+let _zstdInit: Promise<void> | null = null;
+function ensureZstd(): Promise<void> {
+  if (!_zstdInit) _zstdInit = zstdInit();
+  return _zstdInit;
+}
+
+function maybeDecompress(buf: Uint8Array): Uint8Array {
+  // decompress 是同步的（init 成功后），这里只做 magic 检测
+  return isZstd(buf) ? zstdDecompress(buf) : buf;
+}
+
+/** Int16 → Float32 反量化 */
+function dequantize(i16: Int16Array, min: number, max: number): Float32Array {
+  const range = max - min || 1;
+  const out = new Float32Array(i16.length);
+  for (let i = 0; i < i16.length; i++) {
+    out[i] = min + range * (i16[i] + 32768) / 65535;
+  }
+  return out;
+}
+
 export async function init3dFromUrl(coreUrl: string, signal?: AbortSignal, bezierUrl?: string) {
   const [coreRes, bezierRes] = await Promise.all([
     fetch(coreUrl, { signal }),
@@ -1828,23 +1855,28 @@ export async function init3dFromUrl(coreUrl: string, signal?: AbortSignal, bezie
     bezierRes?.ok ? bezierRes.arrayBuffer() : Promise.resolve(null),
   ]);
 
-  const core = decode(new Uint8Array(coreBuf)) as any;
+  // 初始化 zstd WASM（首次调用后缓存）
+  await ensureZstd();
+
+  const coreRaw = maybeDecompress(new Uint8Array(coreBuf));
+  const core = decode(coreRaw) as any;
   const data = core.nid ? expandCompact(core) : (core as GraphData);
 
   // 合并贝塞尔数据（可选，缺失时 init3d 内部走 updateLinkPositions 回退）
   if (bezierBuf) {
     try {
-      const bezier = decode(new Uint8Array(bezierBuf)) as any;
+      const bezierRaw = maybeDecompress(new Uint8Array(bezierBuf));
+      const bezier = decode(bezierRaw) as any;
       if (bezier.lpx) {
         (data as any).bezier = {
           lseg: bezier.lseg,
-          lpx: bezier.lpx,
-          lpy: bezier.lpy,
-          lpz: bezier.lpz,
+          lpx: dequantize(new Int16Array(bezier.lpx), bezier.lpx_min, bezier.lpx_max),
+          lpy: dequantize(new Int16Array(bezier.lpy), bezier.lpy_min, bezier.lpy_max),
+          lpz: dequantize(new Int16Array(bezier.lpz), bezier.lpz_min, bezier.lpz_max),
         };
       }
     } catch {
-      // bezier 解码失败，静默降级
+      // bezier 解码/反量化失败，静默降级
     }
   }
 

@@ -1,23 +1,31 @@
 import { getBuildResult } from "../utils/build-graph";
 import { encode } from "msgpackr";
 import { printDone } from "../utils/progress";
+import { isFastMode } from "../utils/sample";
+import { zstdCompress } from "../utils/compress";
 
 export async function GET() {
   const startTime = performance.now();
   const data = await getBuildResult();
 
-  // 保持 Float32Array，msgpackr 编码为紧凑二进制（4 字节/值）
-  // 不转 Array.from()，避免膨胀为 float64
   const bezier = {
     lseg: data.lseg,
     lpx: data.lpx,
+    lpx_min: data.lpx_min,
+    lpx_max: data.lpx_max,
     lpy: data.lpy,
+    lpy_min: data.lpy_min,
+    lpy_max: data.lpy_max,
     lpz: data.lpz,
+    lpz_min: data.lpz_min,
+    lpz_max: data.lpz_max,
   };
 
+  const encoded = Buffer.from(encode(bezier) as any);
+  const body = isFastMode() ? encoded : await zstdCompress(encoded);
   const elapsed = ((performance.now() - startTime) / 1000).toFixed(1);
-  printDone(`/graph-bezier.bin 完成 · ${data.ls.length} 边 · 耗时 ${elapsed}s`);
-  return new Response(encode(bezier) as unknown as BodyInit, {
+  printDone(`/graph-bezier.bin 完成 · ${data.ls.length} 边 · ${(body.length / 1024 / 1024).toFixed(1)}MB · 耗时 ${elapsed}s`);
+  return new Response(body as BodyInit, {
     headers: { "Content-Type": "application/octet-stream" },
   });
 }

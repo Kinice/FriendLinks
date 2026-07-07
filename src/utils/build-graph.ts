@@ -51,11 +51,17 @@ export interface BuildResult {
   ndeg: number[];
   ladj_off: number[];
   ladj: number[];
-  /** 预计算贝塞尔连线位置 */
+  /** 预计算贝塞尔连线位置（Int16 量化） */
   lseg: number[];
-  lpx: Float32Array;
-  lpy: Float32Array;
-  lpz: Float32Array;
+  lpx: Int16Array;
+  lpx_min: number;
+  lpx_max: number;
+  lpy: Int16Array;
+  lpy_min: number;
+  lpy_max: number;
+  lpz: Int16Array;
+  lpz_min: number;
+  lpz_max: number;
 }
 
 async function buildGraph(): Promise<BuildResult> {
@@ -372,8 +378,26 @@ async function buildGraph(): Promise<BuildResult> {
     return { lseg: Array.from(lseg), lpx, lpy, lpz };
   }
 
+  /** Float32 → Int16 量化：精度 1/65535 范围，肉眼不可见 */
+  function quantize(arr: Float32Array): { i16: Int16Array; min: number; max: number } {
+    let min = Infinity, max = -Infinity;
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] < min) min = arr[i];
+      if (arr[i] > max) max = arr[i];
+    }
+    const range = max - min || 1;
+    const i16 = new Int16Array(arr.length);
+    for (let i = 0; i < arr.length; i++) {
+      i16[i] = Math.round(((arr[i] - min) / range) * 65535 - 32768);
+    }
+    return { i16, min, max };
+  }
+
   const { ndeg, ladj_off, ladj } = buildAdjacency(nid.length, ls, lt);
-  const bezier = buildBezierPositions(nid.length, ls, lt, nx, ny, nz);
+  const rawBezier = buildBezierPositions(nid.length, ls, lt, nx, ny, nz);
+  const qx = quantize(rawBezier.lpx);
+  const qy = quantize(rawBezier.lpy);
+  const qz = quantize(rawBezier.lpz);
 
   const elapsed = ((performance.now() - startTime) / 1000).toFixed(1);
   printDone(`图数据构建完成 · ${nodes.length} 节点 · ${linksArr.length} 边 · 耗时 ${elapsed}s`);
@@ -395,10 +419,16 @@ async function buildGraph(): Promise<BuildResult> {
     ndeg,
     ladj_off,
     ladj,
-    lseg: bezier.lseg,
-    lpx: bezier.lpx,
-    lpy: bezier.lpy,
-    lpz: bezier.lpz,
+    lseg: rawBezier.lseg,
+    lpx: qx.i16,
+    lpx_min: qx.min,
+    lpx_max: qx.max,
+    lpy: qy.i16,
+    lpy_min: qy.min,
+    lpy_max: qy.max,
+    lpz: qz.i16,
+    lpz_min: qz.min,
+    lpz_max: qz.max,
   };
 }
 
