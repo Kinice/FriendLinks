@@ -748,19 +748,32 @@ export function init3d(graphData: GraphData) {
       if (!node || node.x == null) continue;
       const name = node.name || node.id;
       if (name.length > 40) continue;
-      const sprite = createTextSprite(name, 30, 96);
-      // 暂存节点坐标，动画循环中做相机相对定位
+      const sprite = createTextSprite(name, 1, 128);
+      // 暂存节点坐标，动画循环中做相机相对定位 + 屏幕空间缩放
       (sprite as any)._nodePos3d = { x: node.x!, y: node.y || 0, z: node.z || 0 };
       (sprite as any)._neighborId = nid;
       (sprite as any)._neighborUrl = node.url || "";
       neighborLabelGroup.add(sprite);
     }
 
+    // 被聚焦节点自己的标签（屏幕空间缩放，比子链稍大）
+    const fNode = nodes.find((n) => n.id === nodeId);
+    if (fNode && fNode.x != null) {
+      const fName = fNode.name || fNode.id;
+      if (fName.length <= 40) {
+        const fSprite = createTextSprite(fName, 1, 144);
+        (fSprite as any)._nodePos3d = { x: fNode.x!, y: fNode.y || 0, z: fNode.z || 0 };
+        (fSprite as any)._neighborId = nodeId;
+        (fSprite as any)._isFocused = true;
+        neighborLabelGroup.add(fSprite);
+      }
+    }
+
     // 隐藏节点统计标签
     if (hidden > 0) {
       const focusNode = nodes.find((n) => n.id === nodeId);
       if (focusNode && focusNode.x != null) {
-        const moreSprite = createTextSprite(`+${hidden} 隐藏`, 30, 96);
+        const moreSprite = createTextSprite(`+${hidden} 隐藏`, 1, 72);
         moreSprite.position.set(focusNode.x, (focusNode.y || 0) - 26, focusNode.z || 0);
         (moreSprite as any)._nodePos3d = { x: focusNode.x!, y: focusNode.y || 0, z: focusNode.z || 0 };
         (moreSprite as any)._neighborId = null;
@@ -1093,22 +1106,31 @@ export function init3d(graphData: GraphData) {
       }
     }
 
-    // 邻居大字标签：相机相对位置
+    // 聚焦标签：屏幕空间缩放 + 相机相对定位
     if (neighborLabelGroup.children.length > 0) {
+      const fovRad = (ctx.camera.fov * Math.PI) / 180;
+      const count = neighborLabelGroup.children.length;
       const _camUp = new THREE.Vector3(0, 1, 0).applyQuaternion(ctx.camera.quaternion);
       const _nodeRadius = nodeSize(1, 1);
-      const _labelOffset = _nodeRadius + 17; // radius + half worldHeight + gap
       for (const child of neighborLabelGroup.children) {
         const sprite = child as THREE.Sprite;
+        const isFocused = (sprite as any)._isFocused;
         const np = (sprite as any)._nodePos3d;
         if (np) {
-          const sign = (sprite as any)._neighborId === null ? -1 : 1;
+          const sign = (sprite as any)._neighborId === null && !isFocused ? -1 : 1;
+          const offset = isFocused ? _nodeRadius + 20 : _nodeRadius + 14;
           sprite.position.set(
-            np.x + _camUp.x * _labelOffset * sign,
-            np.y + _camUp.y * _labelOffset * sign,
-            np.z + _camUp.z * _labelOffset * sign,
+            np.x + _camUp.x * offset * sign,
+            np.y + _camUp.y * offset * sign,
+            np.z + _camUp.z * offset * sign,
           );
         }
+        const dist = ctx.camera.position.distanceTo(sprite.position);
+        const fraction = isFocused ? 0.18 / (1 + count / 40) : 0.14 / (1 + count / 80);
+        const worldH = Math.max(0.1, 2 * dist * Math.tan(fovRad / 2) * fraction);
+        const curScale = sprite.scale;
+        const aspect = curScale.y > 0 ? curScale.x / curScale.y : 1;
+        sprite.scale.set(worldH * aspect, worldH, 1);
       }
     }
 
