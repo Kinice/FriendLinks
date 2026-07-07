@@ -124,7 +124,7 @@ export async function createRenderer(container: HTMLElement, nodeCount: number, 
   const edgeVertsPerEdge = EDGE_SEGMENTS * 2 * 3;
   const linkGeom = new THREE.BufferGeometry();
   const linkPositions = new Float32Array(linkCount * edgeVertsPerEdge);
-  const linkColors = new Float32Array(linkCount * EDGE_SEGMENTS * 2 * 3); // 每个顶点 RGB
+  const linkColors = new Float32Array(linkCount * EDGE_SEGMENTS * 2 * 3);
   linkGeom.setAttribute("position", new THREE.BufferAttribute(linkPositions, 3));
   linkGeom.setAttribute("color", new THREE.BufferAttribute(linkColors, 3));
   linkGeom.setDrawRange(0, 0);
@@ -233,7 +233,7 @@ export function updateLinkPositions(
 
 /** 统一节点大小，不区分度数 */
 export function nodeSize(_degree: number, _maxDegree: number): number {
-  return 20;
+  return 40;
 }
 
 export function updateAllNodePositions(
