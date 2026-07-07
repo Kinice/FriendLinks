@@ -1,8 +1,0 @@
-site:
-  name: 首页
-  url: https://www.yevpt.com/
-  description: 分享编程、工具与文学的个人博客
-  links: /
-  friends:
-    - name: Gin
-      url: https://gin-gonic.com
