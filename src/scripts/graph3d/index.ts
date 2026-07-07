@@ -80,6 +80,77 @@ function createTooltip(): TooltipApi {
   };
 }
 
+// ─── 可拖拽面板 ─────────────────────────────────────────────────────
+
+function makeDraggable(el: HTMLElement, handle: HTMLElement) {
+  let isDragging = false;
+  let startX = 0,
+    startY = 0;
+  let origLeft = 0,
+    origRight = 0,
+    origTop = 0,
+    origBottom = 0;
+
+  function initPos() {
+    const cs = getComputedStyle(el);
+    origLeft = parseFloat(cs.left) || 0;
+    origRight = parseFloat(cs.right) || 0;
+    origTop = parseFloat(cs.top) || 0;
+    origBottom = parseFloat(cs.bottom) || 0;
+  }
+
+  handle.style.cursor = "grab";
+  handle.addEventListener("mousedown", (e) => {
+    if ((e.target as HTMLElement).tagName === "BUTTON") return;
+    e.preventDefault();
+    isDragging = true;
+    handle.style.cursor = "grabbing";
+    initPos();
+    startX = e.clientX;
+    startY = e.clientY;
+    // 如果使用了 transform（如 translateY(-50%)），拖拽时移除并换算为 top
+    const xf = getComputedStyle(el).transform;
+    if (xf && xf !== "none") {
+      const rect = el.getBoundingClientRect();
+      el.style.top = rect.top + "px";
+      el.style.left = rect.left + "px";
+      el.style.right = "auto";
+      el.style.bottom = "auto";
+      el.style.transform = "none";
+      origLeft = rect.left;
+      origTop = rect.top;
+      origRight = 0;
+      origBottom = 0;
+    }
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    // Switch to left/top based positioning if currently right/bottom
+    if (origRight > 0 && origLeft === 0) {
+      el.style.removeProperty("right");
+      el.style.left = e.clientX - dx + window.innerWidth - el.offsetWidth + "px";
+    } else {
+      el.style.left = origLeft + dx + "px";
+    }
+    if (origBottom > 0 && origTop === 0) {
+      el.style.removeProperty("bottom");
+      el.style.top = e.clientY - dy + window.innerHeight - el.offsetHeight + "px";
+    } else {
+      el.style.top = origTop + dy + "px";
+    }
+  });
+
+  document.addEventListener("mouseup", () => {
+    if (isDragging) {
+      isDragging = false;
+      handle.style.cursor = "grab";
+    }
+  });
+}
+
 // ─── 初始化 ──────────────────────────────────────────────────────────
 
 export function init3d(graphData: GraphData) {
@@ -409,6 +480,25 @@ export function init3d(graphData: GraphData) {
     panel = document.createElement("div");
     panel.id = "graph-control-panel";
 
+    // 标题栏（可拖拽 + X 关闭）
+    const header = document.createElement("div");
+    header.className = "cp-header";
+    header.style.cssText =
+      "display:flex;align-items:center;padding:6px 10px;border-bottom:1px solid rgba(255,255,255,0.08);cursor:grab;user-select:none;";
+    const titleEl = document.createElement("span");
+    titleEl.textContent = "控制面板";
+    titleEl.style.cssText = "font-size:13px;color:#aaa;flex:1;";
+    const closeBtn = document.createElement("button");
+    closeBtn.textContent = "×";
+    closeBtn.style.cssText =
+      "background:none;border:none;color:#aaa;cursor:pointer;font-size:16px;padding:0 4px;line-height:1;";
+    closeBtn.addEventListener("click", () => {
+      panel!.style.display = "none";
+    });
+    header.appendChild(titleEl);
+    header.appendChild(closeBtn);
+    panel.appendChild(header);
+
     function addSliderRow(
       parent: HTMLElement,
       title: string,
@@ -510,12 +600,21 @@ export function init3d(graphData: GraphData) {
       panel.appendChild(row);
     }
 
-    addSliderRow(panel, "连线数上限", "10", "500", "10", String(maxOverlayEdges.value), (v) => {
-      maxOverlayEdges.value = v;
-      saveVal("max_overlay_edges", v);
-      if (focusedId) buildNeighborLabels(focusedId); // 刷新邻居标签
-      _needsRender = true;
-    }, "");
+    addSliderRow(
+      panel,
+      "连线数上限",
+      "10",
+      "500",
+      "10",
+      String(maxOverlayEdges.value),
+      (v) => {
+        maxOverlayEdges.value = v;
+        saveVal("max_overlay_edges", v);
+        if (focusedId) buildNeighborLabels(focusedId); // 刷新邻居标签
+        _needsRender = true;
+      },
+      "",
+    );
 
     const hint = document.createElement("div");
     hint.textContent = "右键点击节点聚焦 · 左键打开链接 · 拖拽旋转/平移";
@@ -529,8 +628,9 @@ export function init3d(graphData: GraphData) {
       z-index:9998;
       background:rgba(30,30,40,0.85);backdrop-filter:blur(8px);
       border:1px solid rgba(255,255,255,0.1);
-      padding:10px 14px;min-width:160px;display:none;font-family:sans-serif;`;
+      padding:0 14px 10px;min-width:160px;display:none;font-family:sans-serif;overflow:hidden;`;
     document.body.appendChild(panel);
+    makeDraggable(panel, header);
     return panel;
   }
 
@@ -566,7 +666,7 @@ export function init3d(graphData: GraphData) {
       #neighbor-panel.collapsed .np-header { border-bottom:none; padding:0; }
       #neighbor-panel.collapsed .np-collapse-btn { transform:rotate(180deg); margin:4px auto; display:block; }
       #neighbor-panel.collapsed .np-close-btn { display:none; }
-      .np-header { display:flex; align-items:center; padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.08); }
+      .np-header { display:flex; align-items:center; padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.08); cursor:grab; user-select:none; }
       .np-title { font-size:13px; color:#aaa; flex:1; }
       .np-collapse-btn, .np-close-btn { background:none; border:none; color:#aaa; cursor:pointer; font-size:14px; padding:2px 6px; }
       .np-node-name { padding:8px 12px; font-size:14px; color:#fff; border-bottom:1px solid rgba(255,255,255,0.05); }
@@ -631,6 +731,8 @@ export function init3d(graphData: GraphData) {
     panel.appendChild(hint);
     collapseBtn.addEventListener("click", () => panel!.classList.toggle("collapsed"));
     closeBtn.addEventListener("click", () => panel!.classList.add("hidden"));
+    // 拖拽
+    makeDraggable(panel, header);
     // 搜索过滤
     let _allEntries: Array<{ id: string; name: string; url: string }> = [];
     searchInput.addEventListener("input", () => {
@@ -1626,13 +1728,16 @@ export function init3d(graphData: GraphData) {
       z-index:9998;
       background:rgba(16,16,24,0.88);backdrop-filter:blur(8px);
       border:1px solid rgba(255,255,255,0.08);
-      padding:8px 12px;font-family:sans-serif;font-size:12px;color:#ccc;
-      display:none;line-height:1.6;
+      padding:0 12px 8px;font-family:sans-serif;font-size:12px;color:#ccc;
+      display:none;line-height:1.6;overflow:hidden;
     `;
     panel.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+      <div class="fp-header" style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;cursor:grab;user-select:none;">
         <span style="font-weight:600;color:#fff;font-size:13px;">🚀 飞行控制</span>
-        <button id="fly-panel-toggle" style="background:none;border:none;color:#888;cursor:pointer;font-size:14px;">−</button>
+        <div style="display:flex;gap:4px;">
+          <button class="fp-toggle-btn" style="background:none;border:none;color:#888;cursor:pointer;font-size:14px;padding:0 4px;">−</button>
+          <button class="fp-close-btn" style="background:none;border:none;color:#888;cursor:pointer;font-size:16px;padding:0 4px;line-height:1;">×</button>
+        </div>
       </div>
       <div id="fly-panel-body">
         <div><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 飞行</div>
@@ -1647,7 +1752,9 @@ export function init3d(graphData: GraphData) {
       </style>
     `;
     document.body.appendChild(panel);
-    const toggle = panel.querySelector("#fly-panel-toggle") as HTMLElement;
+    const header = panel.querySelector(".fp-header") as HTMLElement;
+    const toggle = panel.querySelector(".fp-toggle-btn") as HTMLElement;
+    const closeBtn = panel.querySelector(".fp-close-btn") as HTMLElement;
     const bodyEl = panel.querySelector("#fly-panel-body") as HTMLElement;
     if (toggle && bodyEl) {
       toggle.addEventListener("click", () => {
@@ -1656,6 +1763,12 @@ export function init3d(graphData: GraphData) {
         toggle.textContent = collapsed ? "−" : "+";
       });
     }
+    if (closeBtn) {
+      closeBtn.addEventListener("click", () => {
+        panel!.style.display = "none";
+      });
+    }
+    if (header) makeDraggable(panel, header);
     return panel;
   }
 
@@ -1853,7 +1966,7 @@ function dequantize(i16: Int16Array, min: number, max: number): Float32Array {
   const range = max - min || 1;
   const out = new Float32Array(i16.length);
   for (let i = 0; i < i16.length; i++) {
-    out[i] = min + range * (i16[i] + 32768) / 65535;
+    out[i] = min + (range * (i16[i] + 32768)) / 65535;
   }
   return out;
 }
@@ -1889,9 +2002,7 @@ export async function init3dFromUrl(coreUrl: string, signal?: AbortSignal, bezie
         // msgpackr 将 Int16Array 解码为 Uint8Array（原始字节），
         // 需通过 buffer 重解释为 Int16Array，而非逐元素拷贝
         const asI16 = (arr: any) =>
-          arr instanceof Int16Array
-            ? arr
-            : new Int16Array(arr.buffer, arr.byteOffset, arr.byteLength / 2);
+          arr instanceof Int16Array ? arr : new Int16Array(arr.buffer, arr.byteOffset, arr.byteLength / 2);
         (data as any).bezier = {
           lseg: bezier.lseg,
           lpx: dequantize(asI16(bezier.lpx), bezier.lpx_min, bezier.lpx_max),
