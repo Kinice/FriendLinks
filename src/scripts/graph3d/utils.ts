@@ -42,14 +42,14 @@ export function hashToIndex(s: string) {
 }
 
 /**
- * 节点度数 → 3D 节点尺寸
+ * 节点度数 → 3D 节点尺寸（与 renderer.nodeSize 一致）
  */
 export function degreeToSize(d: number, maxDegree: number) {
-  const MIN = 2;
-  const MAX = 10;
+  const MIN = 4;
+  const MAX = 48;
   if (!d || d <= 1) return MIN;
   const norm = Math.sqrt(d) / Math.sqrt(Math.max(1, maxDegree));
-  return MIN + Math.min(1, norm) * (MAX - MIN);
+  return MIN + Math.pow(norm, 0.6) * (MAX - MIN);
 }
 
 export function hexToRgb(hex: string): [number, number, number] {

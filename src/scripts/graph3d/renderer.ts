@@ -272,9 +272,13 @@ export function updateLinkPositions(
 
 // ─── 节点位置 + 颜色 ──────────────────────────────────────────────
 
-/** MeetBlog 风格的节点大小计算：度数越大节点越大 */
+/** 节点大小计算：sqrt 归一化 + 次幂曲线，小节点不淹没、大节点不过分突出 */
 export function nodeSize(degree: number, maxDegree: number): number {
-  return 8 + Math.pow(degree / Math.max(1, maxDegree), 0.38) * 55;
+  const MIN = 4;
+  const MAX = 48;
+  if (!degree || degree <= 1) return MIN;
+  const norm = Math.sqrt(degree) / Math.sqrt(Math.max(1, maxDegree));
+  return MIN + Math.pow(norm, 0.6) * (MAX - MIN);
 }
 
 export function updateAllNodePositions(

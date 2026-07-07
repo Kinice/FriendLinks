@@ -332,8 +332,9 @@ export function init3d(graphData: GraphData) {
   ctx.scene.add(neighborLabelGroup);
 
   let labelsCreated = new Set<number>(); // 改为 Set 追踪已创建的节点索引
-  const LABEL_MAX_FADE_START = 3000;
-  const LABEL_FADE_FULL = 1000;
+  const LABEL_MAX_FADE_START = 5000;
+  const LABEL_FADE_FULL = 1500;
+  const LABEL_CREATE_DIST = 800; // 创建标签的最大相机距离
   const nodeIdToLabelIndex = new Map<string, number>(); // 反查 label index
   nodes.forEach((n, i) => nodeIdToLabelIndex.set(n.id, i));
 
@@ -350,13 +351,19 @@ export function init3d(graphData: GraphData) {
         dy = (n.y || 0) - camPos.y,
         dz = (n.z || 0) - camPos.z;
       const sqDist = dx * dx + dy * dy + dz * dz;
-      if (sqDist > 200 * 200) continue;
+      if (sqDist > LABEL_CREATE_DIST * LABEL_CREATE_DIST) continue;
 
       labelsCreated.add(i);
       const name = n.name || n.id;
       if (name.length > 40) continue;
-      const sprite = createTextSprite(name);
-      sprite.position.set(n.x!, n.y! + 12, n.z!);
+      const deg = degreeMap[n.id] || 1;
+      const sz = nodeSize(deg, maxDegree);
+      // 标签高度与节点大小成正比 (3-10 范围)
+      const worldHeight = Math.round(Math.min(10, Math.max(3, sz * 0.25)));
+      const sprite = createTextSprite(name, worldHeight);
+      // 标签贴在球体表面上方（radius + half label + gap）
+      const offset = sz + worldHeight * 0.5 + 2;
+      sprite.position.set(n.x!, n.y! + offset, n.z!);
       (sprite as any)._nodePos = { x: n.x, y: n.y, z: n.z };
       (sprite as any)._nodeIndex = i; // 记录节点索引用于销毁
       (sprite as any)._lastNear = performance.now();
@@ -364,8 +371,10 @@ export function init3d(graphData: GraphData) {
     }
   }
 
-  // 定期销毁远离相机的标签（每 10 秒，距离 > 600 超过 30 秒）
+  // 定期销毁远离相机的标签（每 10 秒，距离 > 2000 超过 20 秒）
   let _lastPrune = 0;
+  const PRUNE_DIST = 2000;
+  const PRUNE_DELAY = 20000;
   function pruneLabels() {
     const now = performance.now();
     if (now - _lastPrune < 10000) return;
@@ -380,9 +389,9 @@ export function init3d(graphData: GraphData) {
       const dy = np.y - ctx.camera.position.y;
       const dz = np.z - ctx.camera.position.z;
       const sqDist = dx * dx + dy * dy + dz * dz;
-      if (sqDist < 600 * 600) {
+      if (sqDist < PRUNE_DIST * PRUNE_DIST) {
         (sprite as any)._lastNear = now;
-      } else if (now - ((sprite as any)._lastNear || now) > 30000) {
+      } else if (now - ((sprite as any)._lastNear || now) > PRUNE_DELAY) {
         toRemove.push(sprite);
       }
     }
