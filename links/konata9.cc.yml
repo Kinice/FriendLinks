@@ -6,7 +6,7 @@ site:
   friends:
     - name: qwq的个人博客
       url: https://blog.qwqzy.top/
+      description: 一个小菜鸡的开发的日记
     - name: LsAng
       url: https://llds.cloud/
-    - name: vuepress-theme-plume
-      url: https://theme-plume.vuejs.press
+      description: 学习、探索中
