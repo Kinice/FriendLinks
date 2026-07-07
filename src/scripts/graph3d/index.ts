@@ -1400,7 +1400,9 @@ export async function init3d(graphData: GraphData) {
         a.style.color = "#87ceeb";
         content.appendChild(a);
       }
-      tooltip.show(content, (window as any).__lastMouseX || 0, (window as any).__lastMouseY || 0);
+      tooltip.show(content,
+        isFlyMode ? window.innerWidth / 2 - 160 : ((window as any).__lastMouseX || 0),
+        isFlyMode ? window.innerHeight / 2 + 20 : ((window as any).__lastMouseY || 0));
     } else {
       tooltip.hide();
     }
@@ -1587,7 +1589,7 @@ export async function init3d(graphData: GraphData) {
       if (node.x == null) continue;
       _toNode_v.set(node.x - _camPos_v.x, (node.y || 0) - _camPos_v.y, (node.z || 0) - _camPos_v.z);
       const dist = _toNode_v.length();
-      if (dist > 2500) continue;
+      if (dist > 100000) continue;
       const dot = _forward_v.dot(_toNode_v) / dist;
       if (dot < 0.85) continue; // 31° 窄锥体
       const score = dot / (1 + dist * 0.005);
@@ -1677,7 +1679,7 @@ export async function init3d(graphData: GraphData) {
     rollVelocity = Math.max(-MAX_ROLL, Math.min(MAX_ROLL, rollVelocity));
     cam.rotateZ(rollVelocity);
 
-    if (flyAutoPilot) updateAutoHover(nodes, ctx.camera);
+    updateAutoHover(nodes, ctx.camera);
   }
 
   function createFlyControlPanel(): HTMLElement {
