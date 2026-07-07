@@ -1,0 +1,14 @@
+site:
+  name: "vinkle's space"
+  url: "https://vinkle.top/"
+  description: "vinkle's space"
+  links: "/links"
+  friends:
+    - name: "A2u13"
+      url: "https://a2u13.com/"
+    - name: "IzaiahSun"
+      url: "https://www.izaiahsun.com/"
+    - name: "Tylone"
+      url: "http://www.tylone.world/"
+    - name: "bluesadi"
+      url: "http://blog.bluesadi.cn:4000/"
