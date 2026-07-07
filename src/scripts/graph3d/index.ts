@@ -357,8 +357,8 @@ export function init3d(graphData: GraphData) {
       const name = n.name || n.id;
       if (name.length > 40) continue;
       const sz = nodeSize(degreeMap[n.id] || 1, maxDegree);
-      const worldHeight = 14;
-      const sprite = createTextSprite(name, worldHeight, 96);
+      const worldHeight = 8;
+      const sprite = createTextSprite(name, worldHeight, 48);
       const offset = sz + worldHeight * 0.5 + 2;
       sprite.position.set(n.x!, n.y! + offset, n.z!);
       (sprite as any)._nodePos = { x: n.x, y: n.y, z: n.z };
