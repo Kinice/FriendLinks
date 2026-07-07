@@ -1,0 +1,8 @@
+site:
+  name: Youndry's Blog
+  url: "https://yuanjiemaster.github.io/"
+  description: "瞬间亦是永恒"
+  links: "/link"
+  friends:
+    - name: "maiicy"
+      url: "https://www.maiicy.top/"
