@@ -734,9 +734,9 @@ friends:
 	          document.addEventListener("fullscreenchange", () => {
 	            fsBtn.textContent = document.fullscreenElement ? "⛶ 退出全屏" : "⛶ 全屏模式";
 	          });
-	          // 快速双击 ESC 退出全屏
+	          // ESC 退出全屏（飞船模式下不拦截，飞船模式用 ESC 退出指针锁定）
 	          document.addEventListener("keydown", (e) => {
-	            if (e.key === "Escape" && document.fullscreenElement) {
+	            if (e.key === "Escape" && document.fullscreenElement && !document.pointerLockElement) {
 	              const now = Date.now();
 	              if (now - fsEscTimes < 600) {
 	                document.exitFullscreen().catch(() => {});
