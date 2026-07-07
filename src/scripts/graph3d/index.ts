@@ -750,10 +750,10 @@ export function init3d(graphData: GraphData) {
       if (!node || node.x == null) continue;
       const name = node.name || node.id;
       if (name.length > 40) continue;
-      const sprite = createTextSprite(name, 1, 160);
+      const sprite = createTextSprite(name, 1, 112);
       // 标签贴在节点球体表面上方
       const sz = nodeSize(degreeMap[node.id] || 1, maxDegree);
-      sprite.position.set(node.x, (node.y || 0) + sz + 4, node.z || 0);
+      sprite.position.set(node.x, (node.y || 0) + sz + 3, node.z || 0);
       (sprite as any)._neighborId = nid;
       (sprite as any)._neighborUrl = node.url || "";
       neighborLabelGroup.add(sprite);
@@ -1100,7 +1100,7 @@ export function init3d(graphData: GraphData) {
     if (neighborLabelGroup.children.length > 0) {
       const fovRad = (ctx.camera.fov * Math.PI) / 180;
       const count = neighborLabelGroup.children.length;
-      const targetFraction = 0.12 / (1 + count / 100);
+      const targetFraction = 0.08 / (1 + count / 80);
       for (const child of neighborLabelGroup.children) {
         const sprite = child as THREE.Sprite;
         const dist = ctx.camera.position.distanceTo(sprite.position);
