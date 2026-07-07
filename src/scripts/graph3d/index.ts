@@ -10,13 +10,11 @@ import { adjustHex, createTextSprite, hashToIndex, PALETTE } from "./utils";
 import { MAX_EDGE_SEGMENTS } from "../../utils/bezier";
 import {
   animateCamera,
-  createNodeGlow,
   createRenderer,
   EDGE_SEGMENTS,
   nodeSize,
   setNodeColor,
   updateAllNodePositions,
-  updateLineGlow,
   updateLinkPositions,
   type NodeState,
   type RenderContext,
@@ -195,8 +193,6 @@ export function init3d(graphData: GraphData) {
   const linkOpacity = { value: loadVal("link_opacity", 0) };
   const bloomStrength = { value: loadVal("bloom_strength", 0.08) };
   const labelShow = { value: loadVal("label_show", true) };
-  const nodeGlowIntensity = { value: loadVal("node_glow", 1.0) };
-  const lineGlowIntensity = { value: loadVal("line_glow", 1.0) };
 
   // ── 6c. 最大度数 ──
   const maxDegree = Math.max(...Object.values(degreeMap), 1);
@@ -224,11 +220,8 @@ export function init3d(graphData: GraphData) {
   }));
 
   updateAllNodePositions(ctx, nodes, nodeStates, degreeMap, maxDegree);
-  // 从持久化恢复 bloom / glow 强度
+  // 从持久化恢复 bloom 强度
   ctx.bloomPass.intensity = bloomStrength.value;
-  if (ctx.glowMaterial) {
-    ctx.glowMaterial.uniforms.glowIntensity.value = nodeGlowIntensity.value;
-  }
 
   // ── 连线位置：优先使用构建时预计算的贝塞尔数据，否则运行时计算 ──
   const _bezier = (graphData as any).bezier as
@@ -275,10 +268,31 @@ export function init3d(graphData: GraphData) {
       }
       srcVert += srcVerts;
     }
+    // ── 设置边颜色（源→目标渐变，确保连线可见）──
+    const colArr = ctx.linkLines.geometry.attributes.color.array as Float32Array;
+    for (let i = 0; i < linkArr.length; i++) {
+      const l = linkArr[i];
+      const si = nodeIdToIndex.get(l.source);
+      const ti = nodeIdToIndex.get(l.target);
+      const srcCol = new THREE.Color(si != null ? (nodes[si] as any)._cDefault || "#ffffff" : "#ffffff");
+      const tgtCol = new THREE.Color(ti != null ? (nodes[ti] as any)._cDefault || "#ffffff" : "#ffffff");
+      for (let j = 0; j < MAX_EDGE_SEGMENTS; j++) {
+        const t0 = j / MAX_EDGE_SEGMENTS;
+        const t1 = (j + 1) / MAX_EDGE_SEGMENTS;
+        const base = (i * MAX_EDGE_SEGMENTS + j) * 6;
+        colArr[base] = srcCol.r + (tgtCol.r - srcCol.r) * t0;
+        colArr[base + 1] = srcCol.g + (tgtCol.g - srcCol.g) * t0;
+        colArr[base + 2] = srcCol.b + (tgtCol.b - srcCol.b) * t0;
+        colArr[base + 3] = srcCol.r + (tgtCol.r - srcCol.r) * t1;
+        colArr[base + 4] = srcCol.g + (tgtCol.g - srcCol.g) * t1;
+        colArr[base + 5] = srcCol.b + (tgtCol.b - srcCol.b) * t1;
+      }
+    }
+    ctx.linkLines.geometry.attributes.color.needsUpdate = true;
     ctx.linkLines.geometry.attributes.position.needsUpdate = true;
     ctx.linkLines.geometry.setDrawRange(0, linkArr.length * MAX_VERTS_PER_EDGE);
     (ctx.linkLines.material as THREE.LineBasicMaterial).opacity = linkOpacity.value;
-    // 填充 edgeRefs（供 updateLineGlow 用，使用最大段数）
+    // 填充 edgeRefs（边几何引用，供聚焦 overlay 使用，使用最大段数）
     ctx.edgeRefs = linkArr.map((l) => {
       const si = nodeIdToIndex.get(l.source);
       const ti = nodeIdToIndex.get(l.target);
@@ -300,10 +314,6 @@ export function init3d(graphData: GraphData) {
   } else {
     updateLinkPositions(ctx, linkArr, nodeIdToIndex, nodes, linkOpacity.value);
   }
-  // 初始线条辉光
-  updateLineGlow(ctx, lineGlowIntensity.value);
-  createNodeGlow(ctx, nodes.length, degreeMap, nodes, maxDegree);
-
   function refreshLinkColors() {
     (ctx.linkLines.material as THREE.LineBasicMaterial).opacity = linkOpacity.value;
     saveVal("link_opacity", linkOpacity.value);
@@ -440,17 +450,6 @@ export function init3d(graphData: GraphData) {
       bloomStrength.value = v;
       ctx.bloomPass.intensity = v;
       saveVal("bloom_strength", v);
-    });
-    addSliderRow(panel, "节点辉光", "0", "3", "0.1", String(nodeGlowIntensity.value), (v) => {
-      nodeGlowIntensity.value = v;
-      if (ctx.glowMaterial) ctx.glowMaterial.uniforms.glowIntensity.value = v;
-      saveVal("node_glow", v);
-    });
-    addSliderRow(panel, "线条辉光", "0", "3", "0.1", String(lineGlowIntensity.value), (v) => {
-      lineGlowIntensity.value = v;
-      updateLineGlow(ctx, v);
-      saveVal("line_glow", v);
-      _needsRender = true;
     });
 
     {

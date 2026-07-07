@@ -24,10 +24,6 @@ export interface RenderContext {
   bloomPass: BloomEffect;
   /** 边数组引用 */
   edgeRefs: EdgeData[];
-  /** 节点光晕 (Points) */
-  nodeGlow: THREE.Points | null;
-  /** 节点光晕材质（用于调节 glowIntensity uniform） */
-  glowMaterial: THREE.ShaderMaterial | null;
 }
 
 export interface NodeState {
@@ -180,6 +176,7 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
     intensity: 0.08,
     radius: 0.5,
     luminanceThreshold: 0.25,
+    resolutionScale: 0.5,
   });
   composer.addPass(new EffectPass(camera, bloomPass));
 
@@ -194,8 +191,6 @@ export function createRenderer(container: HTMLElement, nodeCount: number, linkCo
     composer,
     bloomPass,
     edgeRefs: [],
-    nodeGlow: null,
-    glowMaterial: null,
   };
 }
 
@@ -275,116 +270,6 @@ export function updateLinkPositions(
   (ctx.linkLines.material as THREE.LineBasicMaterial).opacity = opacity;
 }
 
-// ─── 节点光晕（MeetBlog 风格的 Points 加法混合光晕） ─────────────────
-
-/** 创建 128×128 径向渐变纹理（中心白 → 边缘透明） */
-function createGlowTexture(): THREE.CanvasTexture {
-  const size = 128;
-  const canvas = document.createElement("canvas");
-  canvas.width = canvas.height = size;
-  const ctx = canvas.getContext("2d")!;
-  const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-  gradient.addColorStop(0, "rgba(255,255,255,1)");
-  gradient.addColorStop(0.3, "rgba(255,255,255,0.8)");
-  gradient.addColorStop(0.6, "rgba(255,255,255,0.3)");
-  gradient.addColorStop(1, "rgba(255,255,255,0)");
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, size, size);
-  const tex = new THREE.CanvasTexture(canvas);
-  tex.needsUpdate = true;
-  return tex;
-}
-
-export function createNodeGlow(
-  ctx: RenderContext,
-  nodeCount: number,
-  degreeMap: Record<string, number>,
-  nodes: GraphNode[],
-  maxDegree: number,
-) {
-  if (ctx.nodeGlow) return;
-
-  const positions = new Float32Array(nodeCount * 3);
-  const colors = new Float32Array(nodeCount * 3);
-  const sizes = new Float32Array(nodeCount);
-
-  for (let i = 0; i < nodeCount; i++) {
-    const n = nodes[i];
-    positions[i * 3] = n.x ?? 0;
-    positions[i * 3 + 1] = n.y ?? 0;
-    positions[i * 3 + 2] = n.z ?? 0;
-    // 颜色：从节点状态取
-    const base = (n as any)._cDefault || "#ffffff";
-    const c = new THREE.Color(base);
-    colors[i * 3] = c.r;
-    colors[i * 3 + 1] = c.g;
-    colors[i * 3 + 2] = c.b;
-    const deg = degreeMap[n.id] || 1;
-    sizes[i] = nodeSize(deg, maxDegree) * 4.5;
-  }
-
-  const geom = new THREE.BufferGeometry();
-  geom.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-  geom.setAttribute("aCol", new THREE.BufferAttribute(colors, 3));
-  geom.setAttribute("aSz", new THREE.BufferAttribute(sizes, 1));
-
-  const glowTex = createGlowTexture();
-  const mat = new THREE.ShaderMaterial({
-    uniforms: {
-      glowTex: { value: glowTex },
-      glowIntensity: { value: 1.0 },
-    },
-    vertexShader: `
-      attribute vec3 aCol;
-      attribute float aSz;
-      varying vec3 vCol;
-      void main() {
-        vCol = aCol;
-        vec4 mv = modelViewMatrix * vec4(position, 1.0);
-        gl_PointSize = clamp(aSz * (320.0 / -mv.z), 1.5, 48.0);
-        gl_Position = projectionMatrix * mv;
-      }
-    `,
-    fragmentShader: `
-      uniform sampler2D glowTex;
-      uniform float glowIntensity;
-      varying vec3 vCol;
-      void main() {
-        float a = texture2D(glowTex, gl_PointCoord).r;
-        gl_FragColor = vec4(vCol * 1.2 * glowIntensity, a * 0.60);
-      }
-    `,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false,
-    transparent: true,
-  });
-
-  const mesh = new THREE.Points(geom, mat);
-  mesh.frustumCulled = false;
-  ctx.scene.add(mesh);
-  ctx.nodeGlow = mesh;
-  ctx.glowMaterial = mat;
-}
-
-/** 更新线条辉光强度（缩放顶点颜色） */
-export function updateLineGlow(ctx: RenderContext, intensity: number) {
-  const col = ctx.linkLines.geometry.attributes.color?.array as Float32Array | undefined;
-  if (!col) return;
-  // 从 edgeRefs 数量推断原始颜色范围
-  const maxEdges = ctx.edgeRefs.length;
-  // 每段线有 2 个顶点 × 3 分量 × EDGE_SEGMENTS
-  const floatsPerEdge = EDGE_SEGMENTS * 2 * 3;
-  // 储存一份原始颜色（懒初始化）
-  if (!(ctx as any)._lineGlowBaseColors) {
-    (ctx as any)._lineGlowBaseColors = new Float32Array(col);
-  }
-  const base = (ctx as any)._lineGlowBaseColors as Float32Array;
-  for (let i = 0; i < maxEdges * floatsPerEdge; i++) {
-    col[i] = Math.min(1, base[i] * intensity);
-  }
-  ctx.linkLines.geometry.attributes.color.needsUpdate = true;
-}
-
 // ─── 节点位置 + 颜色 ──────────────────────────────────────────────
 
 /** MeetBlog 风格的节点大小计算：度数越大节点越大 */
@@ -400,9 +285,6 @@ export function updateAllNodePositions(
   maxDegree: number,
 ) {
   const m = new THREE.Matrix4();
-  // 如果需要更新光晕位置
-  const glowPos = ctx.nodeGlow?.geometry.attributes.position?.array as Float32Array | undefined;
-  const glowSize = ctx.nodeGlow?.geometry.attributes.aSz?.array as Float32Array | undefined;
 
   for (let i = 0; i < nodes.length; i++) {
     const n = nodes[i];
@@ -414,22 +296,10 @@ export function updateAllNodePositions(
     if (nodeStates[i]) {
       ctx.nodes.setColorAt(i, new THREE.Color(nodeStates[i]._cDefault));
     }
-
-    // 同步更新光晕位置和大小
-    if (glowPos) {
-      glowPos[i * 3] = n.x ?? 0;
-      glowPos[i * 3 + 1] = n.y ?? 0;
-      glowPos[i * 3 + 2] = n.z ?? 0;
-    }
-    if (glowSize) {
-      glowSize[i] = sz * 3.5;
-    }
   }
 
   ctx.nodes.instanceMatrix.needsUpdate = true;
   if (ctx.nodes.instanceColor) ctx.nodes.instanceColor.needsUpdate = true;
-  if (glowPos) ctx.nodeGlow!.geometry.attributes.position.needsUpdate = true;
-  if (glowSize) ctx.nodeGlow!.geometry.attributes.aSz.needsUpdate = true;
 }
 
 export function setNodeColor(ctx: RenderContext, index: number, color: string) {
@@ -513,13 +383,6 @@ export function animateCamera(
 }
 
 export function dispose(ctx: RenderContext) {
-  if (ctx.nodeGlow) {
-    ctx.nodeGlow.geometry.dispose();
-    const mat = ctx.nodeGlow.material as THREE.ShaderMaterial;
-    if (mat.uniforms?.glowTex?.value) mat.uniforms.glowTex.value.dispose();
-    mat.dispose();
-  }
-  delete (ctx as any)._lineGlowBaseColors;
   ctx.composer.dispose();
   ctx.renderer.dispose();
   ctx.nodes.geometry.dispose();
