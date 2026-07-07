@@ -272,13 +272,9 @@ export function updateLinkPositions(
 
 // ─── 节点位置 + 颜色 ──────────────────────────────────────────────
 
-/** 节点大小计算：sqrt 归一化 + 次幂曲线，小节点不淹没、大节点不过分突出 */
-export function nodeSize(degree: number, maxDegree: number): number {
-  const MIN = 4;
-  const MAX = 48;
-  if (!degree || degree <= 1) return MIN;
-  const norm = Math.sqrt(degree) / Math.sqrt(Math.max(1, maxDegree));
-  return MIN + Math.pow(norm, 0.6) * (MAX - MIN);
+/** 统一节点大小，不区分度数 */
+export function nodeSize(_degree: number, _maxDegree: number): number {
+  return 20;
 }
 
 export function updateAllNodePositions(
