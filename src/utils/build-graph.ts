@@ -380,7 +380,8 @@ async function buildGraph(): Promise<BuildResult> {
 
   /** Float32 → Int16 量化：精度 1/65535 范围，肉眼不可见 */
   function quantize(arr: Float32Array): { i16: Int16Array; min: number; max: number } {
-    let min = Infinity, max = -Infinity;
+    let min = Infinity,
+      max = -Infinity;
     for (let i = 0; i < arr.length; i++) {
       if (arr[i] < min) min = arr[i];
       if (arr[i] > max) max = arr[i];

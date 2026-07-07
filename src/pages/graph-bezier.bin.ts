@@ -24,7 +24,9 @@ export async function GET() {
   const encoded = Buffer.from(encode(bezier) as any);
   const body = isFastMode() ? encoded : await zstdCompress(encoded);
   const elapsed = ((performance.now() - startTime) / 1000).toFixed(1);
-  printDone(`/graph-bezier.bin 完成 · ${data.ls.length} 边 · ${(body.length / 1024 / 1024).toFixed(1)}MB · 耗时 ${elapsed}s`);
+  printDone(
+    `/graph-bezier.bin 完成 · ${data.ls.length} 边 · ${(body.length / 1024 / 1024).toFixed(1)}MB · 耗时 ${elapsed}s`,
+  );
   return new Response(body as BodyInit, {
     headers: { "Content-Type": "application/octet-stream" },
   });
