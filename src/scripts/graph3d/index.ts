@@ -332,9 +332,9 @@ export function init3d(graphData: GraphData) {
   ctx.scene.add(neighborLabelGroup);
 
   let labelsCreated = new Set<number>(); // 改为 Set 追踪已创建的节点索引
-  const LABEL_MAX_FADE_START = 5000;
-  const LABEL_FADE_FULL = 1500;
-  const LABEL_CREATE_DIST = 800; // 创建标签的最大相机距离
+  const LABEL_MAX_FADE_START = 6000;
+  const LABEL_FADE_FULL = 2000;
+  const LABEL_CREATE_DIST = 1200; // 创建标签的最大相机距离
   const nodeIdToLabelIndex = new Map<string, number>(); // 反查 label index
   nodes.forEach((n, i) => nodeIdToLabelIndex.set(n.id, i));
 
@@ -356,10 +356,9 @@ export function init3d(graphData: GraphData) {
       labelsCreated.add(i);
       const name = n.name || n.id;
       if (name.length > 40) continue;
-      const deg = degreeMap[n.id] || 1;
-      const sz = nodeSize(deg, maxDegree);
-      // 标签高度与节点大小成正比 (3-10 范围)
-      const worldHeight = Math.round(Math.min(10, Math.max(3, sz * 0.25)));
+      const sz = nodeSize(degreeMap[n.id] || 1, maxDegree);
+      // 标签高度固定
+      const worldHeight = 10;
       const sprite = createTextSprite(name, worldHeight);
       // 标签贴在球体表面上方（radius + half label + gap）
       const offset = sz + worldHeight * 0.5 + 2;
@@ -751,10 +750,10 @@ export function init3d(graphData: GraphData) {
       if (!node || node.x == null) continue;
       const name = node.name || node.id;
       if (name.length > 40) continue;
-      const sprite = createTextSprite(name, 1, 128);
+      const sprite = createTextSprite(name, 1, 160);
       // 标签贴在节点球体表面上方
       const sz = nodeSize(degreeMap[node.id] || 1, maxDegree);
-      sprite.position.set(node.x, (node.y || 0) + sz + 2, node.z || 0);
+      sprite.position.set(node.x, (node.y || 0) + sz + 4, node.z || 0);
       (sprite as any)._neighborId = nid;
       (sprite as any)._neighborUrl = node.url || "";
       neighborLabelGroup.add(sprite);
@@ -1101,7 +1100,7 @@ export function init3d(graphData: GraphData) {
     if (neighborLabelGroup.children.length > 0) {
       const fovRad = (ctx.camera.fov * Math.PI) / 180;
       const count = neighborLabelGroup.children.length;
-      const targetFraction = 0.08 / (1 + count / 80);
+      const targetFraction = 0.12 / (1 + count / 100);
       for (const child of neighborLabelGroup.children) {
         const sprite = child as THREE.Sprite;
         const dist = ctx.camera.position.distanceTo(sprite.position);
@@ -1382,7 +1381,7 @@ export function init3d(graphData: GraphData) {
     buildNeighborLabels(id);
     const node = nodes.find((n) => n.id === id);
     if (node && node.x != null) {
-      const pad = Math.max(300, (degreeMap[id] || 0) * 15);
+      const pad = 250;
       animateCamera(
         ctx,
         { x: node.x + pad, y: node.y! + pad * 0.5, z: node.z! + pad },
