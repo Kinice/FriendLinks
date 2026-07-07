@@ -750,12 +750,26 @@ export function init3d(graphData: GraphData) {
       if (!node || node.x == null) continue;
       const name = node.name || node.id;
       if (name.length > 40) continue;
-      const sprite = createTextSprite(name, 1, 176);
+      const sprite = createTextSprite(name, 1, 112);
       // 暂存节点坐标，动画循环中做相机相对定位
       (sprite as any)._nodePos3d = { x: node.x!, y: node.y || 0, z: node.z || 0 };
       (sprite as any)._neighborId = nid;
       (sprite as any)._neighborUrl = node.url || "";
+      (sprite as any)._isFocusedLabel = false; // 子链标签
       neighborLabelGroup.add(sprite);
+    }
+
+    // 被聚焦节点自身的大标签
+    const fNode = nodes.find((n) => n.id === nodeId);
+    if (fNode && fNode.x != null) {
+      const fName = fNode.name || fNode.id;
+      if (fName.length <= 40) {
+        const fSprite = createTextSprite(fName, 1, 176);
+        fSprite.position.set(fNode.x!, (fNode.y || 0) + 36, fNode.z!);
+        (fSprite as any)._nodePos3d = { x: fNode.x!, y: fNode.y || 0, z: fNode.z || 0 };
+        (fSprite as any)._isFocusedLabel = true;
+        neighborLabelGroup.add(fSprite);
+      }
     }
 
     // 隐藏节点统计标签
@@ -1099,20 +1113,24 @@ export function init3d(graphData: GraphData) {
     if (neighborLabelGroup.children.length > 0) {
       const fovRad = (ctx.camera.fov * Math.PI) / 180;
       const count = neighborLabelGroup.children.length;
-      const targetFraction = 0.14 / (1 + count / 50);
-      // 相机本地 "上" 方向
       const _camUp = new THREE.Vector3(0, 1, 0).applyQuaternion(ctx.camera.quaternion);
       const _nodeRadius = nodeSize(1, 1); // 统一节点半径
       for (const child of neighborLabelGroup.children) {
         const sprite = child as THREE.Sprite;
+        const isFocused = (sprite as any)._isFocusedLabel;
+        // 主标签大，子链标签小
+        const targetFraction = isFocused
+          ? 0.16 / (1 + count / 40)
+          : 0.07 / (1 + count / 60);
         const np = (sprite as any)._nodePos3d;
         if (np) {
-          // 隐藏统计标签放在节点下方，其余放在上方
-          const sign = (sprite as any)._neighborId === null ? -1 : 1;
+          // 隐藏统计标签放在节点下方，主标签/子链标签在上方
+          const sign = (sprite as any)._neighborId === null && !isFocused ? -1 : 1;
+          const offset = isFocused ? _nodeRadius + 22 : _nodeRadius + 14;
           sprite.position.set(
-            np.x + _camUp.x * (_nodeRadius + 16) * sign,
-            np.y + _camUp.y * (_nodeRadius + 16) * sign,
-            np.z + _camUp.z * (_nodeRadius + 16) * sign,
+            np.x + _camUp.x * offset * sign,
+            np.y + _camUp.y * offset * sign,
+            np.z + _camUp.z * offset * sign,
           );
         }
         const dist = ctx.camera.position.distanceTo(sprite.position);
