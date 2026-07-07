@@ -748,7 +748,7 @@ export function init3d(graphData: GraphData) {
       if (!node || node.x == null) continue;
       const name = node.name || node.id;
       if (name.length > 40) continue;
-      const sprite = createTextSprite(name, 1, 128);
+      const sprite = createTextSprite(name, 30, 96);
       // 暂存节点坐标，动画循环中做相机相对定位
       (sprite as any)._nodePos3d = { x: node.x!, y: node.y || 0, z: node.z || 0 };
       (sprite as any)._neighborId = nid;
@@ -760,7 +760,7 @@ export function init3d(graphData: GraphData) {
     if (hidden > 0) {
       const focusNode = nodes.find((n) => n.id === nodeId);
       if (focusNode && focusNode.x != null) {
-        const moreSprite = createTextSprite(`+${hidden} 隐藏`, 1, 72);
+        const moreSprite = createTextSprite(`+${hidden} 隐藏`, 30, 96);
         moreSprite.position.set(focusNode.x, (focusNode.y || 0) - 26, focusNode.z || 0);
         (moreSprite as any)._nodePos3d = { x: focusNode.x!, y: focusNode.y || 0, z: focusNode.z || 0 };
         (moreSprite as any)._neighborId = null;
@@ -1093,29 +1093,22 @@ export function init3d(graphData: GraphData) {
       }
     }
 
-    // 邻居大字标签：屏幕空间恒定大小 + 相机相对位置
+    // 邻居大字标签：相机相对位置
     if (neighborLabelGroup.children.length > 0) {
-      const fovRad = (ctx.camera.fov * Math.PI) / 180;
-      const count = neighborLabelGroup.children.length;
-      const targetFraction = 0.14 / (1 + count / 80);
       const _camUp = new THREE.Vector3(0, 1, 0).applyQuaternion(ctx.camera.quaternion);
       const _nodeRadius = nodeSize(1, 1);
+      const _labelOffset = _nodeRadius + 17; // radius + half worldHeight + gap
       for (const child of neighborLabelGroup.children) {
         const sprite = child as THREE.Sprite;
         const np = (sprite as any)._nodePos3d;
         if (np) {
           const sign = (sprite as any)._neighborId === null ? -1 : 1;
           sprite.position.set(
-            np.x + _camUp.x * (_nodeRadius + 14) * sign,
-            np.y + _camUp.y * (_nodeRadius + 14) * sign,
-            np.z + _camUp.z * (_nodeRadius + 14) * sign,
+            np.x + _camUp.x * _labelOffset * sign,
+            np.y + _camUp.y * _labelOffset * sign,
+            np.z + _camUp.z * _labelOffset * sign,
           );
         }
-        const dist = ctx.camera.position.distanceTo(sprite.position);
-        const worldH = Math.max(0.1, 2 * dist * Math.tan(fovRad / 2) * targetFraction);
-        const curScale = sprite.scale;
-        const aspect = curScale.y > 0 ? curScale.x / curScale.y : 1;
-        sprite.scale.set(worldH * aspect, worldH, 1);
       }
     }
 
