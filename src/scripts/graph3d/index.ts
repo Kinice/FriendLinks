@@ -340,7 +340,7 @@ export function init3d(graphData: GraphData) {
 
   function ensureLabels() {
     const show = labelShow.value;
-    if (!show) return;
+    if (!show || focusedId) return; // 聚焦时关闭默认标签，避免与屏幕空间标签重叠
     const camPos = ctx.camera.position;
 
     for (let i = 0; i < nodes.length; i++) {
@@ -357,7 +357,7 @@ export function init3d(graphData: GraphData) {
       const name = n.name || n.id;
       if (name.length > 40) continue;
       const sz = nodeSize(degreeMap[n.id] || 1, maxDegree);
-      const worldHeight = 30;
+      const worldHeight = 14;
       const sprite = createTextSprite(name, worldHeight, 96);
       const offset = sz + worldHeight * 0.5 + 2;
       sprite.position.set(n.x!, n.y! + offset, n.z!);
@@ -1084,7 +1084,7 @@ export function init3d(graphData: GraphData) {
           const sprite = child as THREE.Sprite;
           const np = (sprite as any)._nodePos;
           if (!np) continue;
-          if (!show) {
+          if (!show || focusedId) {
             sprite.visible = false;
             continue;
           }
