@@ -1,38 +1,90 @@
 site:
-  name: "以心为礼,温雅自来"
-  url: "https://blog.cikcc.com/"
-  description: "以心为礼,温雅自来"
-  links: "/links"
+  name: 以心为礼,温雅自来
+  url: https://blog.cikcc.com/
+  description: 以心为礼,温雅自来
+  links: /links
   friends:
-    - name: "张洪Heo"
-      url: "https://blog.zhheo.com/"
-    - name: "首页"
-      url: "https://blog.anheyu.com/"
-    - name: "殇恋社区"
-      url: "https://me.moe5200.com/"
-    - name: "阿锦在线[ajinol.com]"
-      url: "https://www.ajinol.com/"
-    - name: "梦溯·镜影"
-      url: "https://yumetsuki.moe/"
-    - name: "www.batuhu.com"
-      url: "https://www.batuhu.com/"
-    - name: "SeaEpoch"
-      url: "https://www.seaepoch.com/"
-    - name: "Calyee`Blog"
-      url: "https://blog.calyee.top/"
-    - name: "欢迎来到我的空间"
-      url: "https://gz.jx1314.cc/"
-    - name: "科技酱的技术文档"
-      url: "https://docs.asoe.cn/"
-    - name: "王嘉祥"
-      url: "https://blog.jiaxiang.wang/"
-    - name: "小林酱博客"
-      url: "https://blog.zxiaolin.com/"
-    - name: "乔人尹"
-      url: "https://underestimated.cn/"
-    - name: "Eurkon"
-      url: "https://blog.eurkon.com/"
-    - name: "AYaka Blog"
-      url: "https://blog.ayaka0.top/"
-    - name: "Antx's Blog"
-      url: "https://blog.antx.cc/"
+    - name: 乔人尹
+      url: https://underestimated.cn
+      description: 生命在于折腾。Coding the world!
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/underestimated.cn_.webp
+    - name: 科技酱的技术文档
+      url: https://docs.asoe.cn
+      description: 同一个世界，同一个互联网！
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/1ab03ac2-45b6-44c8-aa23-d9371e9d12dc.jpg
+    - name: Antx's Blog
+      url: https://blog.antx.cc
+      description: 别怕路远，走一步就有一步的光亮。
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/8f389bc9-9204-46f5-b1ca-3b421bedf9ca.png
+    - name: 梦溯·镜影
+      url: https://yumetsuki.moe
+      description: ""
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/29a40454-537f-4bbd-b059-0f2085784233.png
+    - name: 雨眠碎碎念
+      url: https://blog.yuumii.top
+      description: 愿君安康
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/20260630203256b9db32c81bcb4753bd96cfb1628f467d.bmp
+    - name: AYaka Blog
+      url: https://blog.ayaka0.top
+      description: 保护你所爱！❤
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/88c51465-d298-491b-8e45-4f14a90a66e5.webp
+    - name: 江硕
+      url: https://gz.jx1314.cc
+      description: 暮然回首，那人却在，灯火阑珊处
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/a0268cbc-8c2e-4cb8-a107-6051022d4165.jpg
+    - name: 殇恋社区
+      url: https://me.moe5200.com
+      description: 一个分享技术笔记与生活记录小站。实用软件与工具推荐，偶尔也写写日常随想，留存一些数字生活的痕迹。
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/logo.png
+    - name: POETIZE
+      url: https://poetize.cn
+      description: 这是一个 Vue2 Vue3 与 SpringBoot 结合的产物～
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/6a4edc29-c0e7-4374-982f-e6f5bd9f2b3d.png
+    - name: 巴兔虎
+      url: https://www.batuhu.com
+      description: 本站为技术资源分享，致力于网络发展
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/9e178b3d-af60-4698-8fd7-ea6205221bb6.png
+    - name: Eurkon
+      url: https://blog.eurkon.com
+      description: 及时当勉励，岁月不待人
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/fbde51cd-cad6-4677-9b63-384148b223b8.jpg
+    - name: 阿锦在线
+      url: https://www.ajinol.com
+      description: 记录生活点滴！
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/3c811b41-8328-48c8-a48c-5e3d06a15b0f.png
+    - name: 竹山一叶
+      url: https://zsyyblog.com
+      description: 来了就不想走的小家
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/2026063020385084d53b12b6df40e4bdc4906574125a85.webp
+    - name: 王嘉祥
+      url: https://blog.jiaxiang.wang
+      description: 唱响科普和人生兴事，分享科技与美好生活
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/ee4eef2c-024f-47c7-96c2-d69c6502c05c.webp
+    - name: 张洪Heo
+      url: https://blog.zhheo.com
+      description: 分享设计与科技生活
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/67d8fa75943e4.png
+    - name: 安知鱼
+      url: https://blog.anheyu.com
+      description: 生活明朗，万物可爱
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/avatar.jpg
+    - name: SeaEpoch
+      url: https://www.seaepoch.com
+      description: 她站在那里，就像一个小小的永恒！
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/8a1a8a7a-b881-4617-b5b9-47802c7741c0.jpg
+    - name: 小林酱博客
+      url: https://blog.zxiaolin.com
+      description: 小林酱博客-记录生活，专注于自媒体资源分享
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/humuziwt.webp
+    - name: 青萍叙事
+      url: https://blog.lusyoe.com
+      description: 一个懂技术的产品汪🐶
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/lusyoe-cover.webp
+    - name: Calyee
+      url: https://blog.calyee.top
+      description: 追求充实，分享快乐
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/d99a9cae-60e1-438e-afab-1c6efa0c3200.jpg
+    - name: menkar
+      url: https://www.blatr.cn
+      description: 再渺小的星光，也有属于它的光芒
+      avatar: https://blog.cikcc.com/wp-content/uploads/2026/07/20260630203559b38f9deb41b347dc86fdc1efd6127e11.webp
