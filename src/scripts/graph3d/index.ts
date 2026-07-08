@@ -337,13 +337,15 @@ export async function init3d(graphData: GraphData) {
 		      const buf = await res.arrayBuffer();
 		      const raw = await maybeDecompress(new Uint8Array(buf));
 		      const bezierData = decode(raw) as any;
-		      if (!bezierData.bcx) return;
+		      if (!bezierData.lpx) return;
 		
+		      const asI16 = (arr: any) =>
+		        arr instanceof Int16Array ? arr : new Int16Array(arr.buffer, arr.byteOffset, arr.byteLength / 2);
 		      const bz = {
 		        lseg: bezierData.lseg,
-		        bcx: bezierData.bcx,
-		        bcy: bezierData.bcy,
-		        bcz: bezierData.bcz,
+		        lpx: dequantize(asI16(bezierData.lpx), bezierData.lpx_min, bezierData.lpx_max),
+		        lpy: dequantize(asI16(bezierData.lpy), bezierData.lpy_min, bezierData.lpy_max),
+		        lpz: dequantize(asI16(bezierData.lpz), bezierData.lpz_min, bezierData.lpz_max),
 		      };
 		      applyBezierData(ctx, bz, linkArr, nodeIdToIndex, nodes, maxOverlayEdges.value, linkOpacity.value);
 		      _bezierLoaded = true;
@@ -1778,17 +1780,20 @@ export async function init3d(graphData: GraphData) {
     return panel;
   }
 
-  function enterFlyMode() {
-    isFlyMode = true;
-    ctx.controls.enabled = false;
-    reticleOffset.x = 0;
-    reticleOffset.y = 0;
-    reticleVelocity.x = 0;
-    reticleVelocity.y = 0;
-    ctx.renderer.domElement.requestPointerLock?.();
-    document.addEventListener("pointerlockchange", onPointerLockChange);
-    ctx.renderer.domElement.addEventListener("click", flyReLock);
-    ctx.camera.rotation.order = "YXZ";
+	  function enterFlyMode() {
+	    isFlyMode = true;
+	    ctx.controls.enabled = false;
+	    reticleOffset.x = 0;
+	    reticleOffset.y = 0;
+	    reticleVelocity.x = 0;
+	    reticleVelocity.y = 0;
+	    ctx.renderer.domElement.requestPointerLock?.();
+	    document.addEventListener("pointerlockchange", onPointerLockChange);
+	    ctx.renderer.domElement.addEventListener("click", flyReLock);
+	    // 切换旋转顺序前保存朝向，避免视觉闪烁
+	    const savedQuat = ctx.camera.quaternion.clone();
+	    ctx.camera.rotation.order = "YXZ";
+	    ctx.camera.quaternion.copy(savedQuat);
     flyCrosshair = createCrosshair();
     flyCrosshair.style.display = "block";
     document.body.style.cursor = "none";
@@ -1928,12 +1933,12 @@ export async function init3d(graphData: GraphData) {
 }
 
 /**
- * 应用贝塞尔曲线数据到连线几何体（使用 Three.js QuadraticBezierCurve3）
+ * 应用贝塞尔曲线数据到连线几何体（从预构建数据手动解包）
  * 可用于初始加载或懒加载后更新连线
  */
 export function applyBezierData(
   ctx: RenderContext,
-  bezier: { lseg: number[]; bcx: Float32Array; bcy: Float32Array; bcz: Float32Array },
+  bezier: { lseg: number[]; lpx: Float32Array; lpy: Float32Array; lpz: Float32Array },
   linkArr: Array<{ source: string; target: string }>,
   nodeIdToIndex: Map<string, number>,
   nodes: any[],
@@ -1941,54 +1946,35 @@ export function applyBezierData(
   linkOpacity: number,
 ) {
   const pos = ctx.linkLines.geometry.attributes.position.array as Float32Array;
-  const { lseg, bcx, bcy, bcz } = bezier;
+  const { lseg, lpx, lpy, lpz: _lpz } = bezier;
+
+  // 从紧凑格式解包到固定尺寸的 GPU buffer（MAX_EDGE_SEGMENTS 段/边）
   const MAX_VERTS_PER_EDGE = MAX_EDGE_SEGMENTS * 2;
-
-  const _start = new THREE.Vector3();
-  const _control = new THREE.Vector3();
-  const _end = new THREE.Vector3();
-  // 预分配足够容量的点数组，避免每次 getPoints 重新分配
-  const _pts: THREE.Vector3[] = [];
-
+  let srcVert = 0;
   for (let i = 0; i < linkArr.length; i++) {
-    const si = nodeIdToIndex.get(linkArr[i].source);
-    const ti = nodeIdToIndex.get(linkArr[i].target);
-    if (si == null || ti == null) continue;
+    const segs = lseg[i] || 6;
+    const srcVerts = segs * 2;
+    const dstBaseVert = i * MAX_VERTS_PER_EDGE;
+    const copyVerts = Math.min(MAX_VERTS_PER_EDGE, srcVerts);
 
-    const sn = nodes[si];
-    const tn = nodes[ti];
-    _start.set(sn.x ?? 0, sn.y ?? 0, sn.z ?? 0);
-    _end.set(tn.x ?? 0, tn.y ?? 0, tn.z ?? 0);
-    _control.set(bcx[i] ?? 0, bcy[i] ?? 0, bcz[i] ?? 0);
-
-    const segs = Math.min(lseg[i] || 6, MAX_EDGE_SEGMENTS);
-    const curve = new THREE.QuadraticBezierCurve3(_start, _control, _end);
-    const pts = curve.getPoints(segs);
-
-    const dstBase = i * MAX_VERTS_PER_EDGE;
-    let vi = 0;
-    // 每个线段 2 个顶点（线段起点 + 终点，共享中间点）
-    for (let j = 0; j < segs && vi < MAX_VERTS_PER_EDGE; j++) {
-      const a = pts[j];
-      const b = pts[j + 1];
-      pos[(dstBase + vi) * 3] = a.x;
-      pos[(dstBase + vi) * 3 + 1] = a.y;
-      pos[(dstBase + vi) * 3 + 2] = a.z;
-      vi++;
-      pos[(dstBase + vi) * 3] = b.x;
-      pos[(dstBase + vi) * 3 + 1] = b.y;
-      pos[(dstBase + vi) * 3 + 2] = b.z;
-      vi++;
+    for (let j = 0; j < copyVerts; j++) {
+      const srcIdx = srcVert + j;
+      pos[(dstBaseVert + j) * 3] = lpx[srcIdx] ?? 0;
+      pos[(dstBaseVert + j) * 3 + 1] = lpy[srcIdx] ?? 0;
+      pos[(dstBaseVert + j) * 3 + 2] = _lpz[srcIdx] ?? 0;
     }
-    // 短边补齐
-    if (vi < MAX_VERTS_PER_EDGE) {
-      const last = pts[pts.length - 1];
-      for (let j = vi; j < MAX_VERTS_PER_EDGE; j++) {
-        pos[(dstBase + j) * 3] = last.x;
-        pos[(dstBase + j) * 3 + 1] = last.y;
-        pos[(dstBase + j) * 3 + 2] = last.z;
+    if (copyVerts < MAX_VERTS_PER_EDGE) {
+      const li = srcVert + copyVerts - 1;
+      const lx = lpx[li] ?? 0,
+        ly = lpy[li] ?? 0,
+        lz = _lpz[li] ?? 0;
+      for (let j = copyVerts; j < MAX_VERTS_PER_EDGE; j++) {
+        pos[(dstBaseVert + j) * 3] = lx;
+        pos[(dstBaseVert + j) * 3 + 1] = ly;
+        pos[(dstBaseVert + j) * 3 + 2] = lz;
       }
     }
+    srcVert += srcVerts;
   }
 
   // 设置边颜色（源→目标渐变）
@@ -2032,6 +2018,16 @@ export function applyBezierData(
 
   // 缓存 lseg 供 overlay 使用
   _cachedLseg = lseg;
+}
+
+/** Int16 → Float32 反量化 */
+function dequantize(i16: Int16Array, min: number, max: number): Float32Array {
+  const range = max - min || 1;
+  const out = new Float32Array(i16.length);
+  for (let i = 0; i < i16.length; i++) {
+    out[i] = min + (range * (i16[i] + 32768)) / 65535;
+  }
+  return out;
 }
 
 // ─── 紧凑格式展开 ────────────────────────────────────────────────────
@@ -2115,16 +2111,20 @@ export async function init3dFromUrl(coreUrl: string, signal?: AbortSignal, bezie
 	    try {
 	      const bezierRaw = await maybeDecompress(new Uint8Array(bezierBuf));
 	      const bezier = decode(bezierRaw) as any;
-	      if (bezier.bcx) {
+	      if (bezier.lpx) {
+	        // msgpackr 将 Int16Array 解码为 Uint8Array（原始字节），
+	        // 需通过 buffer 重解释为 Int16Array，而非逐元素拷贝
+	        const asI16 = (arr: any) =>
+	          arr instanceof Int16Array ? arr : new Int16Array(arr.buffer, arr.byteOffset, arr.byteLength / 2);
 	        (data as any).bezier = {
 	          lseg: bezier.lseg,
-	          bcx: bezier.bcx,
-	          bcy: bezier.bcy,
-	          bcz: bezier.bcz,
+	          lpx: dequantize(asI16(bezier.lpx), bezier.lpx_min, bezier.lpx_max),
+	          lpy: dequantize(asI16(bezier.lpy), bezier.lpy_min, bezier.lpy_max),
+	          lpz: dequantize(asI16(bezier.lpz), bezier.lpz_min, bezier.lpz_max),
 	        };
 	      }
 	    } catch {
-	      // bezier 解码失败，静默降级
+	      // bezier 解码/反量化失败，静默降级
 	    }
 	  }
 

@@ -7,7 +7,7 @@ import type { GraphNode, GraphLink, GraphCategory } from "../../types/graph";
 import { printProgress, printDone } from "./progress";
 import { simTick } from "@xingwangzhe/force-rs";
 import { isFastMode } from "./sample";
-import { calcControlOffset, calcSegmentCount } from "./bezier";
+import { bezier2, calcControlOffset, calcSegmentCount } from "./bezier";
 
 function getHost(u: string): string {
   try {
@@ -53,11 +53,17 @@ export interface BuildResult {
   ndeg: number[];
   ladj_off: number[];
   ladj: number[];
-	  /** 贝塞尔控制点（每个边一个控制点，运行时 Three.js 实时插值） */
+	  /** 预计算贝塞尔连线位置（Int16 量化） */
 	  lseg: number[];
-	  bcx: Float32Array;
-	  bcy: Float32Array;
-	  bcz: Float32Array;
+	  lpx: Int16Array;
+	  lpx_min: number;
+	  lpx_max: number;
+	  lpy: Int16Array;
+	  lpy_min: number;
+	  lpy_max: number;
+	  lpz: Int16Array;
+	  lpz_min: number;
+	  lpz_max: number;
 	}
 
 async function buildGraph(sites: Site[]): Promise<BuildResult> {
@@ -296,8 +302,8 @@ async function buildGraph(sites: Site[]): Promise<BuildResult> {
     return { ndeg: Array.from(ndeg), ladj_off: Array.from(ladj_off), ladj: Array.from(ladj) };
   }
 
-	  // ── 预计算贝塞尔控制点（每个边一个控制点，运行时 Three.js 插值）──
-	  function buildControlPoints(
+	  // ── 预计算贝塞尔曲线 ──
+	  function buildBezierPositions(
 	    nCount: number,
 	    srcs: number[],
 	    tgts: number[],
@@ -307,18 +313,33 @@ async function buildGraph(sites: Site[]): Promise<BuildResult> {
 	  ) {
 	    const edgeCount = srcs.length;
 	    const lseg = new Uint8Array(edgeCount);
-	    const bcx = new Float32Array(edgeCount);
-	    const bcy = new Float32Array(edgeCount);
-	    const bcz = new Float32Array(edgeCount);
-	
+	    let totalFloats = 0;
 	    for (let i = 0; i < edgeCount; i++) {
 	      const si = srcs[i];
 	      const ti = tgts[i];
 	      if (si >= nCount || ti >= nCount) {
 	        lseg[i] = 6;
-	        bcx[i] = 0;
-	        bcy[i] = 0;
-	        bcz[i] = 0;
+	        totalFloats += 6 * 2 * 3;
+	        continue;
+	      }
+	      const dx = px[ti] - px[si],
+	        dy = py[ti] - py[si],
+	        dz = pz[ti] - pz[si];
+	      const len = Math.sqrt(dx * dx + dy * dy + dz * dz) || 1;
+	      lseg[i] = calcSegmentCount(len);
+	      totalFloats += lseg[i] * 2 * 3;
+	    }
+	
+	    const lpx = new Float32Array(totalFloats);
+	    const lpy = new Float32Array(totalFloats);
+	    const lpz = new Float32Array(totalFloats);
+	    let cursor = 0;
+	
+	    for (let i = 0; i < edgeCount; i++) {
+	      const si = srcs[i];
+	      const ti = tgts[i];
+	      if (si >= nCount || ti >= nCount) {
+	        cursor += lseg[i] * 2 * 3;
 	        continue;
 	      }
 	      const sx = px[si],
@@ -333,19 +354,49 @@ async function buildGraph(sites: Site[]): Promise<BuildResult> {
 	      const len = Math.sqrt(dx * dx + dy * dy + dz * dz) || 1;
 	      const off = calcControlOffset(dx, dy, dz, len);
 	      const bend = len * 0.15;
-	      bcx[i] = (sx + ex) / 2 + off.ox * bend;
-	      bcy[i] = (sy + ey) / 2 + off.oy * bend;
-	      bcz[i] = (sz + ez) / 2 + off.oz * bend;
-	      lseg[i] = calcSegmentCount(len);
+	      const cx = (sx + ex) / 2 + off.ox * bend;
+	      const cy = (sy + ey) / 2 + off.oy * bend;
+	      const cz = (sz + ez) / 2 + off.oz * bend;
+	
+	      const segs = lseg[i];
+	      for (let j = 0; j < segs; j++) {
+	        const t0 = j / segs;
+	        const t1 = (j + 1) / segs;
+	        lpx[cursor] = bezier2(sx, cx, ex, t0);
+	        lpy[cursor] = bezier2(sy, cy, ey, t0);
+	        lpz[cursor] = bezier2(sz, cz, ez, t0);
+	        cursor++;
+	        lpx[cursor] = bezier2(sx, cx, ex, t1);
+	        lpy[cursor] = bezier2(sy, cy, ey, t1);
+	        lpz[cursor] = bezier2(sz, cz, ez, t1);
+	        cursor++;
+	      }
 	    }
 	
-	    return { lseg: Array.from(lseg), bcx, bcy, bcz };
+	    return { lseg: Array.from(lseg), lpx, lpy, lpz };
 	  }
-
-
-
+	
+	  /** Float32 → Int16 量化：精度 1/65535 范围，肉眼不可见 */
+	  function quantize(arr: Float32Array): { i16: Int16Array; min: number; max: number } {
+	    let min = Infinity,
+	      max = -Infinity;
+	    for (let i = 0; i < arr.length; i++) {
+	      if (arr[i] < min) min = arr[i];
+	      if (arr[i] > max) max = arr[i];
+	    }
+	    const range = max - min || 1;
+	    const i16 = new Int16Array(arr.length);
+	    for (let i = 0; i < arr.length; i++) {
+	      i16[i] = Math.round(((arr[i] - min) / range) * 65535 - 32768);
+	    }
+	    return { i16, min, max };
+	  }
+	
 	  const { ndeg, ladj_off, ladj } = buildAdjacency(nid.length, ls, lt);
-	  const rawBezier = buildControlPoints(nid.length, ls, lt, nx, ny, nz);
+	  const rawBezier = buildBezierPositions(nid.length, ls, lt, nx, ny, nz);
+	  const qx = quantize(rawBezier.lpx);
+	  const qy = quantize(rawBezier.lpy);
+	  const qz = quantize(rawBezier.lpz);
 	
 	  const elapsed = ((performance.now() - startTime) / 1000).toFixed(1);
 	  printDone(`图数据构建完成 · ${nodes.length} 节点 · ${linksArr.length} 边 · 耗时 ${elapsed}s`);
@@ -369,11 +420,17 @@ async function buildGraph(sites: Site[]): Promise<BuildResult> {
 	    ladj_off,
 	    ladj,
 	    lseg: rawBezier.lseg,
-	    bcx: rawBezier.bcx,
-	    bcy: rawBezier.bcy,
-	    bcz: rawBezier.bcz,
+	    lpx: qx.i16,
+	    lpx_min: qx.min,
+	    lpx_max: qx.max,
+	    lpy: qy.i16,
+	    lpy_min: qy.min,
+	    lpy_max: qy.max,
+	    lpz: qz.i16,
+	    lpz_min: qz.min,
+	    lpz_max: qz.max,
 	  };
-}
+	}
 
 // ── 模块级缓存：避免多个端点重复构建 ──
 let _cachedPromise: Promise<BuildResult> | null = null;
