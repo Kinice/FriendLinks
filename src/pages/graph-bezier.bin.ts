@@ -14,15 +14,9 @@ export async function GET() {
 
   const bezier = {
     lseg: data.lseg,
-    lpx: data.lpx,
-    lpx_min: data.lpx_min,
-    lpx_max: data.lpx_max,
-    lpy: data.lpy,
-    lpy_min: data.lpy_min,
-    lpy_max: data.lpy_max,
-    lpz: data.lpz,
-    lpz_min: data.lpz_min,
-    lpz_max: data.lpz_max,
+    bcx: data.bcx,
+    bcy: data.bcy,
+    bcz: data.bcz,
   };
 
   const encoded = Buffer.from(encode(bezier) as any);

@@ -1,82 +1,98 @@
-type SearchResult = { id: string; name: string; url?: string };
-
-(async () => {
-  // ── 首屏加载蒙版 ──────────────────────────────────────────────
-  const loadingEl = document.getElementById("loading-overlay");
-  const textEl = document.getElementById("loading-text");
-  const timeEl = document.getElementById("loading-time");
-  const barEl = document.getElementById("loading-bar");
-  const FETCH_TIMEOUT = 20000;
-
-  const startTime = Date.now();
-  let timer: ReturnType<typeof setInterval> | null = null;
-  function updateTime() {
-    const ms = Date.now() - startTime;
-    if (timeEl) timeEl.textContent = `${Math.floor(ms / 1000)}s ${ms % 1000}ms`;
-  }
-
-  let controller: any = null;
-
-  function showError(msg: string) {
-    if (timer) clearInterval(timer);
-    if (textEl) textEl.textContent = msg;
-    if (timeEl) timeEl.textContent = "";
-    if (barEl) barEl.style.width = "0%";
-    let retryBtn = document.getElementById("loading-retry") as HTMLElement | null;
-    if (!retryBtn) {
-      retryBtn = document.createElement("button");
-      retryBtn.id = "loading-retry";
-      retryBtn.textContent = "重试";
-      retryBtn.style.cssText =
-        "margin-top:12px;padding:8px 24px;border:1px solid #4a9eff;border-radius:6px;" +
-        "background:transparent;color:#4a9eff;cursor:pointer;font-size:14px;";
-      retryBtn.addEventListener("click", () => {
-        retryBtn?.remove();
-        if (barEl) barEl.style.width = "0%";
-        controller = null;
-        startLoading();
-      });
-      loadingEl?.appendChild(retryBtn);
-    }
-  }
-
-  async function startLoading() {
-    if (textEl) textEl.textContent = "加载模块中...";
-    timer = setInterval(updateTime, 50);
-
-    const { init3dFromUrl } = await import("./graph3d/index");
-
-    if (textEl) textEl.textContent = "下载图数据中...";
-    if (barEl) barEl.style.width = "30%";
-
-    try {
-      const abort = new AbortController();
-      const timeoutId = setTimeout(() => abort.abort(), FETCH_TIMEOUT);
-      controller = await init3dFromUrl("/graph-core.bin", abort.signal, "/graph-bezier.bin");
-      clearTimeout(timeoutId);
-    } catch (err: any) {
-      if (err?.name === "AbortError") {
-        showError("下载超时，请检查网络后重试");
-      } else {
-        showError(`加载失败: ${err?.message || "未知错误"}`);
-      }
-      return;
-    }
-
-    if (textEl) textEl.textContent = "渲染 3D 场景中...";
-    if (barEl) barEl.style.width = "70%";
-
-    await new Promise((r) => requestAnimationFrame(r));
-    await new Promise((r) => requestAnimationFrame(r));
-
-    if (barEl) barEl.style.width = "100%";
-    updateTime();
-
-    if (timer) clearInterval(timer);
-    setTimeout(() => {
-      if (loadingEl) loadingEl.classList.add("hidden");
-    }, 400);
-  }
+	type SearchResult = { id: string; name: string; url?: string };
+	
+	(async () => {
+	  // ── 首屏加载蒙版 ──────────────────────────────────────────────
+	  const loadingEl = document.getElementById("loading-overlay");
+	  const textEl = document.getElementById("loading-text");
+	  const timeEl = document.getElementById("loading-time");
+	  const barEl = document.getElementById("loading-bar");
+	  const FETCH_TIMEOUT = 20000;
+	
+	  const startTime = Date.now();
+	  let timer: ReturnType<typeof setInterval> | null = null;
+	  function updateTime() {
+	    const ms = Date.now() - startTime;
+	    if (timeEl) timeEl.textContent = `${Math.floor(ms / 1000)}s ${ms % 1000}ms`;
+	  }
+	
+	  let controller: any = null;
+	
+	  function showError(msg: string) {
+	    if (timer) clearInterval(timer);
+	    if (textEl) textEl.textContent = msg;
+	    if (timeEl) timeEl.textContent = "";
+	    if (barEl) barEl.style.width = "0%";
+	    let retryBtn = document.getElementById("loading-retry") as HTMLElement | null;
+	    if (!retryBtn) {
+	      retryBtn = document.createElement("button");
+	      retryBtn.id = "loading-retry";
+	      retryBtn.textContent = "重试";
+	      retryBtn.style.cssText =
+	        "margin-top:12px;padding:8px 24px;border:1px solid #4a9eff;border-radius:6px;" +
+	        "background:transparent;color:#4a9eff;cursor:pointer;font-size:14px;";
+	      retryBtn.addEventListener("click", () => {
+	        retryBtn?.remove();
+	        if (barEl) barEl.style.width = "0%";
+	        controller = null;
+	        startLoading();
+	      });
+	      loadingEl?.appendChild(retryBtn);
+	    }
+	  }
+	
+	  async function startLoading() {
+	    if (textEl) textEl.textContent = "加载模块中...";
+	    timer = setInterval(updateTime, 50);
+	
+	    try {
+	      const abort = new AbortController();
+	      const timeoutId = setTimeout(() => abort.abort(), FETCH_TIMEOUT);
+	
+	      // 并行加载 Three.js 模块和下载图数据
+	      const modPromise = import("./graph3d/index");
+	      const fetchPromise = fetch("/graph-core.bin", { signal: abort.signal }).then((r) => {
+	        if (!r.ok) throw new Error(`获取图数据失败: ${r.status}`);
+	        return r.arrayBuffer();
+	      });
+	
+	      const [mod, coreBuf] = await Promise.all([modPromise, fetchPromise]);
+	      clearTimeout(timeoutId);
+	
+	      if (textEl) textEl.textContent = "下载图数据中...";
+	      if (barEl) barEl.style.width = "30%";
+	
+	      // 解码数据
+	      const { init3d, maybeDecompress, expandCompact } = mod;
+	      const { decode } = await import("msgpackr");
+	      const coreRaw = await maybeDecompress(new Uint8Array(coreBuf));
+	      const core = decode(coreRaw);
+	      const data = core.nid ? expandCompact(core) : core;
+	
+	      // 初始不加载 bezier.bin，首次交互时懒加载
+	      controller = init3d(data);
+	    } catch (err: any) {
+	      if (err?.name === "AbortError") {
+	        showError("下载超时，请检查网络后重试");
+	      } else {
+	        showError(`加载失败: ${err?.message || "未知错误"}`);
+	      }
+	      return;
+	    }
+	
+	    if (textEl) textEl.textContent = "渲染 3D 场景中...";
+	    if (barEl) barEl.style.width = "70%";
+	
+	    await new Promise((r) => requestAnimationFrame(r));
+	    await new Promise((r) => requestAnimationFrame(r));
+	
+	    if (barEl) barEl.style.width = "100%";
+	    updateTime();
+	
+	    if (timer) clearInterval(timer);
+	    setTimeout(() => {
+	      if (loadingEl) loadingEl.classList.add("hidden");
+	    }, 400);
+	  }
 
   await startLoading();
 

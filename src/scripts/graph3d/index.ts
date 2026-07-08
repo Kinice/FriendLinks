@@ -28,6 +28,9 @@ import type { GraphData } from "../../../types/graph";
 const FOCUS_NODE_SCALE = 1.5;
 const DEFAULT_MAX_OVERLAY_EDGES = 300;
 
+/** 贝塞尔段数缓存，供 buildOverlay 使用 */
+let _cachedLseg: number[] | null = null;
+
 // ─── Tooltip ─────────────────────────────────────────────────────────────
 
 type TooltipApi = {
@@ -313,98 +316,44 @@ export async function init3d(graphData: GraphData) {
 
   updateAllNodePositions(ctx, nodes, nodeStates, degreeMap, maxDegree);
 
-  // ── 连线位置：优先使用构建时预计算的贝塞尔数据，否则运行时计算 ──
-  const _bezier = (graphData as any).bezier as
-    | {
-        lseg: number[];
-        lpx: number[];
-        lpy: number[];
-        lpz: number[];
-      }
-    | null
-    | undefined;
-  if (_bezier) {
-    const pos = ctx.linkLines.geometry.attributes.position.array as Float32Array;
-    const { lseg, lpx, lpy, lpz: _lpz } = _bezier;
-
-    // 从紧凑格式解包到固定尺寸的 GPU buffer（MAX_EDGE_SEGMENTS 段/边）
-    // buffer 格式：每顶点 3 个 float (x,y,z)，每边最多 MAX_EDGE_SEGMENTS*2 个顶点
-    const MAX_VERTS_PER_EDGE = MAX_EDGE_SEGMENTS * 2;
-    let srcVert = 0; // 源数据顶点游标
-    for (let i = 0; i < linkArr.length; i++) {
-      const segs = lseg[i] || 6;
-      const srcVerts = segs * 2; // 这条边的实际顶点数
-      const dstBaseVert = i * MAX_VERTS_PER_EDGE; // GPU buffer 中的起始顶点索引
-      const copyVerts = Math.min(MAX_VERTS_PER_EDGE, srcVerts);
-
-      // 拷贝有效顶点
-      for (let j = 0; j < copyVerts; j++) {
-        const srcIdx = srcVert + j;
-        pos[(dstBaseVert + j) * 3] = lpx[srcIdx] ?? 0;
-        pos[(dstBaseVert + j) * 3 + 1] = lpy[srcIdx] ?? 0;
-        pos[(dstBaseVert + j) * 3 + 2] = _lpz[srcIdx] ?? 0;
-      }
-      // 短边补齐（重复最后一个有效顶点）
-      if (copyVerts < MAX_VERTS_PER_EDGE) {
-        const li = srcVert + copyVerts - 1;
-        const lx = lpx[li] ?? 0,
-          ly = lpy[li] ?? 0,
-          lz = _lpz[li] ?? 0;
-        for (let j = copyVerts; j < MAX_VERTS_PER_EDGE; j++) {
-          pos[(dstBaseVert + j) * 3] = lx;
-          pos[(dstBaseVert + j) * 3 + 1] = ly;
-          pos[(dstBaseVert + j) * 3 + 2] = lz;
-        }
-      }
-      srcVert += srcVerts;
-    }
-    // ── 设置边颜色（源→目标渐变，确保连线可见）──
-    const colArr = ctx.linkLines.geometry.attributes.color.array as Float32Array;
-    for (let i = 0; i < linkArr.length; i++) {
-      const l = linkArr[i];
-      const si = nodeIdToIndex.get(l.source);
-      const ti = nodeIdToIndex.get(l.target);
-      const srcCol = new THREE.Color(si != null ? (nodes[si] as any)._cDefault || "#ffffff" : "#ffffff");
-      const tgtCol = new THREE.Color(ti != null ? (nodes[ti] as any)._cDefault || "#ffffff" : "#ffffff");
-      for (let j = 0; j < MAX_EDGE_SEGMENTS; j++) {
-        const t0 = j / MAX_EDGE_SEGMENTS;
-        const t1 = (j + 1) / MAX_EDGE_SEGMENTS;
-        const base = (i * MAX_EDGE_SEGMENTS + j) * 6;
-        colArr[base] = srcCol.r + (tgtCol.r - srcCol.r) * t0;
-        colArr[base + 1] = srcCol.g + (tgtCol.g - srcCol.g) * t0;
-        colArr[base + 2] = srcCol.b + (tgtCol.b - srcCol.b) * t0;
-        colArr[base + 3] = srcCol.r + (tgtCol.r - srcCol.r) * t1;
-        colArr[base + 4] = srcCol.g + (tgtCol.g - srcCol.g) * t1;
-        colArr[base + 5] = srcCol.b + (tgtCol.b - srcCol.b) * t1;
-      }
-    }
-    ctx.linkLines.geometry.attributes.color.needsUpdate = true;
-    ctx.linkLines.geometry.attributes.position.needsUpdate = true;
-    ctx.linkLines.geometry.setDrawRange(0, maxOverlayEdges.value * MAX_EDGE_SEGMENTS * 2);
-    (ctx.linkLines.material as THREE.LineBasicMaterial).opacity = linkOpacity.value;
-    // 填充 edgeRefs（边几何引用，供聚焦 overlay 使用，使用最大段数）
-    ctx.edgeRefs = linkArr.map((l) => {
-      const si = nodeIdToIndex.get(l.source);
-      const ti = nodeIdToIndex.get(l.target);
-      const sn = si != null ? nodes[si] : null;
-      const tn = ti != null ? nodes[ti] : null;
-      return {
-        sx: sn?.x ?? 0,
-        sy: sn?.y ?? 0,
-        sz: sn?.z ?? 0,
-        ex: tn?.x ?? 0,
-        ey: tn?.y ?? 0,
-        ez: tn?.z ?? 0,
-        cx: 0,
-        cy: 0,
-        cz: 0,
-      };
-    });
-    (graphData as any)._lseg = lseg;
-  } else {
-    updateLinkPositions(ctx, linkArr, nodeIdToIndex, nodes, linkOpacity.value);
-  }
-  function refreshLinkColors() {
+	  // ── 连线位置：优先使用构建时预计算的贝塞尔数据，否则运行时计算 ──
+	  const _bezier = (graphData as any).bezier;
+	  if (_bezier) {
+	    applyBezierData(ctx, _bezier, linkArr, nodeIdToIndex, nodes, maxOverlayEdges.value, linkOpacity.value);
+	  } else {
+	    updateLinkPositions(ctx, linkArr, nodeIdToIndex, nodes, linkOpacity.value);
+	  }
+	
+	  // ── bezier 懒加载（首次交互时触发）──
+	  let _bezierLoaded = !!_bezier;
+	  let _bezierLoading = false;
+	
+		  async function loadBezierLazy() {
+		    if (_bezierLoaded || _bezierLoading) return;
+		    _bezierLoading = true;
+		    try {
+		      const res = await fetch("/graph-bezier.bin");
+		      if (!res.ok) return;
+		      const buf = await res.arrayBuffer();
+		      const raw = await maybeDecompress(new Uint8Array(buf));
+		      const bezierData = decode(raw) as any;
+		      if (!bezierData.bcx) return;
+		
+		      const bz = {
+		        lseg: bezierData.lseg,
+		        bcx: bezierData.bcx,
+		        bcy: bezierData.bcy,
+		        bcz: bezierData.bcz,
+		      };
+		      applyBezierData(ctx, bz, linkArr, nodeIdToIndex, nodes, maxOverlayEdges.value, linkOpacity.value);
+		      _bezierLoaded = true;
+		      _needsRender = true;
+		    } catch {
+		      // 静默降级为直线
+		    }
+		  }
+	
+	  function refreshLinkColors() {
     (ctx.linkLines.material as THREE.LineBasicMaterial).opacity = linkOpacity.value;
     saveVal("link_opacity", linkOpacity.value);
     _needsRender = true;
@@ -1390,7 +1339,7 @@ export async function init3d(graphData: GraphData) {
 
     const linkPos = ctx.linkLines.geometry.attributes.position.array as Float32Array;
     const FLOATS_PER_EDGE = EDGE_SEGMENTS * 2 * 3; // buffer stride (fixed)
-    const lseg = (graphData as any)._lseg as number[] | undefined; // per-edge actual segment counts
+    const lseg = _cachedLseg; // per-edge actual segment counts
     let edgeCount = 0;
     let poolIdx = 0;
 
@@ -1430,8 +1379,12 @@ export async function init3d(graphData: GraphData) {
     overlayGroup.visible = true;
   }
 
-  interaction.onHover = (n: any) => {
-    const newHoveredId = n ? n.id : null;
+	  interaction.onHover = (n: any) => {
+	    // 首次交互时触发 bezier 懒加载
+	    if (!_bezierLoaded && !_bezierLoading && n) {
+	      loadBezierLazy();
+	    }
+	    const newHoveredId = n ? n.id : null;
     if (lastHoveredId === newHoveredId) return;
     const prevId = hoveredId;
     hoveredId = newHoveredId;
@@ -1948,35 +1901,143 @@ export async function init3d(graphData: GraphData) {
     return { nodes, links };
   }
 
-  const api = {
-    find,
-    focusNode,
-    focusNodeById, // 内部使用，不走 clearHighlights
-    highlightNodesAndNeighbors,
-    clearHighlights,
-    focusByDomain,
-    toggleFlightMode,
-    showShortestPath,
-    stepPathNext,
-    stepPathPrev,
-    clearPath,
-    getPathInfo,
-    getGraphData,
-    ctx,
-    updateLinkOpacity(v: number) {
-      linkOpacity.value = v;
-      refreshLinkColors();
-    },
-  };
+	  const api = {
+	    find,
+	    focusNode,
+	    focusNodeById, // 内部使用，不走 clearHighlights
+	    highlightNodesAndNeighbors,
+	    clearHighlights,
+	    focusByDomain,
+	    toggleFlightMode,
+	    showShortestPath,
+	    stepPathNext,
+	    stepPathPrev,
+	    clearPath,
+	    getPathInfo,
+	    getGraphData,
+	    loadBezierLazy, // 对外暴露，供 index-client 在需要时提前触发
+	    ctx,
+	    updateLinkOpacity(v: number) {
+	      linkOpacity.value = v;
+	      refreshLinkColors();
+	    },
+	  };
   (window as any).__graphApi = (window as any).__graphApi || {};
   Object.assign((window as any).__graphApi, api); // merge，不用 Object.assign 合并
   return api;
 }
 
+/**
+ * 应用贝塞尔曲线数据到连线几何体（使用 Three.js QuadraticBezierCurve3）
+ * 可用于初始加载或懒加载后更新连线
+ */
+export function applyBezierData(
+  ctx: RenderContext,
+  bezier: { lseg: number[]; bcx: Float32Array; bcy: Float32Array; bcz: Float32Array },
+  linkArr: Array<{ source: string; target: string }>,
+  nodeIdToIndex: Map<string, number>,
+  nodes: any[],
+  maxOverlayEdges: number,
+  linkOpacity: number,
+) {
+  const pos = ctx.linkLines.geometry.attributes.position.array as Float32Array;
+  const { lseg, bcx, bcy, bcz } = bezier;
+  const MAX_VERTS_PER_EDGE = MAX_EDGE_SEGMENTS * 2;
+
+  const _start = new THREE.Vector3();
+  const _control = new THREE.Vector3();
+  const _end = new THREE.Vector3();
+  // 预分配足够容量的点数组，避免每次 getPoints 重新分配
+  const _pts: THREE.Vector3[] = [];
+
+  for (let i = 0; i < linkArr.length; i++) {
+    const si = nodeIdToIndex.get(linkArr[i].source);
+    const ti = nodeIdToIndex.get(linkArr[i].target);
+    if (si == null || ti == null) continue;
+
+    const sn = nodes[si];
+    const tn = nodes[ti];
+    _start.set(sn.x ?? 0, sn.y ?? 0, sn.z ?? 0);
+    _end.set(tn.x ?? 0, tn.y ?? 0, tn.z ?? 0);
+    _control.set(bcx[i] ?? 0, bcy[i] ?? 0, bcz[i] ?? 0);
+
+    const segs = Math.min(lseg[i] || 6, MAX_EDGE_SEGMENTS);
+    const curve = new THREE.QuadraticBezierCurve3(_start, _control, _end);
+    const pts = curve.getPoints(segs);
+
+    const dstBase = i * MAX_VERTS_PER_EDGE;
+    let vi = 0;
+    // 每个线段 2 个顶点（线段起点 + 终点，共享中间点）
+    for (let j = 0; j < segs && vi < MAX_VERTS_PER_EDGE; j++) {
+      const a = pts[j];
+      const b = pts[j + 1];
+      pos[(dstBase + vi) * 3] = a.x;
+      pos[(dstBase + vi) * 3 + 1] = a.y;
+      pos[(dstBase + vi) * 3 + 2] = a.z;
+      vi++;
+      pos[(dstBase + vi) * 3] = b.x;
+      pos[(dstBase + vi) * 3 + 1] = b.y;
+      pos[(dstBase + vi) * 3 + 2] = b.z;
+      vi++;
+    }
+    // 短边补齐
+    if (vi < MAX_VERTS_PER_EDGE) {
+      const last = pts[pts.length - 1];
+      for (let j = vi; j < MAX_VERTS_PER_EDGE; j++) {
+        pos[(dstBase + j) * 3] = last.x;
+        pos[(dstBase + j) * 3 + 1] = last.y;
+        pos[(dstBase + j) * 3 + 2] = last.z;
+      }
+    }
+  }
+
+  // 设置边颜色（源→目标渐变）
+  const colArr = ctx.linkLines.geometry.attributes.color.array as Float32Array;
+  for (let i = 0; i < linkArr.length; i++) {
+    const l = linkArr[i];
+    const si = nodeIdToIndex.get(l.source);
+    const ti = nodeIdToIndex.get(l.target);
+    const srcCol = new THREE.Color(si != null ? (nodes[si] as any)._cDefault || "#ffffff" : "#ffffff");
+    const tgtCol = new THREE.Color(ti != null ? (nodes[ti] as any)._cDefault || "#ffffff" : "#ffffff");
+    for (let j = 0; j < MAX_EDGE_SEGMENTS; j++) {
+      const t0 = j / MAX_EDGE_SEGMENTS;
+      const t1 = (j + 1) / MAX_EDGE_SEGMENTS;
+      const base = (i * MAX_EDGE_SEGMENTS + j) * 6;
+      colArr[base] = srcCol.r + (tgtCol.r - srcCol.r) * t0;
+      colArr[base + 1] = srcCol.g + (tgtCol.g - srcCol.g) * t0;
+      colArr[base + 2] = srcCol.b + (tgtCol.b - srcCol.b) * t0;
+      colArr[base + 3] = srcCol.r + (tgtCol.r - srcCol.r) * t1;
+      colArr[base + 4] = srcCol.g + (tgtCol.g - srcCol.g) * t1;
+      colArr[base + 5] = srcCol.b + (tgtCol.b - srcCol.b) * t1;
+    }
+  }
+
+  ctx.linkLines.geometry.attributes.color.needsUpdate = true;
+  ctx.linkLines.geometry.attributes.position.needsUpdate = true;
+  ctx.linkLines.geometry.setDrawRange(0, maxOverlayEdges * MAX_EDGE_SEGMENTS * 2);
+  (ctx.linkLines.material as THREE.LineBasicMaterial).opacity = linkOpacity;
+
+  // 填充 edgeRefs
+  ctx.edgeRefs = linkArr.map((l) => {
+    const si = nodeIdToIndex.get(l.source);
+    const ti = nodeIdToIndex.get(l.target);
+    const sn = si != null ? nodes[si] : null;
+    const tn = ti != null ? nodes[ti] : null;
+    return {
+      sx: sn?.x ?? 0, sy: sn?.y ?? 0, sz: sn?.z ?? 0,
+      ex: tn?.x ?? 0, ey: tn?.y ?? 0, ez: tn?.z ?? 0,
+      cx: 0, cy: 0, cz: 0,
+    };
+  });
+
+  // 缓存 lseg 供 overlay 使用
+  _cachedLseg = lseg;
+}
+
 // ─── 紧凑格式展开 ────────────────────────────────────────────────────
 
-function expandCompact(c: any): GraphData {
-  const { nid, nnm, nur, nfa, nde, nx, ny, nz, ndeg, ladj_off, ladj, lseg, lpx, lpy, lpz } = c;
+export function expandCompact(c: any): GraphData {
+	  const { nid, nnm, nur, nfa, nde, nx, ny, nz, ndeg, ladj_off, ladj } = c;
   const nodes = nid.map((_id: string, i: number) => ({
     id: nid[i],
     name: nnm[i],
@@ -1995,13 +2056,13 @@ function expandCompact(c: any): GraphData {
     if (c.lsym?.[i]) l.symbol = ["none", "arrow"];
     return l;
   });
-  return {
-    nodes,
-    links,
-    categories: c.c || [],
-    adjacency: ndeg ? { ndeg, ladj_off, ladj } : {},
-    bezier: lpx ? { lseg, lpx, lpy, lpz } : null,
-  };
+	  return {
+	    nodes,
+	    links,
+	    categories: c.c || [],
+	    adjacency: ndeg ? { ndeg, ladj_off, ladj } : {},
+	    bezier: null,
+	  };
 }
 
 /** zstd magic bytes: 0x28 0xB5 0x2F 0xFD */
@@ -2021,22 +2082,12 @@ async function ensureZstd(): Promise<ZstdDecompressFn> {
   return _zstdInit;
 }
 
-async function maybeDecompress(buf: Uint8Array): Promise<Uint8Array> {
+export async function maybeDecompress(buf: Uint8Array): Promise<Uint8Array> {
   if (isZstd(buf)) {
     const decompress = await ensureZstd();
     return decompress(buf);
   }
   return buf;
-}
-
-/** Int16 → Float32 反量化 */
-function dequantize(i16: Int16Array, min: number, max: number): Float32Array {
-  const range = max - min || 1;
-  const out = new Float32Array(i16.length);
-  for (let i = 0; i < i16.length; i++) {
-    out[i] = min + (range * (i16[i] + 32768)) / 65535;
-  }
-  return out;
 }
 
 export async function init3dFromUrl(coreUrl: string, signal?: AbortSignal, bezierUrl?: string) {
@@ -2059,27 +2110,23 @@ export async function init3dFromUrl(coreUrl: string, signal?: AbortSignal, bezie
   const core = decode(coreRaw) as any;
   const data = core.nid ? expandCompact(core) : (core as GraphData);
 
-  // 合并贝塞尔数据（可选，缺失时 init3d 内部走 updateLinkPositions 回退）
-  if (bezierBuf) {
-    try {
-      const bezierRaw = await maybeDecompress(new Uint8Array(bezierBuf));
-      const bezier = decode(bezierRaw) as any;
-      if (bezier.lpx) {
-        // msgpackr 将 Int16Array 解码为 Uint8Array（原始字节），
-        // 需通过 buffer 重解释为 Int16Array，而非逐元素拷贝
-        const asI16 = (arr: any) =>
-          arr instanceof Int16Array ? arr : new Int16Array(arr.buffer, arr.byteOffset, arr.byteLength / 2);
-        (data as any).bezier = {
-          lseg: bezier.lseg,
-          lpx: dequantize(asI16(bezier.lpx), bezier.lpx_min, bezier.lpx_max),
-          lpy: dequantize(asI16(bezier.lpy), bezier.lpy_min, bezier.lpy_max),
-          lpz: dequantize(asI16(bezier.lpz), bezier.lpz_min, bezier.lpz_max),
-        };
-      }
-    } catch {
-      // bezier 解码/反量化失败，静默降级
-    }
-  }
+	  // 合并贝塞尔数据（可选，缺失时 init3d 内部走 updateLinkPositions 回退）
+	  if (bezierBuf) {
+	    try {
+	      const bezierRaw = await maybeDecompress(new Uint8Array(bezierBuf));
+	      const bezier = decode(bezierRaw) as any;
+	      if (bezier.bcx) {
+	        (data as any).bezier = {
+	          lseg: bezier.lseg,
+	          bcx: bezier.bcx,
+	          bcy: bezier.bcy,
+	          bcz: bezier.bcz,
+	        };
+	      }
+	    } catch {
+	      // bezier 解码失败，静默降级
+	    }
+	  }
 
   return init3d(data);
 }

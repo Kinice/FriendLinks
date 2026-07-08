@@ -20,25 +20,31 @@ export const prerender = true;
     <meta name="generator" content={Astro.generator} />
     <title>博客宇宙</title>
     <meta name="description" content="探索浩瀚的博客宇宙，寻找彼此之间的联系" />
-    <link rel="preload" href="/graph-core.bin" as="fetch" crossorigin="anonymous" />
     <link rel="preconnect" href="https://github.com" />
-    <script is:inline>
-      function initTheme() {
-        const theme = localStorage.getItem("colorTheme");
-        if (!theme) {
-          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            document.documentElement.classList.add("dark");
-          }
-        } else if (theme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      }
-      initTheme();
-      document.addEventListener("astro:after-swap", initTheme);
-    </script>
-  </head>
+	    <script is:inline>
+	      function initTheme() {
+	        const theme = localStorage.getItem("colorTheme");
+	        if (!theme) {
+	          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+	            document.documentElement.classList.add("dark");
+	          }
+	        } else if (theme === "dark") {
+	          document.documentElement.classList.add("dark");
+	        } else {
+	          document.documentElement.classList.remove("dark");
+	        }
+	      }
+	      initTheme();
+	      document.addEventListener("astro:after-swap", initTheme);
+	    </script>
+	    <script is:inline>
+	      if ("serviceWorker" in navigator) {
+	        window.addEventListener("load", () => {
+	          navigator.serviceWorker.register("/sw.js");
+	        });
+	      }
+	    </script>
+	  </head>
   <body>
     <div class="topbar">
       <div class="title" style="font-weight:600; padding-left:6px;">
