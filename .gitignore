@@ -39,3 +39,6 @@ probe_by_route/
 
 # Crawlee 运行时产物
 storage/
+
+# opencode 工具计划/会话产物
+.zcode/
