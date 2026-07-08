@@ -1,8 +1,63 @@
 site:
   name: 东东的小黑盒
+  description: 一个兴趣使然的人
   url: https://www.ankia.top/
-  description: 友情链接
-  links: /
+  links: /fLinks
   friends:
-    - name: 个人作品
-      url: https://nexuslabs.cn/
+    - name: 又见苍岚
+      url: https://www.zywvvd.com
+      description: 蓝天依旧，明眸如初
+    - name: 满心记
+      url: https://blog.lovelu.top/
+      description: 追求让人充实，分享让人快乐
+    - name: 夜雨炊烟
+      url: https://yychuiyan.com
+      description: 三餐烟火暖，四季皆安然。
+    - name: 陶小桃Blog
+      url: https://www.52txr.cn
+      description: 热衷于分享技术的机械专业小哥哥~
+    - name: 张洪Heo
+      url: https://blog.zhheo.com/
+      description: 分享设计与科技生活
+    - name: iMaeGoo'sBlog
+      url: https://www.imaegoo.com
+      description: 虹墨空间站
+    - name: 二猫blog
+      url: https://jingxin18.cn
+      description: 一个简单的Blog站点
+    - name: 杜郎俊赏
+      url: https://dujun.io/
+      description: dujun的个人博客
+    - name: 若志随笔
+      url: https://rz.sb/
+      description: 愿世界安康，愿你我皆好！
+    - name: 独立观察员·博客
+      url: https://dlgcy.com
+      description: 人生需要独立，生活需要观察
+    - name: 星云の小窝
+      url: https://blog.duanx.cn
+      description: 风很温柔花很浪漫你很特别我很喜欢
+    - name: shmaur
+      url: https://www.shmaur.com
+      description: 记录产品、技术
+    - name: 夏里巴人
+      url: https://blog.cbtc.tech
+      description: 记录点自己的东西
+    - name: 卓央木的白板
+      url: https://zhuoyangmu.top
+      description: 生活、学习、分享
+    - name: 小赵の破宅
+      url: https://blog.zhaoziyi.site
+      description: 生数理化生一塌糊涂的理科生，对兴趣情有独钟的追寻！
+    - name: MingChen
+      url: https://www.itmingchen.cn
+      description: 知识分享
+    - name: 清遥
+      url: https://blog.askrabbit.net
+      description: 遥夜泛清瑟，西风生翠萝。
+    - name: xiaoliu的blog
+      url: https://blog.webfrank.top
+      description: 山重水复，步履未歇。
+    - name: 阿卡林の笔记
+      url: https://www.aiphm.cn/share/index.html
+      description: 呐！希望您每天都有好心情。
