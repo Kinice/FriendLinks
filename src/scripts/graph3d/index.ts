@@ -2,7 +2,9 @@
  * 3D 博客宇宙渲染模块（Three.js InstancedMesh）
  * 使用 Three.js 原生 InstancedMesh 替代 3d-force-graph
  */
-import FlexSearch from "flexsearch";
+import { create, insertMultiple, search } from "@orama/orama";
+import { createTokenizer } from "@orama/tokenizers/mandarin";
+import { stopwords as mandarinStopwords } from "@orama/stopwords/mandarin";
 import * as THREE from "three";
 import { decode } from "msgpackr";
 import type { decompress as ZstdDecompressFn } from "@bokuweb/zstd-wasm";
@@ -202,15 +204,25 @@ export async function init3d(graphData: GraphData) {
     });
   });
 
-  // ── 4. 搜索索引（FlexSearch，37k+ 节点毫秒级响应）──
-  const searchIndex = new FlexSearch.Index({ tokenize: "forward" });
-  const searchStore = new Map<string, { id: string; name: string; url: string }>();
-  for (const n of nodes) {
-    const id = n.id;
-    const text = `${n.name || ""} ${n.url || ""} ${n.id}`;
-    searchIndex.add(id, text);
-    searchStore.set(id, { id, name: n.name || id, url: n.url || "" });
-  }
+  // ── 4. 搜索索引（Orama，BM25 全文检索 + 中文分词）──
+  const oramaDB: any = await create({
+    schema: {
+      id: "string",
+      name: "string",
+      url: "string",
+      description: "string",
+    },
+    components: {
+      tokenizer: createTokenizer({ language: "mandarin", stopWords: mandarinStopwords }),
+    },
+  });
+  const documents = nodes.map((n: any) => ({
+    id: n.id,
+    name: n.name || n.id,
+    url: n.url || "",
+    description: n.desc || n.description || "",
+  }));
+  await insertMultiple(oramaDB, documents);
 
   // ── 5. 状态 ──
   let hoveredId: string | null = null;
@@ -1892,14 +1904,21 @@ export async function init3d(graphData: GraphData) {
   ro.observe(container);
 
   // ── 19. 公开 API ──
-  function find(query: string) {
+  async function find(query: string) {
     if (!query?.trim()) return [];
-    const ids = searchIndex.search(query.trim(), { limit: 12 });
-    return ids.map((id) => searchStore.get(id as string)).filter(Boolean) as Array<{
-      id: string;
-      name: string;
-      url: string;
-    }>;
+    const res = await search(oramaDB, {
+      term: query.trim(),
+      limit: 12,
+      threshold: 0,
+      tolerance: 1,
+      properties: ["name", "url", "description"],
+      boost: { name: 2 },
+    });
+    return res.hits.map((h: any) => ({
+      id: h.document.id as string,
+      name: h.document.name as string,
+      url: (h.document.url as string) || "",
+    }));
   }
 
   function getGraphData() {
@@ -2072,8 +2091,8 @@ function isZstd(buf: Uint8Array): boolean {
   return buf.length >= 4 && buf[0] === 0x28 && buf[1] === 0xb5 && buf[2] === 0x2f && buf[3] === 0xfd;
 }
 
-let _zstdInit: Promise<ZstdDecompressFn> | null = null;
-async function ensureZstd(): Promise<ZstdDecompressFn> {
+let _zstdInit: Promise<typeof ZstdDecompressFn> | null = null;
+async function ensureZstd(): Promise<typeof ZstdDecompressFn> {
   if (!_zstdInit) {
     _zstdInit = (async () => {
       const mod = await import("@bokuweb/zstd-wasm");

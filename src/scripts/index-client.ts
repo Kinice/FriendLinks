@@ -213,18 +213,18 @@ type SearchResult = { id: string; name: string; url?: string };
         return;
       }
       if (searchTimer) clearTimeout(searchTimer);
-      searchTimer = setTimeout(() => {
+      searchTimer = setTimeout(async () => {
         searchTimer = null;
         try {
           clearLocalQueryParam();
         } catch {}
         try {
-          const list: SearchResult[] =
-            controller && (controller as any).find
-              ? (controller as any).find(v)
-              : window.__graphApi && window.__graphApi.find
-                ? window.__graphApi.find(v)
-                : [];
+          let list: SearchResult[] = [];
+          if (controller && (controller as any).find) {
+            list = await (controller as any).find(v);
+          } else if (window.__graphApi && window.__graphApi.find) {
+            list = await window.__graphApi.find(v);
+          }
           render((list || []).slice(0, 12));
         } catch (err) {
           console.error(err);
