@@ -15,6 +15,13 @@ export default defineConfig({
     build: {
       rolldownOptions: {
         external: ["@xingwangzhe/force-rs", "@xingwangzhe/bfs-rs"],
+        output: {
+          manualChunks(id) {
+            if (id.includes("node_modules/three/")) return "vendor-three";
+            if (id.includes("node_modules/flexsearch/")) return "vendor-flexsearch";
+            if (id.includes("node_modules/msgpackr/")) return "vendor-msgpackr";
+          },
+        },
       },
     },
   },

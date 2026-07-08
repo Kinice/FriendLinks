@@ -18,7 +18,6 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "minibuild": "MINIBUILD=1 astro build",
     "preview": "astro preview",
     "lint": "oxlint src/ && tsc --noEmit",
     "fmt": "oxfmt src/ links/ --write",

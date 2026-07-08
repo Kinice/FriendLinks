@@ -25,10 +25,10 @@ export function deterministicSample<T>(arr: T[], size: number, seed = SAMPLE_SEE
 }
 
 /**
- * 判断当前是否为 DEV / 快速构建模式
+ * 判断当前是否为 DEV 模式
  */
 export function isFastMode(): boolean {
-  return import.meta.env.DEV || !!(process as any).env?.MINIBUILD;
+  return import.meta.env.DEV;
 }
 
 /**

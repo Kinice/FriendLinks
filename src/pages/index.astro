@@ -20,6 +20,8 @@ export const prerender = true;
     <meta name="generator" content={Astro.generator} />
     <title>博客宇宙</title>
     <meta name="description" content="探索浩瀚的博客宇宙，寻找彼此之间的联系" />
+    <link rel="preload" href="/graph-core.bin" as="fetch" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://github.com" />
     <script is:inline>
       function initTheme() {
         const theme = localStorage.getItem("colorTheme");

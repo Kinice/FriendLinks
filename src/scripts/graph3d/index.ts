@@ -5,7 +5,7 @@
 import FlexSearch from "flexsearch";
 import * as THREE from "three";
 import { decode } from "msgpackr";
-import { init as zstdInit, decompress as zstdDecompress } from "@bokuweb/zstd-wasm";
+import type { decompress as ZstdDecompressFn } from "@bokuweb/zstd-wasm";
 import { adjustHex, createTextSprite, hashToIndex, PALETTE } from "./utils";
 import { MAX_EDGE_SEGMENTS } from "../../utils/bezier";
 import {
@@ -2009,15 +2009,24 @@ function isZstd(buf: Uint8Array): boolean {
   return buf.length >= 4 && buf[0] === 0x28 && buf[1] === 0xb5 && buf[2] === 0x2f && buf[3] === 0xfd;
 }
 
-let _zstdInit: Promise<void> | null = null;
-function ensureZstd(): Promise<void> {
-  if (!_zstdInit) _zstdInit = zstdInit();
+let _zstdInit: Promise<ZstdDecompressFn> | null = null;
+async function ensureZstd(): Promise<ZstdDecompressFn> {
+  if (!_zstdInit) {
+    _zstdInit = (async () => {
+      const mod = await import("@bokuweb/zstd-wasm");
+      await mod.init();
+      return mod.decompress;
+    })();
+  }
   return _zstdInit;
 }
 
-function maybeDecompress(buf: Uint8Array): Uint8Array {
-  // decompress 是同步的（init 成功后），这里只做 magic 检测
-  return isZstd(buf) ? zstdDecompress(buf) : buf;
+async function maybeDecompress(buf: Uint8Array): Promise<Uint8Array> {
+  if (isZstd(buf)) {
+    const decompress = await ensureZstd();
+    return decompress(buf);
+  }
+  return buf;
 }
 
 /** Int16 → Float32 反量化 */
@@ -2045,17 +2054,15 @@ export async function init3dFromUrl(coreUrl: string, signal?: AbortSignal, bezie
     bezierRes?.ok ? bezierRes.arrayBuffer() : Promise.resolve(null),
   ]);
 
-  // 初始化 zstd WASM（首次调用后缓存）
-  await ensureZstd();
-
-  const coreRaw = maybeDecompress(new Uint8Array(coreBuf));
+  // zstd 延迟初始化：仅在检测到 magic bytes 时动态加载 WASM
+  const coreRaw = await maybeDecompress(new Uint8Array(coreBuf));
   const core = decode(coreRaw) as any;
   const data = core.nid ? expandCompact(core) : (core as GraphData);
 
   // 合并贝塞尔数据（可选，缺失时 init3d 内部走 updateLinkPositions 回退）
   if (bezierBuf) {
     try {
-      const bezierRaw = maybeDecompress(new Uint8Array(bezierBuf));
+      const bezierRaw = await maybeDecompress(new Uint8Array(bezierBuf));
       const bezier = decode(bezierRaw) as any;
       if (bezier.lpx) {
         // msgpackr 将 Int16Array 解码为 Uint8Array（原始字节），

@@ -9,8 +9,8 @@
  */
 import { getCollection } from "astro:content";
 import type { Site } from "../../types/site";
-import { deterministicSample, isFastMode, getDevSampleSize } from "./sample";
 import { printProgress, printDone } from "./progress";
+import { deterministicSample, isFastMode, getDevSampleSize } from "./sample";
 
 // ── 模块级缓存 ──
 let _cachedSites: Site[] | null = null;
@@ -21,7 +21,7 @@ export function clearSitesCache() {
 
 /**
  * 通过 Content Collection 加载所有站点。
- * 在 DEV / MINIBUILD 模式下自动采样 100 个站点。
+ * 在 DEV 模式下自动采样 100 个站点。
  * 模块级缓存避免多个端点重复加载。
  */
 export async function loadSites(_dir?: string, onProgress?: (current: number, total: number) => void): Promise<Site[]> {
@@ -32,7 +32,6 @@ export async function loadSites(_dir?: string, onProgress?: (current: number, to
 
   printProgress("❶", "通过 Content Collections 加载站点…", 0);
 
-  // getCollection('sites') — 由 Astro Content Layer 驱动
   const entries = await getCollection("sites");
   let allSites: Site[] = entries.map((entry) => entry.data.site);
 

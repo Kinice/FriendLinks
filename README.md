@@ -117,14 +117,17 @@ site:
 
 | 端点 | 格式 | 说明 |
 |------|------|------|
-| `/graph.bin` | msgpack 二进制 | 紧凑高效，含预计算力导布局坐标 |
+| `/graph-core.bin` | msgpack + zstd 二进制 | 核心图数据（节点、边、邻接表），首屏优先加载 |
+| `/graph-bezier.bin` | msgpack + zstd 二进制 | 贝塞尔曲线数据，核心图加载后异步获取 |
 | `/all.json` | JSON | 完整站点数据（外部使用） |
 
-### YAML → 图数据流程
+### 数据流
 
 ```
-links/*.yml  →  load-sites.ts（校验） →  graph.bin.ts（力导布局+msgpack编码） →  /graph.bin
-                                                                             →  3D 渲染
+links/*.yml  →  Content Collection (校验) →  build-graph.ts (力导布局+贝塞尔预计算)
+               →  graph-core.bin.ts (msgpack+zstd) →  /graph-core.bin
+               →  graph-bezier.bin.ts (msgpack+zstd) →  /graph-bezier.bin
+               →  客户端 fetch → msgpackr 解码 → zstd 解压 → Three.js 3D 渲染
 ```
 
 ---
@@ -153,25 +156,33 @@ bun run fmt
 ```
 src/
 ├── pages/
-│   ├── graph.bin.ts      # msgpack 图数据端点（核心）
-│   ├── all.json.ts        # 完整站点数据端点
-│   ├── stats.json.ts      # 统计端点
-│   └── index.astro        # 主页面
+│   ├── graph-core.bin.ts    # msgpack+zstd 核心图数据端点
+│   ├── graph-bezier.bin.ts  # msgpack+zstd 贝塞尔曲线数据端点
+│   ├── all.json.ts          # 完整站点数据端点
+│   ├── stats.json.ts        # 统计端点
+│   └── index.astro          # 主页面
 ├── scripts/
-│   ├── graph3d/           # 3D 渲染模块
-│   │   ├── index.ts       # 初始化、交互、控制面板、API
-│   │   ├── renderer.ts    # Three.js 渲染管线（节点/连线/光晕/粒子/Bloom）
-│   │   ├── interaction.ts # Raycaster 交互层
-│   │   ├── pathfinder.ts  # BFS 路径查找
-│   │   └── utils.ts       # 调色板、颜色工具、标签工厂
-│   └── index-client.ts    # 客户端入口
+│   ├── graph3d/             # 3D 渲染模块
+│   │   ├── index.ts         # 初始化、交互、控制面板、API
+│   │   ├── renderer.ts      # Three.js 渲染管线（节点/连线/光晕/粒子/Bloom）
+│   │   ├── interaction.ts   # Raycaster 交互层
+│   │   ├── pathfinder.ts    # BFS 路径查找
+│   │   └── utils.ts         # 调色板、颜色工具、标签工厂
+│   └── index-client.ts      # 客户端入口
 ├── components/
-│   └── starwind/          # Starwind UI 组件（Button/Dialog/Spinner）
-├── css/                   # 样式文件（base/topbar）
-├── styles/                # Tailwind CSS v4 + Starwind 主题变量
-├── lib/                   # 工具函数（cn/clsx）
-links/                     # 友链 YAML 源文件（核心数据）
-types/                     # TypeScript 类型定义
+│   └── starwind/            # Starwind UI 组件（Button/Dialog/Spinner）
+├── utils/
+│   ├── build-graph.ts       # 图构建（力导布局+贝塞尔预计算，模块级缓存）
+│   ├── sites.ts             # Astro Content Collection 站点加载
+│   ├── compress.ts          # zstd 压缩
+│   ├── bezier.ts            # 贝塞尔曲线工具
+│   ├── sample.ts            # DEV 模式确定性采样
+│   └── progress.ts          # 构建进度条
+├── css/                     # 样式文件（base/topbar）
+├── styles/                  # Tailwind CSS v4 + Starwind 主题变量
+├── lib/                     # 工具函数（cn/clsx）
+links/                       # 友链 YAML 源文件（核心数据）
+types/                       # TypeScript 类型定义
 ```
 
 ---

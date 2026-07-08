@@ -201,7 +201,8 @@ bun run prune
 
 | 端点 | 格式 | 用途 |
 |------|------|------|
-| `/graph.bin` | msgpack 二进制 | 3D 图数据（客户端加载） |
+| `/graph-core.bin` | msgpack+zstd 二进制 | 核心图数据（客户端优先加载） |
+| `/graph-bezier.bin` | msgpack+zstd 二进制 | 贝塞尔曲线数据（异步加载） |
 | `/all.json` | JSON | 完整站点数据（外部使用） |
 
 ---
