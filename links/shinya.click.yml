@@ -4,11 +4,18 @@ site:
   description: 互联网自留地
   links: /friends
   friends:
-    - name: Oliver Chen互联网新星
+    - name: Oliver Chen
       url: https://oliverchen12.github.io
-    - name: Sun Yushuo风雨湿征衣
+      description: 互联网新星
+    - name: Sun Yushuo
       url: https://yyd-piren.github.io
-    - name: AncyCoding with love!
+      description: 风雨湿征衣
+    - name: 子行
+      url: https://www.cnblogs.com/fallingdust
+      description: 往日痕迹
+    - name: Ancy
       url: https://anxcye.com
-    - name: Zwei人生如白驹过隙，历史似长河永流
+      description: Coding with love!
+    - name: Zwei
       url: https://zwei.de.eu.org
+      description: 人生如白驹过隙，历史似长河永流
