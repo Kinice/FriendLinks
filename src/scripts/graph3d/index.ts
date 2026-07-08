@@ -752,28 +752,58 @@ export async function init3d(graphData: GraphData) {
   const neighborPanel = createNeighborPanel();
 
 	// 渲染邻居列表（三段式：双链 / 单链指向 / 被指向，支持搜索过滤）
-	  function renderNeighborCategories(
-		    body: HTMLElement,
-		    countEl: HTMLElement,
-		    categories: {
-		      mutual: Array<{ id: string; name: string; url: string }>;
-		      outgoing: Array<{ id: string; name: string; url: string }>;
-		      incoming: Array<{ id: string; name: string; url: string }>;
-		    },
-		    query: string,
-		  ) {
-		    body.innerHTML = "";
-		    const total = categories.mutual.length + categories.outgoing.length + categories.incoming.length;
-	
-		    function filter(arr: Array<{ id: string; name: string; url: string }>) {
-		      if (!query) return arr;
-		      return arr.filter((e) => e.name.toLowerCase().includes(query) || e.url.toLowerCase().includes(query));
+		  /** CJK 友好的搜索匹配：多策略级联 */
+		  function matchEntry(
+		    entry: { id: string; name: string; url: string },
+		    q: string,
+		  ): boolean {
+		    const name = entry.name.toLowerCase();
+		    const url = entry.url.toLowerCase();
+		
+		    // 1. 直接子串匹配（CJK 精确匹配靠这个）
+		    if (name.includes(q) || url.includes(q)) return true;
+		
+		    // 2. 顺序字符匹配（"bk" → "Book"，"博" → "博客"）
+		    let qi = 0;
+		    for (let i = 0; i < name.length && qi < q.length; i++) {
+		      if (name[i] === q[qi]) qi++;
 		    }
+		    if (qi === q.length) return true;
+		
+		    // 3. 空格分隔词的起始匹配（"te" → "Tech Blog"）
+		    const words = name.split(/[\s_-]+/);
+		    if (words.some((w) => w.startsWith(q) || (w.length > 2 && w.includes(q)))) return true;
+		
+		    // 4. 各单词首字母缩写匹配（"tb" → "Tech Blog"）
+		    const initials = words.map((w) => w[0] || "").join("");
+		    if (initials.includes(q)) return true;
+		
+		    return false;
+		  }
 	
-		    const mutualFiltered = filter(categories.mutual);
-		    const outgoingFiltered = filter(categories.outgoing);
-		    const incomingFiltered = filter(categories.incoming);
-		    const totalFiltered = mutualFiltered.length + outgoingFiltered.length + incomingFiltered.length;
+		  function renderNeighborCategories(
+			    body: HTMLElement,
+			    countEl: HTMLElement,
+			    categories: {
+			      mutual: Array<{ id: string; name: string; url: string }>;
+			      outgoing: Array<{ id: string; name: string; url: string }>;
+			      incoming: Array<{ id: string; name: string; url: string }>;
+			    },
+			    query: string,
+			  ) {
+			    body.innerHTML = "";
+			    const total = categories.mutual.length + categories.outgoing.length + categories.incoming.length;
+		
+			    function filter(arr: Array<{ id: string; name: string; url: string }>) {
+			      if (!query) return arr;
+			      const q = query.toLowerCase().trim();
+			      return arr.filter((e) => matchEntry(e, q));
+			    }
+		
+			    const mutualFiltered = filter(categories.mutual);
+			    const outgoingFiltered = filter(categories.outgoing);
+			    const incomingFiltered = filter(categories.incoming);
+			    const totalFiltered = mutualFiltered.length + outgoingFiltered.length + incomingFiltered.length;
 	
 		    countEl.textContent = query
 		      ? `${totalFiltered} / ${total} 个关联节点`
