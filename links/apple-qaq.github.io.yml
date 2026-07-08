@@ -1,0 +1,16 @@
+site:
+  name: apple-qaq
+  description: 我的友链～
+  url: https://apple-qaq.github.io/
+  links: /friendly
+  friends:
+    - name: 陈陈菌
+      url: https://blog.glumi.cn/
+    - name: Gaoice
+      url: https://home.gaoice.top/
+    - name: shenmo
+      url: https://shenmo7192.gitee.io/
+    - name: lovelycat
+      url: https://lovelycatv.cn/
+    - name: 柚子
+      url: https://blog.yzzi.icu/
