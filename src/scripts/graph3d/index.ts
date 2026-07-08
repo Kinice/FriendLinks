@@ -1939,15 +1939,15 @@ export async function init3d(graphData: GraphData) {
   ro.observe(container);
 
   // ── 19. 公开 API ──
-  function find(query: string) {
-    if (!query?.trim()) return [];
-    const ids = searchIndex.search(query.trim(), { limit: 12 });
-    return ids.map((id) => searchStore.get(id as string)).filter(Boolean) as Array<{
-      id: string;
-      name: string;
-      url: string;
-    }>;
-  }
+	  function find(query: string) {
+	    if (!query?.trim()) return [];
+	    const ids = searchIndex.search(query.trim(), { limit: 12 });
+	    return ids.map((id) => searchStore.get(id as string)).filter(Boolean) as Array<{
+	      id: string;
+	      name: string;
+	      url: string;
+	    }>;
+	  }
 
   function getGraphData() {
     return { nodes, links };
