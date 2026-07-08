@@ -1,0 +1,62 @@
+site:
+  name: jing8956
+  url: https://www.jing8956.com/
+  description: 欢迎访问 jing8956 的网站
+  links: /friends
+  friends:
+    - name: 零散坑
+      url: https://blog.03k.org/
+      description: 为无数的 Windows 与 Office +15,552,000s 的大魔法师
+      avatar: https://www.jing8956.com/assets/friends/kissshot.webp
+    - name: 笑靥如花の乐园
+      url: https://www.lovewx.club/
+      description: 纸片佳丽三千人，三千妻子在一身。白丝涩图穿肠过，唯有绯文是正宫。
+      avatar: https://www.jing8956.com/assets/friends/xyrh.webp
+    - name: 赵苦瓜のBlog
+      url: https://blog.zhaokugua.com/
+      description: 唧唧，十七岁，是学生。（.cn 域名受害者）
+      avatar: https://www.jing8956.com/assets/friends/jixiaob.webp
+    - name: 米柚子 – 喵~
+      url: https://miyouzi.top/
+      description: 台湾海龟（正在实现两年40w的小目标中）
+      avatar: https://www.jing8956.com/assets/friends/miyouzi.webp
+    - name: Song`s Blog
+      url: https://songxwn.com/
+      description: "#结识于零散坑群"
+      avatar: https://songxwn.com/images/favicon.png
+    - name: Acha's Blog
+      url: https://acha666.cn/
+      description: "#结识于零散坑群"
+      avatar: https://acha666.cn/favicon.png
+    - name: Ljcbaby 的 网络小屋
+      url: https://blog.ljcbaby.top/
+      description: 宁静的栖身之地 #结识于零散坑群
+      avatar: https://gravatar.loli.net/avatar/e7033b1012a3e7c07044b31686c57523
+    - name: 祖熙 博客
+      url: https://blog.wuzuxi.com/
+      description: 向着未知的高度出发 #结识于零散坑群（c2）
+      avatar: https://www.wuzuxi.com/Jose_logo.jpg
+    - name: from Excel to ICU — Home
+      url: https://blog.55551111.xyz/
+      description: 每天被 Excel 折磨到死去活来 #结识于零散坑群
+      avatar: https://www.jing8956.com/assets/friends/•́ .̫ •̀.gif
+    - name: CH的主页
+      url: https://me.nekoc.cc/
+      description: 是还在上学的吸血鬼萝莉魅魔！ Telegram：@CuteCC3
+      avatar: https://www.jing8956.com/assets/friends/CH.webp
+    - name: XhaniのBlog - 杂鱼～杂鱼～
+      url: https://blog.zako.wf/
+      description: "#结识于绿猫群 Telegram：@xiaoxhan1234"
+      avatar: https://blog.zako.wf/_astro/avatar.tSYGSZCX_XtU33.webp
+    - name: rcdfrd blog
+      url: https://rcdfrd.com/
+      description: "#结识于绿猫群 Telegram：@rcdfrd"
+      avatar: https://www.jing8956.com/assets/friends/rcdfrd.webp
+    - name: 冒険者協会
+      url: https://www.raid10.top/
+      description: "#结识于绿猫群 Telegram：@Raid10awawa"
+      avatar: https://www.raid10.top/wp-content/uploads/2024/09/413c0d2745ab0dfa6aedf1a559dcd928.jpg
+    - name: SuzumeのBlog - Suzume酱～
+      url: https://szm.de5.net/
+      description: 非官方的官方Blog¿
+      avatar: https://szm.de5.net/_astro/avatar.B1ML0XRk_2oUeAS.webp
