@@ -1,32 +1,75 @@
 site:
-  name: in1t's blog - 欢迎光临寒舍
+  name: in1t's blog
   description: 一只对二进制感兴趣的菜鸡
   url: https://in1t.top/
   links: /link
   friends:
-    - name: 等风略懂密码的开发大手子
+    - name: 等风
       url: https://love-deng-feng.top/
-    - name: Dem0一个什么都想学的web🐕
+      description: 略懂密码的开发大手子
+    - name: crazyman空白
+      url: https://crazymanarmy.github.io/
+      description: 你让我陷入疯狂
+    - name: Dem0
       url: https://dem0dem0.top/
-    - name: Akilarの糖果屋期待您的光临！
+      description: 一个什么都想学的web🐕
+    - name: Akilarの糖果屋
       url: https://akilar.top/
-    - name: 咲夜南梦PWN爷
+      description: 期待您的光临！
+    - name: Evolution957
+      url: https://evolution957.github.io/
+      description: ACM炼铜术士
+    - name: Clang裁缝店
+      url: https://xuanxuanblingbling.github.io/
+      description: PWN,IOT爷 轩轩学长
+    - name: 咲夜南梦
       url: http://blog.ragdoll.work/
-    - name: 0xDktbCrypto,区块链爷
+      description: PWN爷
+    - name: 0xDktb
       url: https://0xdktb.top/
-    - name: glzjinWeb爷 赵总
+      description: Crypto,区块链爷
+    - name: Coinc1dens
+      url: https://coinc1dens.github.io/
+      description: Crypto,区块链爷
+    - name: purecall
+      url: https://purecall.github.io/
+      description: RE爷
+    - name: 小帽
+      url: https://yikongge.github.io/
+      description: Misc爷
+    - name: glzjin
       url: https://www.zhaoj.in/
-    - name: SakuraPWN,Android爷
+      description: Web爷 赵总
+    - name: Cyc1e
+      url: https://cyc1e183.github.io/
+      description: Web爷 虚拟机逃逸高手
+    - name: Hook
+      url: https://h01k.github.io/
+      description: RE,PWN爷
+    - name: Sakura
       url: https://eternalsakura13.com/
-    - name: Soreat_uCrypto,区块链爷
+      description: PWN,Android爷
+    - name: Soreat_u
       url: https://blog.soreatu.com/
-    - name: berTrAMWeb爷
+      description: Crypto,区块链爷
+    - name: berTrAM
       url: https://www.bertramc.cn/
-    - name: p3rh4psWeb爷
+      description: Web爷
+    - name: 奈沙夜影
+      url: https://blog.csdn.net/whklhhhh
+      description: RE爷
+    - name: p3rh4ps
       url: https://p3rh4ps.top/
-    - name: Bruce FanPWN爷
+      description: Web爷
+    - name: L0x1c
+      url: https://l0x1c.github.io/
+      description: RE爷
+    - name: AiDai
+      url: https://aidaip.github.io/
+      description: PWN爷
+    - name: Bruce Fan
       url: http://pwn4.fun/
-    - name: pikachu区块链の神
+      description: PWN爷
+    - name: pikachu
       url: https://hitcxy.com/
-    - name: AGE动漫 (G)想看的番都有
-      url: https://www.agefans.cc/
+      description: 区块链の神
