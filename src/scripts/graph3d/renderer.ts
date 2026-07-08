@@ -5,6 +5,7 @@
  * v2: 贝塞尔曲线连线 + 流动粒子
  */
 import * as THREE from "three/webgpu";
+import { QuadraticBezierCurve3, Vector3 } from "three/webgpu";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import type { GraphNode } from "../../../types/graph";
 import { MAX_EDGE_SEGMENTS } from "../../utils/bezier";
@@ -52,13 +53,18 @@ const BG_COLOR = 0x0f1115;
 /** 每条边细分为多少段线（最大，实际按边长自适应） */
 export const EDGE_SEGMENTS = MAX_EDGE_SEGMENTS;
 
-// ─── 贝塞尔工具 ──────────────────────────────────────────────────────
+// ─── 预分配曲线采样（零GC复用） ──────────────────────────────────────
 
-/** 二次贝塞尔插值 */
-function bezier(s: number, c: number, e: number, t: number): number {
-  const i = 1 - t;
-  return i * i * s + 2 * i * t * c + t * t * e;
-}
+const _v0 = new Vector3();
+const _v1 = new Vector3();
+const _vc = new Vector3();
+/** 共享 QuadraticBezierCurve3，通过更新引用 Vector3 来复用 */
+const _curve = new QuadraticBezierCurve3(_v0, _vc, _v1);
+/** 预分配的采样点数组 */
+const _pts: Vector3[] = [];
+for (let k = 0; k <= EDGE_SEGMENTS; k++) _pts.push(new Vector3());
+
+// ─── 贝塞尔工具 ──────────────────────────────────────────────────────
 
 /** 计算垂直于边方向的偏移方向（在 XZ 平面） */
 function calcControlOffset(dx: number, dy: number, dz: number, len: number): { ox: number; oy: number; oz: number } {
@@ -202,16 +208,24 @@ export function updateLinkPositions(
     const srcCol = new THREE.Color((sn as any)._cDefault || "#ffffff");
     const tgtCol = new THREE.Color((tn as any)._cDefault || "#ffffff");
 
+    // 使用 Three.js QuadraticBezierCurve3 采样（零GC，复用预分配数组）
+    _v0.set(sx, sy, sz);
+    _vc.set(cx, cy, cz);
+    _v1.set(ex, ey, ez);
+    for (let k = 0; k <= EDGE_SEGMENTS; k++) {
+      _curve.getPoint(k / EDGE_SEGMENTS, _pts[k]);
+    }
+
     for (let j = 0; j < EDGE_SEGMENTS; j++) {
       const t0 = j / EDGE_SEGMENTS;
       const t1 = (j + 1) / EDGE_SEGMENTS;
       const base = (i * EDGE_SEGMENTS + j) * 6;
-      pos[base] = bezier(sx, cx, ex, t0);
-      pos[base + 1] = bezier(sy, cy, ey, t0);
-      pos[base + 2] = bezier(sz, cz, ez, t0);
-      pos[base + 3] = bezier(sx, cx, ex, t1);
-      pos[base + 4] = bezier(sy, cy, ey, t1);
-      pos[base + 5] = bezier(sz, cz, ez, t1);
+      pos[base] = _pts[j].x;
+      pos[base + 1] = _pts[j].y;
+      pos[base + 2] = _pts[j].z;
+      pos[base + 3] = _pts[j + 1].x;
+      pos[base + 4] = _pts[j + 1].y;
+      pos[base + 5] = _pts[j + 1].z;
       // 顶点颜色：按 t 在源→目标之间插值
       col[base] = srcCol.r + (tgtCol.r - srcCol.r) * t0;
       col[base + 1] = srcCol.g + (tgtCol.g - srcCol.g) * t0;

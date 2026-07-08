@@ -29,12 +29,12 @@ export function calcControlOffset(
 
 export const EDGE_SEGMENTS = 4;
 
-/** 基础最小分段数 */
-const MIN_SEGMENTS = 4;
+/** 基础最小分段数 — 每条贝塞尔曲线至少分成 N 段直线 */
+const MIN_SEGMENTS = 16;
 /** 最大分段数（数据上限） */
-export const MAX_EDGE_SEGMENTS = 8;
-/** 每个采样段覆盖的期望距离 — 拉大减少远距离边细分 */
-const SAMPLE_DISTANCE = 800;
+export const MAX_EDGE_SEGMENTS = 32;
+/** 每个采样段覆盖的期望距离 — 越小细分越密 */
+const SAMPLE_DISTANCE = 400;
 
 /** 根据边长计算自适应分段数 */
 export function calcSegmentCount(edgeLength: number): number {
