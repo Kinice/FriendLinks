@@ -1,0 +1,12 @@
+site:
+  name: Lumin Space
+  url: https://huang2202.github.io/
+  description: Journey to the North Star
+  links: /links
+  friends:
+    - name: Axi's Blog
+      url: https://axi404.top
+      description: 一只可爱小猫
+    - name: Bertsin Home
+      url: https://bertsin.pages.dev
+      description: 神秘小天地

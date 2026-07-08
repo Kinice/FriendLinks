@@ -214,7 +214,7 @@ export async function GET() {
     }
   }
   const avgPathLength =
-    totalOrderedPairs > 0 ? Math.round(((totalOrderedDist / 2) / (totalOrderedPairs / 2)) * 100) / 100 : 0;
+    totalOrderedPairs > 0 ? Math.round((totalOrderedDist / 2 / (totalOrderedPairs / 2)) * 100) / 100 : 0;
 
   // 分量大小分布（分桶）
   const sizeBuckets = [

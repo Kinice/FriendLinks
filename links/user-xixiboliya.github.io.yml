@@ -1,0 +1,26 @@
+site:
+  name: Bertsin
+  url: https://user-xixiboliya.github.io/
+  description: 个人技术博客
+  links: /friend
+  friends:
+    - name: D-Sketon
+      url: https://d-sketon.github.io/astro-theme-reimu/
+      description: Astro 建站
+      avatar: https://d-sketon.github.io/avatar/avatar.webp
+    - name: Axi's Blog
+      url: https://axi404.top/
+      description: 一只可爱小猫
+      avatar: https://axi404.top/avatar/avatar.png
+    - name: 小树
+      url: https://blog.juniortree.com/
+      description: 「妳突然對我説 七里香的名字很美」
+      avatar: https://www.juniortree.com/_astro/avatar.8eGKEABx_r4UzM.webp
+    - name: Gaster
+      url: https://github.com/WDGaster703
+      description: HITsz电气大牛
+      avatar: https://avatars.githubusercontent.com/u/182055930?v=4
+    - name: 开卷空间
+      url: https://huang2202.github.io
+      description: 一个关于追寻北极星的Blog
+      avatar: https://huang2202.github.io/img/nova.png

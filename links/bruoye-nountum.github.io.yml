@@ -1,0 +1,24 @@
+site:
+  name: BIGHH's WEB
+  url: https://bruoye-nountum.github.io/
+  description: 个人博客，记录思考、生活与成长
+  links: /links/
+  friends:
+    - name: GZTime's Blog
+      url: https://blog.gztime.cc/
+      description: GZTime的博客，一个传奇老学长
+    - name: wu-kan.cn
+      url: https://wu-kan.cn/
+      description: WK的博客，一位高超的计算机系统科学家
+    - name: 算法乐园
+      url: https://blog.algorithmpark.xyz/about/
+      description: 清华大佬CJL的技术分享
+    - name: tokisakix
+      url: http://tokisakix.cn/
+      description: 科研怪人XRL博客
+    - name: Axi's Blog
+      url: https://axi404.top
+      description: 一只可爱小猫
+    - name: Fluid Repo
+      url: https://github.com/fluid-dev/hexo-theme-fluid
+      description: 主题 GitHub 仓库

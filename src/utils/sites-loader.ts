@@ -165,20 +165,20 @@ function diagnoseSite(file: string, raw: unknown): DiagnosticReport {
     }
   }
 
-	  // ── friends ──
-	  if (!("friends" in s)) {
-	    report.issues.push("`site.friends` 字段缺失");
-	    report.ok = false;
-	  } else {
-	    const friends = s.friends;
-	    if (friends === null || friends === undefined) {
-	      // null/undefined 视为空数组，不报问题
-	    } else if (!Array.isArray(friends)) {
-	      report.issues.push("`site.friends` 类型错误: 期望 array, 收到 " + `${typeof friends}`);
-	      report.ok = false;
-	    } else if (friends.length === 0) {
-	      // 空数组是合法状态（该站点没有友链），不报问题
-	    } else {
+  // ── friends ──
+  if (!("friends" in s)) {
+    report.issues.push("`site.friends` 字段缺失");
+    report.ok = false;
+  } else {
+    const friends = s.friends;
+    if (friends === null || friends === undefined) {
+      // null/undefined 视为空数组，不报问题
+    } else if (!Array.isArray(friends)) {
+      report.issues.push("`site.friends` 类型错误: 期望 array, 收到 " + `${typeof friends}`);
+      report.ok = false;
+    } else if (friends.length === 0) {
+      // 空数组是合法状态（该站点没有友链），不报问题
+    } else {
       // 逐个检查 friend 条目
       for (let i = 0; i < friends.length; i++) {
         const f = (friends as unknown[])[i];

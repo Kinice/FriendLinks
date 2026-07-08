@@ -218,32 +218,32 @@ export async function init3d(graphData: GraphData) {
   let pathStepIndex = -1;
   let pathOverlayGroup: THREE.Group | null = null;
 
-	  // ── 5b. 标准化链接数组（供 overlay、linkArr 等处使用）──
-	  const links = rawLinks.map((l: any) => ({
-	    source: typeof l.source === "object" && l.source !== null ? (l.source.id ?? l.source) : l.source,
-	    target: typeof l.target === "object" && l.target !== null ? (l.target.id ?? l.target) : l.target,
-	  }));
+  // ── 5b. 标准化链接数组（供 overlay、linkArr 等处使用）──
+  const links = rawLinks.map((l: any) => ({
+    source: typeof l.source === "object" && l.source !== null ? (l.source.id ?? l.source) : l.source,
+    target: typeof l.target === "object" && l.target !== null ? (l.target.id ?? l.target) : l.target,
+  }));
 
-		  // ── 5c. 有向邻居映射（区分双向/单向）──
-		  // rawLinks 的 symbol 字段：无 symbol = 双向链接，有 symbol = 单向
-		  const outgoingMap = new Map<string, Set<string>>();
-		  const incomingMap = new Map<string, Set<string>>();
-		  for (const l of rawLinks) {
-		    const source = l.source as string;
-		    const target = l.target as string;
-		    if (!outgoingMap.has(source)) outgoingMap.set(source, new Set());
-		    if (!incomingMap.has(target)) incomingMap.set(target, new Set());
-		    outgoingMap.get(source)!.add(target);
-		    incomingMap.get(target)!.add(source);
-		    // 无 symbol = 双向链接：反向也加一条
-		    if (!l.symbol) {
-		      if (!outgoingMap.has(target)) outgoingMap.set(target, new Set());
-		      if (!incomingMap.has(source)) incomingMap.set(source, new Set());
-		      outgoingMap.get(target)!.add(source);
-		      incomingMap.get(source)!.add(target);
-		    }
-		  }
-	
+  // ── 5c. 有向邻居映射（区分双向/单向）──
+  // rawLinks 的 symbol 字段：无 symbol = 双向链接，有 symbol = 单向
+  const outgoingMap = new Map<string, Set<string>>();
+  const incomingMap = new Map<string, Set<string>>();
+  for (const l of rawLinks) {
+    const source = l.source as string;
+    const target = l.target as string;
+    if (!outgoingMap.has(source)) outgoingMap.set(source, new Set());
+    if (!incomingMap.has(target)) incomingMap.set(target, new Set());
+    outgoingMap.get(source)!.add(target);
+    incomingMap.get(target)!.add(source);
+    // 无 symbol = 双向链接：反向也加一条
+    if (!l.symbol) {
+      if (!outgoingMap.has(target)) outgoingMap.set(target, new Set());
+      if (!incomingMap.has(source)) incomingMap.set(source, new Set());
+      outgoingMap.get(target)!.add(source);
+      incomingMap.get(source)!.add(target);
+    }
+  }
+
   // ── 6. 邻居映射 ──
   const neighborMap = new Map<string, Set<string>>();
   if (hasPreAdj) {
@@ -258,16 +258,16 @@ export async function init3d(graphData: GraphData) {
       }
       neighborMap.set(nid, nbrs);
     }
-	  } else {
-	    for (const l of links) {
-	      if (!neighborMap.has(l.source)) neighborMap.set(l.source, new Set());
-	      if (!neighborMap.has(l.target)) neighborMap.set(l.target, new Set());
-	      neighborMap.get(l.source)!.add(l.target);
-	      neighborMap.get(l.target)!.add(l.source);
-	    }
-	  }
+  } else {
+    for (const l of links) {
+      if (!neighborMap.has(l.source)) neighborMap.set(l.source, new Set());
+      if (!neighborMap.has(l.target)) neighborMap.set(l.target, new Set());
+      neighborMap.get(l.source)!.add(l.target);
+      neighborMap.get(l.target)!.add(l.source);
+    }
+  }
 
-	  // ── 6b. 控制面板持久化 ──
+  // ── 6b. 控制面板持久化 ──
   const STORAGE_PREFIX = "friendlinks_";
   function loadVal<T>(key: string, fallback: T): T {
     try {
@@ -732,166 +732,157 @@ export async function init3d(graphData: GraphData) {
     closeBtn.addEventListener("click", () => panel!.classList.add("hidden"));
     // 拖拽
     makeDraggable(panel, header);
-	    // 搜索过滤
-	    let _categories: {
-	      mutual: Array<{ id: string; name: string; url: string }>;
-	      outgoing: Array<{ id: string; name: string; url: string }>;
-	      incoming: Array<{ id: string; name: string; url: string }>;
-	    } = { mutual: [], outgoing: [], incoming: [] };
-	    searchInput.addEventListener("input", () => {
-	      const q = searchInput.value.trim().toLowerCase();
-	      renderNeighborCategories(body, countInfo, _categories, q);
-	    });
-	    // 保存引用供 updateNeighborPanel 使用
-	    (panel as any)._setCategories = (cats: typeof _categories) => {
-	      _categories = cats;
-	      searchInput.value = "";
-	      const total = cats.mutual.length + cats.outgoing.length + cats.incoming.length;
-	      renderNeighborCategories(body, countInfo, cats, "");
-	      hint.style.display = total > maxOverlayEdges.value ? "block" : "none";
-	    };
+    // 搜索过滤
+    let _categories: {
+      mutual: Array<{ id: string; name: string; url: string }>;
+      outgoing: Array<{ id: string; name: string; url: string }>;
+      incoming: Array<{ id: string; name: string; url: string }>;
+    } = { mutual: [], outgoing: [], incoming: [] };
+    searchInput.addEventListener("input", () => {
+      const q = searchInput.value.trim().toLowerCase();
+      renderNeighborCategories(body, countInfo, _categories, q);
+    });
+    // 保存引用供 updateNeighborPanel 使用
+    (panel as any)._setCategories = (cats: typeof _categories) => {
+      _categories = cats;
+      searchInput.value = "";
+      const total = cats.mutual.length + cats.outgoing.length + cats.incoming.length;
+      renderNeighborCategories(body, countInfo, cats, "");
+      hint.style.display = total > maxOverlayEdges.value ? "block" : "none";
+    };
     document.body.appendChild(panel);
     return panel;
   }
   const neighborPanel = createNeighborPanel();
 
-	// 渲染邻居列表（三段式：双链 / 单链指向 / 被指向，支持搜索过滤）
-		  /** CJK 友好的搜索匹配：多策略级联 */
-		  function matchEntry(
-		    entry: { id: string; name: string; url: string },
-		    q: string,
-		  ): boolean {
-		    const name = entry.name.toLowerCase();
-		    const url = entry.url.toLowerCase();
-		
-		    // 1. 直接子串匹配（CJK 精确匹配靠这个）
-		    if (name.includes(q) || url.includes(q)) return true;
-		
-		    // 2. 顺序字符匹配（"bk" → "Book"，"博" → "博客"）
-		    let qi = 0;
-		    for (let i = 0; i < name.length && qi < q.length; i++) {
-		      if (name[i] === q[qi]) qi++;
-		    }
-		    if (qi === q.length) return true;
-		
-		    // 3. 空格分隔词的起始匹配（"te" → "Tech Blog"）
-		    const words = name.split(/[\s_-]+/);
-		    if (words.some((w) => w.startsWith(q) || (w.length > 2 && w.includes(q)))) return true;
-		
-		    // 4. 各单词首字母缩写匹配（"tb" → "Tech Blog"）
-		    const initials = words.map((w) => w[0] || "").join("");
-		    if (initials.includes(q)) return true;
-		
-		    return false;
-		  }
-	
-		  function renderNeighborCategories(
-			    body: HTMLElement,
-			    countEl: HTMLElement,
-			    categories: {
-			      mutual: Array<{ id: string; name: string; url: string }>;
-			      outgoing: Array<{ id: string; name: string; url: string }>;
-			      incoming: Array<{ id: string; name: string; url: string }>;
-			    },
-			    query: string,
-			  ) {
-			    body.innerHTML = "";
-			    const total = categories.mutual.length + categories.outgoing.length + categories.incoming.length;
-		
-			    function filter(arr: Array<{ id: string; name: string; url: string }>) {
-			      if (!query) return arr;
-			      const q = query.toLowerCase().trim();
-			      return arr.filter((e) => matchEntry(e, q));
-			    }
-		
-			    const mutualFiltered = filter(categories.mutual);
-			    const outgoingFiltered = filter(categories.outgoing);
-			    const incomingFiltered = filter(categories.incoming);
-			    const totalFiltered = mutualFiltered.length + outgoingFiltered.length + incomingFiltered.length;
-	
-		    countEl.textContent = query
-		      ? `${totalFiltered} / ${total} 个关联节点`
-		      : `${total} 个关联节点`;
-	
-		    if (totalFiltered === 0) {
-		      const empty = document.createElement("div");
-		      empty.className = "np-empty";
-		      empty.textContent = query ? "无匹配结果" : "无关联节点";
-		      body.appendChild(empty);
-		      return;
-		    }
-	
-		    function renderColumn(
-		      title: string,
-		      icon: string,
-		      entries: Array<{ id: string; name: string; url: string }>,
-		    ) {
-		      const col = document.createElement("div");
-		      col.className = "np-section";
-		      const secTitle = document.createElement("div");
-		      secTitle.className = "np-section-title";
-		      secTitle.innerHTML = `<span>${icon} ${title}</span><span class="count">${entries.length}</span>`;
-		      col.appendChild(secTitle);
-		      for (const entry of entries) {
-		        const item = document.createElement("div");
-		        item.className = "np-item";
-		        item.dataset.id = entry.id;
-		        const nm = document.createElement("div");
-		        nm.className = "np-item-name";
-		        nm.textContent = entry.name;
-		        const ur = document.createElement("div");
-		        ur.className = "np-item-url";
-		        ur.textContent = entry.url;
-		        item.appendChild(nm);
-		        item.appendChild(ur);
-		        item.addEventListener("click", () => focusNode(entry.id));
-		        col.appendChild(item);
-		      }
-		      body.appendChild(col);
-		    }
-	
-		    renderColumn("双链", "🔄", mutualFiltered);
-		    renderColumn("单链", "➡️", outgoingFiltered);
-		    renderColumn("被指", "⬅️", incomingFiltered);
-		  }
+  // 渲染邻居列表（三段式：双链 / 单链指向 / 被指向，支持搜索过滤）
+  /** CJK 友好的搜索匹配：多策略级联 */
+  function matchEntry(entry: { id: string; name: string; url: string }, q: string): boolean {
+    const name = entry.name.toLowerCase();
+    const url = entry.url.toLowerCase();
 
-	  function updateNeighborPanel(nodeId: string | null) {
-	    if (!neighborPanel) return;
-	    if (!nodeId) {
-	      neighborPanel.classList.add("hidden");
-	      return;
-	    }
-	    if (!neighborPanel.classList.contains("collapsed")) neighborPanel.classList.remove("hidden");
-	    const focusedNode = nodes.find((n) => n.id === nodeId);
-	    const nameEl = neighborPanel.querySelector(".np-node-name");
-	    if (nameEl) nameEl.textContent = focusedNode ? focusedNode.name || focusedNode.id : nodeId;
-	    const body = neighborPanel.querySelector(".np-body") as HTMLElement;
-	    if (!body) return;
-	    const outgoing = outgoingMap.get(nodeId) || new Set();
-	    const incoming = incomingMap.get(nodeId) || new Set();
-	    const allIds = new Set([...outgoing, ...incoming]);
-	    if (allIds.size === 0) {
-	      (neighborPanel as any)._setCategories?.({ mutual: [], outgoing: [], incoming: [] });
-	      return;
-	    }
-	    const mutual: Array<{ id: string; name: string; url: string }> = [];
-	    const outgoingOnly: Array<{ id: string; name: string; url: string }> = [];
-	    const incomingOnly: Array<{ id: string; name: string; url: string }> = [];
-	    for (const nid of allIds) {
-	      const node = nodes.find((n) => n.id === nid);
-	      if (!node) continue;
-	      const entry = { id: nid, name: node.name || nid, url: node.url || "" };
-	      const inOut = outgoing.has(nid);
-	      const inIn = incoming.has(nid);
-	      if (inOut && inIn) mutual.push(entry);
-	      else if (inOut && !inIn) outgoingOnly.push(entry);
-	      else incomingOnly.push(entry);
-	    }
-	    mutual.sort((a, b) => a.url.localeCompare(b.url));
-	    outgoingOnly.sort((a, b) => a.url.localeCompare(b.url));
-	    incomingOnly.sort((a, b) => a.url.localeCompare(b.url));
-	    (neighborPanel as any)._setCategories?.({ mutual, outgoing: outgoingOnly, incoming: incomingOnly });
-	  }
+    // 1. 直接子串匹配（CJK 精确匹配靠这个）
+    if (name.includes(q) || url.includes(q)) return true;
+
+    // 2. 顺序字符匹配（"bk" → "Book"，"博" → "博客"）
+    let qi = 0;
+    for (let i = 0; i < name.length && qi < q.length; i++) {
+      if (name[i] === q[qi]) qi++;
+    }
+    if (qi === q.length) return true;
+
+    // 3. 空格分隔词的起始匹配（"te" → "Tech Blog"）
+    const words = name.split(/[\s_-]+/);
+    if (words.some((w) => w.startsWith(q) || (w.length > 2 && w.includes(q)))) return true;
+
+    // 4. 各单词首字母缩写匹配（"tb" → "Tech Blog"）
+    const initials = words.map((w) => w[0] || "").join("");
+    if (initials.includes(q)) return true;
+
+    return false;
+  }
+
+  function renderNeighborCategories(
+    body: HTMLElement,
+    countEl: HTMLElement,
+    categories: {
+      mutual: Array<{ id: string; name: string; url: string }>;
+      outgoing: Array<{ id: string; name: string; url: string }>;
+      incoming: Array<{ id: string; name: string; url: string }>;
+    },
+    query: string,
+  ) {
+    body.innerHTML = "";
+    const total = categories.mutual.length + categories.outgoing.length + categories.incoming.length;
+
+    function filter(arr: Array<{ id: string; name: string; url: string }>) {
+      if (!query) return arr;
+      const q = query.toLowerCase().trim();
+      return arr.filter((e) => matchEntry(e, q));
+    }
+
+    const mutualFiltered = filter(categories.mutual);
+    const outgoingFiltered = filter(categories.outgoing);
+    const incomingFiltered = filter(categories.incoming);
+    const totalFiltered = mutualFiltered.length + outgoingFiltered.length + incomingFiltered.length;
+
+    countEl.textContent = query ? `${totalFiltered} / ${total} 个关联节点` : `${total} 个关联节点`;
+
+    if (totalFiltered === 0) {
+      const empty = document.createElement("div");
+      empty.className = "np-empty";
+      empty.textContent = query ? "无匹配结果" : "无关联节点";
+      body.appendChild(empty);
+      return;
+    }
+
+    function renderColumn(title: string, icon: string, entries: Array<{ id: string; name: string; url: string }>) {
+      const col = document.createElement("div");
+      col.className = "np-section";
+      const secTitle = document.createElement("div");
+      secTitle.className = "np-section-title";
+      secTitle.innerHTML = `<span>${icon} ${title}</span><span class="count">${entries.length}</span>`;
+      col.appendChild(secTitle);
+      for (const entry of entries) {
+        const item = document.createElement("div");
+        item.className = "np-item";
+        item.dataset.id = entry.id;
+        const nm = document.createElement("div");
+        nm.className = "np-item-name";
+        nm.textContent = entry.name;
+        const ur = document.createElement("div");
+        ur.className = "np-item-url";
+        ur.textContent = entry.url;
+        item.appendChild(nm);
+        item.appendChild(ur);
+        item.addEventListener("click", () => focusNode(entry.id));
+        col.appendChild(item);
+      }
+      body.appendChild(col);
+    }
+
+    renderColumn("双链", "🔄", mutualFiltered);
+    renderColumn("单链", "➡️", outgoingFiltered);
+    renderColumn("被指", "⬅️", incomingFiltered);
+  }
+
+  function updateNeighborPanel(nodeId: string | null) {
+    if (!neighborPanel) return;
+    if (!nodeId) {
+      neighborPanel.classList.add("hidden");
+      return;
+    }
+    if (!neighborPanel.classList.contains("collapsed")) neighborPanel.classList.remove("hidden");
+    const focusedNode = nodes.find((n) => n.id === nodeId);
+    const nameEl = neighborPanel.querySelector(".np-node-name");
+    if (nameEl) nameEl.textContent = focusedNode ? focusedNode.name || focusedNode.id : nodeId;
+    const body = neighborPanel.querySelector(".np-body") as HTMLElement;
+    if (!body) return;
+    const outgoing = outgoingMap.get(nodeId) || new Set();
+    const incoming = incomingMap.get(nodeId) || new Set();
+    const allIds = new Set([...outgoing, ...incoming]);
+    if (allIds.size === 0) {
+      (neighborPanel as any)._setCategories?.({ mutual: [], outgoing: [], incoming: [] });
+      return;
+    }
+    const mutual: Array<{ id: string; name: string; url: string }> = [];
+    const outgoingOnly: Array<{ id: string; name: string; url: string }> = [];
+    const incomingOnly: Array<{ id: string; name: string; url: string }> = [];
+    for (const nid of allIds) {
+      const node = nodes.find((n) => n.id === nid);
+      if (!node) continue;
+      const entry = { id: nid, name: node.name || nid, url: node.url || "" };
+      const inOut = outgoing.has(nid);
+      const inIn = incoming.has(nid);
+      if (inOut && inIn) mutual.push(entry);
+      else if (inOut && !inIn) outgoingOnly.push(entry);
+      else incomingOnly.push(entry);
+    }
+    mutual.sort((a, b) => a.url.localeCompare(b.url));
+    outgoingOnly.sort((a, b) => a.url.localeCompare(b.url));
+    incomingOnly.sort((a, b) => a.url.localeCompare(b.url));
+    (neighborPanel as any)._setCategories?.({ mutual, outgoing: outgoingOnly, incoming: incomingOnly });
+  }
 
   // ── 10b. 邻居大字标签（密度感知：巨型节点自动缩减标签量）──
 
@@ -1943,15 +1934,15 @@ export async function init3d(graphData: GraphData) {
   ro.observe(container);
 
   // ── 19. 公开 API ──
-	  function find(query: string) {
-	    if (!query?.trim()) return [];
-	    const ids = searchIndex.search(query.trim(), { limit: 12 });
-	    return ids.map((id) => searchStore.get(id as string)).filter(Boolean) as Array<{
-	      id: string;
-	      name: string;
-	      url: string;
-	    }>;
-	  }
+  function find(query: string) {
+    if (!query?.trim()) return [];
+    const ids = searchIndex.search(query.trim(), { limit: 12 });
+    return ids.map((id) => searchStore.get(id as string)).filter(Boolean) as Array<{
+      id: string;
+      name: string;
+      url: string;
+    }>;
+  }
 
   function getGraphData() {
     return { nodes, links };
@@ -1995,15 +1986,15 @@ function expandCompact(c: any): GraphData {
     ...(nx ? { x: nx[i], y: ny[i], z: nz[i] } : {}),
     ...(ndeg ? { _degree: ndeg[i] } : {}),
   }));
-	  const links = (c.ls || []).map((s: number, i: number) => {
-	    const l: { source: string; target: string; symbol?: string[] } = {
-	      source: nid[s],
-	      target: nid[c.lt[i]],
-	    };
-	    // lsym[i] === 1 表示单向（旧数据无 lsym 时默认双向）
-	    if (c.lsym?.[i]) l.symbol = ["none", "arrow"];
-	    return l;
-	  });
+  const links = (c.ls || []).map((s: number, i: number) => {
+    const l: { source: string; target: string; symbol?: string[] } = {
+      source: nid[s],
+      target: nid[c.lt[i]],
+    };
+    // lsym[i] === 1 表示单向（旧数据无 lsym 时默认双向）
+    if (c.lsym?.[i]) l.symbol = ["none", "arrow"];
+    return l;
+  });
   return {
     nodes,
     links,
